@@ -24,7 +24,7 @@ namespace Game.Views
             cellComponent.Level = level;
             cellComponent.Position = new Position(x, y, z);
             gameObject.AddComponent<CellGizmoComponent>();
-
+            
             result[index] = cellComponent;
             index++;
           }

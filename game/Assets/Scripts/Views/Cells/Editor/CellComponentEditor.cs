@@ -26,15 +26,7 @@ namespace Game.Views.Editor
       }
       EditorGUILayout.EndFadeGroup();
 
-      EditorUtils.PushColor();
-      if (_preset == null) GUI.color = Color.red;
-      _preset = EditorGUILayout.ObjectField("Preset:", _preset, typeof(CellPreset), false) as CellPreset;
-      EditorUtils.PopColor();
-
-      if (_preset != null)
-      {
-        DrawSelectCubePlatforms();
-      }
+      DrawSelectCubePlatforms();
     }
 
     private void DrawSelectCubePlatforms()
@@ -52,79 +44,92 @@ namespace Game.Views.Editor
     private void DrawSelectCubePlatformMulti(CellComponent[] list)
     {
       if (list == null || list.Length == 0) return;
+      var cell = list[0];
       if (list.Length == 1)
       {
-        var cell = list[0];
-        EditorUtils.BeginHorizontal(true);
-        if (GUILayout.Button("SelectLevel", EditorUtils.Styles.minibuttonleft))
-        {
-          Selection.activeGameObject = cell.Level.gameObject;
-        }
-        if (GUILayout.Button("LevelEditor", EditorUtils.Styles.minibuttonright))
-        {
-          LevelEditorWindow.Open(cell.Level);
-        }
-        EditorUtils.EndHorizontal();
         EditorGUILayout.LabelField("Position:", cell.Position.ToString());
+        cell.CellType = (CellType)EditorGUILayout.EnumPopup("Type:", cell.CellType);
+        EditorGUILayout.LabelField("Name:", cell.CellInfo.Name ?? "");
+        EditorGUILayout.LabelField("Prefab:", cell.CellInfo.Prefab ? cell.CellInfo.Prefab.ToString() : "null");
       }
-      EditorUtils.Header("Type");
-      EditorGUILayout.BeginVertical(EditorUtils.Styles.ProgressBarBack);
-      var index = 0;
-      _findText = EditorGUILayout.TextField(_findText, (GUIStyle)EditorUtils.Styles.SearchTextField);
-      EditorGUILayout.BeginVertical(EditorUtils.Styles.ProgressBarBack);
-      var presets =
-        _preset.Cells.Where(
-          (p) => string.IsNullOrEmpty(_findText) || p.Name.ToLowerInvariant().Contains(_findText.ToLowerInvariant()) || p.Type.ToString().ToLowerInvariant().Contains(_findText.ToLowerInvariant()));
-      if (presets.Any())
-      {
-        foreach (var presetCell in presets)
-        {
-          var style = ((GUIStyle)EditorUtils.Styles.minibutton);
-          style.alignment = TextAnchor.MiddleLeft;
-          if (GUILayout.Button(string.Format("{0} {1} \t {2} {3}", index, presetCell.Name, presetCell.Type, presetCell.Prefab), style))
-          {
-            foreach (var component in list)
-            {
-              component.SetContent(presetCell);
-            }
-          }
-          index++;
-        }
-      }
-      else
-      {
-        GUILayout.Label("Preset is empty");
-      }
-      EditorGUILayout.EndVertical();
-      EditorGUILayout.EndVertical();
-    }
-
-    private void DrawSelectCubePlatform(CellComponent current, CellComponent runner)
-    {
-      if (target == null) return;
-
-      var cubePlatform = current;
-      var newList = _preset.Cells;
-      var nameList = new string[newList.Length];
-      var empty = _preset.Cells.FirstOrDefault(s => s.Type == CellType.Empty);
-      var index = 0;
-      foreach (var platformInfo in newList)
-      {
-        nameList[index] = string.Format("{0} {1} \t {2} {3}", index, platformInfo.Name, platformInfo.Type, platformInfo.Prefab);
-        index++;
-      }
-      EditorUtils.BeginHorizontal(true);
+      EditorGUILayout.BeginHorizontal(EditorUtils.Styles.ProgressBarBack);
       if (GUILayout.Button("SelectLevel", EditorUtils.Styles.minibuttonleft))
       {
-        Selection.activeGameObject = cubePlatform.Level.gameObject;
+        Selection.activeGameObject = cell.Level.gameObject;
       }
       if (GUILayout.Button("LevelEditor", EditorUtils.Styles.minibuttonright))
       {
-        LevelEditorWindow.Open(cubePlatform.Level);
+        LevelEditorWindow.Open(cell.Level);
       }
-      EditorUtils.EndHorizontal();
-      EditorGUILayout.LabelField("Position:", cubePlatform.Position.ToString());
+      EditorGUILayout.EndHorizontal();
 
+
+      EditorUtils.PushColor();
+      var editorPrefsKey = GetType().FullName + ".Preset";
+      if (_preset == null) GUI.color = Color.red;
+      if(_preset == null)
+      {
+        var path = EditorPrefs.GetString(editorPrefsKey);
+        if(path != null)
+        {
+          _preset = AssetDatabase.LoadAssetAtPath<CellPreset>(path);
+          if(_preset == null)
+          {
+            EditorPrefs.DeleteKey(editorPrefsKey);
+          }
+        }
+      }
+      var preset = EditorGUILayout.ObjectField("Preset:", _preset, typeof(CellPreset), false) as CellPreset;
+      if(preset != _preset)
+      {
+        _preset = preset;
+        
+        EditorPrefs.SetString(editorPrefsKey, AssetDatabase.GetAssetPath(_preset));
+      }
+      EditorUtils.PopColor();
+      if (_preset != null)
+      {
+        EditorUtils.Header("Type: " + ((list.Select(s => s.CellType).Distinct().Count() == 1) ? list[0].CellType.ToString() : " --"));
+
+        EditorGUILayout.BeginVertical(EditorUtils.Styles.ProgressBarBack);
+        var index = 0;
+        _findText = EditorGUILayout.TextField(_findText, (GUIStyle)EditorUtils.Styles.SearchTextField);
+        EditorGUILayout.BeginVertical(EditorUtils.Styles.ProgressBarBack);
+        var presets =
+          _preset.Cells.Where(
+          (p) => string.IsNullOrEmpty(_findText) || p.Name.ToLowerInvariant().Contains(_findText.ToLowerInvariant()) || p.Type.ToString().ToLowerInvariant().Contains(_findText.ToLowerInvariant()));
+        if (presets.Any())
+        {
+          foreach (var presetCell in presets)
+          {
+            EditorUtils.PushColor();
+            if (list.All(s => s.CellInfo == presetCell && s.CellInfo.Type == s.CellType))
+            {
+              GUI.color = Color.green;
+            }
+            var style = ((GUIStyle)EditorUtils.Styles.minibutton);
+            style.alignment = TextAnchor.MiddleLeft;
+            var pressetName = presetCell.Name.PadRight(12);
+            var pressetType = presetCell.Type.ToString().PadRight(12);
+            var pressetPrefab = presetCell.Prefab;
+            if (GUILayout.Button(string.Format("{0} {1} \t {2} \t {3}", index, pressetName, pressetType, pressetPrefab), style))
+            {
+              foreach (var component in list)
+              {
+                component.SetContent(presetCell);
+              }
+            }
+            EditorUtils.PopColor();
+            index++;
+          }
+        }
+        else
+        {
+          GUILayout.Label("Preset is empty");
+        }
+        EditorGUILayout.EndVertical();
+        EditorGUILayout.EndVertical();
+      }
     }
   }
 }

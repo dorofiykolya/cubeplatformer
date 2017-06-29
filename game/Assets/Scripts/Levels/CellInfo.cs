@@ -22,7 +22,7 @@ namespace Game
 
     public bool Equals(CellInfo other)
     {
-      return Type == other.Type && Prefab == other.Prefab && string.Equals(Name, other.Name);
+      return Type == other.Type && Prefab == other.Prefab && (string.Equals(Name, other.Name) || string.IsNullOrEmpty(Name) && string.IsNullOrEmpty(other.Name));
     }
 
     public override bool Equals(object obj)

@@ -1,9 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Game.Views
 {
   public class CellComponent : MonoBehaviour
   {
+    [NonSerialized]
+    public CellInfo CellInfo;
+
     private Transform _transform;
 
     [HideInInspector]
@@ -23,7 +27,8 @@ namespace Game.Views
 
     public void SetContent(CellInfo cellInfo)
     {
-
+      CellType = cellInfo.Type;
+      CellInfo = cellInfo;
     }
   }
 }

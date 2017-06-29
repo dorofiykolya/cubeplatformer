@@ -26,9 +26,17 @@ namespace Game.Views.Editor
       }
       EditorGUILayout.EndFadeGroup();
 
-      if (GUILayout.Button("UpdateConverter"))
+      EditorGUILayout.LabelField("Size:", Target.Size.ToString());
+
+      EditorGUILayout.BeginHorizontal(EditorUtils.Styles.ProgressBarBack);
+      if (GUILayout.Button("UpdateConverter", EditorUtils.Styles.minibuttonright))
       {
         Target.UpdateConverter();
+      }
+      EditorGUILayout.EndHorizontal();
+      if (GUILayout.Button("LevelEditor"))
+      {
+        LevelEditorWindow.Open(Target);
       }
     }
   }

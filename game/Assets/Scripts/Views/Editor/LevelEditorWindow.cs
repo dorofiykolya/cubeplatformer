@@ -2,6 +2,8 @@
 using UnityEditor;
 using UnityEditor.AnimatedValues;
 using Utils.Editor;
+using System.Linq;
+using System;
 
 namespace Game.Views.Editor
 {
@@ -31,6 +33,7 @@ namespace Game.Views.Editor
 
     private static AnimBool _factoryFold = new AnimBool(false);
     private LevelComponent _level;
+    private int _currentZ;
 
     void OnEnable()
     {
@@ -44,12 +47,53 @@ namespace Game.Views.Editor
       if (EditorGUILayout.BeginFadeGroup(_factoryFold.faded))
       {
         EditorGUILayout.BeginVertical(EditorUtils.Styles.ProgressBarBack);
-        EditorGUILayout.TextField("fgfd", "");
-        EditorGUILayout.TextField("asd", "asdasd");
+        EditorUtils.Header("Grid");
+        _currentZ = EditorGUILayout.IntSlider(_currentZ, 0, _level.Size.Z - 1);
+
+        EditorGUILayout.BeginVertical();
+        for(var x = 0; x < _level.Size.X; x++)
+        {
+          EditorGUILayout.BeginHorizontal();
+          for(var y = 0; y < _level.Size.Y; y++)
+          {
+            EditorUtils.PushColor();
+            var button = new GUIContent(" ");
+            button.tooltip = string.Format("{0}:{1}", x, y);
+            var cell = _level[x, y, _currentZ];
+            var cellGameObject = cell.gameObject;
+            if(Selection.gameObjects.Contains(cellGameObject)) GUI.color = Color.green;
+            else
+            {
+              if(Array.IndexOf(new CellType[]{CellType.Block, CellType.HLadr, CellType.Ladder, CellType.RopeBar, CellType.Solid, CellType.Trap}, cell.CellType) != -1 || cell.CellType == CellType.Block)
+              {
+                GUI.color = new Color(.25f, .25f, .25f);
+              }
+            }
+            if(GUILayout.Button(button, EditorUtils.Styles.minibutton, GUILayout.Width(10f), GUILayout.Height(10f)))
+            {
+              if(Event.current.command)
+              {
+                var selectList = Selection.gameObjects.ToList();
+                if(!selectList.Contains(cellGameObject))
+                {
+                  selectList.Add(cellGameObject);
+                  Selection.objects = selectList.ToArray();
+                }
+              }
+              else
+              {
+                Selection.activeGameObject = cellGameObject;
+              }
+            }
+            EditorUtils.PopColor();
+          }
+          EditorGUILayout.EndHorizontal();
+        }
+        EditorGUILayout.EndVertical();
+
         EditorGUILayout.EndVertical();
       }
       EditorGUILayout.EndFadeGroup();
-
     }
   }
 }
