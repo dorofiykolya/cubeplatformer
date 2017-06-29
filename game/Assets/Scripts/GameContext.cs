@@ -12,21 +12,26 @@ namespace Game
     private readonly IDispatcher _dispatcher;
     private readonly ResourceManager _resourceManager;
     private readonly GameStateManager _stateManager;
+    private readonly Managers _managers;
 
     public GameContext(Lifetime lifetime, GameStartBehaviour behaviour)
     {
       _lifetime = lifetime;
-      _timeManager = new TimeManager(behaviour);
+      _timeManager = new TimeManager(lifetime, behaviour);
       _coroutineProvider = new CoroutineProvider(behaviour);
       _resourceManager = new ResourceManager(_coroutineProvider);
       _stateManager = new GameStateManager(lifetime);
-      _dispatcher = behaviour.gameObject.AddComponent<UnityDispatcher>();
+      _dispatcher = behaviour.gameObject.GetComponent<UnityDispatcher>() ?? behaviour.gameObject.AddComponent<UnityDispatcher>();
+
+      _managers = new Managers(lifetime, this);
     }
 
+    public Lifetime Lifetime { get { return _lifetime; } }
     public TimeManager Time { get { return _timeManager; } }
     public ICoroutineProvider CoroutineProvider { get { return _coroutineProvider; } }
     public IDispatcher Dispatcher { get { return _dispatcher; } }
     public ResourceManager ResourceManager { get { return _resourceManager; } }
+    public Managers Managers { get { return _managers; } }
 
     public void StartCoroutine(Lifetime lifetime, IEnumerator enumerator)
     {

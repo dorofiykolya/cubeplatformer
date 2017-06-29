@@ -22,7 +22,13 @@ namespace Game
     public ISignalSubsribe<bool> OnFocus { get { return _onFocus; } }
     public ISignalSubsribe<bool> OnPause { get { return _onPause; } }
 
-    private void Awake()
+    public void Restart()
+    {
+      _lifetime.Terminate();
+      Initialize();
+    }
+
+    private void Initialize()
     {
       _lifetime = Lifetime.Define(Lifetime.Eternal);
 
@@ -36,6 +42,11 @@ namespace Game
       _gameContext = new GameContext(_lifetime.Lifetime, this);
 
       DontDestroyOnLoad(gameObject);
+    }
+
+    private void Awake()
+    {
+      Initialize();
     }
 
     private void OnEnable()
