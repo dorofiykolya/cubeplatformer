@@ -20,12 +20,12 @@ namespace Game.Views
       if (ShowGizmosWireGrid)
       {
         Gizmos.color = new Color(0, 1, 0, 0.1f);
-        Gizmos.DrawWireCube(transform.position, transform.lossyScale);
+        Gizmos.DrawWireCube(transform.position + transform.lossyScale / 2f, transform.lossyScale);
       }
       if (ShowGizmosGrid)
       {
         Gizmos.color = new Color(0, 1, 0, 0f);
-        Gizmos.DrawCube(transform.position, transform.lossyScale);
+        Gizmos.DrawCube(transform.position + transform.lossyScale / 2f, transform.lossyScale);
       }
     }
 
@@ -35,7 +35,7 @@ namespace Game.Views
       if (ShowGizmosSelectedGrid)
       {
         Gizmos.color = new Color(1, 0, 0, 0.2f);
-        Gizmos.DrawCube(transform.position, transform.lossyScale);
+        Gizmos.DrawCube(transform.position + transform.lossyScale / 2f, transform.lossyScale);
       }
     }
   }
