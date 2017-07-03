@@ -5,7 +5,6 @@ namespace Game.Views
 {
   public class CellComponent : MonoBehaviour
   {
-    [NonSerialized]
     public CellInfo CellInfo;
 
     private Transform _transform;
@@ -29,6 +28,13 @@ namespace Game.Views
     {
       CellType = cellInfo.Type;
       CellInfo = cellInfo;
+
+      if(Content != null)
+      {
+        DestroyImmediate(Content);
+      }
+      Content = Instantiate(cellInfo.Prefab);
+      Content.transform.SetParent(transform, false);
     }
   }
 }
