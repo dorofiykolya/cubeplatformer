@@ -43,6 +43,7 @@ namespace Game.Views.Editor
 
     void OnGUI()
     {
+      if(_level == null) Close();
       _factoryFold.target = EditorUtils.FoldoutHeader("Editor", _factoryFold.target);
       if (EditorGUILayout.BeginFadeGroup(_factoryFold.faded))
       {
@@ -51,10 +52,10 @@ namespace Game.Views.Editor
         _currentZ = EditorGUILayout.IntSlider(_currentZ, 0, _level.Size.Z - 1);
 
         EditorGUILayout.BeginVertical();
-        for(var x = 0; x < _level.Size.X; x++)
+        for(var y = _level.Size.Y - 1; y >= 0; y--)
         {
           EditorGUILayout.BeginHorizontal();
-          for(var y = 0; y < _level.Size.Y; y++)
+          for(var x = 0; x < _level.Size.X; x++)
           {
             EditorUtils.PushColor();
             var button = new GUIContent(" ");
