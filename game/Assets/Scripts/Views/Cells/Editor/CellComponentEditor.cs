@@ -67,23 +67,23 @@ namespace Game.Views.Editor
       EditorUtils.PushColor();
       var editorPrefsKey = GetType().FullName + ".Preset";
       if (_preset == null) GUI.color = Color.red;
-      if(_preset == null)
+      if (_preset == null)
       {
         var path = EditorPrefs.GetString(editorPrefsKey);
-        if(path != null)
+        if (path != null)
         {
           _preset = AssetDatabase.LoadAssetAtPath<CellPreset>(path);
-          if(_preset == null)
+          if (_preset == null)
           {
             EditorPrefs.DeleteKey(editorPrefsKey);
           }
         }
       }
       var preset = EditorGUILayout.ObjectField("Preset:", _preset, typeof(CellPreset), false) as CellPreset;
-      if(preset != _preset)
+      if (preset != _preset)
       {
         _preset = preset;
-        
+
         EditorPrefs.SetString(editorPrefsKey, AssetDatabase.GetAssetPath(_preset));
       }
       EditorUtils.PopColor();
@@ -97,7 +97,7 @@ namespace Game.Views.Editor
         EditorGUILayout.BeginVertical(EditorUtils.Styles.ProgressBarBack);
         var presets =
           _preset.Cells.Where(
-          (p) => string.IsNullOrEmpty(_findText) || p.Name.ToLowerInvariant().Contains(_findText.ToLowerInvariant()) || p.Type.ToString().ToLowerInvariant().Contains(_findText.ToLowerInvariant()));
+          (p) => string.IsNullOrEmpty(_findText) || (p.Name != null && p.Name.ToLowerInvariant().Contains(_findText.ToLowerInvariant())) || p.Type.ToString().ToLowerInvariant().Contains(_findText.ToLowerInvariant()));
         if (presets.Any())
         {
           foreach (var presetCell in presets)
@@ -109,7 +109,7 @@ namespace Game.Views.Editor
             }
             var style = ((GUIStyle)EditorUtils.Styles.minibutton);
             style.alignment = TextAnchor.MiddleLeft;
-            var pressetName = presetCell.Name.PadRight(12);
+            var pressetName = (presetCell.Name ?? "").PadRight(12);
             var pressetType = presetCell.Type.ToString().PadRight(12);
             var pressetPrefab = presetCell.Prefab;
             if (GUILayout.Button(string.Format("{0} {1} \t {2} \t {3}", index, pressetName, pressetType, pressetPrefab), style))

@@ -33,8 +33,11 @@ namespace Game.Views
       {
         DestroyImmediate(Content);
       }
-      Content = Instantiate(cellInfo.Prefab);
-      Content.transform.SetParent(transform, false);
+      if (cellInfo.Prefab != null)
+      {
+        Content = Instantiate(cellInfo.Prefab);
+        Content.transform.SetParent(transform, false);
+      }
     }
   }
 }
