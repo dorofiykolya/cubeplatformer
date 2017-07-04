@@ -28,11 +28,38 @@ namespace Game.Views.Editor
 
       EditorGUILayout.LabelField("Size:", Target.Size.ToString());
 
+
       EditorGUILayout.BeginHorizontal(EditorUtils.Styles.ProgressBarBack);
       if (GUILayout.Button("UpdateConverter", EditorUtils.Styles.minibuttonright))
       {
         Target.UpdateConverter();
       }
+      bool isPrefabInstance = PrefabUtility.GetPrefabParent(Target.gameObject) != null && PrefabUtility.GetPrefabObject(Target.gameObject.transform) != null;
+      bool isPrefabOriginal = PrefabUtility.GetPrefabParent(Target.gameObject) == null && PrefabUtility.GetPrefabObject(Target.gameObject.transform) != null;
+      bool isDisconnectedPrefabInstance = PrefabUtility.GetPrefabParent(Target.gameObject) != null && PrefabUtility.GetPrefabObject(Target.gameObject.transform) == null;
+
+      if (isPrefabInstance)
+      {
+        if (GUILayout.Button("Disconnect Prefab", EditorUtils.Styles.minibuttonright))
+        {
+          PrefabUtility.DisconnectPrefabInstance(Target.gameObject);
+        }
+      }
+      else if (isDisconnectedPrefabInstance)
+      {
+        if (GUILayout.Button("Connect to Prefab", EditorUtils.Styles.minibuttonright))
+        {
+          PrefabUtility.ConnectGameObjectToPrefab(Target.gameObject, (GameObject)PrefabUtility.GetPrefabParent(Target.gameObject));
+        }
+      }
+      else if (isPrefabOriginal)
+      {
+        if (GUILayout.Button("Edit In Scene", EditorUtils.Styles.minibuttonright))
+        {
+          Selection.activeGameObject = (GameObject)PrefabUtility.InstantiatePrefab(Target.gameObject);
+        }
+      }
+
       EditorGUILayout.EndHorizontal();
       if (GUILayout.Button("LevelEditor"))
       {
