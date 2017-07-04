@@ -48,8 +48,12 @@ namespace Game.Views
 
     private Transform CreateCellContainer()
     {
-      var cell = new GameObject("Grid").transform;
-      cell.SetParent(transform, false);
+      var cell = transform.Find("Grid");
+      if (!cell)
+      {
+        cell = new GameObject("Grid").transform;
+        cell.SetParent(transform, false);
+      }
       return cell;
     }
 
