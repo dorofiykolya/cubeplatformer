@@ -28,16 +28,21 @@ namespace Game.Views
     {
       CellType = cellInfo.Type;
       CellInfo = cellInfo;
+      UpdateContent();
+    }
 
-      if(Content != null)
+    public void UpdateContent()
+    {
+      if (Content != null)
       {
         DestroyImmediate(Content);
       }
-      if (cellInfo.Prefab != null)
+      if (CellInfo.Prefab != null)
       {
-        Content = Instantiate(cellInfo.Prefab);
+        Content = Instantiate(CellInfo.Prefab);
         Content.transform.SetParent(transform, false);
       }
+
     }
   }
 }

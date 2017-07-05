@@ -29,8 +29,9 @@ namespace Game.Views.Editor
       EditorGUILayout.LabelField("Size:", Target.Size.ToString());
 
 
+      EditorGUILayout.BeginVertical(EditorUtils.Styles.ProgressBarBack);
       EditorGUILayout.BeginHorizontal(EditorUtils.Styles.ProgressBarBack);
-      if (GUILayout.Button("UpdateConverter", EditorUtils.Styles.minibuttonright))
+      if (GUILayout.Button("UpdateConverter", EditorUtils.Styles.minibuttonleft))
       {
         Target.UpdateConverter();
       }
@@ -61,6 +62,20 @@ namespace Game.Views.Editor
       }
 
       EditorGUILayout.EndHorizontal();
+
+      if (GUILayout.Button("UpdateCellsContent", EditorUtils.Styles.minibutton))
+      {
+        foreach (var cell in Target.GetComponentsInChildren<CellComponent>(true))
+        {
+          if (cell.CellInfo.Prefab != null)
+          {
+            cell.UpdateContent();
+          }
+        }
+      }
+
+      EditorGUILayout.EndVertical();
+
       if (GUILayout.Button("LevelEditor"))
       {
         LevelEditorWindow.Open(Target);

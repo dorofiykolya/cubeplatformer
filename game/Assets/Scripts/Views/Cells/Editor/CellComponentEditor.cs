@@ -61,6 +61,14 @@ namespace Game.Views.Editor
       {
         LevelEditorWindow.Open(cell.Level);
       }
+      GUILayout.Space(10f);
+      if (GUILayout.Button("UpdateContent", EditorUtils.Styles.minibutton))
+      {
+        foreach (var cellComponent in list)
+        {
+          cellComponent.UpdateContent();
+        }
+      }
       EditorGUILayout.EndHorizontal();
 
 
