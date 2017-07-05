@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Game.Managers;
 using Game.Providers;
+using Game.UI;
 using Game.Views;
 using Injection;
 using UnityEngine;
@@ -21,6 +22,7 @@ namespace Game
     private readonly GameProviders _providers;
     private readonly Transform _rootTransform;
     private readonly ViewContext _viewContext;
+    private readonly UIContext _uiContext;
 
     public GameContext(Lifetime lifetime, GameStartBehaviour behaviour)
     {
@@ -38,10 +40,12 @@ namespace Game
       _managers = new GameManagers(lifetime, this, injector, new GameManagersProvider());
 
       _viewContext = new ViewContext(this, injector);
+      _uiContext = new UIContext(this, injector);
 
       _lifetime.AddAction(() => injector.Dispose());
     }
 
+    public UIContext UIContext { get { return _uiContext; } }
     public ViewContext ViewContext { get { return _viewContext; } }
     public Transform RootTransform { get { return _rootTransform; } }
     public GameProviders Providers { get { return _providers; } }

@@ -39,11 +39,11 @@ namespace Game.Managers
       }
       foreach (var manager in managers)
       {
-        manager.PreinitiliazeManager();
+        ControllerInitializer.Preinitialize(manager);
       }
       foreach (var manager in managers)
       {
-        manager.InitializeManager();
+        ControllerInitializer.Initialize(manager);
       }
     }
   }

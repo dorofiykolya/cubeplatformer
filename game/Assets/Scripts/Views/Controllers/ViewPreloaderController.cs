@@ -21,7 +21,7 @@ namespace Game.Views.Controllers
     {
       if (_preloader != null)
       {
-        GameObject.Destroy(_preloader.gameObject);
+        Object.Destroy(_preloader.gameObject);
         _preloader = null;
       }
     }
@@ -30,7 +30,7 @@ namespace Game.Views.Controllers
     {
       if (_preloader == null)
       {
-        _preloader = GameObject.Instantiate(Context.Providers.Preloader.GetPrefab());
+        _preloader = Object.Instantiate(Context.Providers.Preloader.GetPrefab());
       }
       else
       {
