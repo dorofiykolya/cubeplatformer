@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33248954101913588}
   - component: {fileID: 23668662125881142}
   - component: {fileID: 114029955923896450}
+  - component: {fileID: 114402794679373106}
   m_Layer: 0
   m_Name: Block_01
   m_TagString: Untagged
@@ -116,3 +117,14 @@ MonoBehaviour:
     TransformParentChanges: []
   ParentPrefabGUID: 
   PrefabGUID: 6a1e065f0d1be482f928a93a98c8e751
+--- !u!114 &114402794679373106
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1954872109754734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1de098239b35cf54ba48bec3686293f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

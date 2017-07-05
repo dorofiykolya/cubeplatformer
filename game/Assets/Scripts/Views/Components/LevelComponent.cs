@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Game.Views
+namespace Game.Views.Components
 {
   [ExecuteInEditMode]
   public class LevelComponent : MonoBehaviour

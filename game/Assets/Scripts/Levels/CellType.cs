@@ -6,7 +6,7 @@
     Block = 0x01,
     Solid = 0x02,
     Ladder = 0x03,
-    RopeBar = 0x04,
+    Rope = 0x04,
     Trap = 0x05,
     HLadr = 0x06,
     Gold = 0x07,

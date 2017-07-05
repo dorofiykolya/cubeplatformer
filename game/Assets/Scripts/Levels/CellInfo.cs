@@ -1,5 +1,5 @@
 ﻿using System;
-using UnityEngine;
+using Game.Views.Components;
 
 namespace Game
 {
@@ -8,7 +8,7 @@ namespace Game
   {
     public CellType Type;
     public string Name;
-    public GameObject Prefab;
+    public CellContentComponent Prefab;
 
     public static bool operator ==(CellInfo p1, CellInfo p2)
     {

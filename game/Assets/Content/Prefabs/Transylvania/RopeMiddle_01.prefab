@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33304039667701886}
   - component: {fileID: 23908142634632886}
   - component: {fileID: 114617608010678118}
+  - component: {fileID: 114289809108694774}
   m_Layer: 0
   m_Name: RopeMiddle_01
   m_TagString: Untagged
@@ -81,6 +82,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1908795700136176}
   m_Mesh: {fileID: 4300034, guid: 86c40b0c12758334098aa3225f0d5893, type: 3}
+--- !u!114 &114289809108694774
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1908795700136176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1de098239b35cf54ba48bec3686293f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114617608010678118
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33126947758131566}
   - component: {fileID: 23294355858044712}
   - component: {fileID: 114540034763362492}
+  - component: {fileID: 114448182761535780}
   m_Layer: 0
   m_Name: RopeRight_01
   m_TagString: Untagged
@@ -81,6 +82,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1600317012429088}
   m_Mesh: {fileID: 4300032, guid: 86c40b0c12758334098aa3225f0d5893, type: 3}
+--- !u!114 &114448182761535780
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1600317012429088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1de098239b35cf54ba48bec3686293f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114540034763362492
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33955533465934250}
   - component: {fileID: 23840940766468514}
   - component: {fileID: 114085546346640030}
+  - component: {fileID: 114574993185443046}
   m_Layer: 0
   m_Name: LadderTop_01
   m_TagString: Untagged
@@ -116,3 +117,14 @@ MonoBehaviour:
     TransformParentChanges: []
   ParentPrefabGUID: 
   PrefabGUID: 4a17676bbf1004ae3a716eb85659228f
+--- !u!114 &114574993185443046
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1011828252005248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1de098239b35cf54ba48bec3686293f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

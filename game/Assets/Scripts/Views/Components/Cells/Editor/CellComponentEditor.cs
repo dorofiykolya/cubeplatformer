@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.AnimatedValues;
 using Utils.Editor;
+using Game.Views.Components;
 
 namespace Game.Views.Editor
 {

@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using Game.Views.Components;
+using UnityEditor;
 using UnityEditor.AnimatedValues;
 using UnityEngine;
 using Utils.Editor;

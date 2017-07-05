@@ -4,6 +4,7 @@ using UnityEditor.AnimatedValues;
 using Utils.Editor;
 using System.Linq;
 using System;
+using Game.Views.Components;
 
 namespace Game.Views.Editor
 {
@@ -65,7 +66,7 @@ namespace Game.Views.Editor
             if(Selection.gameObjects.Contains(cellGameObject)) GUI.color = Color.green;
             else
             {
-              if(Array.IndexOf(new CellType[]{CellType.Block, CellType.HLadr, CellType.Ladder, CellType.RopeBar, CellType.Solid, CellType.Trap}, cell.CellType) != -1 || cell.CellType == CellType.Block)
+              if(Array.IndexOf(new CellType[]{CellType.Block, CellType.HLadr, CellType.Ladder, CellType.Rope, CellType.Solid, CellType.Trap}, cell.CellType) != -1 || cell.CellType == CellType.Block)
               {
                 GUI.color = new Color(.25f, .25f, .25f);
               }

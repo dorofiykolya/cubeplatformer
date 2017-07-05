@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Game.Views.Components;
 using UnityEditor;
 using UnityEngine;
 using Utils.Editor;
@@ -38,6 +39,7 @@ namespace Game.Editor
         if (string.IsNullOrEmpty(np.Name) && platform.Prefab != null)
         {
           Target.Cells[index].Name = platform.Prefab.name;
+          EditorUtility.SetDirty(Target);
         }
         if (GUILayout.Button("", EditorUtils.Styles.OL_Minus, GUILayout.Width(15f)))
         {
@@ -45,14 +47,16 @@ namespace Game.Editor
           list.RemoveAt(index);
           Target.Cells = list.ToArray();
           stop = true;
+          EditorUtility.SetDirty(Target);
         }
         GUILayout.EndHorizontal();
-        np.Prefab = (GameObject)EditorGUILayout.ObjectField(np.Prefab, typeof(GameObject), false);
+        np.Prefab = (CellContentComponent)EditorGUILayout.ObjectField(np.Prefab, typeof(CellContentComponent), false);
 
         if (!stop && GUI.changed)
         {
           Target.Cells[index] = np;
           stop = true;
+          EditorUtility.SetDirty(Target);
         }
 
         GUILayout.EndVertical();
@@ -64,6 +68,7 @@ namespace Game.Editor
       if (GUILayout.Button("", EditorUtils.Styles.OL_Plus))
       {
         Array.Resize(ref Target.Cells, Target.Cells.Length + 1);
+        EditorUtility.SetDirty(Target);
       }
     }
 

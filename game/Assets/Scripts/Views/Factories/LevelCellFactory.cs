@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Game.Views.Components;
+using UnityEngine;
 
 namespace Game.Views
 {

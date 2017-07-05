@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Game.Views
+namespace Game.Views.Components
 {
   [RequireComponent(typeof(LevelComponent)), ExecuteInEditMode]
   public class LevelGizmoComponent : MonoBehaviour

@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using UnityEngine;
 
-namespace Game.Views
+namespace Game.Views.Components
 {
     [RequireComponent(typeof(CellComponent)), ExecuteInEditMode]
     public class CellGizmoComponent : MonoBehaviour

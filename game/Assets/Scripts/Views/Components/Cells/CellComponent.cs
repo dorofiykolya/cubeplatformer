@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Game.Views
+namespace Game.Views.Components
 {
   public class CellComponent : MonoBehaviour
   {
@@ -14,7 +14,7 @@ namespace Game.Views
     [HideInInspector]
     public CellType CellType;
 
-    public GameObject Content;
+    public CellContentComponent Content;
     public LevelComponent Level;
 
     public new Transform transform { get { return _transform ?? (_transform = base.transform); } }
@@ -35,11 +35,11 @@ namespace Game.Views
     {
       if (Content != null)
       {
-        DestroyImmediate(Content);
+        DestroyImmediate(Content.gameObject);
       }
       if (CellInfo.Prefab != null)
       {
-        Content = Instantiate(CellInfo.Prefab);
+        Content = Instantiate(CellInfo.Prefab.gameObject).GetComponent<CellContentComponent>();
         Content.transform.SetParent(transform, false);
       }
 
