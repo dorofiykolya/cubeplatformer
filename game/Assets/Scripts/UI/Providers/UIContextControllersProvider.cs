@@ -7,7 +7,7 @@ namespace Game.UI.Providers
   {
     public IEnumerable<UIController> Provider(UIContext context)
     {
-      yield break;
+      yield return new UIMainMenuController();
     }
 
   }

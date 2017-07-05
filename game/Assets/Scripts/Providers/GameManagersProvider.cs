@@ -8,6 +8,7 @@ namespace Game.Providers
     public IEnumerable<GameManager> Providers(GameContext context)
     {
       yield return new GamePreloaderManager();
+      yield return new GameSceneManager();
     }
   }
 }

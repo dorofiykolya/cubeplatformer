@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Utils;
 
 namespace Game
@@ -8,11 +9,15 @@ namespace Game
     private readonly Signal _onOpen;
     private readonly Signal _onClose;
     private int _opened;
+    private HashSet<Lifetime> _lifetimes;
 
     public Preloader(Lifetime lifetime)
     {
+      _lifetimes = new HashSet<Lifetime>();
       _onOpen = new Signal(lifetime);
       _onClose = new Signal(lifetime);
+
+      lifetime.AddAction(() => _lifetimes.Clear());
     }
 
     public bool Opened
@@ -32,17 +37,20 @@ namespace Game
 
     public void Open(Lifetime lifetime)
     {
-      lifetime.AddAction(CloseInternal);
-      OpenInternal();
+      if (_lifetimes.Add(lifetime))
+      {
+        lifetime.AddAction(CloseInternal);
+        OpenInternal();
+      }
     }
 
     private void OpenInternal()
     {
-      if (_opened == 0)
-      {
-
-      }
       _opened++;
+      if (_opened == 1)
+      {
+        _onOpen.Fire();
+      }
     }
 
     private void CloseInternal()
@@ -52,7 +60,7 @@ namespace Game
         _opened--;
         if (_opened == 0)
         {
-
+          _onClose.Fire();
         }
       }
     }

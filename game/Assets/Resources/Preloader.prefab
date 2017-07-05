@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 224133523541813012}
   - component: {fileID: 222557661271112002}
   - component: {fileID: 114133911407817688}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 224948909179994470}
   - component: {fileID: 222199632007781278}
   - component: {fileID: 114843215071451954}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 65747376828274336}
   - component: {fileID: 23150154093745992}
   - component: {fileID: 114751427982221016}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 223718266735827988}
   - component: {fileID: 114703291212290610}
   - component: {fileID: 114193195261463584}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4888948676110780}
   - component: {fileID: 114938375746646976}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Preloader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 92208265444789362}
   - component: {fileID: 124657131527637280}
   - component: {fileID: 81710631046585334}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PreloaderCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -166,7 +166,7 @@ Camera:
   m_GameObject: {fileID: 1861559487592028}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 3
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
@@ -179,10 +179,10 @@ Camera:
   field of view: 25
   orthographic: 0
   orthographic size: 5
-  m_Depth: 100
+  m_Depth: 90
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 32
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -380,6 +380,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4958ddb2b9e4c9848825fd7194514472, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _image: {fileID: 114133911407817688}
+  _cubeMaterial: {fileID: 2100000, guid: f873a23458d9efb42a8a23e96ff03799, type: 2}
+  _text: {fileID: 114843215071451954}
+  _showTime: 1
+  _hideTime: 1
 --- !u!124 &124657131527637280
 Behaviour:
   m_ObjectHideFlags: 1

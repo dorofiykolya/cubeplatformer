@@ -8,21 +8,6 @@ namespace Game.Managers
 {
   public class GameManagers
   {
-    public class Provider
-    {
-      private readonly List<GameManager> _list = new List<GameManager>();
-
-      protected void Add(GameManager manager)
-      {
-        _list.Add(manager);
-      }
-
-      public GameManager[] ToArray()
-      {
-        return _list.ToArray();
-      }
-    }
-
     public GameManagers(Lifetime lifetime, GameContext context, Injector injector, GameManagersProvider provider)
     {
       injector.Map<GameContext>().ToValue(context);

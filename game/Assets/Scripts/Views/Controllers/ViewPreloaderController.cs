@@ -31,10 +31,11 @@ namespace Game.Views.Controllers
       if (_preloader == null)
       {
         _preloader = Object.Instantiate(Context.Providers.Preloader.GetPrefab());
+        GameObject.DontDestroyOnLoad(_preloader.gameObject);
       }
       else
       {
-        _preloader.gameObject.SetActive(true);
+        _preloader.Show();
       }
     }
 
@@ -42,7 +43,7 @@ namespace Game.Views.Controllers
     {
       if (_preloader != null)
       {
-        _preloader.gameObject.SetActive(false);
+        _preloader.Hide();
       }
     }
   }
