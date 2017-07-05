@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Game.Components;
+using UnityEngine;
 using Utils;
 
 namespace Game
