@@ -22,10 +22,9 @@ namespace Game.Views
           {
             var gameObject = new GameObject(string.Format("x:{0}, y:{1}, z:{2}", x, y, z));
             var cellComponent = gameObject.AddComponent<CellComponent>();
-            cellComponent.Level = level;
             cellComponent.Position = new Position(x, y, z);
             gameObject.AddComponent<CellGizmoComponent>();
-            
+
             result[index] = cellComponent;
             index++;
           }

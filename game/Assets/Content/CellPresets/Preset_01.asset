@@ -14,7 +14,7 @@ MonoBehaviour:
   Name: Preset_01
   Cells:
   - Type: 0
-    Name: Empty
+    Name: 
     Prefab: {fileID: 0}
   - Type: 1
     Name: Block_01

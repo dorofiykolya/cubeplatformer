@@ -5,11 +5,11 @@ namespace Game.Views.Components
   [ExecuteInEditMode]
   public class LevelComponent : MonoBehaviour
   {
-    [SerializeField, HideInInspector]
+    [SerializeField]
     private Transform _cellContainer;
-    [SerializeField, HideInInspector]
+    [SerializeField]
     private LevelSize _size;
-    [SerializeField, HideInInspector]
+    [SerializeField]
     private CellComponent[] _grid;
 
     public ILevelCoordinateConverter CoordinateConverter { get; private set; }

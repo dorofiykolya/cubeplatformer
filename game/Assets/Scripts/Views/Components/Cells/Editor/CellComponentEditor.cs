@@ -12,20 +12,19 @@ namespace Game.Views.Editor
   public class CellComponentEditor : Editor<CellComponent>
   {
     private static CellPreset _preset;
-    private static readonly AnimBool _inherited = new AnimBool(false);
+    private static bool _inherited;
 
     private string _findText;
 
     public override void OnInspectorGUI()
     {
-      _inherited.target = EditorUtils.FoldoutHeader("inherited", _inherited.target);
-      if (EditorGUILayout.BeginFadeGroup(_inherited.faded))
+      _inherited = EditorUtils.FoldoutHeader("inherited", _inherited);
+      if (_inherited)
       {
         EditorGUILayout.BeginVertical(EditorUtils.Styles.ProgressBarBack);
         base.OnInspectorGUI();
         EditorGUILayout.EndVertical();
       }
-      EditorGUILayout.EndFadeGroup();
 
       DrawSelectCubePlatforms();
     }
@@ -98,6 +97,23 @@ namespace Game.Views.Editor
       EditorUtils.PopColor();
       if (_preset != null)
       {
+        EditorGUILayout.BeginHorizontal(EditorUtils.Styles.ProgressBarBack);
+        if (GUILayout.Button("UpdateContentFromPreset", EditorUtils.Styles.minibutton))
+        {
+          foreach (var component in list)
+          {
+            if (_preset.Cells.Any(c => c.Name == component.CellInfo.Name && c.Type == component.CellInfo.Type))
+            {
+              component.SetContent(_preset.Cells.First(c => c.Name == component.CellInfo.Name && c.Type == component.CellInfo.Type));
+            }
+            else if (_preset.Cells.Any(c => c.Type == component.CellInfo.Type))
+            {
+              component.SetContent(_preset.Cells.First(c => c.Type == component.CellInfo.Type));
+            }
+          }
+        }
+        EditorGUILayout.EndHorizontal();
+
         EditorUtils.Header("Type: " + ((list.Select(s => s.CellType).Distinct().Count() == 1) ? list[0].CellType.ToString() : " --"));
 
         EditorGUILayout.BeginVertical(EditorUtils.Styles.ProgressBarBack);

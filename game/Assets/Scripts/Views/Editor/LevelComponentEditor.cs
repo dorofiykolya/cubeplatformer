@@ -1,4 +1,5 @@
-﻿using Game.Views.Components;
+﻿using System.Collections.Generic;
+using Game.Views.Components;
 using UnityEditor;
 using UnityEditor.AnimatedValues;
 using UnityEngine;
@@ -9,23 +10,17 @@ namespace Game.Views.Editor
   [CustomEditor(typeof(LevelComponent))]
   public class LevelComponentEditor : Editor<LevelComponent>
   {
-    private static readonly AnimBool _inherited = new AnimBool(false);
-
-    private void OnEnable()
-    {
-      _inherited.valueChanged.AddListener(Repaint);
-    }
+    private static bool _inherited;
 
     public override void OnInspectorGUI()
     {
-      _inherited.target = EditorUtils.FoldoutHeader("inherited", _inherited.target);
-      if (EditorGUILayout.BeginFadeGroup(_inherited.faded))
+      _inherited = EditorUtils.FoldoutHeader("inherited", _inherited);
+      if (_inherited)
       {
         EditorGUILayout.BeginVertical(EditorUtils.Styles.ProgressBarBack);
         base.OnInspectorGUI();
         EditorGUILayout.EndVertical();
       }
-      EditorGUILayout.EndFadeGroup();
 
       EditorGUILayout.LabelField("Size:", Target.Size.ToString());
 
@@ -64,6 +59,7 @@ namespace Game.Views.Editor
 
       EditorGUILayout.EndHorizontal();
 
+      EditorGUILayout.BeginHorizontal(EditorUtils.Styles.ProgressBarBack);
       if (GUILayout.Button("UpdateCellsContent", EditorUtils.Styles.minibutton))
       {
         foreach (var cell in Target.GetComponentsInChildren<CellComponent>(true))
@@ -74,6 +70,26 @@ namespace Game.Views.Editor
           }
         }
       }
+      if (GUILayout.Button("ClearCellsContent", EditorUtils.Styles.minibutton))
+      {
+        foreach (var cell in Target.GetComponentsInChildren<CellComponent>(true))
+        {
+          var listToRemove = new List<GameObject>();
+          foreach (Transform child in cell.transform)
+          {
+            var childContent = child.GetComponent<CellContentComponent>();
+            if (!(childContent != null && cell.Content == childContent))
+            {
+              listToRemove.Add(child.gameObject);
+            }
+          }
+          foreach (var gameObject in listToRemove)
+          {
+            DestroyImmediate(gameObject);
+          }
+        }
+      }
+      EditorGUILayout.EndHorizontal();
 
       EditorGUILayout.EndVertical();
 

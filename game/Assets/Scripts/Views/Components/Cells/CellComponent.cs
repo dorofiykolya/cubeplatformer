@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Game.Views.Components
 {
@@ -7,17 +6,17 @@ namespace Game.Views.Components
   {
     public CellInfo CellInfo;
 
-    private Transform _transform;
-
     [HideInInspector]
     public Position Position;
     [HideInInspector]
     public CellType CellType;
 
     public CellContentComponent Content;
-    public LevelComponent Level;
 
-    public new Transform transform { get { return _transform ?? (_transform = base.transform); } }
+    public LevelComponent Level
+    {
+      get { return GetComponentInParent<LevelComponent>(); }
+    }
 
     public void UpdatePosition()
     {
