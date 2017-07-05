@@ -1,6 +1,3 @@
-// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
-// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
-
 Shader "Hidden/Shader Forge/SFN_HalfVector" {
     Properties {
         _OutputMask ("Output Mask", Vector) = (1,1,1,1)

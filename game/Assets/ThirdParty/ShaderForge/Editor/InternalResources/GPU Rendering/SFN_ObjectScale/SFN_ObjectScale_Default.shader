@@ -1,6 +1,3 @@
-// Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
-// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
-
 Shader "Hidden/Shader Forge/SFN_ObjectScale_Default" {
     Properties {
         _OutputMask ("Output Mask", Vector) = (1,1,1,1)
