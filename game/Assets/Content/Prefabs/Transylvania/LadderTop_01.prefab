@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4606526441679054}
   - component: {fileID: 33955533465934250}
   - component: {fileID: 23840940766468514}
+  - component: {fileID: 114085546346640030}
   m_Layer: 0
   m_Name: LadderTop_01
   m_TagString: Untagged
@@ -80,3 +81,38 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1011828252005248}
   m_Mesh: {fileID: 4300028, guid: 86c40b0c12758334098aa3225f0d5893, type: 3}
+--- !u!114 &114085546346640030
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1011828252005248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a02d0f612a241b293c0da4f82b712c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Properties:
+    Properties: []
+    Groups: []
+    Hidden: 
+  Links:
+    Links:
+    - LIIF: 2046375051
+      InstanceTarget: {fileID: 114085546346640030}
+    - LIIF: 595669829
+      InstanceTarget: {fileID: 1011828252005248}
+    - LIIF: -88914031
+      InstanceTarget: {fileID: 4606526441679054}
+    - LIIF: 548437809
+      InstanceTarget: {fileID: 33955533465934250}
+    - LIIF: 267327073
+      InstanceTarget: {fileID: 23840940766468514}
+  Modifications:
+    Modificated: []
+    NonPrefabObjects: []
+    NonPrefabComponents: []
+    RemovedObjects: 
+    TransformParentChanges: []
+  ParentPrefabGUID: 
+  PrefabGUID: 4a17676bbf1004ae3a716eb85659228f

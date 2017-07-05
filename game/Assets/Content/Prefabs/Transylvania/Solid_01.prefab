@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4025926031524702}
   - component: {fileID: 33392845547931040}
   - component: {fileID: 23812825001456794}
+  - component: {fileID: 114152734606331432}
   m_Layer: 0
   m_Name: Solid_01
   m_TagString: Untagged
@@ -80,3 +81,38 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1509068076355274}
   m_Mesh: {fileID: 4300002, guid: 86c40b0c12758334098aa3225f0d5893, type: 3}
+--- !u!114 &114152734606331432
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1509068076355274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a02d0f612a241b293c0da4f82b712c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Properties:
+    Properties: []
+    Groups: []
+    Hidden: 
+  Links:
+    Links:
+    - LIIF: 149839595
+      InstanceTarget: {fileID: 114152734606331432}
+    - LIIF: -463956065
+      InstanceTarget: {fileID: 1509068076355274}
+    - LIIF: 1938339834
+      InstanceTarget: {fileID: 4025926031524702}
+    - LIIF: 1131516350
+      InstanceTarget: {fileID: 33392845547931040}
+    - LIIF: 1050603450
+      InstanceTarget: {fileID: 23812825001456794}
+  Modifications:
+    Modificated: []
+    NonPrefabObjects: []
+    NonPrefabComponents: []
+    RemovedObjects: 
+    TransformParentChanges: []
+  ParentPrefabGUID: 
+  PrefabGUID: a7c111ea7b97246998758c6ce746a0a8

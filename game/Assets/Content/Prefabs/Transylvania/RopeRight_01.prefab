@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4424631922365546}
   - component: {fileID: 33126947758131566}
   - component: {fileID: 23294355858044712}
+  - component: {fileID: 114540034763362492}
   m_Layer: 0
   m_Name: RopeRight_01
   m_TagString: Untagged
@@ -80,3 +81,38 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1600317012429088}
   m_Mesh: {fileID: 4300032, guid: 86c40b0c12758334098aa3225f0d5893, type: 3}
+--- !u!114 &114540034763362492
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1600317012429088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a02d0f612a241b293c0da4f82b712c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Properties:
+    Properties: []
+    Groups: []
+    Hidden: 
+  Links:
+    Links:
+    - LIIF: -1245018825
+      InstanceTarget: {fileID: 114540034763362492}
+    - LIIF: 1080505475
+      InstanceTarget: {fileID: 1600317012429088}
+    - LIIF: 1962565812
+      InstanceTarget: {fileID: 4424631922365546}
+    - LIIF: 547805388
+      InstanceTarget: {fileID: 33126947758131566}
+    - LIIF: -1846509669
+      InstanceTarget: {fileID: 23294355858044712}
+  Modifications:
+    Modificated: []
+    NonPrefabObjects: []
+    NonPrefabComponents: []
+    RemovedObjects: 
+    TransformParentChanges: []
+  ParentPrefabGUID: 
+  PrefabGUID: c95e5b67b981b4ef98e5b4023391bcfc
