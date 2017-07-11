@@ -8,12 +8,12 @@ namespace Game.Managers
 {
   public class GameSceneManager : GameManager
   {
-    public void LoadScene(string name, LoadSceneMode mode, Action onComplete = null)
+    public void LoadScene(string name, LoadSceneMode mode, Action<Scene> onComplete = null)
     {
       Context.StartCoroutine(Lifetime, LoadSceneAsync(name, mode, onComplete));
     }
 
-    private IEnumerator LoadSceneAsync(string name, LoadSceneMode mode, Action onComplete)
+    private IEnumerator LoadSceneAsync(string name, LoadSceneMode mode, Action<Scene> onComplete)
     {
       var definition = Lifetime.Define(Lifetime);
       Context.Preloader.Open(definition.Lifetime);
@@ -23,7 +23,7 @@ namespace Game.Managers
       yield return new WaitForSeconds(1f);
       if (onComplete != null)
       {
-        onComplete();
+        onComplete(SceneManager.GetSceneByName(name));
       }
       definition.Terminate();
     }

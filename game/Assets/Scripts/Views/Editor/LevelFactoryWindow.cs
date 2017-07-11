@@ -21,7 +21,7 @@ namespace Game.Views.Editor
       EditorUtils.Header("Factory");
       EditorGUILayout.BeginVertical(EditorUtils.Styles.ProgressBarBack);
 
-      EditorUtils.Header("Size", -2f, false);
+      EditorUtils.Header("Size", -2f);
       EditorGUILayout.BeginHorizontal(EditorUtils.Styles.ProgressBarBack);
 
       EditorUtils.PushColor();

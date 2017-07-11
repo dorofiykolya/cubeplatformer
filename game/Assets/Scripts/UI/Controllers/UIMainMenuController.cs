@@ -12,15 +12,16 @@ namespace Game.UI.Controllers
   {
     [Inject]
     private GameSceneManager _gameSceneManager;
+    [Inject]
+    private GameLevelManager _levelManager;
 
     protected override void Initialize()
     {
       _gameSceneManager.LoadScene("UI", LoadSceneMode.Single, InitializeMenu);
     }
 
-    private void InitializeMenu()
+    private void InitializeMenu(Scene scene)
     {
-      var scene = SceneManager.GetSceneByName("UI");
       Assert2.IsTrue(scene.IsValid());
       UIMainManuComponent menuComponent = null;
       foreach (var gameObject in scene.GetRootGameObjects())
@@ -34,14 +35,8 @@ namespace Game.UI.Controllers
 
       if (menuComponent)
       {
-        menuComponent.OnClassicClick.Subscribe(Lifetime, () =>
-        {
-          _gameSceneManager.LoadScene("Level_01", LoadSceneMode.Single);
-        });
-        menuComponent.OnInfinityClick.Subscribe(Lifetime, () =>
-        {
-
-        });
+        menuComponent.OnClassicClick.Subscribe(Lifetime, _levelManager.ResumeClassic);
+        menuComponent.OnInfinityClick.Subscribe(Lifetime, _levelManager.ResumeInfinity);
       }
     }
   }
