@@ -13,6 +13,8 @@
     Guard = 0x08,
     Runner = 0x09,
     Reborn = 0x10,
-    Player = 0x20
+    Player = 0x20,
+    TeleportEnter = 0x40,
+    TeleportExit = 0x80
   }
 }

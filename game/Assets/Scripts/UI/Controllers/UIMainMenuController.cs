@@ -1,14 +1,12 @@
-﻿using System.Collections;
-using Game.Managers;
+﻿using Game.Managers;
 using Game.UI.Components;
 using Injection;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utils;
 
 namespace Game.UI.Controllers
 {
-  public class UIMainMenuController : UIController
+    public class UIMainMenuController : UIController
   {
     [Inject]
     private GameSceneManager _gameSceneManager;

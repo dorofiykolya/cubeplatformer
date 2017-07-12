@@ -10,6 +10,8 @@ namespace Game.Views.Components
     public Position Position;
     [HideInInspector]
     public CellType CellType;
+    public CellDirection CellDirection;
+    public string CellId;
 
     public CellContentComponent Content;
 
@@ -26,6 +28,8 @@ namespace Game.Views.Components
     public void SetContent(CellInfo cellInfo)
     {
       CellType = cellInfo.Type;
+      CellDirection = cellInfo.Direction;
+      CellId = cellInfo.Id;
       CellInfo = cellInfo;
       UpdateContent();
     }

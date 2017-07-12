@@ -1,11 +1,9 @@
-﻿using UnityEngine;
-using System.Collections;
-using Game.Views.Components;
+﻿using Game.Views.Components;
 using UnityEngine.SceneManagement;
 
 namespace Game.Managers
 {
-  public class GameClassicLevel
+  public class GameClassicLevelInfo
   {
     public Scene Scene;
     public EnvironmentComponent Envorinment;
