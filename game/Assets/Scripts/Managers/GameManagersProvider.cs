@@ -11,6 +11,7 @@ namespace Game.Providers
       yield return new GameSceneManager();
       yield return new GamePersistanceManager();
       yield return new GameLevelManager();
+      yield return new GameLevelLogicManager();
     }
   }
 }

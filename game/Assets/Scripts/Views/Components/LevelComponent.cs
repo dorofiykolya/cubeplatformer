@@ -16,6 +16,7 @@ namespace Game.Views.Components
     public Transform CellContainer { get { return _cellContainer ?? (_cellContainer = CreateCellContainer()); } }
     public LevelSize Size { get { return _size; } }
     public CellComponent[] Grid { get { return _grid; } }
+    public LevelLogicComponent Logic { get { return GetComponent<LevelLogicComponent>(); } }
 
     public CellComponent this[int x, int y, int z]
     {
