@@ -2,37 +2,77 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Game.Inputs
 {
   public class GameInputContenxt : InputContext
   {
     private readonly HashSet<string> _inputs;
-    private int _controllers;
+    private readonly Dictionary<string, InputController> _controllers;
 
     public GameInputContenxt(GameContext context) : base(context, context.Lifetime)
     {
       _inputs = new HashSet<string>();
+      _controllers = new Dictionary<string, InputController>();
 
       context.StartCoroutine(context.Lifetime, CheckForControllers());
       context.StartCoroutine(context.Lifetime, Process());
     }
 
-    public override int Controllers
+    public override InputController[] Controllers
     {
-      get { return _controllers; }
+      get { return _controllers.Values.ToArray(); }
     }
 
     private IEnumerator CheckForControllers()
     {
+      yield return null;
+
       while (true)
       {
+        var toRemove = ListPool<string>.Pop(_controllers.Keys);
+        var toAdd = ListPool<string>.Pop();
+
         var controllers = Input.GetJoystickNames();
-        if (controllers.Length != _controllers)
+
+        foreach (var controller in controllers)
         {
-          _controllers = controllers.Length;
-          FireControllersChanged();
+          if (_controllers.ContainsKey(controller))
+          {
+            toRemove.Remove(controller);
+          }
+          else
+          {
+            toAdd.Add(controller);
+          }
         }
+
+        foreach (var c in toRemove)
+        {
+          var controller = _controllers[c];
+          _controllers.Remove(c);
+          FireRemoveController(controller);
+        }
+
+        foreach (var c in toAdd)
+        {
+          var id = 0;
+          for (int i = 0; i < 4; i++, id++)
+          {
+            if (!_controllers.Any(pair => pair.Value.Id == id))
+            {
+              break;
+            }
+          }
+          var controller = new InputController(c, id);
+          _controllers.Add(c, controller);
+          FireAddController(controller);
+        }
+
+        ListPool.Push(toAdd);
+        ListPool.Push(toRemove);
+
         yield return new WaitForSeconds(1f);
       }
     }
@@ -55,7 +95,7 @@ namespace Game.Inputs
               Fire(new InputEvent
               {
                 Input = input.Input,
-                Status = InputStatus.End,
+                Phase = InputPhase.End,
                 Value = value
               });
 
@@ -66,7 +106,7 @@ namespace Game.Inputs
               Fire(new InputEvent
               {
                 Input = input.Input,
-                Status = InputStatus.Process,
+                Phase = InputPhase.Process,
                 Value = value
               });
             }
@@ -78,7 +118,7 @@ namespace Game.Inputs
             {
               Input = input.Input,
               Value = value,
-              Status = InputStatus.Begin
+              Phase = InputPhase.Begin
             });
           }
         }

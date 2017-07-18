@@ -11,6 +11,10 @@
     }
 
     public string Name { get; private set; }
+    public string GetById(int id)
+    {
+      return Name + id;
+    }
 
     /// 
 

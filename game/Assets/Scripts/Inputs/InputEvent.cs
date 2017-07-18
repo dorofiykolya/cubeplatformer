@@ -7,7 +7,7 @@ namespace Game.Inputs
   {
     public GameInput Input;
     public float Value;
-    public InputStatus Status;
+    public InputPhase Phase;
     public int ControllerId;
   }
 }

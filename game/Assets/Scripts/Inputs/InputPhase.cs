@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Game.Inputs
 {
-  public enum InputStatus
+  public enum InputPhase
   {
     None,
     Begin,
