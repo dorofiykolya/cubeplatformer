@@ -5,7 +5,14 @@ namespace Game.Logics.Classics
 {
   public class LogicHoleModule : ILogicModule
   {
-    public void PreTick(ILogicEngine logicEngine, int currentTick, int deltaTick)
+        private LogicModules logicModules;
+
+        public LogicHoleModule(LogicModules logicModules)
+        {
+            this.logicModules = logicModules;
+        }
+
+        public void PreTick(ILogicEngine logicEngine, int currentTick, int deltaTick)
     {
       throw new System.NotImplementedException();
     }

@@ -1,4 +1,7 @@
-﻿namespace Game.Logics.Classics
+﻿using System;
+using Game.Views.Components;
+
+namespace Game.Logics.Classics
 {
   public class LogicEngine : ILogicEngine
   {
@@ -48,6 +51,11 @@
           }
         }
       }
+    }
+
+    public void SetGrid(LevelSize size, CellComponent[] grid)
+    {
+      _modules.Get<LogicMapModule>().Initialize(size, grid);
     }
 
     public int Tick { get; private set; }
