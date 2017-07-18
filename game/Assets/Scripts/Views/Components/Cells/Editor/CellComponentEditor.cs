@@ -47,10 +47,21 @@ namespace Game.Views.Editor
       var cell = list[0];
       if (list.Length == 1)
       {
+        var lastType = cell.CellType;
         EditorGUILayout.LabelField("Position:", cell.Position.ToString());
         cell.CellType = (CellType)EditorGUILayout.EnumPopup("Type:", cell.CellType);
         EditorGUILayout.LabelField("Name:", cell.CellInfo.Name ?? "");
         EditorGUILayout.LabelField("Prefab:", cell.CellInfo.Prefab ? cell.CellInfo.Prefab.ToString() : "null");
+
+        if (lastType == CellType.Guard && cell.CellType != CellType.Guard)
+        {
+          var guard = cell.GetComponent<CellGuardComponent>();
+          if (guard != null) GameObject.DestroyImmediate(guard);
+        }
+        else if (lastType != CellType.Guard && cell.CellType == CellType.Guard)
+        {
+          cell.gameObject.AddComponent<CellGuardComponent>();
+        }
       }
       EditorGUILayout.BeginHorizontal(EditorUtils.Styles.ProgressBarBack);
       if (GUILayout.Button("SelectLevel", EditorUtils.Styles.minibuttonleft))
@@ -70,7 +81,6 @@ namespace Game.Views.Editor
         }
       }
       EditorGUILayout.EndHorizontal();
-
 
       EditorUtils.PushColor();
       var editorPrefsKey = GetType().FullName + ".Preset";

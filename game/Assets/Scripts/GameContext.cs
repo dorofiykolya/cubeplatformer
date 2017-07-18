@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Game.Inputs;
 using Game.Managers;
 using Game.Providers;
 using Game.UI;
@@ -23,6 +24,7 @@ namespace Game
     private readonly Transform _rootTransform;
     private readonly ViewContext _viewContext;
     private readonly UIContext _uiContext;
+    private readonly InputContext _inputContext;
 
     public GameContext(Lifetime lifetime, GameStartBehaviour behaviour)
     {
@@ -37,6 +39,7 @@ namespace Game
       _stateManager = new GameStateManager(lifetime);
       _dispatcher = behaviour.gameObject.GetComponent<UnityDispatcher>() ?? behaviour.gameObject.AddComponent<UnityDispatcher>();
       _preloader = new Preloader(_lifetime);
+      _inputContext = new GameInputContenxt(this);
       _managers = new GameManagers(lifetime, this, injector, new GameManagersProvider());
 
       _viewContext = new ViewContext(this, injector);
@@ -45,6 +48,7 @@ namespace Game
       _lifetime.AddAction(() => injector.Dispose());
     }
 
+    public InputContext InputContext { get { return _inputContext; } }
     public UIContext UIContext { get { return _uiContext; } }
     public ViewContext ViewContext { get { return _viewContext; } }
     public Transform RootTransform { get { return _rootTransform; } }

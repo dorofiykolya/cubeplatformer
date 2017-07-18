@@ -46,6 +46,8 @@ namespace Game.Views.Components
         Content.transform.SetParent(transform, false);
       }
 
+      CellGuardComponentStrategy.Process(this, CellType);
+      CellCoinComponentStrategy.Process(this, CellType);
     }
   }
 }

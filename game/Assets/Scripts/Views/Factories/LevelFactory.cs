@@ -12,6 +12,7 @@ namespace Game.Views
 
       gameObject.AddComponent<LevelCoordinateConverterProviderComponent>();
       gameObject.AddComponent<LevelGizmoComponent>();
+      gameObject.AddComponent<LevelLogicComponent>();
 
       level.SetContent(size, LevelCellFactory.Create(size, level));
 
