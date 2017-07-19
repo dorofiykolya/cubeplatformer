@@ -34,7 +34,7 @@ namespace Game.Inputs
         var toRemove = ListPool<string>.Pop(_controllers.Keys);
         var toAdd = ListPool<string>.Pop();
 
-        var controllers = Input.GetJoystickNames();
+        var controllers = Input.GetJoystickNames().Where(c => !string.IsNullOrEmpty(c));
 
         foreach (var controller in controllers)
         {

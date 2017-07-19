@@ -1,17 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Game.Views.Components;
-using System;
 
 namespace Game.Logics.Classics
 {
-  public class LogicRunnerModule : ILogicModule
+  public class LogicCoinModule : ILogicModule
   {
-    private LogicModules logicModules;
+    private readonly LogicModules _logicModules;
+    public int goldCount;
+    public bool goldComplete;
 
-    public LogicRunnerModule(LogicModules logicModules)
+    public LogicCoinModule(LogicModules logicModules)
     {
-      this.logicModules = logicModules;
+      _logicModules = logicModules;
     }
 
     public void PreTick(ILogicEngine logicEngine, int currentTick, int deltaTick)
@@ -29,7 +29,17 @@ namespace Game.Logics.Classics
       
     }
 
-    public void AddRunner(CellComponent cell)
+    public void AddGold(int x, int y)
+    {
+      
+    }
+
+    public void RemoveGold(int x, int y)
+    {
+      
+    }
+
+    public void DecGold()
     {
       
     }

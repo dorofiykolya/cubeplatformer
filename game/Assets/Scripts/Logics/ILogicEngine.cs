@@ -7,5 +7,6 @@
     int Tick { get; }
     bool IsFinished { get; }
     int MaxTicks { get; }
+    int TicksPerSeconds { get; }
   }
 }

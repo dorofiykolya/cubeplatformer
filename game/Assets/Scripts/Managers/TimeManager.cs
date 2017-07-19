@@ -17,6 +17,8 @@ namespace Game
       _behaviour.OnUpdate.Subscribe(lifetime, UpdateHandler);
     }
 
+    public float DeltaTime { get { return Time.deltaTime; } }
+
     public void DelayCall(Lifetime lifetime, float delaySeconds, Action listener)
     {
       if (delaySeconds <= 0) throw new ArgumentException("delaySeconds must be > 0");

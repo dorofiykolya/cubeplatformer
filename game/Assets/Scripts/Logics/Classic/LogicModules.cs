@@ -12,11 +12,13 @@ namespace Game.Logics.Classics
     public LogicModules()
     {
       _modules.Add(new LogicUserInputModule(this));
-      _modules.Add(new LogicRunnerModule(this));
+      _modules.Add(new LogicCoinModule(this));
+      _modules.Add(new LogicPlayerModule(this));
       _modules.Add(new LogicGuardModule(this));
       _modules.Add(new LogicHoleModule(this));
-      _modules.Add(new LogicMapModule(this));
+      _modules.Add(new LogicGridModule(this));
       _modules.Add(new LogicViewModule(this));
+      _modules.Add(new LogicSoundModule(this));
     }
 
     public T Get<T>() where T : class, ILogicModule

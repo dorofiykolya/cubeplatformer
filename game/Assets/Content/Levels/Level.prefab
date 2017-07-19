@@ -212,6 +212,7 @@ GameObject:
   - component: {fileID: 4225742244122200}
   - component: {fileID: 114678201912298672}
   - component: {fileID: 114682034273500072}
+  - component: {fileID: 114483964018424066}
   m_Layer: 0
   m_Name: x:4, y:5, z:0
   m_TagString: Untagged
@@ -2296,6 +2297,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1542404431222208
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4512096862549988}
+  - component: {fileID: 33082391196664060}
+  - component: {fileID: 23287521662034882}
+  - component: {fileID: 114890154531304522}
+  - component: {fileID: 114276631609813772}
+  m_Layer: 0
+  m_Name: Guard_01(Clone)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1554756766934996
 GameObject:
   m_ObjectHideFlags: 1
@@ -3092,6 +3112,7 @@ GameObject:
   - component: {fileID: 114606762656418376}
   - component: {fileID: 114275189368244330}
   - component: {fileID: 114754043454284176}
+  - component: {fileID: 114594876618289236}
   m_Layer: 0
   m_Name: Level
   m_TagString: Untagged
@@ -5199,7 +5220,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 4, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4512096862549988}
   m_Father: {fileID: 4112815997001668}
   m_RootOrder: 45
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6039,6 +6061,19 @@ Transform:
   m_Father: {fileID: 4112815997001668}
   m_RootOrder: 171
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4512096862549988
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1542404431222208}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0.51, y: 0, z: 0.309}
+  m_LocalScale: {x: 0.50643075, y: 0.544169, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4225742244122200}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4513275243642136
 Transform:
   m_ObjectHideFlags: 1
@@ -8463,6 +8498,38 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!23 &23287521662034882
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1542404431222208}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 3ea000ce86af6114ea9cae1bc146167e, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!23 &23300054355348400
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -9593,6 +9660,13 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1193008946780620}
   m_Mesh: {fileID: 4300028, guid: 86c40b0c12758334098aa3225f0d5893, type: 3}
+--- !u!33 &33082391196664060
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1542404431222208}
+  m_Mesh: {fileID: 4300000, guid: 7e15121f5f042ed46aba81406403f2d2, type: 3}
 --- !u!33 &33087726210982638
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -10069,6 +10143,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -10076,6 +10152,8 @@ MonoBehaviour:
     Y: 8
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114011856985730446
 MonoBehaviour:
@@ -10112,6 +10190,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -10119,6 +10199,8 @@ MonoBehaviour:
     Y: 9
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114014625580348342
 MonoBehaviour:
@@ -10133,6 +10215,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -10140,6 +10224,8 @@ MonoBehaviour:
     Y: 9
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114014676902499496
 MonoBehaviour:
@@ -10247,6 +10333,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 2
+    Direction: 0
+    Id: 
     Name: Solid_01
     Prefab: {fileID: 114627959152168770, guid: a7c111ea7b97246998758c6ce746a0a8, type: 2}
   Position:
@@ -10254,6 +10342,8 @@ MonoBehaviour:
     Y: 0
     Z: 0
   CellType: 2
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114606222086610480}
 --- !u!114 &114020864481717700
 MonoBehaviour:
@@ -10268,6 +10358,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -10275,6 +10367,8 @@ MonoBehaviour:
     Y: 5
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114021114502388482
 MonoBehaviour:
@@ -10311,6 +10405,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 3
+    Direction: 0
+    Id: 
     Name: LadderBottom_01
     Prefab: {fileID: 114803204790264658, guid: dbbdabbf365674ba595ad13e24dd7971, type: 2}
   Position:
@@ -10318,6 +10414,8 @@ MonoBehaviour:
     Y: 2
     Z: 0
   CellType: 3
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114560816331565470}
 --- !u!114 &114024912954242798
 MonoBehaviour:
@@ -10343,6 +10441,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -10350,6 +10450,8 @@ MonoBehaviour:
     Y: 7
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114029146356715626
 MonoBehaviour:
@@ -10386,6 +10488,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 1
+    Direction: 0
+    Id: 
     Name: Block_01
     Prefab: {fileID: 114402794679373106, guid: 6a1e065f0d1be482f928a93a98c8e751, type: 2}
   Position:
@@ -10393,6 +10497,8 @@ MonoBehaviour:
     Y: 2
     Z: 0
   CellType: 1
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114877441823869452}
 --- !u!114 &114035792186971996
 MonoBehaviour:
@@ -10407,6 +10513,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -10414,6 +10522,8 @@ MonoBehaviour:
     Y: 5
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114036215181352160
 MonoBehaviour:
@@ -10439,6 +10549,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -10446,6 +10558,8 @@ MonoBehaviour:
     Y: 9
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114057222981215498
 MonoBehaviour:
@@ -10501,6 +10615,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -10508,6 +10624,8 @@ MonoBehaviour:
     Y: 2
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114059311515627970
 MonoBehaviour:
@@ -10522,6 +10640,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 3
+    Direction: 0
+    Id: 
     Name: LadderBottom_01
     Prefab: {fileID: 114803204790264658, guid: dbbdabbf365674ba595ad13e24dd7971, type: 2}
   Position:
@@ -10529,6 +10649,8 @@ MonoBehaviour:
     Y: 3
     Z: 0
   CellType: 3
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114599985612773180}
 --- !u!114 &114062175696059786
 MonoBehaviour:
@@ -10543,6 +10665,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 2
+    Direction: 0
+    Id: 
     Name: Solid_01
     Prefab: {fileID: 114627959152168770, guid: a7c111ea7b97246998758c6ce746a0a8, type: 2}
   Position:
@@ -10550,6 +10674,8 @@ MonoBehaviour:
     Y: 0
     Z: 0
   CellType: 2
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114566622154185216}
 --- !u!114 &114062377779290122
 MonoBehaviour:
@@ -10564,6 +10690,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -10571,6 +10699,8 @@ MonoBehaviour:
     Y: 2
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114062795398999772
 MonoBehaviour:
@@ -10640,6 +10770,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -10647,6 +10779,8 @@ MonoBehaviour:
     Y: 5
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114073298507947534
 MonoBehaviour:
@@ -10683,6 +10817,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -10690,6 +10826,8 @@ MonoBehaviour:
     Y: 1
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114078801521655344
 MonoBehaviour:
@@ -10704,6 +10842,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -10711,6 +10851,8 @@ MonoBehaviour:
     Y: 3
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114080500683271190
 MonoBehaviour:
@@ -10810,6 +10952,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 1
+    Direction: 0
+    Id: 
     Name: Block_01
     Prefab: {fileID: 114402794679373106, guid: 6a1e065f0d1be482f928a93a98c8e751, type: 2}
   Position:
@@ -10817,6 +10961,8 @@ MonoBehaviour:
     Y: 6
     Z: 0
   CellType: 1
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114219598189873626}
 --- !u!114 &114107065367464698
 MonoBehaviour:
@@ -10916,6 +11062,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -10923,6 +11071,8 @@ MonoBehaviour:
     Y: 7
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114121366823668178
 MonoBehaviour:
@@ -10948,6 +11098,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -10955,6 +11107,8 @@ MonoBehaviour:
     Y: 2
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114126973248225864
 MonoBehaviour:
@@ -10969,6 +11123,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -10976,6 +11132,8 @@ MonoBehaviour:
     Y: 4
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114131410341085702
 MonoBehaviour:
@@ -10990,6 +11148,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 1
+    Direction: 0
+    Id: 
     Name: Block_01
     Prefab: {fileID: 114402794679373106, guid: 6a1e065f0d1be482f928a93a98c8e751, type: 2}
   Position:
@@ -10997,6 +11157,8 @@ MonoBehaviour:
     Y: 2
     Z: 0
   CellType: 1
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114029146356715626}
 --- !u!114 &114135288591339582
 MonoBehaviour:
@@ -11022,6 +11184,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 1
+    Direction: 0
+    Id: 
     Name: Block_01
     Prefab: {fileID: 114402794679373106, guid: 6a1e065f0d1be482f928a93a98c8e751, type: 2}
   Position:
@@ -11029,6 +11193,8 @@ MonoBehaviour:
     Y: 6
     Z: 0
   CellType: 1
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114959938733362870}
 --- !u!114 &114137435476648616
 MonoBehaviour:
@@ -11043,6 +11209,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 2
+    Direction: 0
+    Id: 
     Name: Solid_01
     Prefab: {fileID: 114627959152168770, guid: a7c111ea7b97246998758c6ce746a0a8, type: 2}
   Position:
@@ -11050,6 +11218,8 @@ MonoBehaviour:
     Y: 0
     Z: 0
   CellType: 2
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114637937896606774}
 --- !u!114 &114139849094452314
 MonoBehaviour:
@@ -11097,6 +11267,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -11104,6 +11276,8 @@ MonoBehaviour:
     Y: 9
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114147252082685578
 MonoBehaviour:
@@ -11170,6 +11344,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -11177,6 +11353,8 @@ MonoBehaviour:
     Y: 1
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114155949782370800
 MonoBehaviour:
@@ -11254,6 +11432,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 2
+    Direction: 0
+    Id: 
     Name: Solid_01
     Prefab: {fileID: 114627959152168770, guid: a7c111ea7b97246998758c6ce746a0a8, type: 2}
   Position:
@@ -11261,6 +11441,8 @@ MonoBehaviour:
     Y: 0
     Z: 0
   CellType: 2
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114029521501545992}
 --- !u!114 &114164999645715858
 MonoBehaviour:
@@ -11308,6 +11490,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -11315,6 +11499,8 @@ MonoBehaviour:
     Y: 1
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114171405243480788
 MonoBehaviour:
@@ -11340,6 +11526,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -11347,6 +11535,8 @@ MonoBehaviour:
     Y: 1
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114173752357989256
 MonoBehaviour:
@@ -11443,6 +11633,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -11450,6 +11642,8 @@ MonoBehaviour:
     Y: 6
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114177419238697068
 MonoBehaviour:
@@ -11464,6 +11658,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 2
+    Direction: 0
+    Id: 
     Name: Solid_01
     Prefab: {fileID: 114627959152168770, guid: a7c111ea7b97246998758c6ce746a0a8, type: 2}
   Position:
@@ -11471,6 +11667,8 @@ MonoBehaviour:
     Y: 0
     Z: 0
   CellType: 2
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114335765816858696}
 --- !u!114 &114179703180838008
 MonoBehaviour:
@@ -11507,6 +11705,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -11514,6 +11714,8 @@ MonoBehaviour:
     Y: 7
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114186926830755124
 MonoBehaviour:
@@ -11561,6 +11763,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -11568,6 +11772,8 @@ MonoBehaviour:
     Y: 9
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114191518858298110
 MonoBehaviour:
@@ -11582,6 +11788,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -11589,6 +11797,8 @@ MonoBehaviour:
     Y: 9
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114194613392440020
 MonoBehaviour:
@@ -11614,6 +11824,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -11621,6 +11833,8 @@ MonoBehaviour:
     Y: 9
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114198390666680192
 MonoBehaviour:
@@ -11646,6 +11860,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -11653,6 +11869,8 @@ MonoBehaviour:
     Y: 6
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114201409507603462
 MonoBehaviour:
@@ -11667,6 +11885,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 2
+    Direction: 0
+    Id: 
     Name: Solid_01
     Prefab: {fileID: 114627959152168770, guid: a7c111ea7b97246998758c6ce746a0a8, type: 2}
   Position:
@@ -11674,6 +11894,8 @@ MonoBehaviour:
     Y: 0
     Z: 0
   CellType: 2
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114036215181352160}
 --- !u!114 &114202323021655536
 MonoBehaviour:
@@ -11688,6 +11910,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -11695,6 +11919,8 @@ MonoBehaviour:
     Y: 1
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114204306480496108
 MonoBehaviour:
@@ -11720,6 +11946,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -11727,6 +11955,8 @@ MonoBehaviour:
     Y: 9
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114211338737345488
 MonoBehaviour:
@@ -11741,6 +11971,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -11748,6 +11980,8 @@ MonoBehaviour:
     Y: 1
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114216590016906356
 MonoBehaviour:
@@ -11888,6 +12122,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 3
+    Direction: 0
+    Id: 
     Name: LadderMiddle_01
     Prefab: {fileID: 114964312258991914, guid: fd24f958500b54c45bab9db68a4b2fa9, type: 2}
   Position:
@@ -11895,6 +12131,8 @@ MonoBehaviour:
     Y: 6
     Z: 0
   CellType: 3
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114573325335952868}
 --- !u!114 &114233286268169916
 MonoBehaviour:
@@ -11920,6 +12158,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -11927,6 +12167,8 @@ MonoBehaviour:
     Y: 5
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114234183775007116
 MonoBehaviour:
@@ -11941,6 +12183,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 3
+    Direction: 0
+    Id: 
     Name: LadderMiddle_01
     Prefab: {fileID: 114964312258991914, guid: fd24f958500b54c45bab9db68a4b2fa9, type: 2}
   Position:
@@ -11948,6 +12192,8 @@ MonoBehaviour:
     Y: 2
     Z: 0
   CellType: 3
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114588889138992278}
 --- !u!114 &114234682676163396
 MonoBehaviour:
@@ -11962,6 +12208,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -11969,6 +12217,8 @@ MonoBehaviour:
     Y: 3
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114239941756948182
 MonoBehaviour:
@@ -11994,6 +12244,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -12001,6 +12253,8 @@ MonoBehaviour:
     Y: 6
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114244591496059624
 MonoBehaviour:
@@ -12015,6 +12269,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 1
+    Direction: 0
+    Id: 
     Name: Block_01
     Prefab: {fileID: 114402794679373106, guid: 6a1e065f0d1be482f928a93a98c8e751, type: 2}
   Position:
@@ -12022,6 +12278,8 @@ MonoBehaviour:
     Y: 6
     Z: 0
   CellType: 1
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114286641866052850}
 --- !u!114 &114245043649200640
 MonoBehaviour:
@@ -12069,6 +12327,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -12076,6 +12336,8 @@ MonoBehaviour:
     Y: 4
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114250600633324220
 MonoBehaviour:
@@ -12112,6 +12374,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -12119,6 +12383,8 @@ MonoBehaviour:
     Y: 6
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114256758296952478
 MonoBehaviour:
@@ -12248,6 +12514,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -12255,6 +12523,8 @@ MonoBehaviour:
     Y: 8
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114266995373760828
 MonoBehaviour:
@@ -12280,6 +12550,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -12287,6 +12559,8 @@ MonoBehaviour:
     Y: 5
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114275189368244330
 MonoBehaviour:
@@ -12300,6 +12574,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _coordinateConverter: {fileID: 0}
+--- !u!114 &114276631609813772
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1542404431222208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1de098239b35cf54ba48bec3686293f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114277730905885476
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12324,6 +12609,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 1
+    Direction: 0
+    Id: 
     Name: Block_01
     Prefab: {fileID: 114402794679373106, guid: 6a1e065f0d1be482f928a93a98c8e751, type: 2}
   Position:
@@ -12331,6 +12618,8 @@ MonoBehaviour:
     Y: 6
     Z: 0
   CellType: 1
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114811397832110730}
 --- !u!114 &114283991732086430
 MonoBehaviour:
@@ -12356,6 +12645,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -12363,6 +12654,8 @@ MonoBehaviour:
     Y: 8
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114286641866052850
 MonoBehaviour:
@@ -12421,6 +12714,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -12428,6 +12723,8 @@ MonoBehaviour:
     Y: 9
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114296833247149204
 MonoBehaviour:
@@ -12483,6 +12780,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -12490,6 +12789,8 @@ MonoBehaviour:
     Y: 8
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114303508143306962
 MonoBehaviour:
@@ -12578,6 +12879,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 2
+    Direction: 0
+    Id: 
     Name: Solid_01
     Prefab: {fileID: 114627959152168770, guid: a7c111ea7b97246998758c6ce746a0a8, type: 2}
   Position:
@@ -12585,6 +12888,8 @@ MonoBehaviour:
     Y: 0
     Z: 0
   CellType: 2
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114497722149835696}
 --- !u!114 &114325017361662982
 MonoBehaviour:
@@ -12599,6 +12904,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 4
+    Direction: 0
+    Id: 
     Name: RopeLeft_01
     Prefab: {fileID: 114749305436245278, guid: 43b8d93772c964ac4a43a966418ce210, type: 2}
   Position:
@@ -12606,6 +12913,8 @@ MonoBehaviour:
     Y: 4
     Z: 0
   CellType: 4
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114139849094452314}
 --- !u!114 &114326431141227638
 MonoBehaviour:
@@ -12642,6 +12951,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -12649,6 +12960,8 @@ MonoBehaviour:
     Y: 6
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114330772209326696
 MonoBehaviour:
@@ -12737,6 +13050,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -12744,6 +13059,8 @@ MonoBehaviour:
     Y: 9
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114338513883663678
 MonoBehaviour:
@@ -12799,6 +13116,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 1
+    Direction: 0
+    Id: 
     Name: Block_01
     Prefab: {fileID: 114402794679373106, guid: 6a1e065f0d1be482f928a93a98c8e751, type: 2}
   Position:
@@ -12806,6 +13125,8 @@ MonoBehaviour:
     Y: 6
     Z: 0
   CellType: 1
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114458328534733850}
 --- !u!114 &114343449519625300
 MonoBehaviour:
@@ -12820,6 +13141,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -12827,6 +13150,8 @@ MonoBehaviour:
     Y: 9
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114343799046951260
 MonoBehaviour:
@@ -12841,6 +13166,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -12848,6 +13175,8 @@ MonoBehaviour:
     Y: 3
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114343936345739548
 MonoBehaviour:
@@ -12936,6 +13265,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 3
+    Direction: 0
+    Id: 
     Name: LadderMiddle_01
     Prefab: {fileID: 114964312258991914, guid: fd24f958500b54c45bab9db68a4b2fa9, type: 2}
   Position:
@@ -12943,6 +13274,8 @@ MonoBehaviour:
     Y: 5
     Z: 0
   CellType: 3
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114525253274931992}
 --- !u!114 &114360325497053748
 MonoBehaviour:
@@ -12968,6 +13301,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 3
+    Direction: 0
+    Id: 
     Name: LadderMiddle_01
     Prefab: {fileID: 114964312258991914, guid: fd24f958500b54c45bab9db68a4b2fa9, type: 2}
   Position:
@@ -12975,6 +13310,8 @@ MonoBehaviour:
     Y: 3
     Z: 0
   CellType: 3
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114969301302566658}
 --- !u!114 &114368147198128030
 MonoBehaviour:
@@ -13112,6 +13449,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -13119,6 +13458,8 @@ MonoBehaviour:
     Y: 4
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114371414342754078
 MonoBehaviour:
@@ -13207,6 +13548,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 1
+    Direction: 0
+    Id: 
     Name: Block_01
     Prefab: {fileID: 114402794679373106, guid: 6a1e065f0d1be482f928a93a98c8e751, type: 2}
   Position:
@@ -13214,6 +13557,8 @@ MonoBehaviour:
     Y: 6
     Z: 0
   CellType: 1
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114239941756948182}
 --- !u!114 &114382773676766304
 MonoBehaviour:
@@ -13239,6 +13584,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -13246,6 +13593,8 @@ MonoBehaviour:
     Y: 6
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114383992155813326
 MonoBehaviour:
@@ -13356,6 +13705,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -13363,6 +13714,8 @@ MonoBehaviour:
     Y: 9
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114392802401560012
 MonoBehaviour:
@@ -13377,6 +13730,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -13384,6 +13739,8 @@ MonoBehaviour:
     Y: 5
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114394874587190598
 MonoBehaviour:
@@ -13398,6 +13755,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 1
+    Direction: 0
+    Id: 
     Name: Block_01
     Prefab: {fileID: 114402794679373106, guid: 6a1e065f0d1be482f928a93a98c8e751, type: 2}
   Position:
@@ -13405,6 +13764,8 @@ MonoBehaviour:
     Y: 3
     Z: 0
   CellType: 1
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114788734194312918}
 --- !u!114 &114401611066081564
 MonoBehaviour:
@@ -13430,6 +13791,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -13437,6 +13800,8 @@ MonoBehaviour:
     Y: 8
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114402803514841326
 MonoBehaviour:
@@ -13462,6 +13827,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -13469,6 +13836,8 @@ MonoBehaviour:
     Y: 8
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114403886034162404
 MonoBehaviour:
@@ -13535,6 +13904,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -13542,6 +13913,8 @@ MonoBehaviour:
     Y: 4
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114409078073819920
 MonoBehaviour:
@@ -13619,6 +13992,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -13626,6 +14001,8 @@ MonoBehaviour:
     Y: 1
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114411859497049598
 MonoBehaviour:
@@ -13744,6 +14121,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -13751,6 +14130,8 @@ MonoBehaviour:
     Y: 2
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114422771238354744
 MonoBehaviour:
@@ -13765,6 +14146,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -13772,6 +14155,8 @@ MonoBehaviour:
     Y: 5
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114423634374825736
 MonoBehaviour:
@@ -13786,6 +14171,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 2
+    Direction: 0
+    Id: 
     Name: Solid_01
     Prefab: {fileID: 114627959152168770, guid: a7c111ea7b97246998758c6ce746a0a8, type: 2}
   Position:
@@ -13793,6 +14180,8 @@ MonoBehaviour:
     Y: 0
     Z: 0
   CellType: 2
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114835829951488348}
 --- !u!114 &114424445352212182
 MonoBehaviour:
@@ -13807,6 +14196,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 2
+    Direction: 0
+    Id: 
     Name: Solid_01
     Prefab: {fileID: 114627959152168770, guid: a7c111ea7b97246998758c6ce746a0a8, type: 2}
   Position:
@@ -13814,6 +14205,8 @@ MonoBehaviour:
     Y: 0
     Z: 0
   CellType: 2
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114186933140858038}
 --- !u!114 &114425704598240092
 MonoBehaviour:
@@ -13850,6 +14243,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -13857,6 +14252,8 @@ MonoBehaviour:
     Y: 8
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114429893898747880
 MonoBehaviour:
@@ -13893,6 +14290,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -13900,6 +14299,8 @@ MonoBehaviour:
     Y: 3
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114443615149891868
 MonoBehaviour:
@@ -14010,6 +14411,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 3
+    Direction: 0
+    Id: 
     Name: LadderTop_01
     Prefab: {fileID: 114574993185443046, guid: 4a17676bbf1004ae3a716eb85659228f, type: 2}
   Position:
@@ -14017,6 +14420,8 @@ MonoBehaviour:
     Y: 3
     Z: 0
   CellType: 3
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114139954890420692}
 --- !u!114 &114463694554269604
 MonoBehaviour:
@@ -14031,6 +14436,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -14038,6 +14445,8 @@ MonoBehaviour:
     Y: 2
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114463745537805418
 MonoBehaviour:
@@ -14134,6 +14543,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -14141,6 +14552,8 @@ MonoBehaviour:
     Y: 9
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114466110545739246
 MonoBehaviour:
@@ -14155,6 +14568,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 3
+    Direction: 0
+    Id: 
     Name: LadderMiddle_01
     Prefab: {fileID: 114964312258991914, guid: fd24f958500b54c45bab9db68a4b2fa9, type: 2}
   Position:
@@ -14162,6 +14577,8 @@ MonoBehaviour:
     Y: 4
     Z: 0
   CellType: 3
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114870030209738998}
 --- !u!114 &114467153523724004
 MonoBehaviour:
@@ -14187,13 +14604,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
     X: 13
     Y: 8
     Z: 0
-  CellType: 0
+  CellType: 32
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114471469943531466
 MonoBehaviour:
@@ -14249,6 +14670,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -14256,6 +14679,8 @@ MonoBehaviour:
     Y: 7
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114475156657197556
 MonoBehaviour:
@@ -14270,6 +14695,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 2
+    Direction: 0
+    Id: 
     Name: Solid_01
     Prefab: {fileID: 114627959152168770, guid: a7c111ea7b97246998758c6ce746a0a8, type: 2}
   Position:
@@ -14277,6 +14704,8 @@ MonoBehaviour:
     Y: 0
     Z: 0
   CellType: 2
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114508279709347724}
 --- !u!114 &114475256469531338
 MonoBehaviour:
@@ -14302,6 +14731,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -14309,6 +14740,8 @@ MonoBehaviour:
     Y: 9
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114478699319768048
 MonoBehaviour:
@@ -14323,6 +14756,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 1
+    Direction: 0
+    Id: 
     Name: Block_01
     Prefab: {fileID: 114402794679373106, guid: 6a1e065f0d1be482f928a93a98c8e751, type: 2}
   Position:
@@ -14330,6 +14765,8 @@ MonoBehaviour:
     Y: 3
     Z: 0
   CellType: 1
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114383992155813326}
 --- !u!114 &114480870349955512
 MonoBehaviour:
@@ -14344,6 +14781,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -14351,7 +14790,21 @@ MonoBehaviour:
     Y: 4
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
+--- !u!114 &114483964018424066
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1062239682246074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f1bee00f805bde4e8fc613f796c32d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DelaySpawnSeconds: 1
 --- !u!114 &114485388154808964
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -14365,6 +14818,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 1
+    Direction: 0
+    Id: 
     Name: Block_01
     Prefab: {fileID: 114402794679373106, guid: 6a1e065f0d1be482f928a93a98c8e751, type: 2}
   Position:
@@ -14372,6 +14827,8 @@ MonoBehaviour:
     Y: 3
     Z: 0
   CellType: 1
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114164999645715858}
 --- !u!114 &114492592064690180
 MonoBehaviour:
@@ -14397,6 +14854,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 2
+    Direction: 0
+    Id: 
     Name: Solid_01
     Prefab: {fileID: 114627959152168770, guid: a7c111ea7b97246998758c6ce746a0a8, type: 2}
   Position:
@@ -14404,6 +14863,8 @@ MonoBehaviour:
     Y: 0
     Z: 0
   CellType: 2
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114881659633655580}
 --- !u!114 &114495975483236220
 MonoBehaviour:
@@ -14544,6 +15005,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 2
+    Direction: 0
+    Id: 
     Name: Solid_01
     Prefab: {fileID: 114627959152168770, guid: a7c111ea7b97246998758c6ce746a0a8, type: 2}
   Position:
@@ -14551,6 +15014,8 @@ MonoBehaviour:
     Y: 0
     Z: 0
   CellType: 2
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114371414342754078}
 --- !u!114 &114506222697796402
 MonoBehaviour:
@@ -14565,6 +15030,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 2
+    Direction: 0
+    Id: 
     Name: Solid_01
     Prefab: {fileID: 114627959152168770, guid: a7c111ea7b97246998758c6ce746a0a8, type: 2}
   Position:
@@ -14572,6 +15039,8 @@ MonoBehaviour:
     Y: 0
     Z: 0
   CellType: 2
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114751341083256094}
 --- !u!114 &114508279709347724
 MonoBehaviour:
@@ -14597,6 +15066,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 2
+    Direction: 0
+    Id: 
     Name: Solid_01
     Prefab: {fileID: 114627959152168770, guid: a7c111ea7b97246998758c6ce746a0a8, type: 2}
   Position:
@@ -14604,6 +15075,8 @@ MonoBehaviour:
     Y: 0
     Z: 0
   CellType: 2
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114914058450311450}
 --- !u!114 &114511382035023474
 MonoBehaviour:
@@ -14618,6 +15091,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -14625,6 +15100,8 @@ MonoBehaviour:
     Y: 1
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114513392180207140
 MonoBehaviour:
@@ -14639,6 +15116,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 3
+    Direction: 0
+    Id: 
     Name: LadderMiddle_01
     Prefab: {fileID: 114964312258991914, guid: fd24f958500b54c45bab9db68a4b2fa9, type: 2}
   Position:
@@ -14646,6 +15125,8 @@ MonoBehaviour:
     Y: 4
     Z: 0
   CellType: 3
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114663472532820608}
 --- !u!114 &114513538333831872
 MonoBehaviour:
@@ -14671,6 +15152,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -14678,6 +15161,8 @@ MonoBehaviour:
     Y: 3
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114516370011777972
 MonoBehaviour:
@@ -14692,6 +15177,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -14699,6 +15186,8 @@ MonoBehaviour:
     Y: 3
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114516772955846542
 MonoBehaviour:
@@ -14713,6 +15202,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 2
+    Direction: 0
+    Id: 
     Name: Solid_01
     Prefab: {fileID: 114627959152168770, guid: a7c111ea7b97246998758c6ce746a0a8, type: 2}
   Position:
@@ -14720,6 +15211,8 @@ MonoBehaviour:
     Y: 0
     Z: 0
   CellType: 2
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114689070326338830}
 --- !u!114 &114525253274931992
 MonoBehaviour:
@@ -14789,6 +15282,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -14796,6 +15291,8 @@ MonoBehaviour:
     Y: 2
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114532739021577232
 MonoBehaviour:
@@ -14810,6 +15307,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -14817,6 +15316,8 @@ MonoBehaviour:
     Y: 4
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114535937286967236
 MonoBehaviour:
@@ -14831,6 +15332,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -14838,6 +15341,8 @@ MonoBehaviour:
     Y: 4
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114537128526456852
 MonoBehaviour:
@@ -14945,6 +15450,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -14952,6 +15459,8 @@ MonoBehaviour:
     Y: 6
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114543472122617610
 MonoBehaviour:
@@ -14999,6 +15508,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -15006,6 +15517,8 @@ MonoBehaviour:
     Y: 5
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114556536607916766
 MonoBehaviour:
@@ -15031,6 +15544,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 4
+    Direction: 0
+    Id: 
     Name: RopeRight_01
     Prefab: {fileID: 114448182761535780, guid: c95e5b67b981b4ef98e5b4023391bcfc, type: 2}
   Position:
@@ -15038,6 +15553,8 @@ MonoBehaviour:
     Y: 7
     Z: 0
   CellType: 4
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114921360926624050}
 --- !u!114 &114558770929333248
 MonoBehaviour:
@@ -15074,6 +15591,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -15081,6 +15600,8 @@ MonoBehaviour:
     Y: 3
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114566622154185216
 MonoBehaviour:
@@ -15169,6 +15690,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -15176,6 +15699,8 @@ MonoBehaviour:
     Y: 7
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114578956584606114
 MonoBehaviour:
@@ -15190,6 +15715,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 1
+    Direction: 0
+    Id: 
     Name: Block_01
     Prefab: {fileID: 114402794679373106, guid: 6a1e065f0d1be482f928a93a98c8e751, type: 2}
   Position:
@@ -15197,6 +15724,8 @@ MonoBehaviour:
     Y: 2
     Z: 0
   CellType: 1
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114500074718323934}
 --- !u!114 &114580491676510682
 MonoBehaviour:
@@ -15211,6 +15740,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -15218,6 +15749,8 @@ MonoBehaviour:
     Y: 8
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114583949131498128
 MonoBehaviour:
@@ -15243,6 +15776,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -15250,6 +15785,8 @@ MonoBehaviour:
     Y: 5
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114587474573194994
 MonoBehaviour:
@@ -15305,6 +15842,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -15312,6 +15851,8 @@ MonoBehaviour:
     Y: 4
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114588889138992278
 MonoBehaviour:
@@ -15348,6 +15889,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -15355,6 +15898,8 @@ MonoBehaviour:
     Y: 8
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114590858228788836
 MonoBehaviour:
@@ -15391,6 +15936,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -15398,6 +15945,8 @@ MonoBehaviour:
     Y: 7
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114593820144861876
 MonoBehaviour:
@@ -15453,6 +16002,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -15460,7 +16011,20 @@ MonoBehaviour:
     Y: 3
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
+--- !u!114 &114594876618289236
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1741781615992054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f349c54cb5bc38b46ae951dbddce5718, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114596811962953922
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -15507,6 +16071,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 2
+    Direction: 0
+    Id: 
     Name: Solid_01
     Prefab: {fileID: 114627959152168770, guid: a7c111ea7b97246998758c6ce746a0a8, type: 2}
   Position:
@@ -15514,6 +16080,8 @@ MonoBehaviour:
     Y: 0
     Z: 0
   CellType: 2
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114662363549310994}
 --- !u!114 &114599931260149022
 MonoBehaviour:
@@ -15791,6 +16359,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 1
+    Direction: 0
+    Id: 
     Name: Block_01
     Prefab: {fileID: 114402794679373106, guid: 6a1e065f0d1be482f928a93a98c8e751, type: 2}
   Position:
@@ -15798,6 +16368,8 @@ MonoBehaviour:
     Y: 6
     Z: 0
   CellType: 1
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114108827579715530}
 --- !u!114 &114615318879187136
 MonoBehaviour:
@@ -15875,6 +16447,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 3
+    Direction: 0
+    Id: 
     Name: LadderBottom_01
     Prefab: {fileID: 114803204790264658, guid: dbbdabbf365674ba595ad13e24dd7971, type: 2}
   Position:
@@ -15882,6 +16456,8 @@ MonoBehaviour:
     Y: 1
     Z: 0
   CellType: 3
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114168786007372422}
 --- !u!114 &114628064428561400
 MonoBehaviour:
@@ -15896,6 +16472,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -15903,6 +16481,8 @@ MonoBehaviour:
     Y: 1
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114630705845905944
 MonoBehaviour:
@@ -15917,6 +16497,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -15924,6 +16506,8 @@ MonoBehaviour:
     Y: 9
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114631374787501966
 MonoBehaviour:
@@ -15938,6 +16522,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -15945,6 +16531,8 @@ MonoBehaviour:
     Y: 6
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114633600706804176
 MonoBehaviour:
@@ -16063,6 +16651,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -16070,6 +16660,8 @@ MonoBehaviour:
     Y: 4
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114641332670312054
 MonoBehaviour:
@@ -16095,6 +16687,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -16102,6 +16696,8 @@ MonoBehaviour:
     Y: 2
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114641518332536198
 MonoBehaviour:
@@ -16138,6 +16734,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -16145,6 +16743,8 @@ MonoBehaviour:
     Y: 5
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114643547461236536
 MonoBehaviour:
@@ -16181,6 +16781,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -16188,6 +16790,8 @@ MonoBehaviour:
     Y: 1
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114643964775416524
 MonoBehaviour:
@@ -16243,6 +16847,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -16250,6 +16856,8 @@ MonoBehaviour:
     Y: 8
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114647660740805044
 MonoBehaviour:
@@ -16264,6 +16872,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -16271,6 +16881,8 @@ MonoBehaviour:
     Y: 5
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114648096135369456
 MonoBehaviour:
@@ -16296,6 +16908,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -16303,6 +16917,8 @@ MonoBehaviour:
     Y: 1
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114649459084652408
 MonoBehaviour:
@@ -16402,6 +17018,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -16409,6 +17027,8 @@ MonoBehaviour:
     Y: 5
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114653606302268280
 MonoBehaviour:
@@ -16423,6 +17043,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -16430,6 +17052,8 @@ MonoBehaviour:
     Y: 7
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114654809154023764
 MonoBehaviour:
@@ -16485,6 +17109,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -16492,6 +17118,8 @@ MonoBehaviour:
     Y: 8
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114662363549310994
 MonoBehaviour:
@@ -16572,6 +17200,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -16579,6 +17209,8 @@ MonoBehaviour:
     Y: 1
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114678201912298672
 MonoBehaviour:
@@ -16592,15 +17224,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CellInfo:
-    Type: 0
-    Name: 
-    Prefab: {fileID: 0}
+    Type: 8
+    Direction: 0
+    Id: 
+    Name: Guard
+    Prefab: {fileID: 114402794679373106, guid: 66f082715424aa8449ffeca25400dcb5, type: 2}
   Position:
     X: 4
     Y: 5
     Z: 0
-  CellType: 0
-  Content: {fileID: 0}
+  CellType: 8
+  CellDirection: 0
+  CellId: 
+  Content: {fileID: 114276631609813772}
 --- !u!114 &114679393167197528
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -16636,6 +17272,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -16643,6 +17281,8 @@ MonoBehaviour:
     Y: 8
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114681650939621372
 MonoBehaviour:
@@ -16827,6 +17467,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 1
+    Direction: 0
+    Id: 
     Name: Block_01
     Prefab: {fileID: 114402794679373106, guid: 6a1e065f0d1be482f928a93a98c8e751, type: 2}
   Position:
@@ -16834,6 +17476,8 @@ MonoBehaviour:
     Y: 2
     Z: 0
   CellType: 1
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114844109719400920}
 --- !u!114 &114701521205120938
 MonoBehaviour:
@@ -16848,6 +17492,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -16855,6 +17501,8 @@ MonoBehaviour:
     Y: 8
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114705589890097182
 MonoBehaviour:
@@ -16880,6 +17528,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -16887,6 +17537,8 @@ MonoBehaviour:
     Y: 2
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114711030411587256
 MonoBehaviour:
@@ -16912,6 +17564,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 1
+    Direction: 0
+    Id: 
     Name: Block_01
     Prefab: {fileID: 114402794679373106, guid: 6a1e065f0d1be482f928a93a98c8e751, type: 2}
   Position:
@@ -16919,6 +17573,8 @@ MonoBehaviour:
     Y: 2
     Z: 0
   CellType: 1
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114257000842646816}
 --- !u!114 &114719285314843502
 MonoBehaviour:
@@ -16933,6 +17589,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -16940,6 +17598,8 @@ MonoBehaviour:
     Y: 1
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114719471913073836
 MonoBehaviour:
@@ -16954,6 +17614,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 1
+    Direction: 0
+    Id: 
     Name: Block_01
     Prefab: {fileID: 114402794679373106, guid: 6a1e065f0d1be482f928a93a98c8e751, type: 2}
   Position:
@@ -16961,6 +17623,8 @@ MonoBehaviour:
     Y: 6
     Z: 0
   CellType: 1
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114253873183022774}
 --- !u!114 &114728482011362950
 MonoBehaviour:
@@ -16975,6 +17639,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 4
+    Direction: 0
+    Id: 
     Name: RopeRight_01
     Prefab: {fileID: 114448182761535780, guid: c95e5b67b981b4ef98e5b4023391bcfc, type: 2}
   Position:
@@ -16982,6 +17648,8 @@ MonoBehaviour:
     Y: 4
     Z: 0
   CellType: 4
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114915343491791340}
 --- !u!114 &114730878721999588
 MonoBehaviour:
@@ -16996,6 +17664,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 1
+    Direction: 0
+    Id: 
     Name: Block_01
     Prefab: {fileID: 114402794679373106, guid: 6a1e065f0d1be482f928a93a98c8e751, type: 2}
   Position:
@@ -17003,6 +17673,8 @@ MonoBehaviour:
     Y: 3
     Z: 0
   CellType: 1
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114021248259452218}
 --- !u!114 &114735898953284796
 MonoBehaviour:
@@ -17017,6 +17689,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -17024,6 +17698,8 @@ MonoBehaviour:
     Y: 4
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114740567489420638
 MonoBehaviour:
@@ -17038,6 +17714,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -17045,6 +17723,8 @@ MonoBehaviour:
     Y: 4
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114746508641238172
 MonoBehaviour:
@@ -17070,6 +17750,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 3
+    Direction: 0
+    Id: 
     Name: LadderMiddle_01
     Prefab: {fileID: 114964312258991914, guid: fd24f958500b54c45bab9db68a4b2fa9, type: 2}
   Position:
@@ -17077,6 +17759,8 @@ MonoBehaviour:
     Y: 5
     Z: 0
   CellType: 3
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114135288591339582}
 --- !u!114 &114747120143190298
 MonoBehaviour:
@@ -17327,6 +18011,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 4
+    Direction: 0
+    Id: 
     Name: RopeLeft_01
     Prefab: {fileID: 114749305436245278, guid: 43b8d93772c964ac4a43a966418ce210, type: 2}
   Position:
@@ -17334,6 +18020,8 @@ MonoBehaviour:
     Y: 7
     Z: 0
   CellType: 4
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114556536607916766}
 --- !u!114 &114785153106080746
 MonoBehaviour:
@@ -17370,6 +18058,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -17377,6 +18067,8 @@ MonoBehaviour:
     Y: 2
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114790869549261584
 MonoBehaviour:
@@ -17443,6 +18135,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -17450,6 +18144,8 @@ MonoBehaviour:
     Y: 1
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114795252041120972
 MonoBehaviour:
@@ -17475,6 +18171,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -17482,6 +18180,8 @@ MonoBehaviour:
     Y: 7
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114806543671234834
 MonoBehaviour:
@@ -17496,6 +18196,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 2
+    Direction: 0
+    Id: 
     Name: Solid_01
     Prefab: {fileID: 114627959152168770, guid: a7c111ea7b97246998758c6ce746a0a8, type: 2}
   Position:
@@ -17503,6 +18205,8 @@ MonoBehaviour:
     Y: 0
     Z: 0
   CellType: 2
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114391494949493652}
 --- !u!114 &114807222680731768
 MonoBehaviour:
@@ -17517,6 +18221,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 3
+    Direction: 0
+    Id: 
     Name: LadderMiddle_01
     Prefab: {fileID: 114964312258991914, guid: fd24f958500b54c45bab9db68a4b2fa9, type: 2}
   Position:
@@ -17524,6 +18230,8 @@ MonoBehaviour:
     Y: 6
     Z: 0
   CellType: 3
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114289588007139532}
 --- !u!114 &114808327516881050
 MonoBehaviour:
@@ -17634,6 +18342,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 3
+    Direction: 0
+    Id: 
     Name: LadderTop_01
     Prefab: {fileID: 114574993185443046, guid: 4a17676bbf1004ae3a716eb85659228f, type: 2}
   Position:
@@ -17641,6 +18351,8 @@ MonoBehaviour:
     Y: 7
     Z: 0
   CellType: 3
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114071166111122724}
 --- !u!114 &114820768457668396
 MonoBehaviour:
@@ -17800,6 +18512,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -17807,6 +18521,8 @@ MonoBehaviour:
     Y: 8
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114834014215024168
 MonoBehaviour:
@@ -17821,6 +18537,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -17828,6 +18546,8 @@ MonoBehaviour:
     Y: 7
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114834264696458896
 MonoBehaviour:
@@ -17883,6 +18603,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 2
+    Direction: 0
+    Id: 
     Name: Solid_01
     Prefab: {fileID: 114627959152168770, guid: a7c111ea7b97246998758c6ce746a0a8, type: 2}
   Position:
@@ -17890,6 +18612,8 @@ MonoBehaviour:
     Y: 0
     Z: 0
   CellType: 2
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114763911898424464}
 --- !u!114 &114835829951488348
 MonoBehaviour:
@@ -17915,6 +18639,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -17922,6 +18648,8 @@ MonoBehaviour:
     Y: 9
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114844109719400920
 MonoBehaviour:
@@ -17958,6 +18686,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -17965,6 +18695,8 @@ MonoBehaviour:
     Y: 5
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114851284707136582
 MonoBehaviour:
@@ -18001,6 +18733,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 3
+    Direction: 0
+    Id: 
     Name: LadderMiddle_01
     Prefab: {fileID: 114964312258991914, guid: fd24f958500b54c45bab9db68a4b2fa9, type: 2}
   Position:
@@ -18008,6 +18742,8 @@ MonoBehaviour:
     Y: 3
     Z: 0
   CellType: 3
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114890457533875276}
 --- !u!114 &114855560700518976
 MonoBehaviour:
@@ -18033,6 +18769,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -18040,6 +18778,8 @@ MonoBehaviour:
     Y: 1
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114867190269876262
 MonoBehaviour:
@@ -18147,6 +18887,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -18154,6 +18896,8 @@ MonoBehaviour:
     Y: 4
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114870030209738998
 MonoBehaviour:
@@ -18179,6 +18923,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 3
+    Direction: 0
+    Id: 
     Name: LadderBottom_01
     Prefab: {fileID: 114803204790264658, guid: dbbdabbf365674ba595ad13e24dd7971, type: 2}
   Position:
@@ -18186,6 +18932,8 @@ MonoBehaviour:
     Y: 2
     Z: 0
   CellType: 3
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114528214774883442}
 --- !u!114 &114877441823869452
 MonoBehaviour:
@@ -18211,6 +18959,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -18218,6 +18968,8 @@ MonoBehaviour:
     Y: 7
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114878050496503242
 MonoBehaviour:
@@ -18232,6 +18984,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 3
+    Direction: 0
+    Id: 
     Name: LadderTop_01
     Prefab: {fileID: 114574993185443046, guid: 4a17676bbf1004ae3a716eb85659228f, type: 2}
   Position:
@@ -18239,6 +18993,8 @@ MonoBehaviour:
     Y: 7
     Z: 0
   CellType: 3
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114988481177495530}
 --- !u!114 &114878662312519644
 MonoBehaviour:
@@ -18275,6 +19031,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -18282,6 +19040,8 @@ MonoBehaviour:
     Y: 9
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114883114923140246
 MonoBehaviour:
@@ -18296,6 +19056,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 3
+    Direction: 0
+    Id: 
     Name: LadderBottom_01
     Prefab: {fileID: 114803204790264658, guid: dbbdabbf365674ba595ad13e24dd7971, type: 2}
   Position:
@@ -18303,6 +19065,8 @@ MonoBehaviour:
     Y: 3
     Z: 0
   CellType: 3
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114345424260983020}
 --- !u!114 &114885020385187092
 MonoBehaviour:
@@ -18339,6 +19103,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -18346,6 +19112,8 @@ MonoBehaviour:
     Y: 8
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114887564750761164
 MonoBehaviour:
@@ -18358,6 +19126,67 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 519febcdbeaec9e4aa7e1b4082d1a3c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114890154531304522
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1542404431222208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a02d0f612a241b293c0da4f82b712c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Properties:
+    Properties: []
+    Groups: []
+    Hidden: 
+  Links:
+    Links:
+    - LIIF: 117183218
+      InstanceTarget: {fileID: 114890154531304522}
+    - LIIF: 842849787
+      InstanceTarget: {fileID: 1542404431222208}
+    - LIIF: -51152908
+      InstanceTarget: {fileID: 4512096862549988}
+    - LIIF: 187400659
+      InstanceTarget: {fileID: 33082391196664060}
+    - LIIF: -1435738967
+      InstanceTarget: {fileID: 23287521662034882}
+    - LIIF: -1868883517
+      InstanceTarget: {fileID: 114276631609813772}
+  Modifications:
+    Modificated:
+    - Object: {fileID: 1542404431222208}
+      ObjeckLink: 842849787
+      PropertyPath: m_Name
+      Mode: 0
+    - Object: {fileID: 4512096862549988}
+      ObjeckLink: -51152908
+      PropertyPath: m_LocalRotation
+      Mode: 0
+    - Object: {fileID: 4512096862549988}
+      ObjeckLink: -51152908
+      PropertyPath: m_LocalPosition
+      Mode: 0
+    - Object: {fileID: 4512096862549988}
+      ObjeckLink: -51152908
+      PropertyPath: m_LocalScale
+      Mode: 0
+    - Object: {fileID: 4512096862549988}
+      ObjeckLink: -51152908
+      PropertyPath: m_LocalEulerAnglesHint
+      Mode: 0
+    - Object: {fileID: 33082391196664060}
+      ObjeckLink: 187400659
+      PropertyPath: m_Mesh
+      Mode: 0
+    NonPrefabObjects: []
+    NonPrefabComponents: []
+    RemovedObjects: 
+    TransformParentChanges: []
+  ParentPrefabGUID: 
+  PrefabGUID: 66f082715424aa8449ffeca25400dcb5
 --- !u!114 &114890457533875276
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -18382,6 +19211,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 3
+    Direction: 0
+    Id: 
     Name: LadderTop_01
     Prefab: {fileID: 114574993185443046, guid: 4a17676bbf1004ae3a716eb85659228f, type: 2}
   Position:
@@ -18389,6 +19220,8 @@ MonoBehaviour:
     Y: 4
     Z: 0
   CellType: 3
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114014773327466442}
 --- !u!114 &114893955399255394
 MonoBehaviour:
@@ -18403,6 +19236,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -18410,6 +19245,8 @@ MonoBehaviour:
     Y: 5
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114894912536629600
 MonoBehaviour:
@@ -18446,6 +19283,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -18453,6 +19292,8 @@ MonoBehaviour:
     Y: 9
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114910371696941274
 MonoBehaviour:
@@ -18467,6 +19308,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -18474,6 +19317,8 @@ MonoBehaviour:
     Y: 7
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114910396330411986
 MonoBehaviour:
@@ -18499,6 +19344,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -18506,6 +19353,8 @@ MonoBehaviour:
     Y: 3
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114914058450311450
 MonoBehaviour:
@@ -18531,6 +19380,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 3
+    Direction: 0
+    Id: 
     Name: LadderTop_01
     Prefab: {fileID: 114574993185443046, guid: 4a17676bbf1004ae3a716eb85659228f, type: 2}
   Position:
@@ -18538,6 +19389,8 @@ MonoBehaviour:
     Y: 4
     Z: 0
   CellType: 3
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114815370995613074}
 --- !u!114 &114915343491791340
 MonoBehaviour:
@@ -18684,6 +19537,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -18691,6 +19546,8 @@ MonoBehaviour:
     Y: 1
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114958275481676134
 MonoBehaviour:
@@ -18771,6 +19628,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -18778,6 +19637,8 @@ MonoBehaviour:
     Y: 1
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114972005825864746
 MonoBehaviour:
@@ -18877,6 +19738,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -18884,6 +19747,8 @@ MonoBehaviour:
     Y: 7
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114980163038865756
 MonoBehaviour:
@@ -18898,6 +19763,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 4
+    Direction: 0
+    Id: 
     Name: RopeRight_01
     Prefab: {fileID: 114448182761535780, guid: c95e5b67b981b4ef98e5b4023391bcfc, type: 2}
   Position:
@@ -18905,6 +19772,8 @@ MonoBehaviour:
     Y: 7
     Z: 0
   CellType: 4
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114113615283587430}
 --- !u!114 &114980541026407972
 MonoBehaviour:
@@ -18919,6 +19788,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -18926,6 +19797,8 @@ MonoBehaviour:
     Y: 2
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114985356152894414
 MonoBehaviour:
@@ -18940,6 +19813,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 4
+    Direction: 0
+    Id: 
     Name: RopeLeft_01
     Prefab: {fileID: 114749305436245278, guid: 43b8d93772c964ac4a43a966418ce210, type: 2}
   Position:
@@ -18947,6 +19822,8 @@ MonoBehaviour:
     Y: 7
     Z: 0
   CellType: 4
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 114475256469531338}
 --- !u!114 &114988481177495530
 MonoBehaviour:
@@ -18983,6 +19860,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -18990,6 +19869,8 @@ MonoBehaviour:
     Y: 8
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114995895197285778
 MonoBehaviour:
@@ -19004,6 +19885,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -19011,6 +19894,8 @@ MonoBehaviour:
     Y: 8
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}
 --- !u!114 &114997156456596368
 MonoBehaviour:
@@ -19066,6 +19951,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellInfo:
     Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   Position:
@@ -19073,4 +19960,6 @@ MonoBehaviour:
     Y: 5
     Z: 0
   CellType: 0
+  CellDirection: 0
+  CellId: 
   Content: {fileID: 0}

@@ -17,7 +17,7 @@ namespace Game.Views.Components
     {
       var engine = new Logics.Classics.LogicEngine();
       var level = GetComponent<LevelComponent>();
-      engine.SetGrid(level.Size, level.Grid);
+      engine.InitializeLevel(level.Size, level.Grid, level.CoordinateConverter);
 
       return engine;
     }

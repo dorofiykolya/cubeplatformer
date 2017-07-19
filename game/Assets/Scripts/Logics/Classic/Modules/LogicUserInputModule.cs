@@ -5,11 +5,12 @@ namespace Game.Logics.Classics
 {
   public class LogicUserInputModule : ILogicModule
   {
-    private LogicModules logicModules;
+    private LogicModules _logicModules;
+    public LogicActorAction KeyAction;
 
     public LogicUserInputModule(LogicModules logicModules)
     {
-      this.logicModules = logicModules;
+      _logicModules = logicModules;
     }
 
     public void PreTick(ILogicEngine logicEngine, int currentTick, int deltaTick)

@@ -20,7 +20,7 @@ namespace Game.Inputs
     protected InputContext(GameContext context, Lifetime lifetime, InputContext parent)
     {
       Parent = parent;
-      parent.Nested = this;
+      if(parent != null) parent.Nested = this;
 
       _definition = Lifetime.Define(lifetime);
       _onInput = new Signal<InputEvent>(_definition.Lifetime);

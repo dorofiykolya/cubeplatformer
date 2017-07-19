@@ -9,6 +9,9 @@ namespace Game.Logics.Classics
     private LogicModules _modules = new LogicModules();
     private LogicProcessor _processor = new LogicProcessor();
 
+    public LogicModules Modules { get { return _modules; } }
+    public LogicActions Actions { get { return _actionsQueue; } }
+
     public void AddAction(ILogicAction action)
     {
       _actionsQueue.Enqueue(action);
@@ -53,9 +56,10 @@ namespace Game.Logics.Classics
       }
     }
 
-    public void SetGrid(LevelSize size, CellComponent[] grid)
+    public void InitializeLevel(LevelSize size, CellComponent[] grid, ILevelCoordinateConverter levelCoordinateConverter)
     {
-      _modules.Get<LogicMapModule>().Initialize(size, grid);
+      _modules.Get<LogicViewModule>().Initialize(levelCoordinateConverter);
+      _modules.Get<LogicGridModule>().Initialize(size, grid);
     }
 
     public int Tick { get; private set; }
@@ -74,5 +78,7 @@ namespace Game.Logics.Classics
       Tick = tick;
       return delta;
     }
+
+    public int TicksPerSeconds { get { return 60; } }
   }
 }

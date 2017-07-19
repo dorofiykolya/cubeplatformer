@@ -11,7 +11,7 @@
     HLadr = 0x06,
     Gold = 0x07,
     Guard = 0x08,
-    Runner = 0x09,
+    //Runner = 0x09,
     Reborn = 0x10,
     Player = 0x20,
     TeleportEnter = 0x40,

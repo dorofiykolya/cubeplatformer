@@ -12,6 +12,7 @@ namespace Game.Providers
       yield return new GamePersistanceManager();
       yield return new GameLevelManager();
       yield return new GameLevelLogicManager();
+      yield return new GamePlayersManager();
     }
   }
 }

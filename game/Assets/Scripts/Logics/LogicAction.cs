@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Game.Logics.Classics
+namespace Game.Logics
 {
   public class LogicAction : ILogicAction
   {
