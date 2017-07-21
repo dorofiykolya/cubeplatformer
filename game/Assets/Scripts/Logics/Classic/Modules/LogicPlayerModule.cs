@@ -456,7 +456,7 @@ namespace Game.Logics.Classics
       }
       else
       {
-        _logicModules.Get<LogicViewModule>().PlayerPosition((x + xOffset), (y + yOffset));
+        _logicModules.Get<LogicViewModule>().PlayerPosition(playerId, (x + xOffset), (y + yOffset));
 
         player.Position.Set(x, y, 0);
         player.SetOffset(xOffset, yOffset);
@@ -706,6 +706,7 @@ namespace Game.Logics.Classics
           Id = id
         };
         _players.Add(player);
+        _logicModules.Get<LogicViewModule>().PlayerAdd(player);
       }
 
       return player;

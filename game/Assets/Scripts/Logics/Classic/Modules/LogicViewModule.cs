@@ -1,4 +1,5 @@
 using System;
+using Game.Managers;
 using Game.Views.Components;
 
 namespace Game.Logics.Classics
@@ -7,14 +8,16 @@ namespace Game.Logics.Classics
   {
     private LogicModules _logicModules;
     private ILevelCoordinateConverter _levelCoordinateConverter;
+    private GameContext _context;
 
     public LogicViewModule(LogicModules logicModules)
     {
       _logicModules = logicModules;
     }
 
-    public void Initialize(ILevelCoordinateConverter levelCoordinateConverter)
+    public void Initialize(GameContext gameContext, ILevelCoordinateConverter levelCoordinateConverter)
     {
+      _context = gameContext;
       _levelCoordinateConverter = levelCoordinateConverter;
     }
 
@@ -98,14 +101,19 @@ namespace Game.Logics.Classics
 
     }
 
-    public void PlayerPosition(float x, float y)
+    public void PlayerPosition(int playerId, float x, float y)
     {
-      
+
     }
 
     public void AddGuard(int id, CellComponent cell)
     {
-      
+
+    }
+
+    public void PlayerAdd(LogicPlayer player)
+    {
+      //_context.Managers.Get<GamePlayersManager>()
     }
   }
 }

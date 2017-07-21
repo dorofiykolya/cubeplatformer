@@ -33,8 +33,8 @@ namespace Game.Managers
       {
 
       });
-      var logic = info.Level.Logic.Engine;
-
+      var logic = info.Level.Logic.Engine(Context);
+      
       var input = new LevelInputContenxt(Context, _levelDefinition.Lifetime, Context.InputContext);
       logic.AddAction(new LogicActionInitializePlayer(input.Controllers, logic.Tick + 1));
       input.SubscribeOnAddController(_levelDefinition.Lifetime, controller =>

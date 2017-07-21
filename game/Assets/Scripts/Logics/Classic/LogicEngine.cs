@@ -56,9 +56,9 @@ namespace Game.Logics.Classics
       }
     }
 
-    public void InitializeLevel(LevelSize size, CellComponent[] grid, ILevelCoordinateConverter levelCoordinateConverter)
+    public void InitializeLevel(GameContext context, LevelSize size, CellComponent[] grid, ILevelCoordinateConverter levelCoordinateConverter)
     {
-      _modules.Get<LogicViewModule>().Initialize(levelCoordinateConverter);
+      _modules.Get<LogicViewModule>().Initialize(context, levelCoordinateConverter);
       _modules.Get<LogicGridModule>().Initialize(size, grid);
     }
 
