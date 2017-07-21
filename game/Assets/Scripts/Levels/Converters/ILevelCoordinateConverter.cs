@@ -4,7 +4,7 @@ namespace Game
 {
   public interface ILevelCoordinateConverter
   {
-    Vector3 ToWorld(Position logicPosition);
-    Position ToPosition(Vector3 worldPosition);
+    Vector3 ToWorld(PositionF logicPosition);
+    PositionF ToPosition(Vector3 worldPosition);
   }
 }
