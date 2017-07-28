@@ -8,35 +8,53 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9ba95decfc7af048b56ad963c7b220b, type: 3}
+  m_Script: {fileID: 11500000, guid: 82c077b8237ad452dbcd701c8947db6c, type: 3}
   m_Name: Preset_01
   m_EditorClassIdentifier: 
   Name: Preset_01
   Cells:
   - Type: 0
+    Direction: 0
+    Id: 
     Name: 
     Prefab: {fileID: 0}
   - Type: 1
+    Direction: 0
+    Id: 
     Name: Block_01
     Prefab: {fileID: 114402794679373106, guid: 6a1e065f0d1be482f928a93a98c8e751, type: 2}
   - Type: 3
+    Direction: 0
+    Id: 
     Name: LadderTop_01
     Prefab: {fileID: 114574993185443046, guid: 4a17676bbf1004ae3a716eb85659228f, type: 2}
   - Type: 3
+    Direction: 0
+    Id: 
     Name: LadderMiddle_01
     Prefab: {fileID: 114964312258991914, guid: fd24f958500b54c45bab9db68a4b2fa9, type: 2}
   - Type: 3
+    Direction: 0
+    Id: 
     Name: LadderBottom_01
     Prefab: {fileID: 114803204790264658, guid: dbbdabbf365674ba595ad13e24dd7971, type: 2}
   - Type: 4
+    Direction: 0
+    Id: 
     Name: RopeLeft_01
     Prefab: {fileID: 114749305436245278, guid: 43b8d93772c964ac4a43a966418ce210, type: 2}
   - Type: 4
+    Direction: 0
+    Id: 
     Name: RopeMiddle_01
     Prefab: {fileID: 114289809108694774, guid: 5bff8b3f8641f47aab3a7c0f4c81c2c2, type: 2}
   - Type: 4
+    Direction: 0
+    Id: 
     Name: RopeRight_01
     Prefab: {fileID: 114448182761535780, guid: c95e5b67b981b4ef98e5b4023391bcfc, type: 2}
   - Type: 2
+    Direction: 0
+    Id: 
     Name: Solid_01
     Prefab: {fileID: 114627959152168770, guid: a7c111ea7b97246998758c6ce746a0a8, type: 2}

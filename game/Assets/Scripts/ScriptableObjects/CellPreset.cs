@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Game
 {
+  [Serializable]
   public class CellPreset : ScriptableObject
   {
     public string Name;
