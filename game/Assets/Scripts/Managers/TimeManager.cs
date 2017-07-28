@@ -67,9 +67,9 @@ namespace Game
         var delay = _delay.First;
         while (delay != null && time <= delay.Value.Time)
         {
+          delay.Value.Action();
           _delay.RemoveFirst();
           delay = _delay.First;
-          delay.Value.Action();
         }
       }
     }

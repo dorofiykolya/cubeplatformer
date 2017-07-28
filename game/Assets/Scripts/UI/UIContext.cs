@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Game.UI.Controllers;
 using Game.UI.Providers;
 using Injection;
@@ -10,37 +11,39 @@ namespace Game.UI
   {
     private readonly Lifetime _lifetime;
     private readonly GameContext _context;
+    private readonly IInjector _injector;
 
     public UIContext(GameContext context, Injector contextInjector)
     {
       _context = context;
       _lifetime = Lifetime.Define(context.Lifetime).Lifetime;
 
-      var injector = new Injector(contextInjector);
-      injector.Map<Lifetime>().ToValue(_lifetime);
-      injector.Map<UIContext>().ToValue(this);
+      _injector = new Injector(contextInjector);
+      _injector.Map<Lifetime>().ToValue(_lifetime);
+      _injector.Map<UIContext>().ToValue(this);
 
       var controllers = new UIContextControllersProvider().Provider(this).ToList();
       foreach (var controller in controllers)
       {
-        injector.Map(controller.GetType()).ToValue(controller);
+        _injector.Map(controller.GetType()).ToValue(controller);
       }
       foreach (var controller in controllers)
       {
-        injector.Inject(controller);
+        _injector.Inject(controller);
       }
       foreach (var controller in controllers)
       {
-        ControllerInitializer.Preinitialize(controller);
+        PreInitializer<Controller>.Preinitialize(controller);
       }
 
       foreach (var controller in controllers)
       {
-        ControllerInitializer.Initialize(controller);
+        Initializer<Controller>.Initialize(controller);
       }
     }
 
     public Lifetime Lifetime { get { return _lifetime; } }
     public GameContext Context { get { return _context; } }
+    public UIWindowController Windows { get { return _injector.Get<UIWindowController>(); } }
   }
 }

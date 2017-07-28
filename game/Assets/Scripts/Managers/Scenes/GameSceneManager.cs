@@ -8,9 +8,21 @@ namespace Game.Managers
 {
   public class GameSceneManager : GameManager
   {
+    private Signal<Scene> _onSceneLoaded;
+
+    protected override void Initialize()
+    {
+      _onSceneLoaded = new Signal<Scene>(Lifetime);
+    }
+
     public void LoadScene(string name, LoadSceneMode mode, Action<Scene> onComplete = null)
     {
       Context.StartCoroutine(Lifetime, LoadSceneAsync(name, mode, onComplete));
+    }
+
+    public void SubscribeOnSceneLoaded(Lifetime lifetime, Action<Scene> listener)
+    {
+      _onSceneLoaded.Subscribe(lifetime, listener);
     }
 
     private IEnumerator LoadSceneAsync(string name, LoadSceneMode mode, Action<Scene> onComplete)
@@ -21,10 +33,12 @@ namespace Game.Managers
       var async = SceneManager.LoadSceneAsync(name, mode);
       yield return async;
       yield return new WaitForSeconds(1f);
+      var scene = SceneManager.GetSceneByName(name);
       if (onComplete != null)
       {
-        onComplete(SceneManager.GetSceneByName(name));
+        onComplete(scene);
       }
+      _onSceneLoaded.Fire(scene);
       definition.Terminate();
     }
   }

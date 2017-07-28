@@ -29,14 +29,15 @@ namespace Game.Views
       {
         injector.Inject(controller);
       }
+
       foreach (var controller in controllers)
       {
-        ControllerInitializer.Initialize(controller);
+        PreInitializer<Controller>.Preinitialize(controller);
       }
 
       foreach (var controller in controllers)
       {
-        ControllerInitializer.Preinitialize(controller);
+        Initializer<Controller>.Initialize(controller);
       }
     }
 

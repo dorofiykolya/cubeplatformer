@@ -8,7 +8,7 @@ namespace Game.Managers
 {
   public class GameManagers
   {
-    private IInjector _injector;
+    private readonly IInjector _injector;
 
     public GameManagers(Lifetime lifetime, GameContext context, Injector injector, GameManagersProvider provider)
     {
@@ -28,11 +28,11 @@ namespace Game.Managers
       }
       foreach (var manager in managers)
       {
-        ControllerInitializer.Preinitialize(manager);
+        PreInitializer<Controller>.Preinitialize(manager);
       }
       foreach (var manager in managers)
       {
-        ControllerInitializer.Initialize(manager);
+        Initializer<Controller>.Initialize(manager);
       }
     }
 

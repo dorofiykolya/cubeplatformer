@@ -6,36 +6,24 @@ using Utils;
 
 namespace Game.UI.Controllers
 {
-    public class UIMainMenuController : UIController
+  public class UIMainMenuController : UIController
   {
     [Inject]
-    private GameSceneManager _gameSceneManager;
-    [Inject]
     private GameLevelManager _levelManager;
+    [Inject]
+    private UISceneController _sceneController;
+    [Inject]
+    private UIWindowController _windowController;
 
     protected override void Initialize()
     {
-      _gameSceneManager.LoadScene("UI", LoadSceneMode.Single, InitializeMenu);
+      _sceneController.SubscribeOnSceneReady(Lifetime, InitializeMenu);
     }
 
-    private void InitializeMenu(Scene scene)
+    private void InitializeMenu()
     {
-      Assert2.IsTrue(scene.IsValid());
-      UIMainManuComponent menuComponent = null;
-      foreach (var gameObject in scene.GetRootGameObjects())
-      {
-        menuComponent = gameObject.GetComponentInChildren<UIMainManuComponent>();
-        if (menuComponent != null)
-        {
-          break;
-        }
-      }
-
-      if (menuComponent)
-      {
-        menuComponent.OnClassicClick.Subscribe(Lifetime, _levelManager.ResumeClassic);
-        menuComponent.OnInfinityClick.Subscribe(Lifetime, _levelManager.ResumeInfinity);
-      }
+      var lt = Context.UIContext.Windows.Open<UIMainMenuWindow>((w) => { });
+      Context.Time.DelayCall(lt.Lifetime, 3f, () => lt.Terminate());
     }
   }
 }

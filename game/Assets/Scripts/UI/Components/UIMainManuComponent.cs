@@ -5,7 +5,7 @@ using Utils;
 namespace Game.UI.Components
 {
 
-  public class UIMainManuComponent : MonoBehaviour
+  public class UIMainManuComponent : UIWindowComponent
   {
     private Lifetime.Definition _definition;
 
