@@ -1,7 +1,4 @@
 ﻿using System;
-using UnityEngine;
-using System.Collections;
-using Injection;
 using Utils;
 
 namespace Game.UI.Components
@@ -21,9 +18,7 @@ namespace Game.UI.Components
 
   public abstract class UIWindow
   {
-    [Inject]
     private UIWindowComponent _component;
-    [Inject]
     private Lifetime _lifetime;
 
     public abstract Type ComponentType { get; }
@@ -39,19 +34,20 @@ namespace Game.UI.Components
     protected abstract void OnClose();
 
     [Initialize]
-    private void InitializeWindowInternal(Lifetime lifetime)
+    private void InitializeWindowInternal(Lifetime lifetime, UIWindowComponent component)
     {
       _lifetime = lifetime;
+      _component = component;
       Initialize();
     }
 
-    [WindowOpenAttribute]
+    [WindowOpen]
     private void WindowOpenInternal()
     {
       OnOpen();
     }
 
-    [WindowCloseAttribute]
+    [WindowClose]
     private void WindowCloseInternal()
     {
       OnClose();

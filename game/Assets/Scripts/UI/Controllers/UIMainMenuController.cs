@@ -23,7 +23,6 @@ namespace Game.UI.Controllers
     private void InitializeMenu()
     {
       var lt = Context.UIContext.Windows.Open<UIMainMenuWindow>((w) => { });
-      Context.Time.DelayCall(lt.Lifetime, 3f, () => lt.Terminate());
     }
   }
 }

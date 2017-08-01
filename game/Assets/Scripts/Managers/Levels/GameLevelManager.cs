@@ -43,7 +43,7 @@ namespace Game.Managers
     {
       DestroyLastLevel();
       var levelData = _classicLevels.GetLevel(_persistanceManager.LastClassicLevel);
-      _gameSceneManager.LoadScene(levelData.Scene, LoadSceneMode.Single, scene =>
+      _gameSceneManager.LoadScene(levelData.Scene.Name, LoadSceneMode.Single, scene =>
       {
         _classicLevel = new GameClassicLevelInfo();
         _classicLevel.Scene = scene;

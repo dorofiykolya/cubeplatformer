@@ -10,6 +10,21 @@ using Utils.Collections;
 
 namespace Game.UI.Controllers
 {
+  public class UIWindowReference
+  {
+    private readonly Lifetime.Definition _definition;
+
+    public UIWindowReference(Lifetime.Definition definition)
+    {
+      _definition = definition;
+    }
+
+    public void Close()
+    {
+      _definition.Terminate();
+    }
+  }
+
   public class UIWindowController : UIController
   {
     [Inject]
@@ -23,12 +38,12 @@ namespace Game.UI.Controllers
     private bool _inOpenProcess;
     private Transform _transform;
 
-    public Lifetime.Definition Open<T>(Action<UIWindow> onOpen) where T : UIWindow
+    public UIWindowReference Open<T>(Action<UIWindow> onOpen) where T : UIWindow
     {
       var definition = Lifetime.Define(Lifetime);
+      var shell = new UIWindowReference(definition);
       Enqueue(typeof(T), onOpen, definition);
-
-      return definition;
+      return shell;
     }
 
     protected override void Initialize()
@@ -40,9 +55,9 @@ namespace Game.UI.Controllers
       }
     }
 
-    private void Enqueue(Type type, Action<UIWindow> onOpen, Lifetime.Definition lifetime)
+    private void Enqueue(Type type, Action<UIWindow> onOpen, Lifetime.Definition lifetimeDefinition)
     {
-      var intersectLifetime = Lifetime.Intersection(lifetime.Lifetime, Lifetime);
+      var intersectLifetime = Lifetime.Intersection(lifetimeDefinition.Lifetime, Lifetime);
       Action<Action> action = (callback) =>
       {
         var path = _map[type];
@@ -50,12 +65,10 @@ namespace Game.UI.Controllers
         {
           var windowMediator = (UIWindow)_injector.Get(type);
           var windowComponent = result.Instantiate<UIWindowComponent>();
-          _injector.Map<UIWindowComponent>().ToValue(windowComponent);
           _injector.Inject(windowMediator);
-          _injector.Unmap<UIWindowComponent>();
           _sceneController.SceneComponent.WindowsRoot.AddChild(windowComponent.transform);
           windowComponent.gameObject.AddComponent<SignalMonoBehaviour>().DestroySignal.Subscribe(intersectLifetime.Lifetime, intersectLifetime.Terminate);
-          MethodInvoker<UIWindow, InitializeAttribute>.Invoke(windowMediator, intersectLifetime);
+          MethodInvoker<UIWindow, InitializeAttribute>.Invoke(windowMediator, intersectLifetime.Lifetime, windowComponent);
           _opened.Add(windowMediator);
           MethodInvoker<UIWindow, WindowOpenAttribute>.Invoke(windowMediator);
           onOpen(windowMediator);

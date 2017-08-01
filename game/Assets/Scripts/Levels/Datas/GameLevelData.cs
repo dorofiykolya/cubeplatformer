@@ -10,7 +10,7 @@ namespace Game
     public string Description;
     public LevelComponent LevelPrefab;
     public EnvironmentComponent EnvironmentPrefab;
-    public string Scene;
+    public GameSceneData Scene;
     public GameLevelDataType DataType;
     public string LevelStringData;
     public CellPreset Preset;
