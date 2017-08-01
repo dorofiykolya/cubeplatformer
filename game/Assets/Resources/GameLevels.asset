@@ -18,4 +18,8 @@ MonoBehaviour:
       type: 2}
     EnvironmentPrefab: {fileID: 114028561338007064, guid: 23300ebbf6957b9489c573f3d46c3eb5,
       type: 2}
-    Scene: Level_01
+    Scene:
+      Name: Level_01
+    DataType: 0
+    LevelStringData: 
+    Preset: {fileID: 0}

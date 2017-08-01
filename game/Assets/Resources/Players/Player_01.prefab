@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33248954101913588}
   - component: {fileID: 23668662125881142}
   - component: {fileID: 114029955923896450}
-  - component: {fileID: 114849241011979034}
+  - component: {fileID: 114118619268187890}
   m_Layer: 0
   m_Name: Guard_01
   m_TagString: Untagged
@@ -109,7 +109,7 @@ MonoBehaviour:
       InstanceTarget: {fileID: 33248954101913588}
     - LIIF: -1435738967
       InstanceTarget: {fileID: 23668662125881142}
-    - LIIF: -1868883517
+    - LIIF: 1203864012
       InstanceTarget: {fileID: 0}
   Modifications:
     Modificated: []
@@ -118,8 +118,8 @@ MonoBehaviour:
     RemovedObjects: 
     TransformParentChanges: []
   ParentPrefabGUID: 
-  PrefabGUID: 66f082715424aa8449ffeca25400dcb5
---- !u!114 &114849241011979034
+  PrefabGUID: 7f2eaa4b97cb7074285220d3e7aa01bb
+--- !u!114 &114118619268187890
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -127,6 +127,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1954872109754734}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c9854d8bacbfa94198258129c53cb75, type: 3}
+  m_Script: {fileID: 11500000, guid: b49d7f56f51bdda478d1154201638870, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -714,6 +714,7 @@ namespace Game.Logics.Classics
 
     public int GetNextPlayerId()
     {
+      if (_players.Count == 0) return -1;
       var result = _players[_nextIndex].Id;
       _nextIndex++;
       if (_nextIndex >= _players.Count) _nextIndex = 0;

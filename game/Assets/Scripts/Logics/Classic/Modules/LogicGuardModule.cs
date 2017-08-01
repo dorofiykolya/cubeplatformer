@@ -90,9 +90,11 @@ namespace Game.Logics.Classics
           continue;
         }
         var playerId = players.GetNextPlayerId();
-        guardMoveStep(moveId, bestMove(moveId, playerId), playerId);
+        if (playerId != -1)
+        {
+          guardMoveStep(moveId, bestMove(moveId, playerId), playerId);
+        }
       }
-
     }
 
     public LogicGuard Get(int x, int y)
@@ -111,13 +113,13 @@ namespace Game.Logics.Classics
       Assert2.IsTrue(id < guardCount, "Error: can not get guard position!");
 
       return id;
-
     }
 
-    public void Add(LogicGuard guard)
+    public int Add(LogicGuard guard)
     {
       _guards.Add(guard);
-      guardCount++;
+      guard.Id = guardCount;
+      return guardCount++;
     }
 
     public void removeFromShake(int id)
@@ -974,8 +976,9 @@ namespace Game.Logics.Classics
     public int AddGuard(CellComponent cell)
     {
       _spawnPoints.Add(cell.Position);
-      Add(new LogicGuard(cell.Position));
-      return _guards.Count - 1;
+      var id = Add(new LogicGuard(cell.Position));
+      _logicModules.Get<LogicViewModule>().AddGuard(id, cell);
+      return id;
     }
   }
 }

@@ -61,8 +61,7 @@ namespace Game.Logics.Classics
         }
         else if (cell.CellType == CellType.Guard)
         {
-          var id = _logicModules.Get<LogicGuardModule>().AddGuard(cell);
-          _logicModules.Get<LogicViewModule>().AddGuard(id, cell);
+          _logicModules.Get<LogicGuardModule>().AddGuard(cell);
         }
       }
     }
