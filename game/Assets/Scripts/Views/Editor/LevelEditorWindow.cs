@@ -66,9 +66,17 @@ namespace Game.Views.Editor
             if(Selection.gameObjects.Contains(cellGameObject)) GUI.color = Color.green;
             else
             {
-              if(Array.IndexOf(new CellType[]{CellType.Block, CellType.HLadr, CellType.Ladder, CellType.Rope, CellType.Solid, CellType.Trap}, cell.CellType) != -1 || cell.CellType == CellType.Block)
+              if(Array.IndexOf(new []{CellType.Block, CellType.HLadr, CellType.Ladder, CellType.Rope, CellType.Solid, CellType.Trap}, cell.CellType) != -1 || cell.CellType == CellType.Block)
               {
                 GUI.color = new Color(.25f, .25f, .25f);
+              }
+              else if (cell.CellType == CellType.Guard)
+              {
+                GUI.color = new Color(.7f, 0f, 0f);
+              }
+              else if (cell.CellType == CellType.Player)
+              {
+                GUI.color = new Color(.0f, 0f, 7f);
               }
             }
             if(GUILayout.Button(button, EditorUtils.Styles.minibutton, GUILayout.Width(10f), GUILayout.Height(10f)))

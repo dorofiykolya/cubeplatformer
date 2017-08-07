@@ -48,6 +48,7 @@ namespace Game.UI.Controllers
     {
       foreach (var rootGameObject in scene.GetRootGameObjects())
       {
+        GameObject.DontDestroyOnLoad(rootGameObject);
         var sceneComponent = rootGameObject.GetComponent<UISceneComponent>();
         if (sceneComponent != null)
         {

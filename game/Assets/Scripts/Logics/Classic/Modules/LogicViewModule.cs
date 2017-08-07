@@ -13,6 +13,7 @@ namespace Game.Logics.Classics
     private LevelComponent _level;
     private Dictionary<int, CellPlayerContentComponent> _players;
     private Dictionary<int, CellGuardContentComponent> _guards;
+    private LevelSize _size;
 
     public LogicViewModule(LogicModules logicModules)
     {
@@ -21,8 +22,9 @@ namespace Game.Logics.Classics
       _players = new Dictionary<int, CellPlayerContentComponent>();
     }
 
-    public void Initialize(GameContext gameContext, ILevelCoordinateConverter levelCoordinateConverter, LevelComponent level)
+    public void Initialize(GameContext gameContext, ILevelCoordinateConverter levelCoordinateConverter, LevelComponent level, LevelSize size)
     {
+      _size = size;
       _context = gameContext;
       _level = level;
       _levelCoordinateConverter = levelCoordinateConverter;
@@ -46,7 +48,7 @@ namespace Game.Logics.Classics
     public void GuardReborn(int id, int bornX, int bornY, CellType reborn)
     {
       _guards[id].gameObject.SetActive(true);
-      _guards[id].transform.localPosition = _levelCoordinateConverter.ToWorld(new PositionF(bornX, bornY, 0));
+      _guards[id].transform.localPosition = _levelCoordinateConverter.ToWorld(new PositionF(bornX, _size.Y - bornY, 0));
     }
 
     public void GuardStop(int curGuard)
@@ -56,7 +58,7 @@ namespace Game.Logics.Classics
 
     public void GuardPosition(int curGuardId, float x, float y)
     {
-      _guards[curGuardId].transform.localPosition = _levelCoordinateConverter.ToWorld(new PositionF(x, y, 0));
+      _guards[curGuardId].transform.localPosition = _levelCoordinateConverter.ToWorld(new PositionF(x, _size.Y - y, 0));
     }
 
     public void GuardShape(LogicActorShape newShape)
@@ -111,7 +113,7 @@ namespace Game.Logics.Classics
 
     public void PlayerPosition(int playerId, float x, float y)
     {
-      _players[playerId].transform.localPosition = _levelCoordinateConverter.ToWorld(new PositionF(x, y, 0));
+      _players[playerId].transform.localPosition = _levelCoordinateConverter.ToWorld(new PositionF(x, _size.Y - y, 0));
     }
 
     public void AddGuard(int id, CellComponent cell)

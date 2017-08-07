@@ -1,8 +1,6 @@
 ﻿using Game.Managers;
-using Game.UI.Components;
+using Game.UI.Windows;
 using Injection;
-using UnityEngine.SceneManagement;
-using Utils;
 
 namespace Game.UI.Controllers
 {

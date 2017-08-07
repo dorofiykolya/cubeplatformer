@@ -1,10 +1,8 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 using Utils;
 
-namespace Game.UI.Components
+namespace Game.UI.Windows
 {
-
   public class UIMainManuComponent : UIWindowComponent
   {
     private Lifetime.Definition _definition;

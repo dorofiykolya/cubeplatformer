@@ -54,14 +54,15 @@ namespace Game.Logics.Classics
       _grid = new LogicCell[size.X, size.Y];
       foreach (var cell in grid)
       {
-        _grid[cell.Position.X, cell.Position.Y] = new LogicCell(cell.CellType, cell.Position.X, cell.Position.Y);
+        var position = new Position(cell.Position.X, size.Y - cell.Position.Y - 1, 0);
+        _grid[position.X, position.Y] = new LogicCell(cell.CellType, position.X, position.Y);
         if (cell.CellType == CellType.Player)
         {
-          _logicModules.Get<LogicPlayerModule>().AddPlayer(cell);
+          _logicModules.Get<LogicPlayerModule>().AddPlayer(position);
         }
         else if (cell.CellType == CellType.Guard)
         {
-          _logicModules.Get<LogicGuardModule>().AddGuard(cell);
+          _logicModules.Get<LogicGuardModule>().AddGuard(position, cell);
         }
       }
     }

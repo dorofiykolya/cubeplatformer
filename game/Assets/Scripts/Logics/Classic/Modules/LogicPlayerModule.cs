@@ -689,9 +689,9 @@ namespace Game.Logics.Classics
       _logicModules.Get<LogicSoundModule>().StopDig();
     }
 
-    public void AddPlayer(CellComponent cell)
+    public void AddPlayer(Position cell)
     {
-      _spawnPoints.Add(cell.Position);
+      _spawnPoints.Add(cell);
     }
 
     public LogicPlayer GetPlayer(int id)

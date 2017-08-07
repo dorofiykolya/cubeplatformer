@@ -1,7 +1,9 @@
 ﻿using System;
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 using Game.UI.Components;
+using Game.UI.HUDs;
 using Game.UI.Providers;
 using Game.UI.Windows;
 using Injection;
@@ -10,11 +12,11 @@ using Utils.Collections;
 
 namespace Game.UI.Controllers
 {
-  public class UIWindowReference
+  public class UIHUDReference
   {
     private readonly Lifetime.Definition _definition;
 
-    public UIWindowReference(Lifetime.Definition definition)
+    public UIHUDReference(Lifetime.Definition definition)
     {
       _definition = definition;
     }
@@ -25,37 +27,36 @@ namespace Game.UI.Controllers
     }
   }
 
-  public class UIWindowController : UIController
+  public class UIHUDController : UIController
   {
     [Inject]
     private IInjector _injector;
     [Inject]
     private UISceneController _sceneController;
 
-    private Dictionary<Type, string> _map = new Dictionary<Type, string>();
-    private List<UIWindow> _opened = new List<UIWindow>();
-    private LinkedQueue<Action<Action>> _queue = new LinkedQueue<Action<Action>>();
+    private readonly Dictionary<Type, string> _map = new Dictionary<Type, string>();
+    private readonly List<UIHUD> _opened = new List<UIHUD>();
+    private readonly LinkedQueue<Action<Action>> _queue = new LinkedQueue<Action<Action>>();
     private bool _inOpenProcess;
-    private Transform _transform;
 
-    public UIWindowReference Open<T>(Action<UIWindow> onOpen) where T : UIWindow
+    public UIHUDReference Open<T>(Action<UIHUD> onOpen) where T : UIHUD
     {
       var definition = Lifetime.Define(Lifetime);
-      var shell = new UIWindowReference(definition);
+      var shell = new UIHUDReference(definition);
       Enqueue(typeof(T), onOpen, definition);
       return shell;
     }
 
     protected override void Initialize()
     {
-      foreach (var windowMap in new UIWindowsProvider().GetWindows())
+      foreach (var map in new UIHUDProvider().GetMap())
       {
-        _map[windowMap.Type] = windowMap.Path;
-        _injector.Map(windowMap.Type).ToFactory(windowMap.Type);
+        _map[map.Type] = map.Path;
+        _injector.Map(map.Type).ToFactory(map.Type);
       }
     }
 
-    private void Enqueue(Type type, Action<UIWindow> onOpen, Lifetime.Definition lifetimeDefinition)
+    private void Enqueue(Type type, Action<UIHUD> onOpen, Lifetime.Definition lifetimeDefinition)
     {
       var intersectLifetime = Lifetime.Intersection(lifetimeDefinition.Lifetime, Lifetime);
       Action<Action> action = (callback) =>
@@ -63,20 +64,20 @@ namespace Game.UI.Controllers
         var path = _map[type];
         Context.ResourceManager.GetPrefab(path).LoadAsync(intersectLifetime.Lifetime, result =>
         {
-          var windowMediator = (UIWindow)_injector.Get(type);
-          var windowComponent = result.Instantiate<UIWindowComponent>();
+          var windowMediator = (UIHUD)_injector.Get(type);
+          var windowComponent = result.Instantiate<UIHUDComponent>();
           GameObject.DontDestroyOnLoad(windowComponent.gameObject);
           _injector.Inject(windowMediator);
-          _sceneController.SceneComponent.WindowsRoot.AddChild(windowComponent.transform);
+          _sceneController.SceneComponent.HUDRoot.AddChild(windowComponent.transform);
           windowComponent.gameObject.AddComponent<SignalMonoBehaviour>().DestroySignal.Subscribe(intersectLifetime.Lifetime, intersectLifetime.Terminate);
-          MethodInvoker<UIWindow, InitializeAttribute>.Invoke(windowMediator, intersectLifetime, windowComponent);
+          MethodInvoker<UIHUD, InitializeAttribute>.Invoke(windowMediator, intersectLifetime, windowComponent);
           _opened.Add(windowMediator);
-          MethodInvoker<UIWindow, WindowOpenAttribute>.Invoke(windowMediator);
+          MethodInvoker<UIHUD, UIHUDOpenAttribute>.Invoke(windowMediator);
           onOpen(windowMediator);
           callback();
           intersectLifetime.Lifetime.AddAction(() =>
           {
-            MethodInvoker<UIWindow, WindowCloseAttribute>.Invoke(windowMediator);
+            MethodInvoker<UIHUD, WindowCloseAttribute>.Invoke(windowMediator);
             _opened.Remove(windowMediator);
             result.Release(windowComponent);
             result.Collect();

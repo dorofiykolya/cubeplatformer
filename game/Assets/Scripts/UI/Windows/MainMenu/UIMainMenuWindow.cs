@@ -4,7 +4,7 @@ using Game.Managers;
 using Game.UI.Components;
 using Injection;
 
-namespace Game.UI
+namespace Game.UI.Windows
 {
   public class UIMainMenuWindow : UIWindow<UIMainManuComponent>
   {
@@ -16,19 +16,23 @@ namespace Game.UI
       UIMainManuComponent menuComponent = Component;
       if (menuComponent)
       {
-        menuComponent.OnClassicClick.Subscribe(Lifetime, _levelManager.ResumeClassic);
+        menuComponent.OnClassicClick.Subscribe(Lifetime, () =>
+        {
+          _levelManager.ResumeClassic();
+          Close();
+        });
         menuComponent.OnInfinityClick.Subscribe(Lifetime, _levelManager.ResumeInfinity);
       }
     }
 
     protected override void OnOpen()
     {
-      
+
     }
 
     protected override void OnClose()
     {
-      
+
     }
   }
 }

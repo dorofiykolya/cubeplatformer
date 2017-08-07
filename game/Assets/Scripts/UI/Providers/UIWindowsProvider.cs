@@ -1,8 +1,6 @@
 ﻿using System;
-using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using Game.UI.Controllers;
+using Game.UI.Windows;
 
 namespace Game.UI.Providers
 {

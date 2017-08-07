@@ -34,7 +34,7 @@ namespace Game.Managers
 
       });
       var logic = info.Level.Logic.Engine(Context);
-      
+
       var input = new LevelInputContenxt(Context, _levelDefinition.Lifetime, Context.InputContext);
       logic.AddAction(new LogicActionInitializePlayer(input.Controllers, logic.Tick + 1));
       input.SubscribeOnAddController(_levelDefinition.Lifetime, controller =>
@@ -45,10 +45,10 @@ namespace Game.Managers
       {
         logic.AddAction(new LogicActionRemovePlayer(controller.Id, logic.Tick + 1));
       });
-
+      
       Context.Time.SubscribeOnUpdate(Lifetime, () =>
       {
-        var ticks = (int)(Context.Time.DeltaTime * logic.TicksPerSeconds);
+        var ticks = 1;
         logic.FastForward(logic.Tick + ticks);
       });
     }

@@ -1,9 +1,9 @@
 ﻿using System;
 using Utils;
 
-namespace Game.UI.Windows
+namespace Game.UI.HUDs
 {
-  public abstract class UIWindow<T> : UIWindow where T : UIWindowComponent
+  public abstract class UIHUD<T> : UIHUD where T : UIHUDComponent
   {
     public override Type ComponentType
     {
@@ -16,14 +16,14 @@ namespace Game.UI.Windows
     }
   }
 
-  public abstract class UIWindow
+  public abstract class UIHUD
   {
-    private UIWindowComponent _component;
+    private UIHUDComponent _component;
     private Lifetime.Definition _lifetimeDefinition;
 
     public abstract Type ComponentType { get; }
 
-    public UIWindowComponent Component
+    public UIHUDComponent Component
     {
       get { return _component; }
     }
@@ -39,20 +39,20 @@ namespace Game.UI.Windows
     }
 
     [Initialize]
-    private void InitializeWindowInternal(Lifetime.Definition lifetimeDefinition, UIWindowComponent component)
+    private void InitializeWindowInternal(Lifetime.Definition lifetimeDefinition, UIHUDComponent component)
     {
       _lifetimeDefinition = lifetimeDefinition;
       _component = component;
       Initialize();
     }
 
-    [WindowOpen]
+    [UIHUDOpen]
     private void WindowOpenInternal()
     {
       OnOpen();
     }
 
-    [WindowClose]
+    [UIHUDClose]
     private void WindowCloseInternal()
     {
       OnClose();
@@ -60,7 +60,7 @@ namespace Game.UI.Windows
   }
 
   [AttributeUsage(AttributeTargets.Method)]
-  public class WindowOpenAttribute : Attribute { }
+  public class UIHUDOpenAttribute : Attribute { }
   [AttributeUsage(AttributeTargets.Method)]
-  public class WindowCloseAttribute : Attribute { }
+  public class UIHUDCloseAttribute : Attribute { }
 }

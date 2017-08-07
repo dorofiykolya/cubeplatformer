@@ -973,10 +973,10 @@ namespace Game.Logics.Classics
       get { return _guards[id]; }
     }
 
-    public int AddGuard(CellComponent cell)
+    public int AddGuard(Position position, CellComponent cell)
     {
-      _spawnPoints.Add(cell.Position);
-      var id = Add(new LogicGuard(cell.Position));
+      _spawnPoints.Add(position);
+      var id = Add(new LogicGuard(position));
       _logicModules.Get<LogicViewModule>().AddGuard(id, cell);
       return id;
     }

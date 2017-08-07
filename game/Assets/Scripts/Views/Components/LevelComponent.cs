@@ -12,7 +12,13 @@ namespace Game.Views.Components
     [SerializeField]
     private CellComponent[] _grid;
 
-    public ILevelCoordinateConverter CoordinateConverter { get; private set; }
+    public ILevelCoordinateConverter CoordinateConverter
+    {
+      get
+      {
+        return GetComponent<LevelCoordinateConverterProviderComponent>().Converter;
+      }
+    }
     public Transform CellContainer { get { return _cellContainer ?? (_cellContainer = CreateCellContainer()); } }
     public LevelSize Size { get { return _size; } }
     public CellComponent[] Grid { get { return _grid; } }
@@ -40,7 +46,6 @@ namespace Game.Views.Components
 
     public void UpdateConverter()
     {
-      CoordinateConverter = GetComponent<LevelCoordinateConverterProviderComponent>().Converter;
       foreach (var component in _grid)
       {
         component.UpdatePosition();
