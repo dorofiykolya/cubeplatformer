@@ -9,6 +9,8 @@ namespace Game.Managers
   {
     [Inject]
     private GameLevelManager _levelManager;
+    [Inject]
+    private GameStateManager _stateManager;
 
     private Lifetime.Definition _levelDefinition;
 
@@ -31,8 +33,9 @@ namespace Game.Managers
       _levelDefinition = Lifetime.Definition.Define(Lifetime);
       _levelDefinition.Lifetime.AddAction(() =>
       {
-
+        _stateManager.Current = _stateManager.Prev;
       });
+      _stateManager.Current = GameState.ClassicPlayMode;
       var logic = info.Level.Logic.Engine(Context);
 
       var input = new LevelInputContenxt(Context, _levelDefinition.Lifetime, Context.InputContext);

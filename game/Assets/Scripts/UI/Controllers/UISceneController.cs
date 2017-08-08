@@ -13,6 +13,8 @@ namespace Game.UI.Controllers
   {
     [Inject]
     private GameSceneManager _gameSceneManager;
+    [Inject]
+    private GameStateManager _stateManager;
 
     private Signal _onReady;
     private Signal _onUnload;

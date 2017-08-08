@@ -12,6 +12,8 @@ namespace Game.UI.Controllers
     private UISceneController _sceneController;
     [Inject]
     private UIWindowController _windowController;
+    [Inject]
+    private GameStateManager _stateManager;
 
     protected override void Initialize()
     {
@@ -20,6 +22,7 @@ namespace Game.UI.Controllers
 
     private void InitializeMenu()
     {
+      _stateManager.Current = GameState.Menu;
       var lt = Context.UIContext.Windows.Open<UIMainMenuWindow>((w) => { });
     }
   }

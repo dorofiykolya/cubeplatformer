@@ -39,7 +39,7 @@ namespace Game.UI.Controllers
     private readonly LinkedQueue<Action<Action>> _queue = new LinkedQueue<Action<Action>>();
     private bool _inOpenProcess;
 
-    public UIHUDReference Open<T>(Action<UIHUD> onOpen) where T : UIHUD
+    public UIHUDReference Open<T>(Action<UIHUD> onOpen = null) where T : UIHUD
     {
       var definition = Lifetime.Define(Lifetime);
       var shell = new UIHUDReference(definition);
@@ -73,11 +73,11 @@ namespace Game.UI.Controllers
           MethodInvoker<UIHUD, InitializeAttribute>.Invoke(windowMediator, intersectLifetime, windowComponent);
           _opened.Add(windowMediator);
           MethodInvoker<UIHUD, UIHUDOpenAttribute>.Invoke(windowMediator);
-          onOpen(windowMediator);
+          if (onOpen != null) onOpen(windowMediator);
           callback();
           intersectLifetime.Lifetime.AddAction(() =>
           {
-            MethodInvoker<UIHUD, WindowCloseAttribute>.Invoke(windowMediator);
+            MethodInvoker<UIHUD, UIHUDCloseAttribute>.Invoke(windowMediator);
             _opened.Remove(windowMediator);
             result.Release(windowComponent);
             result.Collect();

@@ -11,6 +11,7 @@ namespace Game.UI.Providers
       yield return new UISceneController();
       yield return new UIWindowController();
       yield return new UIMainMenuController();
+      yield return new UIHUDGameStateController();
     }
 
   }

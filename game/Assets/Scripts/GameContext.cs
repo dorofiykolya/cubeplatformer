@@ -17,7 +17,6 @@ namespace Game
     private readonly TimeManager _timeManager;
     private readonly IDispatcher _dispatcher;
     private readonly ResourceManager _resourceManager;
-    private readonly GameStateManager _stateManager;
     private readonly GameManagers _managers;
     private readonly Preloader _preloader;
     private readonly GameProviders _providers;
@@ -36,7 +35,6 @@ namespace Game
       _providers = new GameProviders(lifetime, behaviour);
       _timeManager = new TimeManager(lifetime, behaviour);
       _resourceManager = new ResourceManager(_providers.CoroutineProvider);
-      _stateManager = new GameStateManager(lifetime);
       _dispatcher = behaviour.gameObject.GetComponent<UnityDispatcher>() ?? behaviour.gameObject.AddComponent<UnityDispatcher>();
       _preloader = new Preloader(_lifetime);
       _inputContext = new GameInputContenxt(this);
@@ -45,7 +43,12 @@ namespace Game
       _viewContext = new ViewContext(this, injector);
       _uiContext = new UIContext(this, injector);
 
-      _lifetime.AddAction(() => injector.Dispose());
+      _lifetime.AddAction(() =>
+        {
+          injector.Dispose();
+          _resourceManager.Dispose();
+        }
+      );
     }
 
     public InputContext InputContext { get { return _inputContext; } }

@@ -38,7 +38,7 @@ namespace Game.UI.Controllers
     private bool _inOpenProcess;
     private Transform _transform;
 
-    public UIWindowReference Open<T>(Action<UIWindow> onOpen) where T : UIWindow
+    public UIWindowReference Open<T>(Action<UIWindow> onOpen = null) where T : UIWindow
     {
       var definition = Lifetime.Define(Lifetime);
       var shell = new UIWindowReference(definition);
@@ -72,7 +72,7 @@ namespace Game.UI.Controllers
           MethodInvoker<UIWindow, InitializeAttribute>.Invoke(windowMediator, intersectLifetime, windowComponent);
           _opened.Add(windowMediator);
           MethodInvoker<UIWindow, WindowOpenAttribute>.Invoke(windowMediator);
-          onOpen(windowMediator);
+          if (onOpen != null) onOpen(windowMediator);
           callback();
           intersectLifetime.Lifetime.AddAction(() =>
           {

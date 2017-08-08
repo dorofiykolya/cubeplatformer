@@ -1,23 +1,24 @@
 ﻿using System;
+using Game.Managers;
 using Utils;
 
 namespace Game
 {
-  public class GameStateManager
+  public class GameStateManager : GameManager
   {
-    private readonly Signal<GameState, GameState> _onEnter;
-    private readonly Signal<GameState, GameState> _onExit;
-    private readonly Signal<GameState> _onChanged;
-    private readonly Lifetime _lifetime;
+    private Signal<GameState, GameState> _onEnter;
+    private Signal<GameState, GameState> _onExit;
+    private Signal<GameState> _onChanged;
     private GameState _prev;
     private GameState _current;
 
-    public GameStateManager(Lifetime lifetime)
+    protected override void Preinitialize()
     {
-      _lifetime = lifetime;
-      _onEnter = new Signal<GameState, GameState>(_lifetime);
-      _onExit = new Signal<GameState, GameState>(_lifetime);
-      _onChanged = new Signal<GameState>(_lifetime);
+      _current = _prev = GameState.Preloader;
+
+      _onEnter = new Signal<GameState, GameState>(Lifetime);
+      _onExit = new Signal<GameState, GameState>(Lifetime);
+      _onChanged = new Signal<GameState>(Lifetime);
     }
 
     public GameState Prev
@@ -32,8 +33,11 @@ namespace Game
       {
         if (value != _current)
         {
-          _prev = _current;
+          _prev = _current != null ? _current : value;
+          _onExit.Fire(_prev, value);
+          _onEnter.Fire(_prev, value);
           _current = value;
+          _onChanged.Fire(_current);
         }
       }
     }
@@ -42,7 +46,10 @@ namespace Game
     {
       _onExit.Subscribe(lifetime, (exit, enter) =>
       {
-        if (exit.Is(exitState)) listenerNextState(enter);
+        if (exit.Is(exitState))
+        {
+          listenerNextState(enter);
+        }
       });
     }
 
@@ -50,7 +57,10 @@ namespace Game
     {
       _onEnter.Subscribe(lifetime, (exit, enter) =>
       {
-        if (enter.Is(enterState)) listenerExitState(exit);
+        if (enter.Is(enterState))
+        {
+          listenerExitState(exit);
+        }
       });
     }
 
