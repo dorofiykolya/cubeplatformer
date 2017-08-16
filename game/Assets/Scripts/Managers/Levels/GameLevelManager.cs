@@ -33,7 +33,7 @@ namespace Game.Managers
     {
       _onLoaded.Subscribe(lifetime, listener);
     }
-    
+
     public void SubscribeOnUnloaded(Lifetime lifetime, Action<GameClassicLevelInfo> listener)
     {
       _onUnload.Subscribe(lifetime, listener);
@@ -73,13 +73,23 @@ namespace Game.Managers
 
     }
 
+    public void Unload()
+    {
+      DestroyLastLevel();
+    }
+
     private void DestroyLastLevel()
     {
       if (_classicLevel != null)
       {
         _onUnload.Fire(_classicLevel);
-        if (_classicLevel.Envorinment) GameObject.Destroy(_classicLevel.Envorinment);
-        if (_classicLevel.Level) GameObject.Destroy(_classicLevel.Level);
+        foreach (var gameObject in _classicLevel.Scene.GetRootGameObjects())
+        {
+          GameObject.DestroyImmediate(gameObject);
+        }
+        if (_classicLevel.Envorinment) GameObject.Destroy(_classicLevel.Envorinment.gameObject);
+        if (_classicLevel.Level) GameObject.Destroy(_classicLevel.Level.gameObject);
+        SceneManager.UnloadSceneAsync(_classicLevel.Scene.name);
         _classicLevel = null;
       }
     }

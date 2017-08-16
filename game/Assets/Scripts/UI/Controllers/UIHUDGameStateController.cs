@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Game.UI.HUDs;
+using Game.UI.Windows;
 using Injection;
 
 namespace Game.UI.Controllers
@@ -15,6 +16,7 @@ namespace Game.UI.Controllers
     protected override void Initialize()
     {
       Map<UIHUDClassicPlayMode>(GameState.ClassicPlayMode);
+      Map<UIHUDMainMenu>(GameState.Menu);
     }
 
     private void Map<T>(GameState state) where T : UIHUD

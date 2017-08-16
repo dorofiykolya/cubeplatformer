@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections.Generic;
-using Game.UI.Components;
+using System.Linq;
 using Game.UI.Providers;
 using Game.UI.Windows;
 using Injection;
@@ -27,23 +27,57 @@ namespace Game.UI.Controllers
 
   public class UIWindowController : UIController
   {
+    private class UIWindowContext
+    {
+      private readonly UIWindowReference _reference;
+      private readonly Lifetime.Definition _definition;
+
+      public UIWindowContext(UIWindowReference reference, Lifetime.Definition definition)
+      {
+        _reference = reference;
+        _definition = definition;
+      }
+
+      public Action<Action> Factory;
+
+      public Lifetime Lifetime
+      {
+        get { return _definition.Lifetime; }
+      }
+
+      public UIWindowReference Reference
+      {
+        get { return _reference; }
+      }
+    }
+
     [Inject]
     private IInjector _injector;
     [Inject]
     private UISceneController _sceneController;
 
-    private Dictionary<Type, string> _map = new Dictionary<Type, string>();
-    private List<UIWindow> _opened = new List<UIWindow>();
-    private LinkedQueue<Action<Action>> _queue = new LinkedQueue<Action<Action>>();
+    private readonly Dictionary<Type, string> _map = new Dictionary<Type, string>();
+    private readonly List<UIWindowContext> _opened = new List<UIWindowContext>();
+    private readonly LinkedQueue<UIWindowContext> _queue = new LinkedQueue<UIWindowContext>();
     private bool _inOpenProcess;
-    private Transform _transform;
 
     public UIWindowReference Open<T>(Action<UIWindow> onOpen = null) where T : UIWindow
     {
       var definition = Lifetime.Define(Lifetime);
-      var shell = new UIWindowReference(definition);
-      Enqueue(typeof(T), onOpen, definition);
-      return shell;
+      var reference = new UIWindowReference(definition);
+      var context = new UIWindowContext(reference, definition);
+      Enqueue(typeof(T), onOpen, context);
+      return reference;
+    }
+
+    public IEnumerable<UIWindowReference> Opened
+    {
+      get { return _opened.Select(w => w.Reference).ToList(); }
+    }
+
+    public IEnumerable<UIWindowReference> Queue
+    {
+      get { return _queue.Select(w => w.Reference).ToArray(); }
     }
 
     protected override void Initialize()
@@ -55,39 +89,41 @@ namespace Game.UI.Controllers
       }
     }
 
-    private void Enqueue(Type type, Action<UIWindow> onOpen, Lifetime.Definition lifetimeDefinition)
+    private void Enqueue(Type type, Action<UIWindow> onOpen, UIWindowContext context)
     {
-      var intersectLifetime = Lifetime.Intersection(lifetimeDefinition.Lifetime, Lifetime);
-      Action<Action> action = (callback) =>
+      var intersectLifetime = Lifetime.Intersection(context.Lifetime, Lifetime);
+      context.Factory = callback =>
       {
         var path = _map[type];
         Context.ResourceManager.GetPrefab(path).LoadAsync(intersectLifetime.Lifetime, result =>
         {
           var windowMediator = (UIWindow)_injector.Get(type);
           var windowComponent = result.Instantiate<UIWindowComponent>();
+
+          intersectLifetime.Lifetime.AddAction(() =>
+          {
+            MethodInvoker<UIWindow, WindowCloseAttribute>.Invoke(windowMediator);
+            _opened.Remove(context);
+            result.Release(windowComponent);
+            result.Collect();
+          });
+
           GameObject.DontDestroyOnLoad(windowComponent.gameObject);
           _injector.Inject(windowMediator);
           _sceneController.SceneComponent.WindowsRoot.AddChild(windowComponent.transform);
           windowComponent.gameObject.AddComponent<SignalMonoBehaviour>().DestroySignal.Subscribe(intersectLifetime.Lifetime, intersectLifetime.Terminate);
           MethodInvoker<UIWindow, InitializeAttribute>.Invoke(windowMediator, intersectLifetime, windowComponent);
-          _opened.Add(windowMediator);
+          _opened.Add(context);
           MethodInvoker<UIWindow, WindowOpenAttribute>.Invoke(windowMediator);
           if (onOpen != null) onOpen(windowMediator);
           callback();
-          intersectLifetime.Lifetime.AddAction(() =>
-          {
-            MethodInvoker<UIWindow, WindowCloseAttribute>.Invoke(windowMediator);
-            _opened.Remove(windowMediator);
-            result.Release(windowComponent);
-            result.Collect();
-          });
         });
       };
 
-      _queue.Enqueue(action);
+      _queue.Enqueue(context);
       intersectLifetime.Lifetime.AddAction(() =>
       {
-        _queue.Remove(action);
+        _queue.Remove(context);
         if (_queue.Count == 0)
         {
           _inOpenProcess = false;
@@ -117,7 +153,7 @@ namespace Game.UI.Controllers
     {
       if (_queue.Count != 0)
       {
-        _queue.Dequeue()(() =>
+        _queue.Dequeue().Factory(() =>
         {
           if (_queue.Count != 0)
           {

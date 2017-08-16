@@ -49,7 +49,7 @@ namespace Game.Managers
         logic.AddAction(new LogicActionRemovePlayer(controller.Id, logic.Tick + 1));
       });
       
-      Context.Time.SubscribeOnUpdate(Lifetime, () =>
+      Context.Time.SubscribeOnUpdate(_levelDefinition.Lifetime, () =>
       {
         var ticks = 1;
         logic.FastForward(logic.Tick + ticks);

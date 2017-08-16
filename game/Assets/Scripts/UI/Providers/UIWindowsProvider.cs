@@ -20,7 +20,7 @@ namespace Game.UI.Providers
   {
     public IEnumerable<UIWindowMap> GetWindows()
     {
-      yield return new UIWindowMap(typeof(UIMainMenuWindow), "Windows/MainMenu");
+      yield break;
     }
   }
 }

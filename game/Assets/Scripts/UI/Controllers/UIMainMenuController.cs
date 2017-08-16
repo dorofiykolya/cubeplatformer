@@ -23,7 +23,6 @@ namespace Game.UI.Controllers
     private void InitializeMenu()
     {
       _stateManager.Current = GameState.Menu;
-      var lt = Context.UIContext.Windows.Open<UIMainMenuWindow>((w) => { });
     }
   }
 }

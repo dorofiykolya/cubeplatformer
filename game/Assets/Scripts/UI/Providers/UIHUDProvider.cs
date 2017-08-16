@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Game.UI.HUDs;
+using Game.UI.Windows;
 
 namespace Game.UI.Providers
 {
@@ -21,6 +22,7 @@ namespace Game.UI.Providers
     public IEnumerable<UIHUDMap> GetMap()
     {
       yield return new UIHUDMap(typeof(UIHUDClassicPlayMode), "HUDs/ClassicPlayMode");
+      yield return new UIHUDMap(typeof(UIHUDMainMenu), "Windows/MainMenu");
     }
   }
 }
