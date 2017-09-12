@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 4741118303011968}
   - component: {fileID: 114028561338007064}
   m_Layer: 0
-  m_Name: Transelvania
+  m_Name: Castle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
