@@ -45,6 +45,43 @@ ModelImporter:
     100074: Roots:L_toe_end
     100076: Roots:R_hand_toe_end
     100078: Roots:R_toe_end
+    100080: Roots_Chest
+    100082: Roots_Head
+    100084: Roots_Head_f
+    100086: Roots_Head_f_end
+    100088: Roots_Hips
+    100090: Roots_joint4
+    100092: Roots_joint4_end
+    100094: Roots_joint5
+    100096: Roots_joint5_end
+    100098: Roots_joint6
+    100100: Roots_joint6_end
+    100102: Roots_joint7
+    100104: Roots_joint7_end
+    100106: Roots_L_Arm
+    100108: Roots_L_foot
+    100110: Roots_L_ForeArm
+    100112: Roots_L_Hand
+    100114: Roots_L_hand_toe
+    100116: Roots_L_hand_toe_end
+    100118: Roots_L_leg
+    100120: Roots_L_toe
+    100122: Roots_L_toe_end
+    100124: Roots_L_up_leg
+    100126: Roots_L_up_toe
+    100128: Roots_R_Arm
+    100130: Roots_R_foot
+    100132: Roots_R_ForeArm
+    100134: Roots_R_Hand
+    100136: Roots_R_hand_toe
+    100138: Roots_R_hand_toe_end
+    100140: Roots_R_leg
+    100142: Roots_R_toe
+    100144: Roots_R_toe_end
+    100146: Roots_R_up_leg
+    100148: Roots_R_up_toe
+    100150: Roots_Spine
+    100152: "\u0412\u0438\u0434_Cinema_4D"
     400000: //RootNode
     400002: Character_1_1
     400004: Root_1
@@ -85,6 +122,44 @@ ModelImporter:
     400074: Roots:L_toe_end
     400076: Roots:R_hand_toe_end
     400078: Roots:R_toe_end
+    400080: Roots_Chest
+    400082: Roots_Head
+    400084: Roots_Head_f
+    400086: Roots_Head_f_end
+    400088: Roots_Hips
+    400090: Roots_joint4
+    400092: Roots_joint4_end
+    400094: Roots_joint5
+    400096: Roots_joint5_end
+    400098: Roots_joint6
+    400100: Roots_joint6_end
+    400102: Roots_joint7
+    400104: Roots_joint7_end
+    400106: Roots_L_Arm
+    400108: Roots_L_foot
+    400110: Roots_L_ForeArm
+    400112: Roots_L_Hand
+    400114: Roots_L_hand_toe
+    400116: Roots_L_hand_toe_end
+    400118: Roots_L_leg
+    400120: Roots_L_toe
+    400122: Roots_L_toe_end
+    400124: Roots_L_up_leg
+    400126: Roots_L_up_toe
+    400128: Roots_R_Arm
+    400130: Roots_R_foot
+    400132: Roots_R_ForeArm
+    400134: Roots_R_Hand
+    400136: Roots_R_hand_toe
+    400138: Roots_R_hand_toe_end
+    400140: Roots_R_leg
+    400142: Roots_R_toe
+    400144: Roots_R_toe_end
+    400146: Roots_R_up_leg
+    400148: Roots_R_up_toe
+    400150: Roots_Spine
+    400152: "\u0412\u0438\u0434_Cinema_4D"
+    2000000: "\u0412\u0438\u0434_Cinema_4D"
     4300000: Character_1_1
     7400000: Take 001
     7400002: Walk
@@ -111,7 +186,7 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    animationCompression: 1
+    animationCompression: 0
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
