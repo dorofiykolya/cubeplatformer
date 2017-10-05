@@ -5,7 +5,10 @@
 /[Bb]uilds/
 /Assets/AssetStoreTools*
 
-/obj/x86/**
+**/ClassicLogicEngine/packages/**
+
+**/obj/x86/**
+**/obj/Debug/**
 
 # Visual Studio 2015 cache directory
 /.vs/

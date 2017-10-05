@@ -1,15 +1,8 @@
-﻿using NUnit.Framework;
-using System;
-using System.Text;
-using ClassicLogic.Engine;
-using ClassicLogic.Utils;
-
-namespace ClassicLogicEngineNUnitTest
+﻿namespace ClassicLogicEngineViewer
 {
-  [TestFixture()]
-  public class Test
+  public class LevelsData
   {
-    public static readonly string Level =
+    public static readonly string Level0 =
       "                  S         " +
       "    $             S         " +
       "#######H#######   S         " +
@@ -26,12 +19,5 @@ namespace ClassicLogicEngineNUnitTest
       "    H######         #######H" +
       "    H         &  $         H" +
       "############################";
-
-    [Test()]
-    public void TestCase()
-    {
-      var engine = new Engine(AIVersion.V1, new LevelReader(Level), Mode.Classic);
-      
-    }
   }
 }
