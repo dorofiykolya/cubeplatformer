@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+
 namespace ClassicLogic.Engine
 {
   public class LevelMap
@@ -16,6 +17,16 @@ namespace ClassicLogic.Engine
       _columns = new List<Column>();
     }
 
+    public int XCount
+    {
+      get { return _columns.Count; }
+    }
+
+    public int YCount
+    {
+      get { return _columns[0].Count; }
+    }
+
     public Tile[][] ToArray()
     {
       var result = new Tile[_columns.Count][];
@@ -30,13 +41,13 @@ namespace ClassicLogic.Engine
 
     public Column this[int x]
     {
-      get 
+      get
       {
-        while(_columns.Count <= x)
+        while (_columns.Count <= x)
         {
           _columns.Add(new Column());
         }
-        return _columns[x]; 
+        return _columns[x];
       }
     }
 
@@ -51,14 +62,19 @@ namespace ClassicLogic.Engine
 
       public Tile this[int y]
       {
-        get 
+        get
         {
-          while(_tiles.Count <= y)
+          while (_tiles.Count <= y)
           {
             _tiles.Add(new Tile());
           }
-          return _tiles[y]; 
+          return _tiles[y];
         }
+      }
+
+      public int Count
+      {
+        get { return _tiles.Count; }
       }
 
       public Tile[] ToArray()
@@ -66,4 +82,5 @@ namespace ClassicLogic.Engine
         return _tiles.ToArray();
       }
     }
+  }
 }

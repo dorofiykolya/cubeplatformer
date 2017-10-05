@@ -5,6 +5,8 @@
 /[Bb]uilds/
 /Assets/AssetStoreTools*
 
+/obj/x86/**
+
 # Visual Studio 2015 cache directory
 /.vs/
 
@@ -34,3 +36,4 @@ sysinfo.txt
 *.unitypackage
 game/Library/**
 game/Temp/**
+*.dll

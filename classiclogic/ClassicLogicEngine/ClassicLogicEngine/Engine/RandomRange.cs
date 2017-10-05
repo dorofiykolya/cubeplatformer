@@ -1,73 +1,83 @@
-namespace LodeRunnerGame
+using System;
+
+namespace ClassicLogic.Engine
 {
-    public class RandomRange
+  public class RandomRange
+  {
+    private readonly Random _random;
+    private readonly int _items;
+    private readonly int _min;
+    private readonly int _seedValue;
+    private int[] _rndList;
+    private int _idx;
+    private int _reset;
+    private int _seed;
+
+    public RandomRange(int minValue, int maxValue, int seedValue)
     {
-      private int[] rndList;
-      private int idx, items;
-      private int min, max;
-      private int reset;
-      private int seed = 0;
+      _random = new Random();
 
-      public RandomRange(int minValue, int maxValue, int seedValue)
+      _reset = 0;
+      _min = minValue;
+      var max = maxValue;
+      _seedValue = seedValue;
+      if (_min > max)
       {
-          //---------
-          // initial 
-          //---------
-          reset = 0;
-          min = minValue;
-          max = maxValue;
-          if(min > max) { //swap
-            var tmp;
-            tmp = min;
-            min = max;
-            max = tmp;
-          }
-          items = max - min + 1;
-          
-          rndStart();
+        var tmp = _min;
+        _min = max;
+        max = tmp;
       }
+      _items = max - _min + 1;
 
-      public int rndReset()
-      {
-        return reset;
-      }
-
-      private int seedRandom()
-      {
-          var x = Math.Sin(seed++) * 10000;
-          return x - Math.Floor(x);
-      }
-
-      private void rndStart()
-      {
-        int swapId, tmp;
-      
-        rndList = new int[items];
-        for(var i = 0; i < items; i++) rndList[i] = min + i;
-        for(var i = 0; i < items; i++) {
-          if(seedValue > 0) {
-            seed = seedValue;	
-            swapId = (seedRandom() * items) | 0;
-          } else {
-            swapId = (Math.random() * items) | 0;
-          }
-          tmp = rndList[i];
-          rndList[i] = rndList[swapId];
-          rndList[swapId] = tmp;
-        }
-        idx = 0;
-        //debug(rndList);
-      }
-
-      public int get()
-      {
-        if( idx >= items) {
-          rndStart();
-          reset = 1;
-        } else {
-          reset = 0;
-        }
-        return rndList[idx++];
-      }
+      rndStart();
     }
+
+    public int rndReset()
+    {
+      return _reset;
+    }
+
+    private int seedRandom()
+    {
+      var x = Math.Sin(_seed++) * 10000;
+      return (int)(x - Math.Floor(x));
+    }
+
+    private void rndStart()
+    {
+      _rndList = new int[_items];
+      for (var i = 0; i < _items; i++) _rndList[i] = _min + i;
+      for (var i = 0; i < _items; i++)
+      {
+        int swapId;
+        if (_seedValue > 0)
+        {
+          _seed = _seedValue;
+          swapId = (seedRandom() * _items) | 0;
+        }
+        else
+        {
+          swapId = (int)(_random.NextDouble() * _items);
+        }
+        var tmp = _rndList[i];
+        _rndList[i] = _rndList[swapId];
+        _rndList[swapId] = tmp;
+      }
+      _idx = 0;
+    }
+
+    public int get()
+    {
+      if (_idx >= _items)
+      {
+        rndStart();
+        _reset = 1;
+      }
+      else
+      {
+        _reset = 0;
+      }
+      return _rndList[_idx++];
+    }
+  }
 }

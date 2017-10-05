@@ -1,5 +1,4 @@
-﻿using System;
-namespace ClassicLogic.Engine
+﻿namespace ClassicLogic.Engine
 {
   public enum GameState
   {

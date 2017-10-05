@@ -1,5 +1,4 @@
-﻿using System;
-namespace ClassicLogic.Engine
+﻿namespace ClassicLogic.Engine
 {
   public enum Action
   {
@@ -16,6 +15,6 @@ namespace ClassicLogic.Engine
     ACT_DIGGING = 9,
     ACT_IN_HOLE = 10,
     ACT_CLIMB_OUT = 11,
-    ACT_REBORN = 12;
+    ACT_REBORN = 12
   }
 }

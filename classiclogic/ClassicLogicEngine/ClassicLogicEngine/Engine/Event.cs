@@ -1,11 +1,13 @@
-using System;
+using ClassicLogic.Utils;
 
-namespace LodeRunnerGame
+namespace ClassicLogic.Engine
 {
-    public class Event
-    {
-      public bool shiftKey;
-      public bool ctrlKey;
-      public LodeRunner.KeyCode keyCode;
-    }
+  public class Event
+  {
+    public const string animationend = "animationend";
+
+    public bool shiftKey;
+    public bool ctrlKey;
+    public KeyCode keyCode;
+  }
 }

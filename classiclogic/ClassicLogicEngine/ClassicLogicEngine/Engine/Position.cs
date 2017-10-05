@@ -1,4 +1,4 @@
-namespace LodeRunnerGame
+namespace ClassicLogic.Engine
 {
     public class Position
     {

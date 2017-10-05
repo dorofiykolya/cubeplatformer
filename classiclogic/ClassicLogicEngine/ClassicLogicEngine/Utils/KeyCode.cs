@@ -43,7 +43,7 @@ namespace ClassicLogic.Utils
     KEYCODE_S = 83, //'S'
     KEYCODE_T = 84, //'T'
     KEYCODE_V = 86, //'V'
-    KEYCODE_W = 87; //'W'
+    KEYCODE_W = 87, //'W'
 
     KEYCODE_0 = 48,
     KEYCODE_1 = 49,
@@ -54,6 +54,6 @@ namespace ClassicLogic.Utils
     KEYCODE_6 = 54,
     KEYCODE_7 = 55,
     KEYCODE_8 = 56,
-    KEYCODE_9 = 57;
+    KEYCODE_9 = 57
   }
 }

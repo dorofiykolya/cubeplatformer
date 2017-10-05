@@ -14,7 +14,7 @@ namespace ClassicLogic.Engine
   //  0x8 |     0     | Guard
   //  0x9 |     &     | Player  
 
-  public enum Type
+  public enum TileType
   {
     EMPTY_T = 0x00,
     BLOCK_T = 0x01,

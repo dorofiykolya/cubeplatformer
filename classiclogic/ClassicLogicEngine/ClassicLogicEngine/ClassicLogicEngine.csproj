@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -7,7 +7,23 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>ClassicLogic</RootNamespace>
     <AssemblyName>ClassicLogicEngine</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -19,6 +35,7 @@
     <WarningLevel>4</WarningLevel>
     <ExternalConsole>true</ExternalConsole>
     <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <Optimize>true</Optimize>
@@ -27,28 +44,45 @@
     <WarningLevel>4</WarningLevel>
     <ExternalConsole>true</ExternalConsole>
     <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Engine\EngineOutput.cs" />
+    <Compile Include="Engine\EngineSound.cs" />
+    <Compile Include="Engine\EngineGuards.cs" />
+    <Compile Include="Engine\Mode.cs" />
+    <Compile Include="Engine\Point.cs" />
+    <Compile Include="Engine\Runner.cs" />
+    <Compile Include="Engine\Shape.cs" />
+    <Compile Include="Engine\Sounds.cs" />
+    <Compile Include="Engine\SpriteSheet.cs" />
+    <Compile Include="Outputs\AddGoldEvent.cs" />
+    <Compile Include="Outputs\DiggingCompleteEvent.cs" />
+    <Compile Include="Outputs\DigHoleProcessEvent.cs" />
+    <Compile Include="Outputs\EndFillHoleEvent.cs" />
+    <Compile Include="Outputs\FillHoleProcessEvent.cs" />
+    <Compile Include="Outputs\GuardHasGoldEvent.cs" />
+    <Compile Include="Outputs\InitializeEvent.cs" />
+    <Compile Include="Outputs\MoveGuardEvent.cs" />
+    <Compile Include="Outputs\MoveRunnerEvent.cs" />
+    <Compile Include="Outputs\RemoveGoldEvent.cs" />
+    <Compile Include="Outputs\RunnerDeadEvent.cs" />
+    <Compile Include="Outputs\ShowHideLadderEvent.cs" />
+    <Compile Include="Outputs\ShowTrapEvent.cs" />
+    <Compile Include="Outputs\StartDiggingEvent.cs" />
+    <Compile Include="Outputs\StartFillHoleEvent.cs" />
+    <Compile Include="Outputs\StopDiggingEvent.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Engine\Event.cs" />
     <Compile Include="Engine\Guard.cs" />
     <Compile Include="Engine\HoleObj.cs" />
-    <Compile Include="Engine\LoderRunnerDef.cs" />
-    <Compile Include="Engine\LoderRunnerGameVerName.cs" />
-    <Compile Include="Engine\LoderRunnerKey.cs" />
-    <Compile Include="Engine\LoderRunnerStorage.cs" />
-    <Compile Include="Engine\LodeRunner.cs" />
-    <Compile Include="Engine\LodeRunnerGuard.cs" />
-    <Compile Include="Engine\LodeRunnerMisc.cs" />
-    <Compile Include="Engine\LodeRunnerRunner.cs" />
     <Compile Include="Engine\Position.cs" />
     <Compile Include="Engine\RandomRange.cs" />
     <Compile Include="Engine\Sprite.cs" />
-    <Compile Include="Engine\VersionSpeed.cs" />
     <Compile Include="Engine\Engine.cs" />
     <Compile Include="Outputs\OutputEvent.cs" />
     <Compile Include="Utils\LevelParser.cs" />
@@ -57,7 +91,7 @@
     <Compile Include="Engine\PlayMode.cs" />
     <Compile Include="Engine\GameState.cs" />
     <Compile Include="Engine\Action.cs" />
-    <Compile Include="Engine\Type.cs" />
+    <Compile Include="Engine\TileType.cs" />
     <Compile Include="Engine\LevelMap.cs" />
     <Compile Include="Engine\Constants.cs" />
     <Compile Include="Engine\Bitmap.cs" />
@@ -69,9 +103,14 @@
     <Compile Include="Engine\Configuration.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Engine\" />
-    <Folder Include="Outputs\" />
-    <Folder Include="Utils\" />
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

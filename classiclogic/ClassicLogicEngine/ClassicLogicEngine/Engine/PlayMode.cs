@@ -10,6 +10,6 @@ namespace ClassicLogic.Engine
     PLAY_EDIT = 4,
     PLAY_TEST = 5,
     PLAY_AUTO = 6,
-    PLAY_DEMO_ONCE = 7;
+    PLAY_DEMO_ONCE = 7
   }
 }

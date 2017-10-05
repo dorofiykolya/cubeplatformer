@@ -12,11 +12,13 @@ namespace ClassicLogic.Utils
       var map = new LevelMap();
       map.maxGuard = maxGuard;
 
+      var mapGuards = 0;
+
       for (var x = 0; x < Constants.NO_OF_TILES_X; x++)
       {
         for (var y = 0; y < Constants.NO_OF_TILES_Y; y++)
         {
-          if (levelMap[index++] == '0') map.guardCount += 1;
+          if (levelMap[index++] == '0') mapGuards++;
         }
       }
 
@@ -32,50 +34,50 @@ namespace ClassicLogic.Utils
           switch (id)
           {
             case '#': //Normal Brick
-              tile.@base = Type.BLOCK_T;
-              tile.act = Type.BLOCK_T;
-              tile.bitmap.name = "brick";
+              tile.@base = TileType.BLOCK_T;
+              tile.act = TileType.BLOCK_T;
+              //tile.bitmap.name = "brick";
               break;
             case '@': //Solid Brick
-              tile.@base = Type.SOLID_T;
-              tile.act = Type.SOLID_T;
-              tile.bitmap.name = "solid";
+              tile.@base = TileType.SOLID_T;
+              tile.act = TileType.SOLID_T;
+              //tile.bitmap.name = "solid";
               break;
             case 'H': //Ladder
-              tile.@base = Type.LADDR_T;
-              tile.act = Type.LADDR_T;
-              tile.bitmap.name = "ladder";
+              tile.@base = TileType.LADDR_T;
+              tile.act = TileType.LADDR_T;
+              //tile.bitmap.name = "ladder";
               break;
             case '-': //Line of rope
-              tile.@base = Type.BAR_T;
-              tile.act = Type.BAR_T;
-              tile.bitmap.name = "rope";
+              tile.@base = TileType.BAR_T;
+              tile.act = TileType.BAR_T;
+              //tile.bitmap.name = "rope";
               break;
             case 'X': //False brick
-              tile.@base = Type.TRAP_T; //behavior same as empty
-              tile.act = Type.TRAP_T;
-              tile.bitmap.name = "brick";
+              tile.@base = TileType.TRAP_T; //behavior same as empty
+              tile.act = TileType.TRAP_T;
+              //tile.bitmap.name = "brick";
               break;
             case 'S': //Ladder appears at end of level
-              tile.@base = Type.HLADR_T; //behavior same as empty before end of level
-              tile.act = Type.EMPTY_T; //behavior same as empty before end of level
+              tile.@base = TileType.HLADR_T; //behavior same as empty before end of level
+              tile.act = TileType.EMPTY_T; //behavior same as empty before end of level
 
-              tile.bitmap.name = "ladder";
-              tile.bitmap.setAlpha(0); //hide the laddr
+              //tile.bitmap.name = "ladder";
+              //tile.bitmap.setAlpha(0); //hide the laddr
               break;
             case '$': //Gold chest
-              tile.@base = Type.GOLD_T; //keep gold on base map
-              tile.act = Type.EMPTY_T;
-              tile.bitmap.name = "gold";
+              tile.@base = TileType.GOLD_T; //keep gold on base map
+              tile.act = TileType.EMPTY_T;
+              //tile.bitmap.name = "gold";
               map.goldCount += 1;
               break;
             case '0': //Guard
-              tile.@base = Type.EMPTY_T;
-              tile.act = Type.GUARD_T;
-              tile.bitmap = null;
-              if ((map.guardCount - 1) >= maxGuard)
+              tile.@base = TileType.EMPTY_T;
+              tile.act = TileType.GUARD_T;
+              //tile.bitmap = null;
+              if ((--mapGuards) >= maxGuard)
               {
-                tile.act = Type.EMPTY_T; //too many guards, set this tile as empty
+                tile.act = TileType.EMPTY_T; //too many guards, set this tile as empty
               }
               else
               {
@@ -95,13 +97,13 @@ namespace ClassicLogic.Utils
               curTile.stop();*/
               break;
             case '&': //Player
-              tile.@base = Type.EMPTY_T;
-              tile.act = Type.RUNNER_T;
-              tile.bitmap = null;
+              tile.@base = TileType.EMPTY_T;
+              tile.act = TileType.RUNNER_T;
+              //tile.bitmap = null;
               tile.action = Action.ACT_UNKNOWN;
               if (map.runner != null)
               {
-                map[x][y].act = Type.EMPTY_T; //too many runner, set this tile as empty
+                map[x][y].act = TileType.EMPTY_T; //too many runner, set this tile as empty
               }
               else
               {
@@ -119,9 +121,9 @@ namespace ClassicLogic.Utils
 
               break;
             case ' ': //empty
-              tile.@base = Type.EMPTY_T;
-              tile.act = Type.EMPTY_T;
-              tile.bitmap = null;
+              tile.@base = TileType.EMPTY_T;
+              tile.act = TileType.EMPTY_T;
+              //tile.bitmap = null;
               break;
             default:
               throw new System.ArgumentException();
@@ -129,7 +131,7 @@ namespace ClassicLogic.Utils
         }
       }
 
-      Assert.IsTrue(map.guardCount == 0, "Error: mapCuardCount design error !");
+      Assert.IsTrue(mapGuards == 0, "Error: mapCuardCount design error !");
 
       return map;
     }
