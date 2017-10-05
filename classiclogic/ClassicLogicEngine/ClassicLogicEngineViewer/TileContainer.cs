@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using ClassicLogic.Engine;
 using Point = ClassicLogic.Engine.Point;
 
@@ -161,6 +162,12 @@ namespace ClassicLogicEngineViewer
     public void ProcessFillHole(int x, int y, double ratio)
     {
       _map[new Point(x, y)].Opacity = 0.3 + (ratio * 0.6);
+    }
+
+    public void RunnerDead()
+    {
+      _runner.Opacity = 0.5;
+      _runner.Background = Brushes.Black;
     }
   }
 }

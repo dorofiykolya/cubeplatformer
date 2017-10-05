@@ -74,6 +74,7 @@ namespace ClassicLogicEngineViewer
       AddCommand<DiggingCompleteEvent, DiggingCompleteCommand>();
       AddCommand<DigHoleProcessEvent, DigHoleProcessCommand>();
       AddCommand<FillHoleProcessEvent, FillHoleProcessCommand>();
+      AddCommand<RunnerDeadEvent, RunnerDeadCommand>();
     }
 
     public bool IsPlay
