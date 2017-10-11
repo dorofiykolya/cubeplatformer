@@ -6,15 +6,18 @@ using System.Linq;
 
 namespace Game.Inputs
 {
-  public class GameInputContenxt : InputContext
+  public class GameInputContext : InputContext
   {
-    private readonly HashSet<string> _inputs;
+    private readonly Dictionary<string, InputEvent> _inputs;
     private readonly Dictionary<string, InputController> _controllers;
+    private readonly GameContext _context;
+    private readonly int MaxControllers = 4;
 
-    public GameInputContenxt(GameContext context) : base(context, context.Lifetime)
+    public GameInputContext(GameContext context) : base(context, context.Lifetime)
     {
-      _inputs = new HashSet<string>();
-      _controllers = new Dictionary<string, InputController>();
+      _context = context;
+      _inputs = new Dictionary<string, InputEvent>();
+      _controllers = new Dictionary<string, InputController>(MaxControllers);
 
       context.StartCoroutine(context.Lifetime, CheckForControllers());
       context.StartCoroutine(context.Lifetime, Process());
@@ -51,23 +54,35 @@ namespace Game.Inputs
         foreach (var c in toRemove)
         {
           var controller = _controllers[c];
-          _controllers.Remove(c);
-          FireRemoveController(controller);
+          controller.Active = false;
+          //_controllers.Remove(c);
+          FireDeactiveController(controller);
         }
 
-        foreach (var c in toAdd)
+        foreach (var addId in toAdd)
         {
           var id = 0;
-          for (int i = 0; i < 4; i++, id++)
+          for (int i = 0; i < MaxControllers; i++, id++)
           {
-            if (!_controllers.Any(pair => pair.Value.Id == id))
+            if (_controllers.All(pair => pair.Value.Id != id))
             {
               break;
             }
+            else
+            {
+              var cntrol = _controllers.Values.First(ct => ct.Id == i);
+              if (!cntrol.Active)
+              {
+                cntrol.Active = true;
+                FireActivateController(cntrol);
+              }
+            }
           }
-          var controller = new InputController(c, id);
-          _controllers.Add(c, controller);
+          var controller = new InputController(addId, id, _context.Lifetime);
+          _controllers.Add(addId, controller);
           FireAddController(controller);
+          controller.Active = true;
+          FireActivateController(controller);
         }
 
         ListPool.Push(toAdd);
@@ -88,22 +103,23 @@ namespace Game.Inputs
           var value = Input.GetAxis(input.Name);
           var contains = Math.Abs(value) > float.Epsilon;
 
-          if (_inputs.Contains(input.Name))
+          InputEvent evt;
+          if (_inputs.TryGetValue(input.Name, out evt))
           {
             if (!contains)
             {
-              Fire(new InputEvent
+              FireEvent(new InputEvent
               {
                 Input = input.Input,
                 Phase = InputPhase.End,
-                Value = value
+                Value = evt.Value
               });
 
               _inputs.Remove(input.Name);
             }
             else
             {
-              Fire(new InputEvent
+              FireEvent(new InputEvent
               {
                 Input = input.Input,
                 Phase = InputPhase.Process,
@@ -113,13 +129,14 @@ namespace Game.Inputs
           }
           else if (contains)
           {
-            _inputs.Add(input.Name);
-            Fire(new InputEvent
+            evt = new InputEvent
             {
               Input = input.Input,
               Value = value,
               Phase = InputPhase.Begin
-            });
+            };
+            _inputs.Add(input.Name, evt);
+            FireEvent(evt);
           }
         }
         yield return null;

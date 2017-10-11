@@ -37,7 +37,7 @@ namespace Game
       _resourceManager = new ResourceManager(_providers.CoroutineProvider);
       _dispatcher = behaviour.gameObject.GetComponent<UnityDispatcher>() ?? behaviour.gameObject.AddComponent<UnityDispatcher>();
       _preloader = new Preloader(_lifetime);
-      _inputContext = new GameInputContenxt(this);
+      _inputContext = new GameInputContext(this);
       _managers = new GameManagers(lifetime, this, injector, new GameManagersProvider());
 
       _viewContext = new ViewContext(this, injector);

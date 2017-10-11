@@ -15,11 +15,12 @@ namespace Game.Views.Components
 
     private ILogicEngine CreateEngine(GameContext context)
     {
-      var engine = new Logics.Classics.LogicEngine();
-      var level = GetComponent<LevelComponent>();
-      engine.InitializeLevel(context, level.Size, level.Grid, level, level.CoordinateConverter);
+      //var engine = new Logics.Classics.LogicEngine();
+      //var level = GetComponent<LevelComponent>();
+      //engine.InitializeLevel(context, level.Size, level.Grid, level, level.CoordinateConverter);
 
-      return engine;
+      //return engine;
+      return null;
     }
   }
 }

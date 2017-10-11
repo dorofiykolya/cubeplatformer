@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-
-namespace Game.Inputs
+﻿namespace Game.Inputs
 {
   public struct InputEvent
   {

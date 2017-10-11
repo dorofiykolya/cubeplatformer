@@ -2,15 +2,16 @@
 {
   public class GameInput
   {
-    //public static readonly GameInput MoveUp = new GameInput();
-    //public static readonly GameInput MoveDown = new GameInput();
-    //public static readonly GameInput MoveLeft = new GameInput();
-    //public static readonly GameInput MoveRight = new GameInput();
+    public static readonly GameInput Vertical = new GameInput("Vertical");
+    public static readonly GameInput Horizontal = new GameInput("Horizontal");
+    public static readonly GameInput Submit = new GameInput("Submit");
+    public static readonly GameInput Cancel = new GameInput("Cancel");
 
-    //public static readonly GameInput DigLeft = new GameInput();
-    //public static readonly GameInput DigRight = new GameInput();
+    public GameInput(string name)
+    {
+      Name = name;
+    }
 
-    //public static readonly GameInput Apply = new GameInput();
-    //public static readonly GameInput Cancel = new GameInput();
+    public string Name { get; private set; }
   }
 }

@@ -1,6 +1,4 @@
 ﻿using System;
-using UnityEngine;
-using System.Collections;
 using Utils;
 
 namespace Game.Inputs
@@ -8,9 +6,11 @@ namespace Game.Inputs
   public class InputContext
   {
     private Lifetime.Definition _definition;
-    private Signal<InputController> _onControllerAdd;
-    private Signal<InputController> _onControllerRemove;
-    private Signal<InputEvent> _onInput;
+    private readonly Signal<InputController> _onControllerAdd;
+    private readonly Signal<InputController> _onControllerActivated;
+    private readonly Signal<InputController> _onControllerDeactivated;
+    private readonly Signal<InputController> _onControllerRemove;
+    private readonly Signal<InputEvent> _onInput;
 
     protected InputContext(GameContext context, Lifetime lifetime) : this(context, lifetime, null)
     {
@@ -20,18 +20,29 @@ namespace Game.Inputs
     protected InputContext(GameContext context, Lifetime lifetime, InputContext parent)
     {
       Parent = parent;
-      if(parent != null) parent.Nested = this;
+      if (parent != null) parent.Nested = this;
 
       _definition = Lifetime.Define(lifetime);
       _onInput = new Signal<InputEvent>(_definition.Lifetime);
       _onControllerAdd = new Signal<InputController>(_definition.Lifetime);
       _onControllerRemove = new Signal<InputController>(_definition.Lifetime);
+      _onControllerActivated = new Signal<InputController>(_definition.Lifetime);
+      _onControllerDeactivated = new Signal<InputController>(_definition.Lifetime);
+
+      _definition.Lifetime.AddAction(() =>
+      {
+        if (Parent != null)
+        {
+          Parent.Nested = null;
+          Parent = null;
+        }
+      });
     }
 
     protected InputContext Root { get { return Parent != null ? Parent.Root : this; } }
     protected InputContext Parent { get; private set; }
     protected InputContext Nested { get; private set; }
-    protected InputContext Last { get { return Nested != null ? Nested.Nested : this; } }
+    protected InputContext Last { get { return Nested != null ? Nested.Last : this; } }
 
     public virtual InputController[] Controllers { get { return Root == this ? new InputController[0] : Root.Controllers; } }
 
@@ -72,19 +83,39 @@ namespace Game.Inputs
       Root._onControllerRemove.Subscribe(lifetime, listener);
     }
 
-    protected virtual void Fire(InputEvent evt)
+    public virtual void SubscribeOnActivatedController(Lifetime lifetime, Action<InputController> listener)
     {
-        _onInput.Fire(evt);
+      Root._onControllerActivated.Subscribe(lifetime, listener);
+    }
+
+    public virtual void SubscribeOnDeactivatedController(Lifetime lifetime, Action<InputController> listener)
+    {
+      Root._onControllerDeactivated.Subscribe(lifetime, listener);
+    }
+
+    protected virtual void FireEvent(InputEvent evt)
+    {
+      Last._onInput.Fire(evt);
     }
 
     protected virtual void FireAddController(InputController controller)
     {
-        Root._onControllerAdd.Fire(controller);
+      Root._onControllerAdd.Fire(controller);
     }
 
     protected virtual void FireRemoveController(InputController controller)
     {
-        Root._onControllerRemove.Fire(controller);
+      Root._onControllerRemove.Fire(controller);
+    }
+
+    protected virtual void FireActivateController(InputController controller)
+    {
+      Root._onControllerActivated.Fire(controller);
+    }
+
+    protected virtual void FireDeactiveController(InputController controller)
+    {
+      Root._onControllerDeactivated.Fire(controller);
     }
   }
 }
