@@ -30,6 +30,11 @@ namespace ClassicLogic.Engine
     public EngineSound Sound { get { return _sound; } }
     public EngineOutput Output { get { return _output; } }
 
+    public void SetAction(InputAction code)
+    {
+      State.pressAction(code);
+    }
+
     public void SetAction(KeyCode code)
     {
       State.pressKey(code);

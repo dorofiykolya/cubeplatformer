@@ -1,21 +1,9 @@
-﻿using System;
-namespace ClassicLogic.Utils
+﻿namespace ClassicLogic.Utils
 {
-  public class LevelReader
+  public abstract class LevelReader
   {
-    readonly string _data;
-
-    public LevelReader(string data)
-    {
-      _data = data;
-    }
-
-    public char this[int index]
-    {
-      get
-      {
-        return _data[index];
-      }
-    }
+    public abstract bool MoveNext();
+    public abstract LevelToken Token { get; }
+    public abstract void Reset();
   }
 }

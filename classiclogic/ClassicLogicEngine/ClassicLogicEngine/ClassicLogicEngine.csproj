@@ -56,6 +56,7 @@
     <Compile Include="Engine\EngineOutput.cs" />
     <Compile Include="Engine\EngineSound.cs" />
     <Compile Include="Engine\EngineGuards.cs" />
+    <Compile Include="Engine\InputAction.cs" />
     <Compile Include="Engine\Mode.cs" />
     <Compile Include="Engine\Point.cs" />
     <Compile Include="Engine\Runner.cs" />
@@ -104,6 +105,8 @@
     <Compile Include="Utils\LevelReader.cs" />
     <Compile Include="Engine\EngineState.cs" />
     <Compile Include="Engine\Configuration.cs" />
+    <Compile Include="Utils\LevelToken.cs" />
+    <Compile Include="Utils\StringLevelReader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

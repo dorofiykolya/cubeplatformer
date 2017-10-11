@@ -119,6 +119,37 @@ namespace ClassicLogic.Engine
     public EngineOutput Output { get { return _engine.Output; } }
     public AIVersion AiVersion { get { return _engine.AiVersion; } }
 
+    public void pressAction(InputAction action)
+    {
+      switch (action)
+      {
+        case InputAction.Up:
+          keyAction = Action.ACT_UP;
+          break;
+        case InputAction.Down:
+          keyAction = Action.ACT_DOWN;
+          break;
+        case InputAction.Left:
+          keyAction = Action.ACT_LEFT;
+          break;
+        case InputAction.Right:
+          keyAction = Action.ACT_RIGHT;
+          break;
+        case InputAction.DigLeft:
+          keyAction = Action.ACT_DIG_LEFT;
+          break;
+        case InputAction.DigRight:
+          keyAction = Action.ACT_DIG_RIGHT;
+          break;
+        case InputAction.Unknown:
+          keyAction = Action.ACT_UNKNOWN;
+          break;
+        default:
+          keyAction = Action.ACT_UNKNOWN;
+          break;
+      }
+    }
+
     public void pressKey(KeyCode code)
     {
       switch (code)
