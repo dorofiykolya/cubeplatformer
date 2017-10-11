@@ -95,7 +95,7 @@ namespace ClassicLogic.Engine
           }
           else
           { //ACT_DOWN || ACT_FALL
-            stayCurrPos = (y >= Constants.maxTileY ||
+            stayCurrPos = (y >= _state.maxTileY ||
                             (nextToken = map[x][y + 1].act) == TileType.BLOCK_T ||
                             nextToken == TileType.SOLID_T || nextToken == TileType.GUARD_T);
 
@@ -149,7 +149,7 @@ namespace ClassicLogic.Engine
             */
             // change check TRAP_T from base, 
             // for support level 41==> runner in trap will cause guard move
-            stayCurrPos = (x >= Constants.maxTileX ||
+            stayCurrPos = (x >= _state.maxTileX ||
                             (nextToken = map[x + 1][y].act) == TileType.BLOCK_T ||
                             nextToken == TileType.SOLID_T || nextToken == TileType.GUARD_T ||
                               map[x + 1][y].@base == TileType.TRAP_T);
@@ -204,7 +204,7 @@ namespace ClassicLogic.Engine
         if (curToken == TileType.BAR_T)
         {
           if (yOffset < 0) holdOnBar = 1;
-          else if (action == Action.ACT_DOWN && y < Constants.maxTileY && map[x][y + 1].act != TileType.LADDR_T)
+          else if (action == Action.ACT_DOWN && y < _state.maxTileY && map[x][y + 1].act != TileType.LADDR_T)
           {
             action = Action.ACT_FALL; //shape fixed: 2014/03/27
           }
@@ -428,7 +428,7 @@ namespace ClassicLogic.Engine
       if (map[x][y].@base == TileType.GOLD_T && curGuard.hasGold == 0 &&
          ((Math.Abs(xOffset) > double.Epsilon && yOffset >= 0 && yOffset < Constants.H4) ||
          (Math.Abs(yOffset) > double.Epsilon && xOffset >= 0 && xOffset < Constants.W4) ||
-         (y < Constants.maxTileY && map[x][y + 1].@base == TileType.LADDR_T && yOffset < Constants.H4) // gold above laddr
+         (y < _state.maxTileY && map[x][y + 1].@base == TileType.LADDR_T && yOffset < Constants.H4) // gold above laddr
           )
           )
       {
@@ -492,7 +492,7 @@ namespace ClassicLogic.Engine
 
           TileType nextToken;
           if (_map[x][y].@base == TileType.EMPTY_T &&
-              (y >= Constants.maxTileY ||
+              (y >= _state.maxTileY ||
                ((nextToken = _map[x][y + 1].@base) == TileType.BLOCK_T || nextToken == TileType.SOLID_T ||
                 nextToken == TileType.LADDR_T)))
           {
@@ -554,7 +554,7 @@ namespace ClassicLogic.Engine
         }
         else if (yOffset < 0) //no laddr & yOffset < 0 ==> falling
           return (Action.ACT_FALL);
-        else if (y < Constants.maxTileY)
+        else if (y < _state.maxTileY)
         {
           nextBelow = _map[x][y + 1].act;
 
@@ -584,7 +584,7 @@ namespace ClassicLogic.Engine
       { //case : guard on laddr and falling => don't catch it 
         while (x != runnerX)
         {
-          if (y < Constants.maxTileY)
+          if (y < _state.maxTileY)
             nextBelow = _map[x][y + 1].@base;
           else nextBelow = TileType.SOLID_T;
 
@@ -638,8 +638,8 @@ namespace ClassicLogic.Engine
     public Action scanFloor(int id)
     {
       var map = _map;
-      var maxTileY = Constants.maxTileY;
-      var maxTileX = Constants.maxTileX;
+      var maxTileY = _state.maxTileY;
+      var maxTileX = _state.maxTileX;
       int x, y;
       TileType curToken, nextBelow;
       Action curPath;
@@ -736,8 +736,8 @@ namespace ClassicLogic.Engine
     public void scanDown(int x, Action curPath)
     {
       var map = _map;
-      var maxTileY = Constants.maxTileY;
-      var maxTileX = Constants.maxTileX;
+      var maxTileY = _state.maxTileY;
+      var maxTileX = _state.maxTileX;
       var runner = _state.runner;
       int y;
       TileType nextBelow; //curRating;
@@ -801,7 +801,7 @@ namespace ClassicLogic.Engine
     public void scanUp(int x, Action curPath)
     {
       var map = _map;
-      var maxTileX = Constants.maxTileX;
+      var maxTileX = _state.maxTileX;
       var runner = _state.runner;
       int y;
       var runnerX = runner.pos.x;
@@ -1018,7 +1018,7 @@ namespace ClassicLogic.Engine
         {
           bornY++;
         }
-        Assert.IsTrue(bornY <= Constants.maxTileY, "Error: Born Y too large !");
+        Assert.IsTrue(bornY <= _state.maxTileY, "Error: Born Y too large !");
       }
       //debug("bornX = " + bornX);
       if (_state.PlayMode == PlayMode.PLAY_AUTO || _state.PlayMode == PlayMode.PLAY_DEMO || _state.PlayMode == PlayMode.PLAY_DEMO_ONCE)

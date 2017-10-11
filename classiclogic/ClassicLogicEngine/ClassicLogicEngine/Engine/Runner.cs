@@ -53,7 +53,7 @@ namespace ClassicLogic.Engine
       {  //no ladder && yOffset < 0 ==> falling 
         curState = MoveState.STATE_FALLING;
       }
-      else if (y < Constants.maxTileY)
+      else if (y < _state.maxTileY)
       { //no laddr && y < maxTileY && yOffset >= 0
 
         nextToken = _map[x][y + 1].act;
@@ -83,7 +83,7 @@ namespace ClassicLogic.Engine
 
       if (curState == MoveState.STATE_FALLING)
       {
-        stayCurrPos = (y >= Constants.maxTileY || ((nextToken = _map[x][y + 1].act) == TileType.BLOCK_T) || nextToken == TileType.SOLID_T || nextToken == TileType.GUARD_T);
+        stayCurrPos = (y >= _state.maxTileY || ((nextToken = _map[x][y + 1].act) == TileType.BLOCK_T) || nextToken == TileType.SOLID_T || nextToken == TileType.GUARD_T);
 
         runnerMoveStep(Action.ACT_FALL, stayCurrPos);
         return;
@@ -117,7 +117,7 @@ namespace ClassicLogic.Engine
 
           break;
         case Action.ACT_DOWN:
-          stayCurrPos = (y >= Constants.maxTileY ||
+          stayCurrPos = (y >= _state.maxTileY ||
             (nextToken = _map[x][y + 1].act) == TileType.BLOCK_T ||
             nextToken == TileType.SOLID_T);
 
@@ -133,7 +133,7 @@ namespace ClassicLogic.Engine
             moveStep = Action.ACT_LEFT;
           break;
         case Action.ACT_RIGHT:
-          stayCurrPos = (x >= Constants.maxTileX ||
+          stayCurrPos = (x >= _state.maxTileX ||
             (nextToken = _map[x + 1][y].act) == TileType.BLOCK_T ||
             nextToken == TileType.SOLID_T || nextToken == TileType.TRAP_T);
 
@@ -165,7 +165,7 @@ namespace ClassicLogic.Engine
       var tileW = Constants.tileW;
       var tileH = Constants.tileH;
       var H2 = Constants.H2;
-      var maxTileY = Constants.maxTileY;
+      var maxTileY = _state.maxTileY;
 
       var x = pos.x;
       var xOffset = pos.xOffset;
@@ -432,7 +432,7 @@ namespace ClassicLogic.Engine
       {
         x = runnerX; y = runnerY - 1;//dbg = "UP";	
       }
-      else if (runnerY < Constants.maxTileY && map[runnerX][runnerY + 1].act == TileType.GUARD_T)
+      else if (runnerY < _state.maxTileY && map[runnerX][runnerY + 1].act == TileType.GUARD_T)
       {
         x = runnerX; y = runnerY + 1;//dbg = "DN";	
       }
@@ -440,7 +440,7 @@ namespace ClassicLogic.Engine
       {
         x = runnerX - 1; y = runnerY;//dbg = "LF";	
       }
-      else if (runnerX < Constants.maxTileX && map[runnerX + 1][runnerY].act == TileType.GUARD_T)
+      else if (runnerX < _state.maxTileX && map[runnerX + 1][runnerY].act == TileType.GUARD_T)
       {
         x = runnerX + 1; y = runnerY;//dbg = "RT";	
       }
@@ -489,7 +489,7 @@ namespace ClassicLogic.Engine
           //		debug("[x-1][y+1] = " + map[x-1][y+1].act + " [x-1][y] = " + map[x-1][y].act + 
           //			  "[x-1][y].base = " + map[x-1][y].base );
 
-          if (y < Constants.maxTileY && x > 0 && _map[x - 1][y + 1].act == TileType.BLOCK_T &&
+          if (y < _state.maxTileY && x > 0 && _map[x - 1][y + 1].act == TileType.BLOCK_T &&
               _map[x - 1][y].act == TileType.EMPTY_T && _map[x - 1][y].@base != TileType.GOLD_T)
             result = true;
           break;
@@ -497,7 +497,7 @@ namespace ClassicLogic.Engine
           //		debug("[x+1][y+1] = " + map[x+1][y+1].act + " [x+1][y] = " + map[x+1][y].act + 
           //			  "[x+1][y].base = " + map[x+1][y].base );
 
-          if (y < Constants.maxTileY && x < Constants.maxTileX && _map[x + 1][y + 1].act == TileType.BLOCK_T &&
+          if (y < _state.maxTileY && x < _state.maxTileX && _map[x + 1][y + 1].act == TileType.BLOCK_T &&
               _map[x + 1][y].act == TileType.EMPTY_T && _map[x + 1][y].@base != TileType.GOLD_T)
             result = true;
           break;

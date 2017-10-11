@@ -51,6 +51,9 @@ namespace ClassicLogic.Utils
           case ' ': //empty
             _token = new LevelToken(TileType.EMPTY_T);
             break;
+          case '\n':
+            _token = new LevelToken(LevelTokenType.EndLine);
+            break;
           default:
             throw new System.ArgumentException("invalid token");
         }

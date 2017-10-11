@@ -57,7 +57,7 @@ namespace ClassicLogicEngineViewer
       };
       _timer.Start();
 
-      _engine = new Engine(AIVersion.V4, new LevelReader(LevelsData.Level0), Mode.Modern);
+      _engine = new Engine(AIVersion.V4, new StringLevelReader(LevelsData.Level0), Mode.Modern);
 
       AddCommand<InitializeEvent, InitializeCommand>();
       AddCommand<MoveRunnerEvent, MoveRunnerCommand>();

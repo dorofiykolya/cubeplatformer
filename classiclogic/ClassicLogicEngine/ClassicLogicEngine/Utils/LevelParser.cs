@@ -14,23 +14,25 @@ namespace ClassicLogic.Utils
 
       levelMapReader.Reset();
 
-      for (var x = 0; x < Constants.NO_OF_TILES_X; x++)
+      while (levelMapReader.MoveNext())
       {
-        for (var y = 0; y < Constants.NO_OF_TILES_Y; y++)
-        {
-          levelMapReader.MoveNext();
-          if (levelMapReader.Token.Type == TileType.GUARD_T) mapGuards++;
-        }
+        if (levelMapReader.Token.Type == TileType.GUARD_T) mapGuards++;
       }
 
-      levelMapReader.Reset();
-
       //(2) draw map
-      for (var y = 0; y < Constants.NO_OF_TILES_Y; y++)
+      var y = 0;
+      var x = 0;
+
+      levelMapReader.Reset();
+      while (levelMapReader.MoveNext())
       {
-        for (var x = 0; x < Constants.NO_OF_TILES_X; x++)
+        if (levelMapReader.Token.TokenType == LevelTokenType.EndLine)
         {
-          levelMapReader.MoveNext();
+          y++;
+          x = 0;
+        }
+        else
+        {
           var id = levelMapReader.Token.Type;
           var tile = map[x][y];
 
@@ -106,7 +108,7 @@ namespace ClassicLogic.Utils
               tile.action = Action.ACT_UNKNOWN;
               if (map.runner != null)
               {
-                map[x][y].act = TileType.EMPTY_T; //too many runner, set this tile as empty
+                tile.act = TileType.EMPTY_T; //too many runner, set this tile as empty
               }
               else
               {
@@ -131,6 +133,8 @@ namespace ClassicLogic.Utils
             default:
               throw new System.ArgumentException();
           }
+          
+          x++;
         }
       }
 

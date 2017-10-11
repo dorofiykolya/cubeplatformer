@@ -19,14 +19,14 @@ namespace ClassicLogic.Engine
     public const double W4 = W / 4.0;
     public const double H4 = H / 4.0;
 
-    public const int NO_OF_TILES_X = 28;
-    public const int NO_OF_TILES_Y = 16;
+    //public const int NO_OF_TILES_X = 28;
+    //public const int NO_OF_TILES_Y = 16;
 
     public const double tileW = W;
     public const double tileH = H;
 
-    public const int maxTileX = NO_OF_TILES_X - 1;
-    public const int maxTileY = NO_OF_TILES_Y - 1;
+    //public const int maxTileX = NO_OF_TILES_X - 1;
+    //public const int maxTileY = NO_OF_TILES_Y - 1;
 
     public const int SCORE_GET_GOLD = 250;
     public const int SCORE_GUARD_DEAD = 75;

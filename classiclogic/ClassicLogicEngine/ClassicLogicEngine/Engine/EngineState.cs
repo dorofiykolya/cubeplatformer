@@ -65,7 +65,7 @@ namespace ClassicLogic.Engine
 
       movePolicy = config.movePolicy;
       shakeTime = config.shakeTime;
-      bornX = new RandomRange(0, Constants.maxTileX, 0);
+      bornX = new RandomRange(0, _levelMap.XCount, 0);
       guards = new EngineGuards(map, bornX, this);
       guards.maxGuard = _levelMap.maxGuard;
 
@@ -111,6 +111,8 @@ namespace ClassicLogic.Engine
       };
     }
 
+    public int maxTileX { get { return _levelMap.XCount - 1; } }
+    public int maxTileY { get { return _levelMap.YCount - 1; } }
     public GameState State { get; set; }
     public PlayMode PlayMode { get; set; }
     public RecordMode RecordMode { get; set; }
@@ -225,9 +227,11 @@ namespace ClassicLogic.Engine
     public bool showHideLaddr()
     {
       var haveHLadder = false;
-      for (var y = 0; y < Constants.NO_OF_TILES_Y; y++)
+      var width = _levelMap.XCount;
+      var height = _levelMap.YCount;
+      for (var y = 0; y < height; y++)
       {
-        for (var x = 0; x < Constants.NO_OF_TILES_X; x++)
+        for (var x = 0; x < width; x++)
         {
           if (map[x][y].@base == TileType.HLADR_T)
           {
