@@ -2,7 +2,7 @@
 
 namespace Game.Logics
 {
-  public class LogicAction : ILogicAction
+  public abstract class LogicAction : ILogicAction
   {
     private static readonly Comparer<int> Comparer = Comparer<int>.Default;
 
