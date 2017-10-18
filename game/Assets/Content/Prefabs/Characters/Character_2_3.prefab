@@ -412,6 +412,7 @@ GameObject:
   - component: {fileID: 4465304783303718}
   - component: {fileID: 95390176029988182}
   - component: {fileID: 114220924693082342}
+  - component: {fileID: 114857691713334444}
   m_Layer: 0
   m_Name: Character_2_3
   m_TagString: Untagged
@@ -1018,6 +1019,17 @@ MonoBehaviour:
     TransformParentChanges: []
   ParentPrefabGUID: 
   PrefabGUID: 8b29205964c1c724d9e1b9aa8c2a63d2
+--- !u!114 &114857691713334444
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1943036208565384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c9854d8bacbfa94198258129c53cb75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!137 &137498673103115432
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

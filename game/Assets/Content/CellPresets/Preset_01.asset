@@ -62,4 +62,19 @@ MonoBehaviour:
     Direction: 0
     Id: 
     Name: Guard_01
-    Prefab: {fileID: 114849241011979034, guid: 66f082715424aa8449ffeca25400dcb5, type: 2}
+    Prefab: {fileID: 114727872174769894, guid: 98bc4a7fb3d326c48b1743b1267ad2a9, type: 2}
+  - Type: 32
+    Direction: 0
+    Id: 
+    Name: Player_01
+    Prefab: {fileID: 114256861704053510, guid: bb9ce9c9bd935b8419bea73d004e3428, type: 2}
+  - Type: 8
+    Direction: 0
+    Id: 
+    Name: Guard_02
+    Prefab: {fileID: 114655774213725934, guid: fc70d1f5914bed64fb45ad63fdf8526e, type: 2}
+  - Type: 8
+    Direction: 0
+    Id: 
+    Name: Guard_03
+    Prefab: {fileID: 114857691713334444, guid: 8b29205964c1c724d9e1b9aa8c2a63d2, type: 2}

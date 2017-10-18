@@ -51,7 +51,7 @@ namespace Game
       );
     }
 
-    public InputContext InputContext { get { return _inputContext; } }
+    public InputContext InputContext { get { return _inputContext.Current; } }
     public UIContext UIContext { get { return _uiContext; } }
     public ViewContext ViewContext { get { return _viewContext; } }
     public Transform RootTransform { get { return _rootTransform; } }

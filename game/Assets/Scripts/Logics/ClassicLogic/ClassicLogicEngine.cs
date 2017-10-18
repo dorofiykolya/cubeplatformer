@@ -1,60 +1,35 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 using ClassicLogic.Engine;
 using ClassicLogic.Utils;
+using Game.Logics.Actions;
 using Game.Views.Components;
+using UnityEngine;
+using InputAction = ClassicLogic.Engine.InputAction;
 
 namespace Game.Logics.ClassicLogic
 {
   public class ClassicLogicEngine : ILogicEngine
   {
+    private readonly Dictionary<int, CellGuardContentComponent> _guards = new Dictionary<int, CellGuardContentComponent>();
+    private readonly ClassicLogicCommandProcessor _processor = new ClassicLogicCommandProcessor();
+    private readonly LevelComponent _level;
     private readonly Engine _engine;
+    private readonly Transform _guardTransform;
 
     public ClassicLogicEngine(LevelComponent level)
     {
-      var str = new StringBuilder();
+      _level = level;
 
-      for (int y = 0; y < level.Size.Y; y++)
-      {
-        for (int x = 0; x < level.Size.X; x++)
-        {
-          switch (level[x, y, 0].CellType)
-          {
-            case CellType.Block:
-              str.Append('#');
-              break;
-            case CellType.Solid:
-              str.Append('@');
-              break;
-            case CellType.Ladder:
-              str.Append('H');
-              break;
-            case CellType.Rope:
-              str.Append('-');
-              break;
-            case CellType.Trap:
-              str.Append('X');
-              break;
-            case CellType.HLadr:
-              str.Append('S');
-              break;
-            case CellType.Gold:
-              str.Append('$');
-              break;
-            case CellType.Guard:
-              str.Append('0');
-              break;
-            case CellType.Player:
-              str.Append('&');
-              break;
-            case CellType.Empty:
-              str.Append(' ');
-              break;
-          }
-        }
-        str.Append('\n');
-      }
+      var converter = level.CoordinateConverter as ClassicLogicLevelCoordinateConverter;
+      converter.Size = level.Size;
 
-      _engine = new Engine(AIVersion.V4, new StringLevelReader(str.ToString()), Mode.Modern);
+      var data = ClassicLogicLevelConverter.Convert(level);
+
+      _guardTransform = new GameObject("Guards").transform;
+      _guardTransform.SetParent(level.transform, false);
+
+      _engine = new Engine(AIVersion.V4, new StringLevelReader(data), Mode.Modern);
     }
 
     public void SetAction(Actions.InputAction action)
@@ -69,17 +44,51 @@ namespace Game.Logics.ClassicLogic
 
     public void AddAction(ILogicAction action)
     {
-
+      var input = action as LogicActionInputAction;
+      if (input != null)
+      {
+        _engine.SetAction((InputAction)(int)input.InputAction);
+      }
     }
 
     public void FastForward(int tick)
     {
 
+      _engine.FastForward(tick);
+      while (_engine.Output.Count != 0)
+      {
+        var evt = _engine.Output.Dequeue();
+        _processor.Execute(evt, this);
+        _engine.Output.Return(evt);
+      }
     }
 
-    public int Tick { get; private set; }
-    public bool IsFinished { get; private set; }
-    public int MaxTicks { get; private set; }
-    public int TicksPerSeconds { get; private set; }
+    public int Tick { get { return _engine.State.Tick; } }
+    public bool IsFinished { get { return _engine.State.State == global::ClassicLogic.Engine.GameState.GAME_FINISH; } }
+    public int MaxTicks { get { return int.MaxValue; } }
+    public int TicksPerSeconds { get { return 10; } }
+
+    public Transform GuardTransform
+    {
+      get { return _guardTransform; }
+    }
+
+    public LevelComponent Level
+    {
+      get { return _level; }
+    }
+
+    public CellPlayerContentComponent Runner { get; set; }
+    public CellContentComponent HideLadder { get; set; }
+
+    public void AddGuard(int guardDataId, CellGuardContentComponent view)
+    {
+      _guards[guardDataId] = view;
+    }
+
+    public CellGuardContentComponent GetGuard(int guardId)
+    {
+      return _guards[guardId];
+    }
   }
 }

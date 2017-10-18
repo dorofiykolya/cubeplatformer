@@ -1,5 +1,6 @@
 using Game.Inputs;
 using Game.Logics;
+using Game.Logics.Actions;
 using Injection;
 using Utils;
 
@@ -39,6 +40,29 @@ namespace Game.Managers
       var logic = info.Level.Logic.Engine(Context);
 
       var input = new LevelInputContenxt(Context, _levelDefinition.Lifetime, Context.InputContext);
+
+      input.Subscribe(_levelDefinition.Lifetime, GameInput.Horizontal, InputPhase.Begin, evt =>
+      {
+        logic.AddAction(new LogicActionInputAction
+        {
+          InputAction = evt.Value > 0 ? InputAction.Right : InputAction.Left
+        });
+      });
+      input.Subscribe(_levelDefinition.Lifetime, GameInput.Vertical, InputPhase.Begin, evt =>
+      {
+        logic.AddAction(new LogicActionInputAction
+        {
+          InputAction = evt.Value > 0 ? InputAction.Up : InputAction.Down
+        });
+      });
+      input.Subscribe(_levelDefinition.Lifetime, GameInput.Action, InputPhase.Begin, evt =>
+      {
+        logic.AddAction(new LogicActionInputAction
+        {
+          InputAction = evt.Value > 0 ? InputAction.DigLeft : InputAction.DigRight
+        });
+      });
+
       logic.AddAction(new LogicActionInitializePlayer(input.Controllers, logic.Tick + 1));
       input.SubscribeOnAddController(_levelDefinition.Lifetime, controller =>
       {
@@ -48,11 +72,18 @@ namespace Game.Managers
       {
         logic.AddAction(new LogicActionRemovePlayer(controller.Id, logic.Tick + 1));
       });
-      
+
+      var ticksPerSec = logic.TicksPerSeconds;
+      var passedTime = 0f;
+
       Context.Time.SubscribeOnUpdate(_levelDefinition.Lifetime, () =>
       {
-        var ticks = 1;
-        logic.FastForward(logic.Tick + ticks);
+        passedTime += Context.Time.DeltaTime;
+        while ((int)(passedTime / (1f / ticksPerSec)) > 0)
+        {
+          logic.FastForward(logic.Tick + 1);
+          passedTime -= 1f / ticksPerSec;
+        }
       });
     }
   }

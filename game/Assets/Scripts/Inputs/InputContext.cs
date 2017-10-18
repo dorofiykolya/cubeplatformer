@@ -33,7 +33,7 @@ namespace Game.Inputs
       {
         if (Parent != null)
         {
-          Parent.Nested = null;
+          Parent.Nested = Nested;
           Parent = null;
         }
       });
@@ -43,6 +43,8 @@ namespace Game.Inputs
     protected InputContext Parent { get; private set; }
     protected InputContext Nested { get; private set; }
     protected InputContext Last { get { return Nested != null ? Nested.Last : this; } }
+
+    public InputContext Current { get { return Last; } }
 
     public virtual InputController[] Controllers { get { return Root == this ? new InputController[0] : Root.Controllers; } }
 
@@ -75,22 +77,22 @@ namespace Game.Inputs
 
     public virtual void SubscribeOnAddController(Lifetime lifetime, Action<InputController> listener)
     {
-      Root._onControllerAdd.Subscribe(lifetime, listener);
+      _onControllerAdd.Subscribe(lifetime, listener);
     }
 
     public virtual void SubscribeOnRemoveController(Lifetime lifetime, Action<InputController> listener)
     {
-      Root._onControllerRemove.Subscribe(lifetime, listener);
+      _onControllerRemove.Subscribe(lifetime, listener);
     }
 
     public virtual void SubscribeOnActivatedController(Lifetime lifetime, Action<InputController> listener)
     {
-      Root._onControllerActivated.Subscribe(lifetime, listener);
+      _onControllerActivated.Subscribe(lifetime, listener);
     }
 
     public virtual void SubscribeOnDeactivatedController(Lifetime lifetime, Action<InputController> listener)
     {
-      Root._onControllerDeactivated.Subscribe(lifetime, listener);
+      _onControllerDeactivated.Subscribe(lifetime, listener);
     }
 
     protected virtual void FireEvent(InputEvent evt)
@@ -100,22 +102,42 @@ namespace Game.Inputs
 
     protected virtual void FireAddController(InputController controller)
     {
-      Root._onControllerAdd.Fire(controller);
+      var current = Root;
+      while (current != null)
+      {
+        current._onControllerAdd.Fire(controller);
+        current = current.Nested;
+      }
     }
 
     protected virtual void FireRemoveController(InputController controller)
     {
-      Root._onControllerRemove.Fire(controller);
+      var current = Root;
+      while (current != null)
+      {
+        current._onControllerRemove.Fire(controller);
+        current = current.Nested;
+      }
     }
 
     protected virtual void FireActivateController(InputController controller)
     {
-      Root._onControllerActivated.Fire(controller);
+      var current = Root;
+      while (current != null)
+      {
+        current._onControllerActivated.Fire(controller);
+        current = current.Nested;
+      }
     }
 
     protected virtual void FireDeactiveController(InputController controller)
     {
-      Root._onControllerDeactivated.Fire(controller);
+      var current = Root;
+      while (current != null)
+      {
+        current._onControllerDeactivated.Fire(controller);
+        current = current.Nested;
+      }
     }
   }
 }
