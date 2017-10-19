@@ -16,7 +16,7 @@ MonoBehaviour:
     Description: Level_01_desr
     DataType: 1
     EnvironmentPrefab:
-      _path: Environment/Castle
+      _path: 
     LevelPrefab:
       _path: 
     LevelStringData:

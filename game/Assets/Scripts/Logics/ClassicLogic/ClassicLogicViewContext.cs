@@ -81,30 +81,29 @@ namespace Game.Logics.ClassicLogic
       {
         if (cellInfo.Prefab != null)
         {
-          var position = new Point(x, y);
-          var view = GameObject.Instantiate(cellInfo.Prefab);
-
           if (cellType == CellType.Gold)
           {
-            _golds[position] = view;
-            view.transform.SetParent(_goldTransform, false);
+            AddGold(x, y);
           }
           else
           {
+            var position = new Point(x, y);
+            var view = GameObject.Instantiate(cellInfo.Prefab);
             _tiles[position] = view;
             view.transform.SetParent(_tileTransform, false);
-          }
 
-          view.transform.localPosition = _converter.ToWorld(new PositionF(x, y, 0));
 
-          if (cellType == CellType.HLadr)
-          {
-            view.gameObject.SetActive(false);
-            HideLadder = view;
-          }
-          else if (cellType == CellType.Trap)
-          {
-            view.gameObject.SetActive(false);
+            view.transform.localPosition = _converter.ToWorld(new PositionF(x, y, 0));
+
+            if (cellType == CellType.HLadr)
+            {
+              view.gameObject.SetActive(false);
+              HideLadder = view;
+            }
+            else if (cellType == CellType.Trap)
+            {
+              view.gameObject.SetActive(false);
+            }
           }
         }
       }
@@ -142,7 +141,7 @@ namespace Game.Logics.ClassicLogic
       var position = new Point(x, y);
       var view = _golds[position];
       _golds.Remove(position);
-      GameObject.Destroy(view);
+      GameObject.Destroy(view.gameObject);
     }
 
     public void EndFillHole(int x, int y)

@@ -16,6 +16,7 @@ namespace Game.Logics.ClassicLogic
 
     public ClassicLogicEngine(Lifetime lifetime, string data)
     {
+      data = data.Replace("\r\n", "\n");
       _engine = new Engine(AIVersion.V4, new StringLevelReader(data), Mode.Modern);
       _viewContext = new ClassicLogicViewContext(lifetime, _engine.State.maxTileX, _engine.State.maxTileY);
     }

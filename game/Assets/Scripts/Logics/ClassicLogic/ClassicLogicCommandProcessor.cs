@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using ClassicLogic.Outputs;
 using Game.Logics.ClassicLogic.Commands;
+using UnityEngine;
 
 namespace Game.Logics.ClassicLogic
 {
@@ -34,6 +35,10 @@ namespace Game.Logics.ClassicLogic
       if (_map.TryGetValue(evt.GetType(), out command))
       {
         command.Execute(evt, engine);
+      }
+      else
+      {
+        Debug.Log("not implemented event: " + evt.GetType());
       }
     }
 
