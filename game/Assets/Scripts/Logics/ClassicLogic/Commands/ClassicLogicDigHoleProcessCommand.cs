@@ -6,7 +6,7 @@ namespace Game.Logics.ClassicLogic.Commands
   {
     protected override void Execute(DigHoleProcessEvent evt, ClassicLogicEngine engine)
     {
-      
+      engine.ViewContext.DiggingProgress(evt.Ratio);
     }
   }
 }

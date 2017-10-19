@@ -6,7 +6,7 @@ namespace Game.Logics.ClassicLogic.Commands
   {
     protected override void Execute(AddGoldEvent evt, ClassicLogicEngine engine)
     {
-      
+      engine.ViewContext.AddGold(evt.X, evt.Y);
     }
   }
 }

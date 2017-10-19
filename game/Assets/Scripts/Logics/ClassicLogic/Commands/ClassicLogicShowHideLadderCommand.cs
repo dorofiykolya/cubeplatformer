@@ -6,10 +6,7 @@ namespace Game.Logics.ClassicLogic.Commands
   {
     protected override void Execute(ShowHideLadderEvent evt, ClassicLogicEngine engine)
     {
-      if (engine.HideLadder != null)
-      {
-        engine.HideLadder.gameObject.SetActive(true);
-      }
+      engine.ViewContext.ShowHiddenLadder();
     }
   }
 }

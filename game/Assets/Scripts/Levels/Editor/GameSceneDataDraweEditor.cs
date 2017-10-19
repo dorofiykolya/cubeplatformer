@@ -20,27 +20,39 @@ namespace Game.Editor
           _scenes[i] = Path.GetFileNameWithoutExtension(_scenes[i]);
         }
       }
-      GUILayout.Space(-16f);
-      EditorGUILayout.BeginHorizontal();
-      var sceneProperty = property.FindPropertyRelative("Name");
-      EditorGUILayout.PropertyField(sceneProperty);
+
+      var first = (position.width - 20f) * 0.7f;
+      var second = (position.width - 20f) * 0.3f;
+      var third = 20f;
+
+      var sceneProperty = property.FindPropertyRelative("SceneName");
+      var propertyPosition = position;
+      propertyPosition.width = first;
+      EditorGUI.PropertyField(propertyPosition, sceneProperty);
+      position.xMin += first;
+      
       var lastIndex = Array.IndexOf(_scenes, sceneProperty.stringValue);
-      var index = EditorGUILayout.Popup(lastIndex, _scenes, GUILayout.MaxWidth(150));
+      var popupPosition = position;
+      popupPosition.width = second;
+      var index = EditorGUI.Popup(popupPosition, lastIndex, _scenes);
       if (index != lastIndex)
       {
         sceneProperty.stringValue = _scenes[index];
         sceneProperty.serializedObject.ApplyModifiedProperties();
       }
-      if (GUILayout.Button("R", EditorStyles.miniButton, GUILayout.Width(18f)))
+
+      position.xMin += second + 2;
+      var buttonPosition = position;
+      buttonPosition.width = third - 2;
+      if (GUI.Button(buttonPosition, "R", EditorStyles.miniButton))
       {
         _scenes = null;
       }
-      EditorGUILayout.EndHorizontal();
     }
 
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
     {
-      return 0;
+      return 16f;
     }
   }
 }

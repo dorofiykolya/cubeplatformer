@@ -6,7 +6,7 @@ namespace Game.Logics.ClassicLogic.Commands
   {
     protected override void Execute(GuardHasGoldEvent evt, ClassicLogicEngine engine)
     {
-      engine.GetGuard(evt.Id).HaGold(evt.HasGold);
+      engine.ViewContext.GetGuard(evt.Id).HaGold(evt.HasGold);
     }
   }
 }

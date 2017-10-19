@@ -30,7 +30,11 @@ namespace Game.Logics.ClassicLogic
 
     public void Execute(OutputEvent evt, ClassicLogicEngine engine)
     {
-      _map[evt.GetType()].Execute(evt, engine);
+      ClassicLogicCommand command;
+      if (_map.TryGetValue(evt.GetType(), out command))
+      {
+        command.Execute(evt, engine);
+      }
     }
 
     private void AddCommand<TEvent, TCommand>() where TCommand : ClassicLogicCommand<TEvent>, new() where TEvent : OutputEvent

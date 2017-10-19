@@ -7,6 +7,7 @@ namespace Game.Managers
   {
     public Scene Scene;
     public EnvironmentComponent Envorinment;
-    public LevelComponent Level;
+    public string Level;
+    public CellPreset Preset;
   }
 }

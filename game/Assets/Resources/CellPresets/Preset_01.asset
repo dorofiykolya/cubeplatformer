@@ -78,3 +78,8 @@ MonoBehaviour:
     Id: 
     Name: Guard_03
     Prefab: {fileID: 114857691713334444, guid: 8b29205964c1c724d9e1b9aa8c2a63d2, type: 2}
+  - Type: 7
+    Direction: 0
+    Id: 
+    Name: Gold
+    Prefab: {fileID: 114419092528865790, guid: a35d7051e5972844bba642d8f28c5943, type: 2}

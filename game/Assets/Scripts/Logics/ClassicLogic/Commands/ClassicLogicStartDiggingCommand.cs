@@ -6,7 +6,7 @@ namespace Game.Logics.ClassicLogic.Commands
   {
     protected override void Execute(StartDiggingEvent evt, ClassicLogicEngine engine)
     {
-      
+      engine.ViewContext.StartDigging();
     }
   }
 }

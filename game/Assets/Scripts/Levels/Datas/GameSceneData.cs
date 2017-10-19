@@ -5,6 +5,6 @@ namespace Game
   [Serializable]
   public struct GameSceneData
   {
-    public string Name;
+    public string SceneName;
   }
 }

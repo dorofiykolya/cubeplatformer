@@ -43,15 +43,15 @@ namespace Game.Managers
     {
       DestroyLastLevel();
       var levelData = _classicLevels.GetLevel(_persistanceManager.LastClassicLevel);
-      _gameSceneManager.LoadScene(levelData.Scene.Name, LoadSceneMode.Single, scene =>
+      _gameSceneManager.LoadScene(levelData.Scene.SceneName, LoadSceneMode.Single, scene =>
       {
         _classicLevel = new GameClassicLevelInfo();
         _classicLevel.Scene = scene;
-        if (levelData.EnvironmentPrefab) _classicLevel.Envorinment = UnityEngine.Object.Instantiate(levelData.EnvironmentPrefab);
-        if (levelData.LevelPrefab) _classicLevel.Level = UnityEngine.Object.Instantiate(levelData.LevelPrefab);
+        if (levelData.EnvironmentPrefab != null) _classicLevel.Envorinment = UnityEngine.Object.Instantiate(levelData.EnvironmentPrefab.Asset);
         if (levelData.DataType == GameLevelDataType.StringFormat)
         {
-          _classicLevel.Level = LevelStringBuilder.CreateLevel(levelData.LevelStringData, levelData.Preset);
+          _classicLevel.Level = levelData.LevelStringData.Asset.text;
+          _classicLevel.Preset = levelData.Preset;
         }
         _onLoaded.Fire(_classicLevel);
       });
@@ -88,7 +88,6 @@ namespace Game.Managers
           GameObject.DestroyImmediate(gameObject);
         }
         if (_classicLevel.Envorinment) GameObject.Destroy(_classicLevel.Envorinment.gameObject);
-        if (_classicLevel.Level) GameObject.Destroy(_classicLevel.Level.gameObject);
         SceneManager.UnloadSceneAsync(_classicLevel.Scene.name);
         _classicLevel = null;
       }

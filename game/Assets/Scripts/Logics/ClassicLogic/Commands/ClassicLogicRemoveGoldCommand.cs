@@ -6,7 +6,7 @@ namespace Game.Logics.ClassicLogic.Commands
   {
     protected override void Execute(RemoveGoldEvent evt, ClassicLogicEngine engine)
     {
-      
+      engine.ViewContext.RemoveGold(evt.X, evt.Y);
     }
   }
 }

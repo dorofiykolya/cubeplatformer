@@ -15,9 +15,7 @@ namespace Game.Views.Components
 
     private ILogicEngine CreateEngine(GameContext context)
     {
-      var level = GetComponent<LevelComponent>();
-      var engine = new Game.Logics.ClassicLogic.ClassicLogicEngine(level);
-      return engine;
+      return null;
     }
   }
 }

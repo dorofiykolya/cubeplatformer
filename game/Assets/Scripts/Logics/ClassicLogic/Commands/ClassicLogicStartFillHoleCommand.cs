@@ -6,7 +6,7 @@ namespace Game.Logics.ClassicLogic.Commands
   {
     protected override void Execute(StartFillHoleEvent evt, ClassicLogicEngine engine)
     {
-      engine.Level[evt.X, engine.Level.Size.Y - 1 - evt.Y, 0].Content.gameObject.SetActive(false);
+      engine.ViewContext.StartFillHole(evt.X, evt.Y);
     }
   }
 }

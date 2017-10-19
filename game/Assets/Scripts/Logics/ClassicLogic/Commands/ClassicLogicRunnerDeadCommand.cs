@@ -6,7 +6,7 @@ namespace Game.Logics.ClassicLogic.Commands
   {
     protected override void Execute(RunnerDeadEvent evt, ClassicLogicEngine engine)
     {
-      engine.Runner.gameObject.SetActive(false);
+      engine.ViewContext.RunnerDead();
     }
   }
 }

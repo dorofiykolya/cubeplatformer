@@ -1,35 +1,23 @@
-﻿using System.Collections.Generic;
-using System.Text;
-using ClassicLogic.Engine;
+﻿using ClassicLogic.Engine;
 using ClassicLogic.Utils;
 using Game.Logics.Actions;
-using Game.Views.Components;
-using UnityEngine;
+using Utils;
 using InputAction = ClassicLogic.Engine.InputAction;
+using Point = ClassicLogic.Engine.Point;
 
 namespace Game.Logics.ClassicLogic
 {
   public class ClassicLogicEngine : ILogicEngine
   {
-    private readonly Dictionary<int, CellGuardContentComponent> _guards = new Dictionary<int, CellGuardContentComponent>();
     private readonly ClassicLogicCommandProcessor _processor = new ClassicLogicCommandProcessor();
-    private readonly LevelComponent _level;
     private readonly Engine _engine;
-    private readonly Transform _guardTransform;
+    
+    private readonly ClassicLogicViewContext _viewContext;
 
-    public ClassicLogicEngine(LevelComponent level)
+    public ClassicLogicEngine(Lifetime lifetime, string data)
     {
-      _level = level;
-
-      var converter = level.CoordinateConverter as ClassicLogicLevelCoordinateConverter;
-      converter.Size = level.Size;
-
-      var data = ClassicLogicLevelConverter.Convert(level);
-
-      _guardTransform = new GameObject("Guards").transform;
-      _guardTransform.SetParent(level.transform, false);
-
       _engine = new Engine(AIVersion.V4, new StringLevelReader(data), Mode.Modern);
+      _viewContext = new ClassicLogicViewContext(lifetime, _engine.State.maxTileX, _engine.State.maxTileY);
     }
 
     public void SetAction(Actions.InputAction action)
@@ -66,29 +54,13 @@ namespace Game.Logics.ClassicLogic
     public int Tick { get { return _engine.State.Tick; } }
     public bool IsFinished { get { return _engine.State.State == global::ClassicLogic.Engine.GameState.GAME_FINISH; } }
     public int MaxTicks { get { return int.MaxValue; } }
-    public int TicksPerSeconds { get { return 10; } }
+    public int TicksPerSeconds { get { return 30; } }
 
-    public Transform GuardTransform
+    public ClassicLogicViewContext ViewContext { get { return _viewContext; } }
+
+    public void AddRunner(global::ClassicLogic.Engine.Point runner)
     {
-      get { return _guardTransform; }
-    }
-
-    public LevelComponent Level
-    {
-      get { return _level; }
-    }
-
-    public CellPlayerContentComponent Runner { get; set; }
-    public CellContentComponent HideLadder { get; set; }
-
-    public void AddGuard(int guardDataId, CellGuardContentComponent view)
-    {
-      _guards[guardDataId] = view;
-    }
-
-    public CellGuardContentComponent GetGuard(int guardId)
-    {
-      return _guards[guardId];
+      
     }
   }
 }

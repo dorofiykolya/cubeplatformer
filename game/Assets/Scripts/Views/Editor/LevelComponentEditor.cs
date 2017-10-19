@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using Game.Logics.ClassicLogic;
 using Game.Views.Components;
 using UnityEditor;
-using UnityEditor.AnimatedValues;
 using UnityEngine;
 using Utils.Editor;
 
@@ -90,7 +91,26 @@ namespace Game.Views.Editor
         }
       }
       EditorGUILayout.EndHorizontal();
+      EditorUtils.BeginVerticalHeader("Serialize");
+      EditorGUILayout.BeginHorizontal();
+      if (GUILayout.Button("ToClassic", EditorUtils.Styles.minibutton))
+      {
+        var serialized = ClassicLogicLevelConverter.Convert(Target);
+        var path = EditorUtility.SaveFilePanelInProject("Save serialized file", "classic_level", "txt", "Please enter a file name to save the level to");
+        if (path.Length != 0)
+        {
+          File.WriteAllText(path, serialized);
+          AssetDatabase.Refresh();
+        }
+      }
+      GUI.tooltip = "not implemented";
+      if (GUILayout.Button("ToCSV", EditorUtils.Styles.minibutton))
+      {
 
+      }
+      GUI.tooltip = string.Empty;
+      EditorGUILayout.EndHorizontal();
+      EditorUtils.EndVerticalHeader();
       EditorGUILayout.EndVertical();
 
       if (GUILayout.Button("LevelEditor"))

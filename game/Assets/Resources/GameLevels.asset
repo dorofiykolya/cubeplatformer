@@ -14,12 +14,14 @@ MonoBehaviour:
   Levels:
   - Name: Level_01
     Description: Level_01_desr
-    LevelPrefab: {fileID: 114606762656418376, guid: 92ee311bff44b4244a459699687da459,
-      type: 2}
-    EnvironmentPrefab: {fileID: 114028561338007064, guid: 23300ebbf6957b9489c573f3d46c3eb5,
-      type: 2}
+    DataType: 1
+    EnvironmentPrefab:
+      _path: Environment/Castle
+    LevelPrefab:
+      _path: 
+    LevelStringData:
+      _path: ClassicLevels/classic_level
+    Preset:
+      _path: CellPresets/Preset_01
     Scene:
-      Name: Level_01
-    DataType: 0
-    LevelStringData: 
-    Preset: {fileID: 0}
+      SceneName: Level_01
