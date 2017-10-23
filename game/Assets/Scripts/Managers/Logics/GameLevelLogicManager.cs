@@ -64,6 +64,10 @@ namespace Game.Managers
           InputAction = evt.Value < 0 ? InputAction.DigLeft : InputAction.DigRight
         });
       });
+      input.Subscribe(_levelDefinition.Lifetime, GameInput.Cancel, InputPhase.Begin, evt =>
+      {
+        _levelManager.Unload();
+      });
 
       logic.AddAction(new LogicActionInitializePlayer(input.Controllers, logic.Tick + 1));
       input.SubscribeOnAddController(_levelDefinition.Lifetime, controller =>
