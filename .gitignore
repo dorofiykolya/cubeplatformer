@@ -5,6 +5,10 @@
 /[Bb]uilds/
 /Assets/AssetStoreTools*
 
+game/Assets/ThirdParty/ClassicLogicEngine/src/**
+classiclogic/ClassicLogicEngine/ClassicLogicEngine/src/*.meta
+classiclogic/ClassicLogicEngine/ClassicLogicEngine/src/**/*.meta
+
 **/bin/Debug/*
 **/bin/Debug/**
 
