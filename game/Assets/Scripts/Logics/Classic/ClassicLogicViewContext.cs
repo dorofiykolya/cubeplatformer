@@ -172,7 +172,10 @@ namespace Game.Logics.Classic
 
     public void ShowHiddenLadder()
     {
-      HideLadder.gameObject.SetActive(true);
+      if (HideLadder)
+      {
+        HideLadder.gameObject.SetActive(true);
+      }
     }
 
     public void ShowTrap(int x, int y)
