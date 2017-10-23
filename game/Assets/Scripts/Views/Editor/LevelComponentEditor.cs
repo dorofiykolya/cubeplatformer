@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using Game.Logics.ClassicLogic;
+using Game.Logics.Classic;
 using Game.Views.Components;
 using UnityEditor;
 using UnityEngine;

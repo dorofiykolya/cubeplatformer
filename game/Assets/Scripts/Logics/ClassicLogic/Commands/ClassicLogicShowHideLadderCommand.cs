@@ -1,6 +1,6 @@
 ﻿using ClassicLogic.Outputs;
 
-namespace Game.Logics.ClassicLogic.Commands
+namespace Game.Logics.Classic.Commands
 {
   public class ClassicLogicShowHideLadderCommand : ClassicLogicCommand<ShowHideLadderEvent>
   {

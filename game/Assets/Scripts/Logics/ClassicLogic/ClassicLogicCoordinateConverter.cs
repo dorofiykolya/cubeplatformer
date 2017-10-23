@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace Game.Logics.ClassicLogic
+namespace Game.Logics.Classic
 {
   public class ClassicLogicCoordinateConverter : ILevelCoordinateConverter
   {

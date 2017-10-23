@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using Game.Views.Components;
 
-namespace Game.Logics.ClassicLogic
+namespace Game.Logics.Classic
 {
   public class ClassicLogicLevelConverter
   {

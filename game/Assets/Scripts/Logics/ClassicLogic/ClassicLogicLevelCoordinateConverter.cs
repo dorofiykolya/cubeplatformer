@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Game.Logics.ClassicLogic
+namespace Game.Logics.Classic
 {
   [Serializable]
   public class ClassicLogicLevelCoordinateConverter : LevelCoordinateConverter

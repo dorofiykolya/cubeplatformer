@@ -3,7 +3,7 @@ using Game.Logics;
 using Game.Logics.Actions;
 using Injection;
 using Utils;
-using ClassicLogicEngine = Game.Logics.ClassicLogic.ClassicLogicEngine;
+using ClassicLogicEngine = Game.Logics.Classic.ClassicLogicEngine;
 
 namespace Game.Managers
 {
@@ -38,7 +38,7 @@ namespace Game.Managers
         _stateManager.Current = _stateManager.Prev;
       });
       _stateManager.Current = GameState.ClassicPlayMode;
-      var logic = new Game.Logics.ClassicLogic.ClassicLogicEngine(_levelDefinition.Lifetime, info.Level);
+      var logic = new Game.Logics.Classic.ClassicLogicEngine(_levelDefinition.Lifetime, info.Level);
       logic.ViewContext.Preset = info.Preset;
 
       var input = new LevelInputContenxt(Context, _levelDefinition.Lifetime, Context.InputContext);

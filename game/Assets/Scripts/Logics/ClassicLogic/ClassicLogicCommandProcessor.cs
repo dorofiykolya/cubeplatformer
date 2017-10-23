@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using ClassicLogic.Outputs;
-using Game.Logics.ClassicLogic.Commands;
+using Game.Logics.Classic.Commands;
 using UnityEngine;
 
-namespace Game.Logics.ClassicLogic
+namespace Game.Logics.Classic
 {
   public class ClassicLogicCommandProcessor
   {

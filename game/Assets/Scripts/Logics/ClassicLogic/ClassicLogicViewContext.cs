@@ -7,7 +7,7 @@ using UnityEngine;
 using Utils;
 using Point = Utils.Point;
 
-namespace Game.Logics.ClassicLogic
+namespace Game.Logics.Classic
 {
   public class ClassicLogicViewContext
   {

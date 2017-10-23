@@ -1,7 +1,7 @@
 ﻿using System;
 using ClassicLogic.Engine;
 
-namespace Game.Logics.ClassicLogic
+namespace Game.Logics.Classic
 {
   public class ClassicLogicTypeConverter
   {

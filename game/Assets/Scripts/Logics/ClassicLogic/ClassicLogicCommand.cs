@@ -1,7 +1,7 @@
 ﻿using System;
 using ClassicLogic.Outputs;
 
-namespace Game.Logics.ClassicLogic
+namespace Game.Logics.Classic
 {
   public abstract class ClassicLogicCommand<T> : ClassicLogicCommand where T : OutputEvent
   {

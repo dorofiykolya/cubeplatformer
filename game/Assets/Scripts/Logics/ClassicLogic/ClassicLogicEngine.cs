@@ -4,9 +4,8 @@ using Game.Logics.Actions;
 using UnityEngine;
 using Utils;
 using InputAction = ClassicLogic.Engine.InputAction;
-using Point = ClassicLogic.Engine.Point;
 
-namespace Game.Logics.ClassicLogic
+namespace Game.Logics.Classic
 {
   public class ClassicLogicEngine : ILogicEngine
   {
@@ -18,8 +17,8 @@ namespace Game.Logics.ClassicLogic
     public ClassicLogicEngine(Lifetime lifetime, string data)
     {
       data = data.Replace("\r\n", "\n");
-      _engine = new Engine(AIVersion.V4, new StringLevelReader(data), Mode.Modern);
-      _viewContext = new ClassicLogicViewContext(lifetime, _engine.State.maxTileX, _engine.State.maxTileY);
+      _engine = new Engine(new StringLevelReader(data));
+      _viewContext = new ClassicLogicViewContext(lifetime, _engine.State.MaxTileX, _engine.State.MaxTileY);
     }
 
     public void SetAction(Actions.InputAction action)
@@ -55,15 +54,10 @@ namespace Game.Logics.ClassicLogic
     }
 
     public int Tick { get { return _engine.State.Tick; } }
-    public bool IsFinished { get { return _engine.State.State == global::ClassicLogic.Engine.GameState.GAME_FINISH; } }
+    public bool IsFinished { get { return _engine.State.State == ClassicLogic.Engine.GameState.GameFinish; } }
     public int MaxTicks { get { return int.MaxValue; } }
     public int TicksPerSeconds { get { return 30; } }
 
     public ClassicLogicViewContext ViewContext { get { return _viewContext; } }
-
-    public void AddRunner(global::ClassicLogic.Engine.Point runner)
-    {
-
-    }
   }
 }
