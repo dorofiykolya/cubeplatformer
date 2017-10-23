@@ -1,6 +1,7 @@
 ﻿using ClassicLogic.Engine;
 using ClassicLogic.Utils;
 using Game.Logics.Actions;
+using UnityEngine;
 using Utils;
 using InputAction = ClassicLogic.Engine.InputAction;
 using Point = ClassicLogic.Engine.Point;
@@ -11,7 +12,7 @@ namespace Game.Logics.ClassicLogic
   {
     private readonly ClassicLogicCommandProcessor _processor = new ClassicLogicCommandProcessor();
     private readonly Engine _engine;
-    
+
     private readonly ClassicLogicViewContext _viewContext;
 
     public ClassicLogicEngine(Lifetime lifetime, string data)
@@ -36,6 +37,7 @@ namespace Game.Logics.ClassicLogic
       var input = action as LogicActionInputAction;
       if (input != null)
       {
+        Debug.Log((InputAction)(int)input.InputAction);
         _engine.SetAction((InputAction)(int)input.InputAction);
       }
     }
@@ -61,7 +63,7 @@ namespace Game.Logics.ClassicLogic
 
     public void AddRunner(global::ClassicLogic.Engine.Point runner)
     {
-      
+
     }
   }
 }

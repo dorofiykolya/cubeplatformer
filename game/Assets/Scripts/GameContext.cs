@@ -24,11 +24,13 @@ namespace Game
     private readonly ViewContext _viewContext;
     private readonly UIContext _uiContext;
     private readonly InputContext _inputContext;
+    private readonly ILogger _logger;
 
     public GameContext(Lifetime lifetime, GameStartBehaviour behaviour)
     {
       _lifetime = lifetime;
       _rootTransform = behaviour.transform;
+      _logger = Debug.unityLogger;
 
       var injector = new Injector();
 
@@ -58,6 +60,7 @@ namespace Game
     public GameProviders Providers { get { return _providers; } }
     public Preloader Preloader { get { return _preloader; } }
     public Lifetime Lifetime { get { return _lifetime; } }
+    public ILogger Logger { get { return _logger; } }
     public TimeManager Time { get { return _timeManager; } }
     public ICoroutineProvider CoroutineProvider { get { return _providers.CoroutineProvider; } }
     public IDispatcher Dispatcher { get { return _dispatcher; } }

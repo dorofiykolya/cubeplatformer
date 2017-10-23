@@ -114,7 +114,7 @@ namespace Game.Inputs
                 Phase = InputPhase.End,
                 Value = evt.Value
               });
-
+              _context.Logger.Log("Input - End: [" + input.Name + "] " + value);
               _inputs.Remove(input.Name);
             }
             else
@@ -125,6 +125,7 @@ namespace Game.Inputs
                 Phase = InputPhase.Process,
                 Value = value
               });
+              _context.Logger.Log("Input - Process: [" + input.Name + "] " + value);
             }
           }
           else if (contains)
@@ -136,6 +137,7 @@ namespace Game.Inputs
               Phase = InputPhase.Begin
             };
             _inputs.Add(input.Name, evt);
+            _context.Logger.Log("Input - Began: [" + input.Name + "] " + value);
             FireEvent(evt);
           }
         }

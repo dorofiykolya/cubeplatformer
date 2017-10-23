@@ -5,6 +5,7 @@ using ClassicLogic.Outputs;
 using Game.Views.Components;
 using UnityEngine;
 using Utils;
+using Point = Utils.Point;
 
 namespace Game.Logics.ClassicLogic
 {
