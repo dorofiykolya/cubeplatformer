@@ -1,6 +1,6 @@
 ﻿namespace ClassicLogic.Engine
 {
-  public enum AIVersion
+  public enum AiVersion
   {
     V1 = 0,
     V2 = 1,

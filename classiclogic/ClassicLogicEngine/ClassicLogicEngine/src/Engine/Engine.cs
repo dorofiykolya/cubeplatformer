@@ -8,36 +8,24 @@ namespace ClassicLogic.Engine
     private readonly EngineState _state;
     private readonly EngineOutput _output;
     private readonly EngineSound _sound;
-    private readonly AIVersion _aiVersion;
-    private readonly Mode _mode;
 
-    public Engine(AIVersion aiVersion, LevelReader level, Mode mode = Mode.Classic)
+    public Engine(LevelReader level)
     {
-      _aiVersion = aiVersion;
-      _mode = mode;
-
       _output = new EngineOutput();
-      _sound = new EngineSound();
+      _sound = new EngineSound(this);
 
-      var config = Constants.CONFIGURATION[aiVersion];
+      var config = Constants.Configuration[AiVersion.V4];
 
-      _state = new EngineState(aiVersion, mode, config, LevelParser.Parse(level, config.maxGuard), this);
+      _state = new EngineState(config, LevelParser.Parse(level, config.MaxGuard), this);
     }
 
-    public Mode Mode { get { return _mode; } }
-    public AIVersion AiVersion { get { return _aiVersion; } }
     public EngineState State { get { return _state; } }
     public EngineSound Sound { get { return _sound; } }
     public EngineOutput Output { get { return _output; } }
 
     public void SetAction(InputAction code)
     {
-      State.pressAction(code);
-    }
-
-    public void SetAction(KeyCode code)
-    {
-      State.pressKey(code);
+      State.PressAction(code);
     }
 
     public void FastForward(int tick)
@@ -49,15 +37,15 @@ namespace ClassicLogic.Engine
       State.Tick = tick;
       switch (State.State)
       {
-        case GameState.GAME_START:
-          if (State.keyAction != Action.ACT_STOP && State.keyAction != Action.ACT_UNKNOWN)
+        case GameState.GameStart:
+          if (State.KeyAction != Action.Stop && State.KeyAction != Action.Unknown)
           {
-            State.State = GameState.GAME_RUNNING;
-            State.playTickTimer = 0;
+            State.State = GameState.GameRunning;
+            State.PlayTickTimer = 0;
             State.CheckGold();
           }
           break;
-        case GameState.GAME_RUNNING:
+        case GameState.GameRunning:
           Play(delta, tick);
           break;
       }
@@ -65,38 +53,26 @@ namespace ClassicLogic.Engine
 
     private void Play(int delta, int tick)
     {
-      if (State.goldComplete && State.runner.pos.x == 0 && State.runner.pos.y == 0)
+      if (State.GoldComplete && State.Runner.Position.X == 0 && State.Runner.Position.Y == 0)
       {
-        State.State = GameState.GAME_FINISH;
+        State.State = GameState.GameFinish;
         return;
       }
 
-      if (++State.playTickTimer >= Constants.TICK_COUNT_PER_TIME)
+      if (++State.PlayTickTimer >= Constants.TickCountPerTime)
       {
-        if (State.PlayMode != PlayMode.PLAY_CLASSIC && State.PlayMode != PlayMode.PLAY_AUTO && State.PlayMode != PlayMode.PLAY_DEMO) State.drawTime(1);
-        else State.countTime(true);
-        State.playTickTimer = 0;
+        State.DrawTime(1);
+
+        State.PlayTickTimer = 0;
       }
+      
+      if (!State.IsDigging()) State.Runner.Move();
+      else State.ProcessDigHole();
+      if (State.State != GameState.GameRunnerDead) State.Guards.Move();
 
-      State.updateSprites(delta);
-
-      if (State.PlayMode == PlayMode.PLAY_AUTO || State.PlayMode == PlayMode.PLAY_DEMO || State.PlayMode == PlayMode.PLAY_DEMO_ONCE) PlayDemo();
-      if (State.recordMode == RecordMode.RECORD_KEY) State.ProcessRecordKey();
-      if (!State.isDigging()) State.runner.moveRunner();
-      else State.processDigHole();
-      if (State.State != GameState.GAME_RUNNER_DEAD) State.guards.moveGuard();
-
-      if ((int)_aiVersion >= 3)
-      {
-        State.guards.processGuardShake();
-        State.processFillHole();
-        State.guards.processReborn();
-      }
-    }
-
-    private void PlayDemo()
-    {
-
+      State.Guards.ProcessGuardShake();
+      State.ProcessFillHole();
+      State.Guards.ProcessReborn();
     }
   }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ClassicLogic.Engine
 {
@@ -7,10 +6,10 @@ namespace ClassicLogic.Engine
   {
     private readonly List<Column> _columns;
 
-    public int guardCount;
-    public int goldCount;
-    public int maxGuard;
-    public Tile runner;
+    public int GuardCount;
+    public int GoldCount;
+    public int MaxGuard;
+    public Tile Runner;
 
     public LevelMap()
     {

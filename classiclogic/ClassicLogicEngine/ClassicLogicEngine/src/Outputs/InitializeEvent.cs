@@ -8,10 +8,16 @@ namespace ClassicLogic.Outputs
     public GuardData[] Guard;
     public Point Runner;
 
+    public Action RunnerAction;
+    public Shape RunnerShape;
+
     public class GuardData
     {
       public int Id;
       public Point Position;
+
+      public Action Action;
+      public Shape Shape;
     }
 
   }

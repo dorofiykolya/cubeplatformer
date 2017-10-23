@@ -10,221 +10,139 @@ namespace ClassicLogic.Engine
   {
     private readonly LevelMap _levelMap;
     private readonly Engine _engine;
-    private readonly AIVersion _aiVersion;
     private readonly Configuration _config;
     private readonly Random _random;
-    private readonly List<Sprite> _sprites;
 
-    public readonly double xMove;
-    public readonly double yMove;
+    public readonly double XMove;
+    public readonly double YMove;
 
-    public int playTickTimer;
-    public Action keyAction;
-    public int goldCount;
-    public Runner runner;
-    public bool goldComplete;
-    public int curTime;
-    public RecordMode recordMode;
-    public EngineGuards guards;
-    public HoleObj holeObj;
-    public Tile[][] map;
-    public RandomRange bornX;
+    public int PlayTickTimer;
+    public Action KeyAction;
+    public int GoldCount;
+    public Runner Runner;
+    public bool GoldComplete;
+    public int CurTime;
+    public EngineGuards Guards;
+    public HoleObj HoleObj;
+    public Tile[][] Map;
+    public RandomRange BornX;
 
-    public int digTimeStart;
-    public int recordCount;
-    public List<Sprite> fillHoleObj = new List<Sprite>();
-    public int fillHoleTimeStart;
-    private bool godMode;
+    public List<Sprite> FillHoleObj = new List<Sprite>();
 
-    private readonly int[] digHoleLeft = { 0, 1, 2, 2, 3, 4, 4, 5, 6, 6, 7 };
-    private readonly int[] digHoleRight = { 8, 9, 10, 10, 11, 12, 12, 13, 14, 14, 15 };
-    private readonly int[] fillHoleFrame = { 16, 17, 18, 19 };
-    private readonly int[] fillHoleTime = { 166, 8, 8, 4 };
-    public int rebornTimeStart;
-    public int[] shakeTime;
-    public int[][] movePolicy;
-    public int shakeTimeStart;
+    private readonly int[] _digHoleLeft = { 0, 1, 2, 2, 3, 4, 4, 5, 6, 6, 7 };
+    private readonly int[] _digHoleRight = { 8, 9, 10, 10, 11, 12, 12, 13, 14, 14, 15 };
+    private readonly int[] _fillHoleFrame = { 16, 17, 18, 19 };
+    private readonly int[] _fillHoleTime = { 166, 8, 8, 4 };
+    public int[] ShakeTime;
+    public int[][] MovePolicy;
 
-    public EngineState(AIVersion aiVersion, Mode mode, Configuration config, LevelMap levelMap, Engine engine)
+    public EngineState(Configuration config, LevelMap levelMap, Engine engine)
     {
-      _aiVersion = aiVersion;
       _config = config;
       _levelMap = levelMap;
       _engine = engine;
 
-      _random = new Random((int)aiVersion);
-      _sprites = new List<Sprite>();
+      _random = new Random();
 
-      xMove = config.xMoveBase;
-      yMove = config.yMoveBase;
+      XMove = config.XMoveBase;
+      YMove = config.YMoveBase;
 
-      map = _levelMap.ToArray();
-      goldCount = levelMap.goldCount;
+      Map = _levelMap.ToArray();
+      GoldCount = levelMap.GoldCount;
 
-      PlayMode = mode == Mode.Classic ? PlayMode.PLAY_CLASSIC : PlayMode.PLAY_MODERN;
+      MovePolicy = config.MovePolicy;
+      ShakeTime = config.ShakeTime;
+      BornX = new RandomRange(0, _levelMap.XCount, 0);
+      Guards = new EngineGuards(Map, BornX, this);
+      Guards.MaxGuard = _levelMap.MaxGuard;
 
-      movePolicy = config.movePolicy;
-      shakeTime = config.shakeTime;
-      bornX = new RandomRange(0, _levelMap.XCount, 0);
-      guards = new EngineGuards(map, bornX, this);
-      guards.maxGuard = _levelMap.maxGuard;
-
-      holeObj = new HoleObj(map, this, config.createHole());
-      runner = new Runner(map, guards, this, config.createRunner());
-
-      _sprites.Add(runner.sprite);
+      HoleObj = new HoleObj(Map, this);
+      Runner = new Runner(Map, Guards, this);
 
       for (int x = 0; x < _levelMap.XCount; x++)
       {
         for (int y = 0; y < _levelMap.YCount; y++)
         {
           var tile = _levelMap[x][y];
-          if (tile.act == TileType.GUARD_T)
+          if (tile.Act == TileType.GUARD_T)
           {
-            var curGuard = new Guard(x, y, guards.guardCount, config.createGuard());
-            _sprites.Add(curGuard.sprite);
-            guards.guard.Add(curGuard);
+            var curGuard = new Guard(x, y, Guards.GuardCount);
+            Guards.Guard.Add(curGuard);
           }
-          else if (tile.act == TileType.RUNNER_T)
+          else if (tile.Act == TileType.RUNNER_T)
           {
-            runner.pos.x = x;
-            runner.pos.y = y;
+            Runner.Position.X = x;
+            Runner.Position.Y = y;
           }
         }
       }
 
       var evt = engine.Output.Enqueue<InitializeEvent>(0);
-      evt.Map = map.Select(i => i.Select(a => a.@base).ToArray()).ToArray();
-      evt.Guard = guards.guard.Select(g => new InitializeEvent.GuardData
+      evt.Map = Map.Select(i => i.Select(a => a.Base).ToArray()).ToArray();
+      evt.Guard = Guards.Guard.Select(g => new InitializeEvent.GuardData
       {
         Position = new Point
         {
-          x = g.pos.x,
-          y = g.pos.y
+          x = g.Position.X,
+          y = g.Position.Y
         },
-        Id = g.Id
+        Id = g.Id,
+        Shape = g.Shape,
+        Action = g.Action
       }).ToArray();
       evt.Runner = new Point
       {
-        x = runner.pos.x,
-        y = runner.pos.y
+        x = Runner.Position.X,
+        y = Runner.Position.Y
       };
+      evt.RunnerAction = Runner.Action;
+      evt.RunnerShape = Runner.Shape;
     }
 
-    public int maxTileX { get { return _levelMap.XCount - 1; } }
-    public int maxTileY { get { return _levelMap.YCount - 1; } }
+    public int MaxTileX { get { return _levelMap.XCount - 1; } }
+    public int MaxTileY { get { return _levelMap.YCount - 1; } }
     public GameState State { get; set; }
-    public PlayMode PlayMode { get; set; }
-    public RecordMode RecordMode { get; set; }
     public int Tick { get; set; }
     public EngineSound Sound { get { return _engine.Sound; } }
     public EngineOutput Output { get { return _engine.Output; } }
-    public AIVersion AiVersion { get { return _engine.AiVersion; } }
 
-    public void pressAction(InputAction action)
+    public void PressAction(InputAction action)
     {
       switch (action)
       {
         case InputAction.Up:
-          keyAction = Action.ACT_UP;
+          KeyAction = Action.Up;
           break;
         case InputAction.Down:
-          keyAction = Action.ACT_DOWN;
+          KeyAction = Action.Down;
           break;
         case InputAction.Left:
-          keyAction = Action.ACT_LEFT;
+          KeyAction = Action.Left;
           break;
         case InputAction.Right:
-          keyAction = Action.ACT_RIGHT;
+          KeyAction = Action.Right;
           break;
         case InputAction.DigLeft:
-          keyAction = Action.ACT_DIG_LEFT;
+          KeyAction = Action.DigLeft;
           break;
         case InputAction.DigRight:
-          keyAction = Action.ACT_DIG_RIGHT;
+          KeyAction = Action.DigRight;
           break;
         case InputAction.Unknown:
-          keyAction = Action.ACT_UNKNOWN;
+          KeyAction = Action.Unknown;
           break;
         default:
-          keyAction = Action.ACT_UNKNOWN;
+          KeyAction = Action.Unknown;
           break;
       }
     }
-
-    public void pressKey(KeyCode code)
-    {
-      switch (code)
-      {
-        case KeyCode.KEYCODE_LEFT:
-        case KeyCode.KEYCODE_J:
-        case KeyCode.KEYCODE_A:
-          keyAction = Action.ACT_LEFT;
-          break;
-        case KeyCode.KEYCODE_RIGHT:
-        case KeyCode.KEYCODE_L:
-        case KeyCode.KEYCODE_D:
-          keyAction = Action.ACT_RIGHT;
-          break;
-        case KeyCode.KEYCODE_UP:
-        case KeyCode.KEYCODE_I:
-        case KeyCode.KEYCODE_W:
-          keyAction = Action.ACT_UP;
-          break;
-        case KeyCode.KEYCODE_DOWN:
-        case KeyCode.KEYCODE_K:
-        case KeyCode.KEYCODE_S:
-          keyAction = Action.ACT_DOWN;
-          break;
-        case KeyCode.KEYCODE_Z:
-        case KeyCode.KEYCODE_U:
-        case KeyCode.KEYCODE_Q:
-        case KeyCode.KEYCODE_COMMA: //,
-          keyAction = Action.ACT_DIG_LEFT;
-          break;
-        case KeyCode.KEYCODE_X:
-        case KeyCode.KEYCODE_O:
-        case KeyCode.KEYCODE_E:
-        case KeyCode.KEYCODE_PERIOD: //.
-          keyAction = Action.ACT_DIG_RIGHT;
-          break;
-        case KeyCode.KEYCODE_ESC: //help & pause
-          if (State == GameState.GAME_PAUSE)
-          {
-            //gameResume();
-          }
-          else
-          {
-            //gamePause();
-          }
-          break;
-        case KeyCode.KEYCODE_ENTER: //display hi-score
-                                    //if (PlayMode == GameState.PLAY_CLASSIC)
-                                    //{
-                                    //  //menuIconDisable(1);
-                                    //  //gamePause();
-                                    //  //showScoreTable(playData, null, function() { menuIconEnable(); gameResume(); });
-                                    //}
-                                    //else
-                                    //{
-          keyAction = Action.ACT_UNKNOWN;
-          //}
-          break;
-        default:
-          keyAction = Action.ACT_UNKNOWN;
-          //debug("keycode = " + code);	
-          break;
-      }
-      //if (recordMode && code != KeyCode.KEYCODE_ESC) saveKeyCode(code, keyAction);
-    }
-
 
     public void CheckGold()
     {
-      if (goldCount <= 0) showHideLaddr();
+      if (GoldCount <= 0) ShowHideLadder();
     }
 
-    public bool showHideLaddr()
+    public bool ShowHideLadder()
     {
       var haveHLadder = false;
       var width = _levelMap.XCount;
@@ -233,81 +151,66 @@ namespace ClassicLogic.Engine
       {
         for (var x = 0; x < width; x++)
         {
-          if (map[x][y].@base == TileType.HLADR_T)
+          if (Map[x][y].Base == TileType.HLADR_T)
           {
             haveHLadder = true;
-            map[x][y].@base = TileType.LADDR_T;
-            map[x][y].act = TileType.LADDR_T;
-            map[x][y].setAlpha(1); //display laddr
+            Map[x][y].Base = TileType.LADDR_T;
+            Map[x][y].Act = TileType.LADDR_T;
           }
         }
       }
-      goldComplete = true;
+      GoldComplete = true;
       _engine.Output.Enqueue<ShowHideLadderEvent>(Tick);
       return haveHLadder;
     }
 
-    public void countTime(bool addTime)
+    public void ProcessDigHole()
     {
-
-      if (curTime >= Constants.MAX_TIME_COUNT) return;
-      if (addTime) curTime++;
-      if (curTime > Constants.MAX_TIME_COUNT) { curTime = Constants.MAX_TIME_COUNT; }
-    }
-
-    public void ProcessRecordKey()
-    {
-
-    }
-
-    public void processDigHole()
-    {
-      if ((int)_aiVersion < 3) return;
-      if (++holeObj.curFrameIdx < holeObj.shapeFrame.Length)
+      if (++HoleObj.CurFrameIdx < HoleObj.ShapeFrame.Length)
       {
-        Output.Enqueue<DigHoleProcessEvent>(Tick).Ratio = holeObj.curFrameIdx / (double)holeObj.shapeFrame.Length;
+        Output.Enqueue<DigHoleProcessEvent>(Tick).Ratio = HoleObj.CurFrameIdx / (double)HoleObj.ShapeFrame.Length;
 
-        holeObj.sprite.gotoAndStop(holeObj.shapeFrame[holeObj.curFrameIdx]);
-        holeObj.sprite.currentAnimationFrame = holeObj.curFrameIdx;
+        HoleObj.Sprite.GotoAndStop(HoleObj.ShapeFrame[HoleObj.CurFrameIdx]);
+        HoleObj.Sprite.CurrentFrame = HoleObj.CurFrameIdx;
       }
       else
       {
         Output.Enqueue<DigHoleProcessEvent>(Tick).Ratio = 1;
 
-        digComplete();
+        DigComplete();
       }
     }
 
-    public void processFillHole()
+    public void ProcessFillHole()
     {
-      for (var i = 0; i < fillHoleObj.Count;)
+      for (var i = 0; i < FillHoleObj.Count;)
       {
-        var curFillObj = fillHoleObj[i];
-        var curIdx = curFillObj.curFrameIdx;
+        var curFillObj = FillHoleObj[i];
+        var curIdx = curFillObj.CurrentFrameId;
 
-        if (++curFillObj.curFrameTime >= fillHoleTime[curIdx])
+        if (++curFillObj.CurrentFrameTime >= _fillHoleTime[curIdx])
         {
-          if (++curFillObj.curFrameIdx < fillHoleFrame.Length)
+          if (++curFillObj.CurrentFrameId < _fillHoleFrame.Length)
           {
             //change frame
 
             var evt = Output.Enqueue<FillHoleProcessEvent>(Tick);
-            evt.Ratio = curFillObj.curFrameIdx / (double)fillHoleFrame.Length;
-            evt.X = curFillObj.pos.x;
-            evt.Y = curFillObj.pos.y;
+            evt.Ratio = curFillObj.CurrentFrameId / (double)_fillHoleFrame.Length;
+            evt.X = curFillObj.Position.X;
+            evt.Y = curFillObj.Position.Y;
 
-            curFillObj.curFrameTime = 0;
-            curFillObj.gotoAndStop(fillHoleFrame[curFillObj.curFrameIdx]);
+            curFillObj.CurrentFrameTime = 0;
+            curFillObj.GotoAndStop(_fillHoleFrame[curFillObj.CurrentFrameId]);
           }
           else
           {
             var evt = Output.Enqueue<FillHoleProcessEvent>(Tick);
             evt.Ratio = 1;
-            evt.X = curFillObj.pos.x;
-            evt.Y = curFillObj.pos.y;
+            evt.X = curFillObj.Position.X;
+            evt.Y = curFillObj.Position.Y;
 
             //fill hole complete 
-            fillComplete(curFillObj);
+            FillComplete(curFillObj);
             continue;
           }
         }
@@ -315,81 +218,91 @@ namespace ClassicLogic.Engine
       }
     }
 
-    public void stopDigging(int x, int y)
+    public void StopDigging(int x, int y)
     {
       Output.Enqueue<StopDiggingEvent>(Tick);
 
       //(1) remove holeObj
-      holeObj.sprite.removeAllEventListeners();
-      holeObj.action = Action.ACT_STOP; //no digging
-      holeObj.removeFromScene();
+      HoleObj.Action = Action.Stop; //no digging
+      HoleObj.RemoveFromScene();
 
       //(2) fill hole
       y++;
-      map[x][y].act = map[x][y].@base; //BLOCK_T
-      Assert.IsTrue(map[x][y].@base == TileType.BLOCK_T, "fill hole != BLOCK_T");
-      map[x][y].setAlpha(1); //display block
+      Map[x][y].Act = Map[x][y].Base; //BLOCK_T
+      Assert.IsTrue(Map[x][y].Base == TileType.BLOCK_T, "fill hole != BLOCK_T");
 
       //(3) change runner shape
-      switch (runner.shape)
+      switch (Runner.Shape)
       {
-        case Shape.digLeft:
-          runner.sprite.gotoAndStop(Shape.runLeft);
-          runner.shape = Shape.runLeft;
-          runner.action = Action.ACT_STOP;
+        case Shape.DigLeft:
+          Runner.Sprite.GotoAndStop(Shape.RunLeft);
+          Runner.Shape = Shape.RunLeft;
+          Output.Enqueue<RunnerShapeEvent>(Tick).Shape = Runner.Shape;
+          Runner.Action = Action.Stop;
+          Output.Enqueue<RunnerActionEvent>(Tick).Action = Action.Stop;
           break;
-        case Shape.digRight:
-          runner.sprite.gotoAndStop(Shape.runRight);
-          runner.shape = Shape.runRight;
-          runner.action = Action.ACT_STOP;
+        case Shape.DigRight:
+          Runner.Sprite.GotoAndStop(Shape.RunRight);
+          Runner.Shape = Shape.RunRight;
+          Output.Enqueue<RunnerShapeEvent>(Tick).Shape = Runner.Shape;
+          Runner.Action = Action.Stop;
+          Output.Enqueue<RunnerActionEvent>(Tick).Action = Action.Stop;
           break;
       }
 
-      _engine.Sound.soundStop(Sounds.soundDig); //stop sound of digging
+      _engine.Sound.SoundStop(Sounds.SoundDig); //stop sound of digging
     }
 
-    public bool isDigging()
+    public bool IsDigging()
     {
       var rc = false;
 
-      if (holeObj.action == Action.ACT_DIGGING)
+      if (HoleObj.Action == Action.Digging)
       {
-        var x = holeObj.pos.x;
-        var y = holeObj.pos.y;
-        if (map[x][y].act == TileType.GUARD_T)
+        var x = HoleObj.Position.X;
+        var y = HoleObj.Position.Y;
+        if (Map[x][y].Act == TileType.GUARD_T)
         { //guard come close to the digging hole !
-          var id = guards.getGuardId(x, y);
-          if (holeObj.sprite.currentAnimationFrame < holeObj.digLimit && guards[id].pos.yOffset > -Constants.H4)
+          var id = Guards.GetGuardId(x, y);
+          if (HoleObj.Sprite.CurrentFrame < HoleObj.DigLimit && Guards[id].Position.YOffset > -Constants.H4)
           {
-            stopDigging(x, y);
+            StopDigging(x, y);
           }
           else
           {
-            if ((int)_aiVersion >= 3)
-            { //This is a bug while AI VERSION < 3
-              map[x][y + 1].act = TileType.EMPTY_T; //assume hole complete
-              rc = true;
-            }
+            //This is a bug while AI VERSION < 3
+            Map[x][y + 1].Act = TileType.EMPTY_T; //assume hole complete
+            rc = true;
           }
         }
         else
         {
-          switch (runner.shape)
+          switch (Runner.Shape)
           {
-            case Shape.digLeft:
-              if (holeObj.sprite.currentAnimationFrame > 2)
+            case Shape.DigLeft:
+              if (HoleObj.Sprite.CurrentFrame > 2)
               {
-                runner.sprite.gotoAndStop(Shape.runLeft); //change shape
-                runner.shape = Shape.runLeft;
-                runner.action = Action.ACT_STOP;
+                Runner.Sprite.GotoAndStop(Shape.RunLeft); //change shape
+                Runner.Shape = Shape.RunLeft;
+
+                Output.Enqueue<RunnerShapeEvent>(Tick).Shape = Runner.Shape;
+
+                Runner.Action = Action.Stop;
+
+                Output.Enqueue<RunnerActionEvent>(Tick).Action = Action.Stop;
               }
               break;
-            case Shape.digRight:
-              if (holeObj.sprite.currentAnimationFrame > 2)
+            case Shape.DigRight:
+              if (HoleObj.Sprite.CurrentFrame > 2)
               {
-                runner.sprite.gotoAndStop(Shape.runRight); //change shape
-                runner.shape = Shape.runRight;
-                runner.action = Action.ACT_STOP;
+                Runner.Sprite.GotoAndStop(Shape.RunRight); //change shape
+                Runner.Shape = Shape.RunRight;
+
+                Output.Enqueue<RunnerShapeEvent>(Tick).Shape = Runner.Shape;
+
+                Runner.Action = Action.Stop;
+
+                Output.Enqueue<RunnerActionEvent>(Tick).Action = Action.Stop;
               }
               break;
           }
@@ -399,285 +312,194 @@ namespace ClassicLogic.Engine
       return rc;
     }
 
-    public void digHole(Action action)
+    public void DigHole(Action action)
     {
       int x, y;
       Shape holeShape;
 
-      if (action == Action.ACT_DIG_LEFT)
+      if (action == Action.DigLeft)
       {
-        x = runner.pos.x - 1;
-        y = runner.pos.y;
+        x = Runner.Position.X - 1;
+        y = Runner.Position.Y;
 
-        runner.shape = Shape.digLeft;
-        holeShape = Shape.digHoleLeft;
-
+        Runner.Shape = Shape.DigLeft;
       }
       else
       { //DIG RIGHT
 
-        x = runner.pos.x + 1;
-        y = runner.pos.y;
+        x = Runner.Position.X + 1;
+        y = Runner.Position.Y;
 
-        runner.shape = Shape.digRight;
-        holeShape = Shape.digHoleRight;
+        Runner.Shape = Shape.DigRight;
       }
 
-      _engine.Sound.soundPlay(Sounds.soundDig);
-      map[x][y + 1].setAlpha(0); //hide block (replace with digging image)
-      runner.sprite.gotoAndPlay(runner.shape);
+      _engine.Sound.SoundPlay(Sounds.SoundDig);
 
-      holeObj.action = Action.ACT_DIGGING;
-      holeObj.pos = new Position { x = x, y = y };
-      holeObj.sprite.setTransform(x, y);
+      Output.Enqueue<RunnerShapeEvent>(Tick).Shape = Runner.Shape;
 
-      digTimeStart = recordCount;
+      Runner.Sprite.GotoAndPlay(Runner.Shape);
 
-      if ((int)_aiVersion < 3)
-      {
-        holeObj.sprite.gotoAndPlay(holeShape);
-        holeObj.sprite.onAnimationEnded(digComplete);
-      }
-      else
-      {
-        if (action == Action.ACT_DIG_LEFT) holeShape = Shape.digHoleLeft;
-        else holeShape = Shape.digHoleRight;
+      HoleObj.Action = Action.Digging;
+      HoleObj.Position = new Position { X = x, Y = y };
 
-        holeObj.sprite.gotoAndStop(holeShape);
-        holeObj.shapeFrame = holeShape == Shape.digHoleRight ? digHoleRight : digHoleLeft;
-        holeObj.curFrameIdx = 0;
-      }
+      if (action == Action.DigLeft) holeShape = Shape.DigHoleLeft;
+      else holeShape = Shape.DigHoleRight;
+
+      HoleObj.Sprite.GotoAndStop(holeShape);
+      HoleObj.ShapeFrame = holeShape == Shape.DigHoleRight ? _digHoleRight : _digHoleLeft;
+      HoleObj.CurFrameIdx = 0;
 
       var evt = _engine.Output.Enqueue<StartDiggingEvent>(Tick);
       evt.X = x;
       evt.Y = y;
 
-      holeObj.addToScene();
+      HoleObj.AddToScene();
     }
 
-    public void digComplete()
+    public void DigComplete()
     {
-      var x = holeObj.pos.x;
-      var y = holeObj.pos.y + 1;
+      var x = HoleObj.Position.X;
+      var y = HoleObj.Position.Y + 1;
 
       _engine.Output.Enqueue<DiggingCompleteEvent>(Tick);
 
-      map[x][y].act = TileType.EMPTY_T;
-      holeObj.sprite.removeAllEventListeners();
-      holeObj.action = Action.ACT_STOP; //no digging
-      holeObj.removeFromScene();
+      Map[x][y].Act = TileType.EMPTY_T;
+      HoleObj.Action = Action.Stop; //no digging
+      HoleObj.RemoveFromScene();
 
-      fillHole(x, y);
+      FillHole(x, y);
     }
 
-    public void fillHole(int x, int y)
+    public void FillHole(int x, int y)
     {
-      var fillSprite = new Sprite(_config.createHole());
-      _sprites.Add(fillSprite);
-      fillSprite.gotoAndPlay(Shape.fillHole);
-      fillSprite.pos.x = x;
-      fillSprite.pos.y = y;
+      var fillSprite = new Sprite();
+      fillSprite.GotoAndPlay(Shape.FillHole);
+      fillSprite.Position.X = x;
+      fillSprite.Position.Y = y;
 
-      if ((int)_aiVersion < 3)
-      {
-        fillSprite.onAnimationEnded(() => fillComplete(fillSprite));
-        fillSprite.play();
-      }
-      else
-      {
-        fillSprite.curFrameIdx = 0;
-        fillSprite.curFrameTime = -1;
-        fillSprite.gotoAndStop(fillHoleFrame[0]);
-      }
+      fillSprite.CurrentFrameId = 0;
+      fillSprite.CurrentFrameTime = -1;
+      fillSprite.GotoAndStop(_fillHoleFrame[0]);
 
       var evt = _engine.Output.Enqueue<StartFillHoleEvent>(Tick);
       evt.X = x;
       evt.Y = y;
 
-      fillHoleObj.Add(fillSprite);
-
-      fillHoleTimeStart = recordCount; //for debug
+      FillHoleObj.Add(fillSprite);
     }
 
-    public void fillComplete(Sprite fillObj)
+    public void FillComplete(Sprite fillObj)
     {
       //don't use "divide command", it will cause loss of accuracy while scale changed (ex: tileScale = 0.6...)
       //var x = this.x / tileWScale | 0; //this : scope default to the dispatcher
       //var y = this.y / tileHScale | 0;
 
-      var x = fillObj.pos.x;
-      var y = fillObj.pos.y; //get position 
+      var x = fillObj.Position.X;
+      var y = fillObj.Position.Y; //get position 
 
       var evt = _engine.Output.Enqueue<EndFillHoleEvent>(Tick);
       evt.X = x;
       evt.Y = y;
 
-      map[x][y].setAlpha(1); //display block
-      fillObj.removeAllEventListeners();
-      fillObj.removeFromScene();
-      _sprites.Remove(fillObj);
-      removeFillHoleObj(fillObj);
+      RemoveFillHoleObj(fillObj);
 
-      switch (map[x][y].act)
+      switch (Map[x][y].Act)
       {
         case TileType.RUNNER_T: // runner dead
           //loadingTxt.text = "RUNNER DEAD"; 
-          State = GameState.GAME_RUNNER_DEAD;
-          runner.hideRunner();
-          runner.sprite.setAlpha(0); //hidden runner --> dead
+          SetRunnerDead();
           break;
         case TileType.GUARD_T: //guard dead
-          var id = guards.getGuardId(x, y);
-          if ((int)_aiVersion >= 3 && guards[id].action == Action.ACT_IN_HOLE) guards.removeFromShake(id);
-          if (guards[id].hasGold > 0)
+          var id = Guards.GetGuardId(x, y);
+          if (Guards[id].Action == Action.InHole) Guards.RemoveFromShake(id);
+          if (Guards[id].HasGold > 0)
           { //guard has gold and not fall into the hole
-            decGold();
-            guards[id].hasGold = 0;
-            guards.guardRemoveRedhat(guards[id]); //9/4/2016	
+            DecGold();
+            Guards[id].HasGold = 0;
+            Guards.GuardRemoveRedhat(Guards[id]); //9/4/2016	
           }
-          guards.guardReborn(x, y);
-          if (PlayMode == PlayMode.PLAY_CLASSIC || PlayMode == PlayMode.PLAY_AUTO || PlayMode == PlayMode.PLAY_DEMO)
-          {
-            drawScore(Constants.SCORE_GUARD_DEAD);
-          }
-          else
-          {
-            //for modern mode & edit mode
-            drawGuard(1); //guard dead, add count
-          }
+          Guards.GuardReborn(x, y);
+          DrawScore(Constants.ScoreGuardDead);
+          //for modern mode & edit mode
+          DrawGuard(1); //guard dead, add count
           break;
       }
-      map[x][y].act = TileType.BLOCK_T;
+      Map[x][y].Act = TileType.BLOCK_T;
     }
 
-    public void removeFillHoleObj(Sprite spriteObj)
+    public void RemoveFillHoleObj(Sprite spriteObj)
     {
-      for (var i = 0; i < fillHoleObj.Count; i++)
+      for (var i = 0; i < FillHoleObj.Count; i++)
       {
-        if (fillHoleObj[i] == spriteObj)
+        if (FillHoleObj[i] == spriteObj)
         {
-          fillHoleObj.RemoveAt(i);
+          FillHoleObj.RemoveAt(i);
           return;
         }
       }
       Assert.IsTrue(false, "design error !");
     }
 
-    public void setRunnerDead()
+    public void SetRunnerDead()
     {
-      if (!godMode)
-      {
-        Output.Enqueue<RunnerDeadEvent>(Tick);
+      Output.Enqueue<RunnerDeadEvent>(Tick);
 
-        State = GameState.GAME_RUNNER_DEAD;
-      }
+      State = GameState.GameRunnerDead;
     }
 
-    public void removeGold(int x, int y)
+    public void RemoveGold(int x, int y)
     {
-      map[x][y].@base = TileType.EMPTY_T;
-      removeFromScene(x, y);
-      //map[x][y].bitmap = null;
+      Map[x][y].Base = TileType.EMPTY_T;
 
       var evt = _engine.Output.Enqueue<RemoveGoldEvent>(Tick);
       evt.X = x;
       evt.Y = y;
     }
 
-    public void addGold(int x, int y)
+    public void AddGold(int x, int y)
     {
-      map[x][y].@base = TileType.GOLD_T;
-      //map[x][y].bitmap.name = "gold";
-      addToScene(x, y);
+      Map[x][y].Base = TileType.GOLD_T;
 
       var evt = _engine.Output.Enqueue<AddGoldEvent>(Tick);
       evt.X = x;
       evt.Y = y;
     }
 
-    private void addToScene(int x, int y)
+    public void DecGold()
     {
-
-    }
-
-    private void removeFromScene(int x, int y)
-    {
-
-    }
-
-    public void decGold()
-    {
-      if (--goldCount <= 0)
+      if (--GoldCount <= 0)
       {
-        showHideLaddr();
-        if (runner.pos.y > 0)
+        ShowHideLadder();
+        if (Runner.Position.Y > 0)
         {
-          Sound.soundPlay(Sounds.goldFinish);
-          //if (curTheme == "C64") soundPlay("goldFinish" + ((curLevel - 1) % 6 + 1)); //six sounds
-          //else soundPlay("goldFinish"); //for all apple2 mode, 9/12/2015
+          Sound.SoundPlay(Sounds.GoldFinish);
         }
       }
     }
 
-    public void drawScore(int scoreGetGold)
+    public void DrawScore(int scoreGetGold)
     {
 
     }
 
-    public void drawGold(int count)
+    public void DrawGold(int count)
     {
 
     }
 
-    private void drawGuard(int count)
+    private void DrawGuard(int count)
     {
 
     }
 
-    public void drawTime(int count)
+    public void DrawTime(int count)
     {
 
     }
 
-    public Point getDemoBornPos()
-    {
-      return new Point();
-    }
-
-    public void saveRecordBornPos(int x, int bornY)
-    {
-
-    }
-
-    public Point getRecordBornPos()
-    {
-      return new Point();
-    }
-
-    public double random()
+    public double Random()
     {
       return _random.NextDouble();
-    }
-
-    public int getDemoGold(Guard curGuard)
-    {
-      return 0;
-    }
-
-    public void processRecordGold(Guard curGuard)
-    {
-
-    }
-
-    public void updateSprites(int ticks)
-    {
-      for (int i = 0; i < ticks; i++)
-      {
-        foreach (var sprite in _sprites)
-        {
-          sprite.tick(1);
-        }
-      }
     }
   }
 }

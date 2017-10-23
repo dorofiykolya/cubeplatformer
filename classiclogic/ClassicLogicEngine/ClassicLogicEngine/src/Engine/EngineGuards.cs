@@ -11,117 +11,128 @@ namespace ClassicLogic.Engine
     private readonly RandomRange _bornX;
     private readonly EngineState _state;
 
-    private readonly int[] rebornFrame = { 28, 29 };
-    private readonly int[] rebornTime = { 6, 2 };
+    private readonly int[] _rebornFrame = { 28, 29 };
+    private readonly int[] _rebornTime = { 6, 2 };
 
-    private readonly int[] shakeRight = { 8, 9, 10, 9, 10, 8 };
-    private readonly int[] shakeLeft = { 30, 31, 32, 31, 32, 30 };
+    private readonly int[] _shakeRight = { 8, 9, 10, 9, 10, 8 };
+    private readonly int[] _shakeLeft = { 30, 31, 32, 31, 32, 30 };
 
-    public int maxGuard;
+    public int MaxGuard;
 
-    public int moveOffset = 0;
-    public int moveId = 0;
-    public int numOfMoveItems;
+    public int MoveOffset = 0;
+    public int MoveId = 0;
+    public int NumOfMoveItems;
 
-    public List<Guard> guard = new List<Guard>();
-    public List<int> rebornGuardList = new List<int>();
-    public List<int> shakingGuardList = new List<int>();
+    public List<Guard> Guard = new List<Guard>();
+    public List<int> RebornGuardList = new List<int>();
+    public List<int> ShakingGuardList = new List<int>();
+
+    private Action _bestPath;
+    private int _bestRating, _curRating;
+    private int _leftEnd, _rightEnd;
+    private int _startX, _startY;
 
     public EngineGuards(Tile[][] map, RandomRange bornX, EngineState state)
     {
       _map = map;
       _bornX = bornX;
       _state = state;
-      numOfMoveItems = state.movePolicy[0].Length;
+      NumOfMoveItems = state.MovePolicy[0].Length;
     }
 
-    public int guardCount { get { return guard.Count; } }
-
-    public void moveGuard()
+    public int GuardCount
     {
-      if (guardCount == 0) return; //no guard
+      get { return Guard.Count; }
+    }
 
-      if (++moveOffset >= numOfMoveItems) moveOffset = 0;
-      var moves = _state.movePolicy[guardCount][moveOffset];
+    public void Move()
+    {
+      if (GuardCount == 0) return; //no guard
+
+      if (++MoveOffset >= NumOfMoveItems) MoveOffset = 0;
+      var moves = _state.MovePolicy[GuardCount][MoveOffset];
 
       while (moves-- > 0)
       {                       // slows guard relative to runner
-        if (++moveId >= guardCount) moveId = 0;
-        var curGuard = this[moveId];
+        if (++MoveId >= GuardCount) MoveId = 0;
+        var curGuard = this[MoveId];
 
-        if (curGuard.action == Action.ACT_IN_HOLE || curGuard.action == Action.ACT_REBORN)
+        if (curGuard.Action == Action.InHole || curGuard.Action == Action.Reborn)
         {
           continue;
         }
 
-        guardMoveStep(moveId, bestMove(moveId));
+        GuardMoveStep(MoveId, BestMove(MoveId));
       }
     }
 
-    public void guardMoveStep(int id, Action action)
+    public void GuardMoveStep(int id, Action action)
     {
       var map = _map;
-      var curGuard = guard[id];
-      var x = curGuard.pos.x;
-      var xOffset = curGuard.pos.xOffset;
-      var y = curGuard.pos.y;
-      var yOffset = curGuard.pos.yOffset;
+      var curGuard = Guard[id];
+      var x = curGuard.Position.X;
+      var xOffset = curGuard.Position.XOffset;
+      var y = curGuard.Position.Y;
+      var yOffset = curGuard.Position.YOffset;
 
-      TileType curToken, nextToken;
-      Action centerX, centerY;
-      Shape curShape, newShape;
+      TileType nextToken;
+      Action centerY;
+      Shape newShape;
       bool stayCurrPos = false;
 
-      centerX = centerY = Action.ACT_STOP;
-      curShape = newShape = curGuard.shape;
+      var centerX = centerY = Action.Stop;
+      var curShape = newShape = curGuard.Shape;
 
-      if (curGuard.action == Action.ACT_CLIMB_OUT && action == Action.ACT_STOP)
-        curGuard.action = Action.ACT_STOP; //for level 16, 30, guard will stock in hole
+      if (curGuard.Action == Action.ClimbOut && action == Action.Stop)
+      {
+        curGuard.Action = Action.Stop; //for level 16, 30, guard will stock in hole
+        _state.Output.Enqueue<GuardActionEvent>(_state.Tick).Set(curGuard.Id, curGuard.Action);
+      }
 
       switch (action)
       {
-        case Action.ACT_UP:
-        case Action.ACT_DOWN:
-        case Action.ACT_FALL:
-          if (action == Action.ACT_UP)
+        case Action.Up:
+        case Action.Down:
+        case Action.Fall:
+          if (action == Action.Up)
           {
             stayCurrPos = (y <= 0 ||
-                            (nextToken = map[x][y - 1].act) == TileType.BLOCK_T ||
+                            (nextToken = map[x][y - 1].Act) == TileType.BLOCK_T ||
                             nextToken == TileType.SOLID_T || nextToken == TileType.TRAP_T ||
                           nextToken == TileType.GUARD_T);
 
             if (yOffset <= 0 && stayCurrPos)
-              action = Action.ACT_STOP;
+              action = Action.Stop;
           }
           else
           { //ACT_DOWN || ACT_FALL
-            stayCurrPos = (y >= _state.maxTileY ||
-                            (nextToken = map[x][y + 1].act) == TileType.BLOCK_T ||
+            stayCurrPos = (y >= _state.MaxTileY ||
+                            (nextToken = map[x][y + 1].Act) == TileType.BLOCK_T ||
                             nextToken == TileType.SOLID_T || nextToken == TileType.GUARD_T);
 
-            if (action == Action.ACT_FALL && yOffset < 0 && map[x][y].@base == TileType.BLOCK_T)
+            if (action == Action.Fall && yOffset < 0 && map[x][y].Base == TileType.BLOCK_T)
             {
-              action = Action.ACT_IN_HOLE;
+              action = Action.InHole;
               stayCurrPos = true;
             }
             else
             {
               if (yOffset >= 0 && stayCurrPos)
-                action = Action.ACT_STOP;
+                action = Action.Stop;
             }
           }
 
-          if (action != Action.ACT_STOP)
+          if (action != Action.Stop)
           {
             if (xOffset > 0)
-              centerX = Action.ACT_LEFT;
+              centerX = Action.Left;
             else if (xOffset < 0)
-              centerX = Action.ACT_RIGHT;
+              centerX = Action.Right;
           }
           break;
-        case Action.ACT_LEFT:
-        case Action.ACT_RIGHT:
-          if (action == Action.ACT_LEFT)
+        case Action.Left:
+        case Action.Right:
+          if (action == Action.Left)
           {
             /* original source code from book
             stayCurrPos = ( x <= 0 ||
@@ -132,12 +143,12 @@ namespace ClassicLogic.Engine
             // change check TRAP_T from base, 
             // for support level 41==> runner in trap will cause guard move
             stayCurrPos = (x <= 0 ||
-                            (nextToken = map[x - 1][y].act) == TileType.BLOCK_T ||
+                            (nextToken = map[x - 1][y].Act) == TileType.BLOCK_T ||
                             nextToken == TileType.SOLID_T || nextToken == TileType.GUARD_T ||
-                      map[x - 1][y].@base == TileType.TRAP_T);
+                      map[x - 1][y].Base == TileType.TRAP_T);
 
             if (xOffset <= 0 && stayCurrPos)
-              action = Action.ACT_STOP;
+              action = Action.Stop;
           }
           else
           { //ACT_RIGHT
@@ -149,114 +160,114 @@ namespace ClassicLogic.Engine
             */
             // change check TRAP_T from base, 
             // for support level 41==> runner in trap will cause guard move
-            stayCurrPos = (x >= _state.maxTileX ||
-                            (nextToken = map[x + 1][y].act) == TileType.BLOCK_T ||
+            stayCurrPos = (x >= _state.MaxTileX ||
+                            (nextToken = map[x + 1][y].Act) == TileType.BLOCK_T ||
                             nextToken == TileType.SOLID_T || nextToken == TileType.GUARD_T ||
-                              map[x + 1][y].@base == TileType.TRAP_T);
+                              map[x + 1][y].Base == TileType.TRAP_T);
 
             if (xOffset >= 0 && stayCurrPos)
-              action = Action.ACT_STOP;
+              action = Action.Stop;
           }
 
-          if (action != Action.ACT_STOP)
+          if (action != Action.Stop)
           {
             if (yOffset > 0)
-              centerY = Action.ACT_UP;
+              centerY = Action.Up;
             else if (yOffset < 0)
-              centerY = Action.ACT_DOWN;
+              centerY = Action.Down;
           }
           break;
       }
 
-      curToken = map[x][y].@base;
+      var curToken = map[x][y].Base;
 
-      if (action == Action.ACT_UP)
+      if (action == Action.Up)
       {
-        yOffset -= _state.yMove;
+        yOffset -= _state.YMove;
 
         if (stayCurrPos && yOffset < 0) yOffset = 0; //stay on current position
         else if (yOffset < -Constants.H2)
         { //move to y-1 position 
           if (curToken == TileType.BLOCK_T || curToken == TileType.HLADR_T) curToken = TileType.EMPTY_T; //in hole or hide laddr
-          map[x][y].act = curToken; //runner move to [x][y-1], so set [x][y].act to previous state
+          map[x][y].Act = curToken; //runner move to [x][y-1], so set [x][y].act to previous state
           y--;
-          yOffset = Constants.tileH + yOffset;
-          if (map[x][y].act == TileType.RUNNER_T) _state.setRunnerDead(); //collision
-                                                                      //map[x][y].act = GUARD_T;
+          yOffset = Constants.TileH + yOffset;
+          if (map[x][y].Act == TileType.RUNNER_T) _state.SetRunnerDead(); //collision
+                                                                          //map[x][y].act = GUARD_T;
         }
 
-        if (yOffset <= 0 && yOffset > -_state.yMove)
+        if (yOffset <= 0 && yOffset > -_state.YMove)
         {
-          dropGold(id); //decrease count
+          DropGold(id); //decrease count
         }
-        newShape = Shape.runUpDn;
+        newShape = Shape.RunUpDn;
       }
 
-      if (centerY == Action.ACT_UP)
+      if (centerY == Action.Up)
       {
-        yOffset -= _state.yMove;
+        yOffset -= _state.YMove;
         if (yOffset < 0) yOffset = 0; //move to center Y	
       }
 
-      if (action == Action.ACT_DOWN || action == Action.ACT_FALL || action == Action.ACT_IN_HOLE)
+      if (action == Action.Down || action == Action.Fall || action == Action.InHole)
       {
         var holdOnBar = 0;
         if (curToken == TileType.BAR_T)
         {
           if (yOffset < 0) holdOnBar = 1;
-          else if (action == Action.ACT_DOWN && y < _state.maxTileY && map[x][y + 1].act != TileType.LADDR_T)
+          else if (action == Action.Down && y < _state.MaxTileY && map[x][y + 1].Act != TileType.LADDR_T)
           {
-            action = Action.ACT_FALL; //shape fixed: 2014/03/27
+            action = Action.Fall; //shape fixed: 2014/03/27
           }
         }
 
-        yOffset += _state.yMove;
+        yOffset += _state.YMove;
 
         if (holdOnBar == 1 && yOffset >= 0)
         {
           yOffset = 0; //fall and hold on bar
-          action = Action.ACT_FALL_BAR;
+          action = Action.FallBar;
         }
         if (stayCurrPos && yOffset > 0) yOffset = 0; //stay on current position
         else if (yOffset > Constants.H2)
         { //move to y+1 position
           if (curToken == TileType.BLOCK_T || curToken == TileType.HLADR_T) curToken = TileType.EMPTY_T; //in hole or hide laddr
-          map[x][y].act = curToken; //runner move to [x][y+1], so set [x][y].act to previous state
+          map[x][y].Act = curToken; //runner move to [x][y+1], so set [x][y].act to previous state
           y++;
-          yOffset = yOffset - Constants.tileH;
-          if (map[x][y].act == TileType.RUNNER_T) _state.setRunnerDead(); //collision
-                                                                      //map[x][y].act = GUARD_T;
+          yOffset = yOffset - Constants.TileH;
+          if (map[x][y].Act == TileType.RUNNER_T) _state.SetRunnerDead(); //collision
+                                                                          //map[x][y].act = GUARD_T;
         }
 
         //add condition: AI version >= 3 will decrease drop count while guard fall
-        if ((((int)_state.AiVersion >= 3 && action == Action.ACT_FALL) || action == Action.ACT_DOWN) &&
-            yOffset >= 0 && yOffset < _state.yMove)
+        if (((action == Action.Fall) || action == Action.Down) &&
+            yOffset >= 0 && yOffset < _state.YMove)
         {   //try drop gold
-          dropGold(id); //decrease count
+          DropGold(id); //decrease count
         }
 
-        if (action == Action.ACT_IN_HOLE)
+        if (action == Action.InHole)
         { //check in hole or still falling
           if (yOffset < 0)
           {
-            action = Action.ACT_FALL; //still falling
+            action = Action.Fall; //still falling
 
             //----------------------------------------------------------------------
             //For AI version >= 4, drop gold before guard failing into hole totally
-            if ((int)_state.AiVersion >= 4 && curGuard.hasGold > 0)
+            if (curGuard.HasGold > 0)
             {
-              if (map[x][y - 1].@base == TileType.EMPTY_T)
+              if (map[x][y - 1].Base == TileType.EMPTY_T)
               {
                 //drop gold above
-                addGold(x, y - 1);
+                AddGold(x, y - 1);
               }
               else
               {
-                decGold(); //gold disappear 
+                DecGold(); //gold disappear 
               }
-              curGuard.hasGold = 0;
-              
-              guardRemoveRedhat(curGuard); //9/4/2016
+              curGuard.HasGold = 0;
+
+              GuardRemoveRedhat(curGuard); //9/4/2016
             }
             //----------------------------------------------------------------------
 
@@ -266,38 +277,28 @@ namespace ClassicLogic.Engine
 
             //----------------------------------------------------------------------
             //For AI version < 4, drop gold after guard failing into hole totally
-            if (curGuard.hasGold > 0)
+            if (curGuard.HasGold > 0)
             {
-              if (map[x][y - 1].@base == TileType.EMPTY_T)
+              if (map[x][y - 1].Base == TileType.EMPTY_T)
               {
                 //drop gold above
-                addGold(x, y - 1);
+                AddGold(x, y - 1);
               }
               else
-                decGold(); //gold disappear 
+                DecGold(); //gold disappear 
             }
-            curGuard.hasGold = 0;
-            guardRemoveRedhat(curGuard); //9/4/2016
+            curGuard.HasGold = 0;
+            GuardRemoveRedhat(curGuard); //9/4/2016
                                          //----------------------------------------------------------------------
 
-            if (curShape == Shape.fallRight) newShape = Shape.shakeRight;
-            else newShape = Shape.shakeLeft;
-            _state.Sound.themeSoundPlay(Sounds.trap);
-            _state.shakeTimeStart = _state.recordCount; //for debug
-            if ((int)_state.AiVersion < 3)
-            {
-              curGuard.sprite.onAnimationEnded(() => climbOut(id));
-            }
-            else
-            {
-              add2GuardShakeQueue(id, newShape);
-            }
+            if (curShape == Shape.FallRight) newShape = Shape.ShakeRight;
+            else newShape = Shape.ShakeLeft;
+            _state.Sound.ThemeSoundPlay(Sounds.Trap);
 
-            if (_state.PlayMode == PlayMode.PLAY_CLASSIC || _state.PlayMode == PlayMode.PLAY_AUTO || _state.PlayMode == PlayMode.PLAY_DEMO)
-            {
-              _state.drawScore(Constants.SCORE_IN_HOLE);
-            }
-            else
+            Add2GuardShakeQueue(id, newShape);
+
+            _state.DrawScore(Constants.ScoreInHole);
+
             {
               //for modem mode & edit mode
               //drawGuard(1); //only guard dead need add count
@@ -305,105 +306,107 @@ namespace ClassicLogic.Engine
           }
         }
 
-        if (action == Action.ACT_DOWN)
+        if (action == Action.Down)
         {
-          newShape = Shape.runUpDn;
+          newShape = Shape.RunUpDn;
         }
         else
         { //ACT_FALL or ACT_FALL_BAR
-          if (action == Action.ACT_FALL_BAR)
+          if (action == Action.FallBar)
           {
-            if (curGuard.lastLeftRight == Action.ACT_LEFT) newShape = Shape.barLeft;
-            else newShape = Shape.barRight;
+            if (curGuard.LastLeftRight == Action.Left) newShape = Shape.BarLeft;
+            else newShape = Shape.BarRight;
           }
           else
           {
-            if (action == Action.ACT_FALL && curShape != Shape.fallLeft && curShape != Shape.fallRight)
+            if (action == Action.Fall && curShape != Shape.FallLeft && curShape != Shape.FallRight)
             {
-              if (curGuard.lastLeftRight == Action.ACT_LEFT) newShape = Shape.fallLeft;
-              else newShape = Shape.fallRight;
+              if (curGuard.LastLeftRight == Action.Left) newShape = Shape.FallLeft;
+              else newShape = Shape.FallRight;
             }
           }
         }
       }
 
-      if (centerY == Action.ACT_DOWN)
+      if (centerY == Action.Down)
       {
-        yOffset += _state.yMove;
+        yOffset += _state.YMove;
         if (yOffset > 0) yOffset = 0; //move to center Y
       }
 
-      if (action == Action.ACT_LEFT)
+      if (action == Action.Left)
       {
-        xOffset -= _state.xMove;
+        xOffset -= _state.XMove;
 
         if (stayCurrPos && xOffset < 0) xOffset = 0; //stay on current position
         else if (xOffset < -Constants.W2)
         { //move to x-1 position 
           if (curToken == TileType.BLOCK_T || curToken == TileType.HLADR_T) curToken = TileType.EMPTY_T; //in hole or hide laddr
-          map[x][y].act = curToken; //runner move to [x-1][y], so set [x][y].act to previous state
+          map[x][y].Act = curToken; //runner move to [x-1][y], so set [x][y].act to previous state
           x--;
-          xOffset = Constants.tileW + xOffset;
-          if (map[x][y].act == TileType.RUNNER_T) _state.setRunnerDead(); //collision
-                                                                      //map[x][y].act = GUARD_T;
+          xOffset = Constants.TileW + xOffset;
+          if (map[x][y].Act == TileType.RUNNER_T) _state.SetRunnerDead(); //collision
+                                                                          //map[x][y].act = GUARD_T;
         }
-        if (xOffset <= 0 && xOffset > -_state.xMove)
+        if (xOffset <= 0 && xOffset > -_state.XMove)
         {
-          dropGold(id); //try to drop gold
+          DropGold(id); //try to drop gold
         }
-        if (curToken == TileType.BAR_T) newShape = Shape.barLeft;
-        else newShape = Shape.runLeft;
+        if (curToken == TileType.BAR_T) newShape = Shape.BarLeft;
+        else newShape = Shape.RunLeft;
       }
 
-      if (centerX == Action.ACT_LEFT)
+      if (centerX == Action.Left)
       {
-        xOffset -= _state.xMove;
+        xOffset -= _state.XMove;
         if (xOffset < 0) xOffset = 0; //move to center X
       }
 
-      if (action == Action.ACT_RIGHT)
+      if (action == Action.Right)
       {
-        xOffset += _state.xMove;
+        xOffset += _state.XMove;
 
         if (stayCurrPos && xOffset > 0) xOffset = 0; //stay on current position
         else if (xOffset > Constants.W2)
         { //move to x+1 position 
           if (curToken == TileType.BLOCK_T || curToken == TileType.HLADR_T) curToken = TileType.EMPTY_T; //in hole or hide laddr
-          map[x][y].act = curToken; //runner move to [x+1][y], so set [x][y].act to previous state
+          map[x][y].Act = curToken; //runner move to [x+1][y], so set [x][y].act to previous state
           x++;
-          xOffset = xOffset - Constants.tileW;
-          if (map[x][y].act == TileType.RUNNER_T) _state.setRunnerDead(); //collision
-                                                                      //map[x][y].act = GUARD_T;
+          xOffset = xOffset - Constants.TileW;
+          if (map[x][y].Act == TileType.RUNNER_T) _state.SetRunnerDead(); //collision
+                                                                          //map[x][y].act = GUARD_T;
         }
-        if (xOffset >= 0 && xOffset < _state.xMove)
+        if (xOffset >= 0 && xOffset < _state.XMove)
         {
-          dropGold(id);
+          DropGold(id);
         }
-        if (curToken == TileType.BAR_T) newShape = Shape.barRight;
-        else newShape = Shape.runRight;
+        if (curToken == TileType.BAR_T) newShape = Shape.BarRight;
+        else newShape = Shape.RunRight;
       }
 
-      if (centerX == Action.ACT_RIGHT)
+      if (centerX == Action.Right)
       {
-        xOffset += _state.xMove;
+        xOffset += _state.XMove;
         if (xOffset > 0) xOffset = 0; //move to center X
       }
 
       //if(curGuard == ACT_CLIMB_OUT) action == ACT_CLIMB_OUT;
 
-      if (action == Action.ACT_STOP)
+      if (action == Action.Stop)
       {
-        if (curGuard.action != Action.ACT_STOP)
+        if (curGuard.Action != Action.Stop)
         {
-          curGuard.sprite.stop();
-          if (curGuard.action != Action.ACT_CLIMB_OUT) curGuard.action = Action.ACT_STOP;
+          if (curGuard.Action != Action.ClimbOut)
+          {
+            curGuard.Action = Action.Stop;
+            _state.Output.Enqueue<GuardActionEvent>(_state.Tick).Set(curGuard.Id, curGuard.Action);
+          }
         }
       }
       else
       {
-        if (curGuard.action == Action.ACT_CLIMB_OUT) action = Action.ACT_CLIMB_OUT;
-        curGuard.sprite.setTransform(x + xOffset, y + yOffset);
-        curGuard.pos = new Position { x = x, y = y, xOffset = xOffset, yOffset = yOffset };
+        if (curGuard.Action == Action.ClimbOut) action = Action.ClimbOut;
+        curGuard.Position = new Position { X = x, Y = y, XOffset = xOffset, YOffset = yOffset };
 
         var evt = _state.Output.Enqueue<MoveGuardEvent>(_state.Tick);
         evt.Id = id;
@@ -412,32 +415,32 @@ namespace ClassicLogic.Engine
 
         if (curShape != newShape)
         {
-          curGuard.sprite.gotoAndPlay(newShape);
-          curGuard.shape = newShape;
+          curGuard.Sprite.GotoAndPlay(newShape);
+          curGuard.Shape = newShape;
+
+          _state.Output.Enqueue<GuardShapeEvent>(_state.Tick).Set(curGuard.Id, curGuard.Shape);
         }
-        if (action != curGuard.action)
-        {
-          curGuard.sprite.play();
-        }
-        curGuard.action = action;
-        if (action == Action.ACT_LEFT || action == Action.ACT_RIGHT) curGuard.lastLeftRight = action;
+
+        curGuard.Action = action;
+
+        _state.Output.Enqueue<GuardActionEvent>(_state.Tick).Set(curGuard.Id, curGuard.Action);
+
+        if (action == Action.Left || action == Action.Right) curGuard.LastLeftRight = action;
       }
-      map[x][y].act = TileType.GUARD_T;
+      map[x][y].Act = TileType.GUARD_T;
 
       // Check to get gold and carry 
-      if (map[x][y].@base == TileType.GOLD_T && curGuard.hasGold == 0 &&
+      if (map[x][y].Base == TileType.GOLD_T && curGuard.HasGold == 0 &&
          ((Math.Abs(xOffset) > double.Epsilon && yOffset >= 0 && yOffset < Constants.H4) ||
          (Math.Abs(yOffset) > double.Epsilon && xOffset >= 0 && xOffset < Constants.W4) ||
-         (y < _state.maxTileY && map[x][y + 1].@base == TileType.LADDR_T && yOffset < Constants.H4) // gold above laddr
+         (y < _state.MaxTileY && map[x][y + 1].Base == TileType.LADDR_T && yOffset < Constants.H4) // gold above laddr
           )
           )
       {
         //curGuard.hasGold = ((Math.random()*26)+14)|0; //14 - 39 
-        curGuard.hasGold = (int)((_state.random() * 26) + 12); //12 - 37 change gold drop steps
-        guardWearRedhat(curGuard); //9/4/2016
-        if (_state.PlayMode == PlayMode.PLAY_AUTO || _state.PlayMode == PlayMode.PLAY_DEMO || _state.PlayMode == PlayMode.PLAY_DEMO_ONCE) _state.getDemoGold(curGuard);
-        if (_state.recordMode != RecordMode.RECORD_NONE) _state.processRecordGold(curGuard);
-        _state.removeGold(x, y);
+        curGuard.HasGold = (int)((_state.Random() * 26) + 12); //12 - 37 change gold drop steps
+        GuardWearRedhat(curGuard); //9/4/2016
+        _state.RemoveGold(x, y);
         //debug ("get, (x,y) = " + x + "," + y + ", offset = " + xOffset); 
       }
 
@@ -445,99 +448,99 @@ namespace ClassicLogic.Engine
       //checkCollision(runner.pos.x, runner.pos.y);
     }
 
-    private void add2GuardShakeQueue(int id, Shape shape)
+    private void Add2GuardShakeQueue(int id, Shape shape)
     {
-      var curGuard = guard[id];
+      var curGuard = Guard[id];
 
-      if (shape == Shape.shakeRight)
+      if (shape == Shape.ShakeRight)
       {
-        curGuard.shapeFrame = shakeRight;
+        curGuard.ShapeFrame = _shakeRight;
       }
       else
       {
-        curGuard.shapeFrame = shakeLeft;
+        curGuard.ShapeFrame = _shakeLeft;
       }
 
-      curGuard.curFrameIdx = 0;
-      curGuard.curFrameTime = -1; //for init
+      curGuard.CurFrameIdx = 0;
+      curGuard.CurFrameTime = -1; //for init
 
-      shakingGuardList.Add(id);
+      ShakingGuardList.Add(id);
     }
 
-    private void decGold()
+    private void DecGold()
     {
-      _state.decGold();
+      _state.DecGold();
     }
 
-    private void addGold(int x, int y)
+    private void AddGold(int x, int y)
     {
-      _state.addGold(x, y);
+      _state.AddGold(x, y);
     }
 
-    private bool dropGold(int id)
+    private bool DropGold(int id)
     {
-      var curGuard = guard[id];
+      var curGuard = Guard[id];
       var drop = false;
       {
-        if (curGuard.hasGold > 1)
+        if (curGuard.HasGold > 1)
         {
-          curGuard.hasGold--; // count > 1,  don't drop it only decrease count 
+          curGuard.HasGold--; // count > 1,  don't drop it only decrease count 
           //loadingTxt.text = "(" + id + ") = " + curGuard.hasGold;
         }
-        else if (curGuard.hasGold == 1)
+        else if (curGuard.HasGold == 1)
         {
           //drop gold
-          var x = curGuard.pos.x;
-          var y = curGuard.pos.y;
+          var x = curGuard.Position.X;
+          var y = curGuard.Position.Y;
 
           TileType nextToken;
-          if (_map[x][y].@base == TileType.EMPTY_T &&
-              (y >= _state.maxTileY ||
-               ((nextToken = _map[x][y + 1].@base) == TileType.BLOCK_T || nextToken == TileType.SOLID_T ||
+          if (_map[x][y].Base == TileType.EMPTY_T &&
+              (y >= _state.MaxTileY ||
+               ((nextToken = _map[x][y + 1].Base) == TileType.BLOCK_T || nextToken == TileType.SOLID_T ||
                 nextToken == TileType.LADDR_T)))
           {
-            addGold(x, y);
-            curGuard.hasGold = -1; //for record play action always use value = -1
+            AddGold(x, y);
+            curGuard.HasGold = -1; //for record play action always use value = -1
             //curGuard.hasGold =  -(((Math.random()*10)+1)|0); //-1 ~ -10; //waiting time for get gold
-            guardRemoveRedhat(curGuard); //9/4/2016	
+            GuardRemoveRedhat(curGuard); //9/4/2016	
             drop = true;
           }
         }
-        else if (curGuard.hasGold < 0)
+        else if (curGuard.HasGold < 0)
         {
-          curGuard.hasGold++; //wait, don't get gold till count = 0
+          curGuard.HasGold++; //wait, don't get gold till count = 0
           //loadingTxt.text = "(" + id + ") = " + curGuard.hasGold;
         }
       }
       return drop;
     }
 
-    public Action bestMove(int id)
+    public Action BestMove(int id)
     {
-      var guarder = guard[id];
-      var x = guarder.pos.x;
-      var xOffset = guarder.pos.xOffset;
-      var y = guarder.pos.y;
-      var yOffset = guarder.pos.yOffset;
+      var guarder = Guard[id];
+      var x = guarder.Position.X;
+      var y = guarder.Position.Y;
+      var yOffset = guarder.Position.YOffset;
 
-      TileType curToken, nextBelow;
-      Action nextMove;
+      TileType nextBelow;
       var checkSameLevelOnly = false;
 
-      curToken = _map[x][y].@base;
+      var curToken = _map[x][y].Base;
 
-      if (guarder.action == Action.ACT_CLIMB_OUT)
+      if (guarder.Action == Action.ClimbOut)
       { //clib from hole
-        if (guarder.pos.y == guarder.holePos.y)
+        if (guarder.Position.Y == guarder.HolePos.y)
         {
-          return (Action.ACT_UP);
+          return (Action.Up);
         }
         else
         {
           checkSameLevelOnly = true;
-          if (guarder.pos.x != guarder.holePos.x)
+          if (guarder.Position.X != guarder.HolePos.x)
           { //out of hole
-            guarder.action = Action.ACT_LEFT;
+            guarder.Action = Action.Left;
+
+            _state.Output.Enqueue<GuardActionEvent>(_state.Tick).Set(guarder.Id, guarder.Action);
           }
         }
       }
@@ -553,14 +556,14 @@ namespace ClassicLogic.Engine
           /* no guard fall */
         }
         else if (yOffset < 0) //no laddr & yOffset < 0 ==> falling
-          return (Action.ACT_FALL);
-        else if (y < _state.maxTileY)
+          return (Action.Fall);
+        else if (y < _state.MaxTileY)
         {
-          nextBelow = _map[x][y + 1].act;
+          nextBelow = _map[x][y + 1].Act;
 
           if ((nextBelow == TileType.EMPTY_T || nextBelow == TileType.RUNNER_T))
           {
-            return (Action.ACT_FALL);
+            return (Action.Fall);
           }
           else if (nextBelow == TileType.BLOCK_T || nextBelow == TileType.SOLID_T ||
               nextBelow == TileType.GUARD_T || nextBelow == TileType.LADDR_T)
@@ -569,30 +572,30 @@ namespace ClassicLogic.Engine
           }
           else
           {
-            return (Action.ACT_FALL);
+            return (Action.Fall);
           }
         }
       }
 
       /******* next check to see if palyer on same floor *********/
       /******* and whether enm can get him. Ignore walls *********/
-      var runnerX = _state.runner.pos.x;
-      var runnerY = _state.runner.pos.y;
+      var runnerX = _state.Runner.Position.X;
+      var runnerY = _state.Runner.Position.Y;
 
       //	if ( y == runnerY ) { // same floor with runner
-      if (y == runnerY && _state.runner.action != Action.ACT_FALL)
+      if (y == runnerY && _state.Runner.Action != Action.Fall)
       { //case : guard on laddr and falling => don't catch it 
         while (x != runnerX)
         {
-          if (y < _state.maxTileY)
-            nextBelow = _map[x][y + 1].@base;
+          if (y < _state.MaxTileY)
+            nextBelow = _map[x][y + 1].Base;
           else nextBelow = TileType.SOLID_T;
 
-          curToken = _map[x][y].@base;
+          curToken = _map[x][y].Base;
 
           if (curToken == TileType.LADDR_T || curToken == TileType.BAR_T ||  // go through	
             nextBelow == TileType.SOLID_T || nextBelow == TileType.LADDR_T ||
-            nextBelow == TileType.BLOCK_T || _map[x][y + 1].act == TileType.GUARD_T || //fixed: must check map[].act with guard_t (for support champLevel:43)
+            nextBelow == TileType.BLOCK_T || _map[x][y + 1].Act == TileType.GUARD_T || //fixed: must check map[].act with guard_t (for support champLevel:43)
               nextBelow == TileType.BAR_T || nextBelow == TileType.GOLD_T) //add BAR_T & GOLD_T for support level 92 
           {
             if (x < runnerX)  // guard left to runner
@@ -605,20 +608,21 @@ namespace ClassicLogic.Engine
 
         if (x == runnerX)  // scan for a path ignoring walls is a success
         {
-          if (guarder.pos.x < runnerX)
+          Action nextMove;
+          if (guarder.Position.X < runnerX)
           {  //if left of man go right else left 
-            nextMove = Action.ACT_RIGHT;
+            nextMove = Action.Right;
           }
-          else if (guarder.pos.x > runnerX)
+          else if (guarder.Position.X > runnerX)
           {
-            nextMove = Action.ACT_LEFT;
+            nextMove = Action.Left;
           }
           else
           { // guard X = runner X
-            if (guarder.pos.xOffset < _state.runner.pos.xOffset)
-              nextMove = Action.ACT_RIGHT;
+            if (guarder.Position.XOffset < _state.Runner.Position.XOffset)
+              nextMove = Action.Right;
             else
-              nextMove = Action.ACT_LEFT;
+              nextMove = Action.Left;
           }
           return (nextMove);
         }
@@ -627,39 +631,34 @@ namespace ClassicLogic.Engine
       /********** If can't reach man on current level, then scan floor *********/
       /********** (ignoring walls) and look up and down for best move  *********/
 
-      return scanFloor(id);
+      return ScanFloor(id);
     }
 
-    private Action bestPath;
-    int bestRating, curRating;
-    int leftEnd, rightEnd;
-    int startX, startY;
-
-    public Action scanFloor(int id)
+    public Action ScanFloor(int id)
     {
       var map = _map;
-      var maxTileY = _state.maxTileY;
-      var maxTileX = _state.maxTileX;
+      var maxTileY = _state.MaxTileY;
+      var maxTileX = _state.MaxTileX;
       int x, y;
       TileType curToken, nextBelow;
       Action curPath;
 
-      x = startX = guard[id].pos.x;
-      y = startY = guard[id].pos.y;
+      x = _startX = Guard[id].Position.X;
+      y = _startY = Guard[id].Position.Y;
 
-      bestRating = 255;   // start with worst rating
-      curRating = 255;
-      bestPath = Action.ACT_STOP;
+      _bestRating = 255;   // start with worst rating
+      _curRating = 255;
+      _bestPath = Action.Stop;
 
       /****** get ends for search along floor ******/
 
       while (x > 0)
       {                                    //get left end first
-        curToken = map[x - 1][y].act;
+        curToken = map[x - 1][y].Act;
         if (curToken == TileType.BLOCK_T || curToken == TileType.SOLID_T)
           break;
         if (curToken == TileType.LADDR_T || curToken == TileType.BAR_T || y >= maxTileY ||
-            y < maxTileY && ((nextBelow = map[x - 1][y + 1].@base) == TileType.BLOCK_T ||
+            y < maxTileY && ((nextBelow = map[x - 1][y + 1].Base) == TileType.BLOCK_T ||
               nextBelow == TileType.SOLID_T || nextBelow == TileType.LADDR_T))
           --x;
         else
@@ -669,16 +668,16 @@ namespace ClassicLogic.Engine
         }
       }
 
-      leftEnd = x;
-      x = startX;
+      _leftEnd = x;
+      x = _startX;
       while (x < maxTileX)
       {                           // get right end next
-        curToken = map[x + 1][y].act;
+        curToken = map[x + 1][y].Act;
         if (curToken == TileType.BLOCK_T || curToken == TileType.SOLID_T)
           break;
 
         if (curToken == TileType.LADDR_T || curToken == TileType.BAR_T || y >= maxTileY ||
-            y < maxTileY && ((nextBelow = map[x + 1][y + 1].@base) == TileType.BLOCK_T ||
+            y < maxTileY && ((nextBelow = map[x + 1][y + 1].Base) == TileType.BLOCK_T ||
               nextBelow == TileType.SOLID_T || nextBelow == TileType.LADDR_T))
           ++x;
         else
@@ -688,68 +687,67 @@ namespace ClassicLogic.Engine
         }
       }
 
-      rightEnd = x;
+      _rightEnd = x;
 
       /******* Do middle scan first for best rating and direction *******/
 
-      x = startX;
+      x = _startX;
       if (y < maxTileY &&
-        (nextBelow = map[x][y + 1].@base) != TileType.BLOCK_T && nextBelow != TileType.SOLID_T)
-        scanDown(x, Action.ACT_DOWN);
+        (nextBelow = map[x][y + 1].Base) != TileType.BLOCK_T && nextBelow != TileType.SOLID_T)
+        ScanDown(x, Action.Down);
 
-      if (map[x][y].@base == TileType.LADDR_T)
-        scanUp(x, Action.ACT_UP);
+      if (map[x][y].Base == TileType.LADDR_T)
+        ScanUp(x, Action.Up);
 
       /******* next scan both sides of floor for best rating *******/
 
-      curPath = Action.ACT_LEFT;
-      x = leftEnd;
+      curPath = Action.Left;
+      x = _leftEnd;
 
       while (true)
       {
-        if (x == startX)
+        if (x == _startX)
         {
-          if (curPath == Action.ACT_LEFT && rightEnd != startX)
+          if (curPath == Action.Left && _rightEnd != _startX)
           {
-            curPath = Action.ACT_RIGHT;
-            x = rightEnd;
+            curPath = Action.Right;
+            x = _rightEnd;
           }
           else break;
         }
 
         if (y < maxTileY &&
-          (nextBelow = map[x][y + 1].@base) != TileType.BLOCK_T && nextBelow != TileType.SOLID_T)
-          scanDown(x, curPath);
+          (nextBelow = map[x][y + 1].Base) != TileType.BLOCK_T && nextBelow != TileType.SOLID_T)
+          ScanDown(x, curPath);
 
-        if (map[x][y].@base == TileType.LADDR_T)
-          scanUp(x, curPath);
+        if (map[x][y].Base == TileType.LADDR_T)
+          ScanUp(x, curPath);
 
-        if (curPath == Action.ACT_LEFT)
+        if (curPath == Action.Left)
           x++;
         else x--;
       }
 
 
-      return (bestPath);
+      return (_bestPath);
     }                           // end scan floor for best direction to go  
 
-    public void scanDown(int x, Action curPath)
+    public void ScanDown(int x, Action curPath)
     {
       var map = _map;
-      var maxTileY = _state.maxTileY;
-      var maxTileX = _state.maxTileX;
-      var runner = _state.runner;
+      var maxTileY = _state.MaxTileY;
+      var maxTileX = _state.MaxTileX;
+      var runner = _state.Runner;
       int y;
       TileType nextBelow; //curRating;
-      var runnerX = runner.pos.x;
-      var runnerY = runner.pos.y;
+      var runnerY = runner.Position.Y;
 
-      y = startY;
+      y = _startY;
 
-      while (y < maxTileY && (nextBelow = map[x][y + 1].@base) != TileType.BLOCK_T &&
+      while (y < maxTileY && (nextBelow = map[x][y + 1].Base) != TileType.BLOCK_T &&
             nextBelow != TileType.SOLID_T)                  // while no floor below ==> can move down
       {
-        if (map[x][y].@base != TileType.EMPTY_T && map[x][y].@base != TileType.HLADR_T)
+        if (map[x][y].Base != TileType.EMPTY_T && map[x][y].Base != TileType.HLADR_T)
         { // if not falling ==> try move left or right 
           //************************************************************************************
           // 2014/04/14 Add check  "map[x][y].base != HLADR_T" for support 
@@ -757,9 +755,9 @@ namespace ClassicLogic.Engine
           //************************************************************************************
           if (x > 0)
           {                          // if not at left edge check left side
-            if ((nextBelow = map[x - 1][y + 1].@base) == TileType.BLOCK_T ||
+            if ((nextBelow = map[x - 1][y + 1].Base) == TileType.BLOCK_T ||
                  nextBelow == TileType.LADDR_T || nextBelow == TileType.SOLID_T ||
-                 map[x - 1][y].@base == TileType.BAR_T)     // can move left       
+                 map[x - 1][y].Base == TileType.BAR_T)     // can move left       
             {
               if (y >= runnerY)             // no need to go on
                 break;                      // already below runner
@@ -768,9 +766,9 @@ namespace ClassicLogic.Engine
 
           if (x < maxTileX)                     // if not at right edge check right side
           {
-            if ((nextBelow = map[x + 1][y + 1].@base) == TileType.BLOCK_T ||
+            if ((nextBelow = map[x + 1][y + 1].Base) == TileType.BLOCK_T ||
                  nextBelow == TileType.LADDR_T || nextBelow == TileType.SOLID_T ||
-                 map[x + 1][y].@base == TileType.BAR_T)     // can move right
+                 map[x + 1][y].Base == TileType.BAR_T)     // can move right
             {
               if (y >= runnerY)
                 break;
@@ -782,42 +780,41 @@ namespace ClassicLogic.Engine
 
       if (y == runnerY)
       {                            // update best rating and direct.
-        curRating = Math.Abs(startX - x);
+        _curRating = Math.Abs(_startX - x);
         //		if ( (curRating = runnerX - x) < 0) //BUG from original book ? (changed by Simon)
         //			curRating = -curRating; //ABS
       }
       else if (y > runnerY)
-        curRating = y - runnerY + 200;               // position below runner
-      else curRating = runnerY - y + 100;              // position above runner
+        _curRating = y - runnerY + 200;               // position below runner
+      else _curRating = runnerY - y + 100;              // position above runner
 
-      if (curRating < bestRating)
+      if (_curRating < _bestRating)
       {
-        bestRating = curRating;
-        bestPath = curPath;
+        _bestRating = _curRating;
+        _bestPath = curPath;
       }
 
     }                                                   // end Scan Down
 
-    public void scanUp(int x, Action curPath)
+    public void ScanUp(int x, Action curPath)
     {
       var map = _map;
-      var maxTileX = _state.maxTileX;
-      var runner = _state.runner;
+      var maxTileX = _state.MaxTileX;
+      var runner = _state.Runner;
       int y;
-      var runnerX = runner.pos.x;
-      var runnerY = runner.pos.y;
+      var runnerY = runner.Position.Y;
 
-      y = startY;
+      y = _startY;
 
-      while (y > 0 && map[x][y].@base == TileType.LADDR_T)
+      while (y > 0 && map[x][y].Base == TileType.LADDR_T)
       {  // while can go up
         --y;
         TileType nextBelow; //curRating;
         if (x > 0)
         {                              // if not at left edge check left side
-          if ((nextBelow = map[x - 1][y + 1].@base) == TileType.BLOCK_T ||
+          if ((nextBelow = map[x - 1][y + 1].Base) == TileType.BLOCK_T ||
                nextBelow == TileType.SOLID_T || nextBelow == TileType.LADDR_T ||
-               map[x - 1][y].@base == TileType.BAR_T)         // can move left
+               map[x - 1][y].Base == TileType.BAR_T)         // can move left
           {
             if (y <= runnerY)                 // no need to go on 
               break;                          // already above runner
@@ -826,9 +823,9 @@ namespace ClassicLogic.Engine
 
         if (x < maxTileX)
         {                       // if not at right edge check right side
-          if ((nextBelow = map[x + 1][y + 1].@base) == TileType.BLOCK_T ||
+          if ((nextBelow = map[x + 1][y + 1].Base) == TileType.BLOCK_T ||
                nextBelow == TileType.SOLID_T || nextBelow == TileType.LADDR_T ||
-               map[x + 1][y].@base == TileType.BAR_T)         // can move right
+               map[x + 1][y].Base == TileType.BAR_T)         // can move right
           {
             if (y <= runnerY)
               break;
@@ -839,52 +836,52 @@ namespace ClassicLogic.Engine
 
       if (y == runnerY)
       {                           // update best rating and direct.
-        curRating = Math.Abs(startX - x);
+        _curRating = Math.Abs(_startX - x);
         //if ( (curRating = runnerX - x) < 0) // BUG from original book ? (changed by Simon)
         //	curRating = -curRating; //ABS
       }
       else if (y > runnerY)
-        curRating = y - runnerY + 200;              // position below runner   
-      else curRating = runnerY - y + 100;             // position above runner    
+        _curRating = y - runnerY + 200;              // position below runner   
+      else _curRating = runnerY - y + 100;             // position above runner    
 
-      if (curRating < bestRating)
+      if (_curRating < _bestRating)
       {
-        bestRating = curRating;
-        bestPath = curPath;
+        _bestRating = _curRating;
+        _bestPath = curPath;
       }
 
     }
 
-    public void processGuardShake()
+    public void ProcessGuardShake()
     {
-      for (var i = 0; i < shakingGuardList.Count;)
+      for (var i = 0; i < ShakingGuardList.Count;)
       {
-        var curGuard = guard[shakingGuardList[i]];
-        var curIdx = curGuard.curFrameIdx;
+        var curGuard = Guard[ShakingGuardList[i]];
+        var curIdx = curGuard.CurFrameIdx;
 
-        if (curGuard.curFrameTime < 0)
+        if (curGuard.CurFrameTime < 0)
         { //start shake => set still frame
-          curGuard.curFrameTime = 0;
-          curGuard.sprite.gotoAndStop(curGuard.shapeFrame[curIdx]);
+          curGuard.CurFrameTime = 0;
+          curGuard.Sprite.GotoAndStop(curGuard.ShapeFrame[curIdx]);
         }
         else
         {
-          if (++curGuard.curFrameTime >= _state.shakeTime[curIdx])
+          if (++curGuard.CurFrameTime >= _state.ShakeTime[curIdx])
           {
-            if (++curGuard.curFrameIdx < curGuard.shapeFrame.Length)
+            if (++curGuard.CurFrameIdx < curGuard.ShapeFrame.Length)
             {
               //change frame
-              curGuard.curFrameTime = 0;
-              curGuard.sprite.gotoAndStop(curGuard.shapeFrame[curGuard.curFrameIdx]);
+              curGuard.CurFrameTime = 0;
+              curGuard.Sprite.GotoAndStop(curGuard.ShapeFrame[curGuard.CurFrameIdx]);
             }
             else
             {
               //shake time out 
 
-              var id = shakingGuardList[i];
-              shakingGuardList.RemoveAt(i); //remove from list
+              var id = ShakingGuardList[i];
+              ShakingGuardList.RemoveAt(i); //remove from list
                                             //error(arguments.callee.name, "remove id =" + id + "(" + shakingGuardList + ")" );
-              climbOut(id); //climb out
+              ClimbOut(id); //climb out
               continue;
             }
 
@@ -894,41 +891,43 @@ namespace ClassicLogic.Engine
       }
     }
 
-    public void climbOut(int id)
+    public void ClimbOut(int id)
     {
-      var curGuard = guard[id];
-      curGuard.action = Action.ACT_CLIMB_OUT;
-      curGuard.sprite.removeAllEventListeners();
-      curGuard.sprite.gotoAndPlay(Shape.runUpDn);
-      curGuard.shape = Shape.runUpDn;
-      curGuard.holePos = new Point
+      var curGuard = Guard[id];
+      curGuard.Action = Action.ClimbOut;
+      curGuard.Sprite.GotoAndPlay(Shape.RunUpDn);
+      curGuard.Shape = Shape.RunUpDn;
+      curGuard.HolePos = new Point
       {
-        x = curGuard.pos.x,
-        y = curGuard.pos.y
+        x = curGuard.Position.X,
+        y = curGuard.Position.Y
       };
+
+      _state.Output.Enqueue<GuardActionEvent>(_state.Tick).Set(curGuard.Id, curGuard.Action);
+      _state.Output.Enqueue<GuardShapeEvent>(_state.Tick).Set(curGuard.Id, curGuard.Shape);
     }
 
-    public void processReborn()
+    public void ProcessReborn()
     {
-      for (var i = 0; i < rebornGuardList.Count;)
+      for (var i = 0; i < RebornGuardList.Count;)
       {
-        var curGuard = guard[rebornGuardList[i]];
-        var curIdx = curGuard.curFrameIdx;
+        var curGuard = Guard[RebornGuardList[i]];
+        var curIdx = curGuard.CurFrameIdx;
 
-        if (++curGuard.curFrameTime >= rebornTime[curIdx])
+        if (++curGuard.CurFrameTime >= _rebornTime[curIdx])
         {
-          if (++curGuard.curFrameIdx < rebornFrame.Length)
+          if (++curGuard.CurFrameIdx < _rebornFrame.Length)
           {
             //change frame
-            curGuard.curFrameTime = 0;
-            curGuard.sprite.gotoAndStop(rebornFrame[curGuard.curFrameIdx]);
+            curGuard.CurFrameTime = 0;
+            curGuard.Sprite.GotoAndStop(_rebornFrame[curGuard.CurFrameIdx]);
           }
           else
           {
             //reborn 
-            var id = rebornGuardList[i];
-            rebornGuardList.RemoveAt(i); //remove from list
-            rebornComplete(id);
+            var id = RebornGuardList[i];
+            RebornGuardList.RemoveAt(i); //remove from list
+            RebornComplete(id);
             continue;
           }
         }
@@ -936,154 +935,133 @@ namespace ClassicLogic.Engine
       }
     }
 
-    public int getGuardId(int x, int y)
+    public int GetGuardId(int x, int y)
     {
       int id;
 
-      for (id = 0; id < guardCount; id++)
+      for (id = 0; id < GuardCount; id++)
       {
-        if (this[id].pos.x == x && this[id].pos.y == y) break;
+        if (this[id].Position.X == x && this[id].Position.Y == y) break;
       }
-      Assert.IsTrue(id < guardCount, "Error: can not get guard position!");
+      Assert.IsTrue(id < GuardCount, "Error: can not get guard position!");
 
       return id;
     }
 
     public Guard this[int id]
     {
-      get { return guard[id]; }
+      get { return Guard[id]; }
     }
 
-    public bool guardAlive(int x, int y)
+    public bool GuardAlive(int x, int y)
     {
       var i = 0;
-      for (; i < guardCount; i++)
+      for (; i < GuardCount; i++)
       {
-        if (guard[i].pos.x == x && guard[i].pos.y == y) break;
+        if (Guard[i].Position.X == x && Guard[i].Position.Y == y) break;
       }
-      Assert.IsTrue((i < guardCount), "guardAlive() design error !");
+      Assert.IsTrue((i < GuardCount), "guardAlive() design error !");
 
-      if (guard[i].action != Action.ACT_REBORN) return true; //alive
+      if (Guard[i].Action != Action.Reborn) return true; //alive
 
       return false; //reborn
     }
 
-    public void removeFromShake(int id)
+    public void RemoveFromShake(int id)
     {
-      for (var i = 0; i < shakingGuardList.Count; i++)
+      for (var i = 0; i < ShakingGuardList.Count; i++)
       {
-        if (shakingGuardList[i] == id)
+        if (ShakingGuardList[i] == id)
         {
-          shakingGuardList.RemoveAt(i); //remove from list
+          ShakingGuardList.RemoveAt(i); //remove from list
                                         //error(arguments.callee.name, "remove id =" + id + "(" + shakingGuardList + ")" );
           return;
         }
       }
-      Assert.IsTrue(false, "design error id =" + id + "(" + shakingGuardList + ")");
+      Assert.IsTrue(false, "design error id =" + id + "(" + ShakingGuardList + ")");
     }
 
-    public void guardRemoveRedhat(Guard guard)
+    public void GuardRemoveRedhat(Guard guard)
     {
       var evt = _state.Output.Enqueue<GuardHasGoldEvent>(_state.Tick);
       evt.Id = guard.Id;
       evt.HasGold = false;
     }
 
-    public void guardWearRedhat(Guard guard)
+    public void GuardWearRedhat(Guard guard)
     {
-
       var evt = _state.Output.Enqueue<GuardHasGoldEvent>(_state.Tick);
       evt.Id = guard.Id;
       evt.HasGold = true;
     }
 
-    public void guardReborn(int x, int y)
+    public void GuardReborn(int x, int y)
     {
       var map = _map;
       var bornRndX = _bornX;
 
       //get guard id  by current in hole position
-      var id = getGuardId(x, y);
+      var id = GetGuardId(x, y);
 
       var bornY = 1; //start on line 2
-      var bornX = bornRndX.get();
+      var bornX = bornRndX.Get();
       var rndStart = bornX;
 
 
-      while (map[bornX][bornY].act != TileType.EMPTY_T || map[bornX][bornY].@base == TileType.GOLD_T || map[bornX][bornY].@base == TileType.BLOCK_T)
+      while (map[bornX][bornY].Act != TileType.EMPTY_T || map[bornX][bornY].Base == TileType.GOLD_T || map[bornX][bornY].Base == TileType.BLOCK_T)
       {
         //BUG FIXED for level 115 (can not reborn at bornX=27)
         //don't born at gold position & diged position, 2/24/2015
-        if ((bornX = bornRndX.get()) == rndStart)
+        if ((bornX = bornRndX.Get()) == rndStart)
         {
           bornY++;
         }
-        Assert.IsTrue(bornY <= _state.maxTileY, "Error: Born Y too large !");
-      }
-      //debug("bornX = " + bornX);
-      if (_state.PlayMode == PlayMode.PLAY_AUTO || _state.PlayMode == PlayMode.PLAY_DEMO || _state.PlayMode == PlayMode.PLAY_DEMO_ONCE)
-      {
-        var bornPos = _state.getDemoBornPos();
-        bornX = bornPos.x;
-        bornY = bornPos.y;
+        Assert.IsTrue(bornY <= _state.MaxTileY, "Error: Born Y too large !");
       }
 
-      if (_state.recordMode == RecordMode.RECORD_KEY) _state.saveRecordBornPos(bornX, bornY);
-      else if (_state.recordMode == RecordMode.RECORD_PLAY)
-      {
-        var bornPos = _state.getRecordBornPos();
-        bornX = bornPos.x;
-        bornY = bornPos.y;
-      }
-
-      map[bornX][bornY].act = TileType.GUARD_T;
+      map[bornX][bornY].Act = TileType.GUARD_T;
       //debug("born (x,y) = (" + bornX + "," + bornY + ")");
 
-      var curGuard = guard[id];
+      var curGuard = Guard[id];
 
-      curGuard.setTransform(bornX, bornY, 0, 0); //= { x: bornX, y: bornY, xOffset: 0, yOffset: 0 };
-      curGuard.sprite.setTransform(bornX, bornY);
+      curGuard.SetTransform(bornX, bornY, 0, 0); //= { x: bornX, y: bornY, xOffset: 0, yOffset: 0 };
 
-      _state.rebornTimeStart = _state.recordCount;
-      if ((int)_state.AiVersion < 3)
-      {
-        curGuard.sprite.onAnimationEnded(() => rebornComplete(id));
-        curGuard.sprite.gotoAndPlay(Shape.reborn);
-      }
-      else
-      {
-        add2RebornQueue(id);
-      }
+      Add2RebornQueue(id);
 
-      curGuard.shape = Shape.reborn;
-      curGuard.action = Action.ACT_REBORN;
+      curGuard.Shape = Shape.Reborn;
+      curGuard.Action = Action.Reborn;
 
+      _state.Output.Enqueue<GuardActionEvent>(_state.Tick).Set(curGuard.Id, curGuard.Action);
+      _state.Output.Enqueue<GuardShapeEvent>(_state.Tick).Set(curGuard.Id, curGuard.Shape);
     }
 
-    public void add2RebornQueue(int id)
+    public void Add2RebornQueue(int id)
     {
-      var curGuard = guard[id];
+      var curGuard = Guard[id];
 
-      curGuard.sprite.gotoAndStop(Shape.reborn);
-      curGuard.curFrameIdx = 0;
-      curGuard.curFrameTime = -1;
+      curGuard.Sprite.GotoAndStop(Shape.Reborn);
+      curGuard.CurFrameIdx = 0;
+      curGuard.CurFrameTime = -1;
 
-      rebornGuardList.Add(id);
+      RebornGuardList.Add(id);
     }
 
-    public void rebornComplete(int id)
+    public void RebornComplete(int id)
     {
-      var x = guard[id].pos.x;
-      var y = guard[id].pos.y;
+      var curGuard = Guard[id];
+      var x = curGuard.Position.X;
+      var y = curGuard.Position.Y;
 
-      if (_map[x][y].act == TileType.RUNNER_T) _state.setRunnerDead(); //collision
-      _map[x][y].act = TileType.GUARD_T;
-      guard[id].sprite.removeAllEventListeners();
-      guard[id].action = Action.ACT_FALL;
-      guard[id].shape = Shape.fallRight;
+      if (_map[x][y].Act == TileType.RUNNER_T) _state.SetRunnerDead(); //collision
+      _map[x][y].Act = TileType.GUARD_T;
+      curGuard.Action = Action.Fall;
+      curGuard.Shape = Shape.FallRight;
       //guard[id].hasGold = 0;
-      guard[id].sprite.gotoAndPlay(Shape.fallRight);
-      _state.Sound.themeSoundPlay(Sounds.reborn);
+      curGuard.Sprite.GotoAndPlay(Shape.FallRight);
+      _state.Sound.ThemeSoundPlay(Sounds.Reborn);
+
+      _state.Output.Enqueue<GuardActionEvent>(_state.Tick).Set(curGuard.Id, curGuard.Action);
+      _state.Output.Enqueue<GuardShapeEvent>(_state.Tick).Set(curGuard.Id, curGuard.Shape);
     }
   }
 }

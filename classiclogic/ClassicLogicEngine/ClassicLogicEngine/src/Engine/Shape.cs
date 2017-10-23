@@ -2,20 +2,20 @@
 {
   public enum Shape
   {
-    runUpDn,
-    barLeft,
-    barRight,
-    runLeft,
-    fallLeft,
-    fallRight,
-    digLeft,
-    digRight,
-    runRight,
-    digHoleLeft,
-    digHoleRight,
-    reborn,
-    shakeLeft,
-    shakeRight,
-    fillHole
+    RunUpDn,
+    BarLeft,
+    BarRight,
+    RunLeft,
+    FallLeft,
+    FallRight,
+    DigLeft,
+    DigRight,
+    RunRight,
+    DigHoleLeft,
+    DigHoleRight,
+    Reborn,
+    ShakeLeft,
+    ShakeRight,
+    FillHole
   }
 }

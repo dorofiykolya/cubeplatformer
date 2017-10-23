@@ -1,21 +1,29 @@
-﻿namespace ClassicLogic.Engine
+﻿using ClassicLogic.Outputs;
+
+namespace ClassicLogic.Engine
 {
   public class EngineSound
   {
+    private readonly Engine _engine;
 
-    public void soundStop(string name)
+    public EngineSound(Engine engine)
     {
-      
+      _engine = engine;
     }
 
-    public void soundPlay(string name)
+    public void SoundStop(Sounds name)
     {
-      
+      _engine.Output.Enqueue<StopSoundEvent>(_engine.State.Tick).Sound = name;
     }
 
-    public void themeSoundPlay(string name)
+    public void SoundPlay(Sounds name)
     {
-      
+      _engine.Output.Enqueue<PlaySoundEvent>(_engine.State.Tick).Sound = name;
+    }
+
+    public void ThemeSoundPlay(Sounds name)
+    {
+      _engine.Output.Enqueue<PlaySoundEvent>(_engine.State.Tick).Sound = name;
     }
   }
 }

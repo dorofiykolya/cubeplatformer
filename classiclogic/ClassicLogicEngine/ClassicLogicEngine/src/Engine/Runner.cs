@@ -12,218 +12,219 @@ namespace ClassicLogic.Engine
 
     public enum MoveState
     {
-      STATE_NONE = 0,
-      STATE_OK_TO_MOVE = 1,
-      STATE_FALLING = 2
+      StateNone = 0,
+      StateOkToMove = 1,
+      StateFalling = 2
     }
 
-    public Sprite sprite;
-    public Position pos = new Position();
-    public Shape shape;
-    public Action action;
-    private Action lastLeftRight;
+    public Sprite Sprite;
+    public Position Position = new Position();
+    public Shape Shape;
+    public Action Action;
 
-    public Runner(Tile[][] map, EngineGuards guards, EngineState state, SpriteSheet spriteSheet)
+    private Action _lastLeftRight;
+
+    public Runner(Tile[][] map, EngineGuards guards, EngineState state)
     {
       _map = map;
       _guards = guards;
       _state = state;
 
-      sprite = new Sprite(spriteSheet);
-      sprite.gotoAndPlay(Shape.runRight);
+      Sprite = new Sprite();
+      Sprite.GotoAndPlay(Shape.RunRight);
     }
 
-    public void moveRunner()
+    public void Move()
     {
-      var x = pos.x;
-      var xOffset = pos.xOffset;
-      var y = pos.y;
-      var yOffset = pos.yOffset;
+      var x = Position.X;
+      var xOffset = Position.XOffset;
+      var y = Position.Y;
+      var yOffset = Position.YOffset;
       bool stayCurrPos;
       MoveState curState;
       TileType nextToken;
 
-      var curToken = _map[x][y].@base;
+      var curToken = _map[x][y].Base;
 
-      if (curToken == TileType.LADDR_T || (curToken == TileType.BAR_T && yOffset == 0))
+      if (curToken == TileType.LADDR_T || (curToken == TileType.BAR_T && Math.Abs(yOffset) <= float.Epsilon))
       { //ladder & bar
-        curState = MoveState.STATE_OK_TO_MOVE; //ok to move (on ladder or bar)
+        curState = MoveState.StateOkToMove; //ok to move (on ladder or bar)
       }
       else if (yOffset < 0)
       {  //no ladder && yOffset < 0 ==> falling 
-        curState = MoveState.STATE_FALLING;
+        curState = MoveState.StateFalling;
       }
-      else if (y < _state.maxTileY)
+      else if (y < _state.MaxTileY)
       { //no laddr && y < maxTileY && yOffset >= 0
 
-        nextToken = _map[x][y + 1].act;
+        nextToken = _map[x][y + 1].Act;
 
         if (nextToken == TileType.EMPTY_T)
         {
-          curState = MoveState.STATE_FALLING;
+          curState = MoveState.StateFalling;
         }
         else if (nextToken == TileType.BLOCK_T || nextToken == TileType.LADDR_T || nextToken == TileType.SOLID_T)
         {
-          curState = MoveState.STATE_OK_TO_MOVE;
+          curState = MoveState.StateOkToMove;
         }
         else if (nextToken == TileType.GUARD_T)
         {
-          curState = MoveState.STATE_OK_TO_MOVE;
+          curState = MoveState.StateOkToMove;
         }
         else
         {
-          curState = MoveState.STATE_FALLING;
+          curState = MoveState.StateFalling;
         }
 
       }
       else
       { // no laddr && y == maxTileY 
-        curState = MoveState.STATE_OK_TO_MOVE;
+        curState = MoveState.StateOkToMove;
       }
 
-      if (curState == MoveState.STATE_FALLING)
+      if (curState == MoveState.StateFalling)
       {
-        stayCurrPos = (y >= _state.maxTileY || ((nextToken = _map[x][y + 1].act) == TileType.BLOCK_T) || nextToken == TileType.SOLID_T || nextToken == TileType.GUARD_T);
+        stayCurrPos = (y >= _state.MaxTileY || ((nextToken = _map[x][y + 1].Act) == TileType.BLOCK_T) || nextToken == TileType.SOLID_T || nextToken == TileType.GUARD_T);
 
-        runnerMoveStep(Action.ACT_FALL, stayCurrPos);
+        RunnerMoveStep(Action.Fall, stayCurrPos);
         return;
       }
 
       /****** Check Key Action ******/
 
-      Action moveStep = Action.ACT_STOP;
+      Action moveStep = Action.Stop;
       stayCurrPos = true;
 
-      switch (_state.keyAction)
+      switch (_state.KeyAction)
       {
-        case Action.ACT_UP:
+        case Action.Up:
           stayCurrPos = (y <= 0 ||
-            (nextToken = _map[x][y - 1].act) == TileType.BLOCK_T ||
+            (nextToken = _map[x][y - 1].Act) == TileType.BLOCK_T ||
               nextToken == TileType.SOLID_T || nextToken == TileType.TRAP_T);
 
-          if (y > 0 && _map[x][y].@base != TileType.LADDR_T && yOffset < Constants.H4 && yOffset > 0 && _map[x][y + 1].@base == TileType.LADDR_T)
+          if (y > 0 && _map[x][y].Base != TileType.LADDR_T && yOffset < Constants.H4 && yOffset > 0 && _map[x][y + 1].Base == TileType.LADDR_T)
           {
             stayCurrPos = true;
-            moveStep = Action.ACT_UP;
+            moveStep = Action.Up;
           }
           else
-          if (!(_map[x][y].@base != TileType.LADDR_T &&
-           (yOffset <= 0 || _map[x][y + 1].@base != TileType.LADDR_T) ||
+          if (!(_map[x][y].Base != TileType.LADDR_T &&
+           (yOffset <= 0 || _map[x][y + 1].Base != TileType.LADDR_T) ||
              (yOffset <= 0 && stayCurrPos))
           )
           {
-            moveStep = Action.ACT_UP;
+            moveStep = Action.Up;
           }
 
           break;
-        case Action.ACT_DOWN:
-          stayCurrPos = (y >= _state.maxTileY ||
-            (nextToken = _map[x][y + 1].act) == TileType.BLOCK_T ||
+        case Action.Down:
+          stayCurrPos = (y >= _state.MaxTileY ||
+            (nextToken = _map[x][y + 1].Act) == TileType.BLOCK_T ||
             nextToken == TileType.SOLID_T);
 
           if (!(yOffset >= 0 && stayCurrPos))
-            moveStep = Action.ACT_DOWN;
+            moveStep = Action.Down;
           break;
-        case Action.ACT_LEFT:
+        case Action.Left:
           stayCurrPos = (x <= 0 ||
-            (nextToken = _map[x - 1][y].act) == TileType.BLOCK_T ||
+            (nextToken = _map[x - 1][y].Act) == TileType.BLOCK_T ||
             nextToken == TileType.SOLID_T || nextToken == TileType.TRAP_T);
 
           if (!(xOffset <= 0 && stayCurrPos))
-            moveStep = Action.ACT_LEFT;
+            moveStep = Action.Left;
           break;
-        case Action.ACT_RIGHT:
-          stayCurrPos = (x >= _state.maxTileX ||
-            (nextToken = _map[x + 1][y].act) == TileType.BLOCK_T ||
+        case Action.Right:
+          stayCurrPos = (x >= _state.MaxTileX ||
+            (nextToken = _map[x + 1][y].Act) == TileType.BLOCK_T ||
             nextToken == TileType.SOLID_T || nextToken == TileType.TRAP_T);
 
           if (!(xOffset >= 0 && stayCurrPos))
-            moveStep = Action.ACT_RIGHT;
+            moveStep = Action.Right;
           break;
-        case Action.ACT_DIG_LEFT:
-        case Action.ACT_DIG_RIGHT:
-          if (ok2Dig(_state.keyAction))
+        case Action.DigLeft:
+        case Action.DigRight:
+          if (Ok2Dig(_state.KeyAction))
           {
-            runnerMoveStep(_state.keyAction, stayCurrPos);
-            _state.digHole(_state.keyAction);
+            RunnerMoveStep(_state.KeyAction, stayCurrPos);
+            _state.DigHole(_state.KeyAction);
           }
           else
           {
-            runnerMoveStep(Action.ACT_STOP, stayCurrPos);
+            RunnerMoveStep(Action.Stop, stayCurrPos);
           }
-          _state.keyAction = Action.ACT_STOP;
+          _state.KeyAction = Action.Stop;
           return;
       }
-      runnerMoveStep(moveStep, stayCurrPos);
+      RunnerMoveStep(moveStep, stayCurrPos);
     }
 
-    public void runnerMoveStep(Action currentAction, bool stayCurrPos)
+    public void RunnerMoveStep(Action currentAction, bool stayCurrPos)
     {
       var map = _map;
-      var xMove = _state.xMove;
-      var yMove = _state.yMove;
-      var tileW = Constants.tileW;
-      var tileH = Constants.tileH;
-      var H2 = Constants.H2;
-      var maxTileY = _state.maxTileY;
+      var xMove = _state.XMove;
+      var yMove = _state.YMove;
+      var tileW = Constants.TileW;
+      var tileH = Constants.TileH;
+      const double h2 = Constants.H2;
+      var maxTileY = _state.MaxTileY;
 
-      var x = pos.x;
-      var xOffset = pos.xOffset;
-      var y = pos.y;
-      var yOffset = pos.yOffset;
+      var x = Position.X;
+      var xOffset = Position.XOffset;
+      var y = Position.Y;
+      var yOffset = Position.YOffset;
 
       Shape newShape;
 
-      var curShape = newShape = this.shape;
+      var curShape = newShape = Shape;
 
-      Action centerX = Action.ACT_STOP;
-      Action centerY = Action.ACT_STOP;
+      Action centerX = Action.Stop;
+      Action centerY = Action.Stop;
 
       switch (currentAction)
       {
-        case Action.ACT_DIG_LEFT:
-        case Action.ACT_DIG_RIGHT:
+        case Action.DigLeft:
+        case Action.DigRight:
           xOffset = 0;
           yOffset = 0;
           break;
-        case Action.ACT_UP:
-        case Action.ACT_DOWN:
-        case Action.ACT_FALL:
-          if (xOffset > 0) centerX = Action.ACT_LEFT;
-          else if (xOffset < 0) centerX = Action.ACT_RIGHT;
+        case Action.Up:
+        case Action.Down:
+        case Action.Fall:
+          if (xOffset > 0) centerX = Action.Left;
+          else if (xOffset < 0) centerX = Action.Right;
           break;
-        case Action.ACT_LEFT:
-        case Action.ACT_RIGHT:
-          if (yOffset > 0) centerY = Action.ACT_UP;
-          else if (yOffset < 0) centerY = Action.ACT_DOWN;
+        case Action.Left:
+        case Action.Right:
+          if (yOffset > 0) centerY = Action.Up;
+          else if (yOffset < 0) centerY = Action.Down;
           break;
       }
 
-      var curToken = map[x][y].@base;
+      var curToken = map[x][y].Base;
 
-      if (currentAction == Action.ACT_UP)
+      if (currentAction == Action.Up)
       {
         yOffset -= yMove;
 
         if (stayCurrPos && yOffset < 0) yOffset = 0; //stay on current position
-        else if (yOffset < -H2)
+        else if (yOffset < -h2)
         { //move to y-1 position 
           if (curToken == TileType.BLOCK_T || curToken == TileType.HLADR_T) curToken = TileType.EMPTY_T; //in hole or hide laddr
-          map[x][y].act = curToken; //runner move to [x][y-1], so set [x][y].act to previous state
+          map[x][y].Act = curToken; //runner move to [x][y-1], so set [x][y].act to previous state
           y--;
           yOffset = tileH + yOffset;
-          if (map[x][y].act == TileType.GUARD_T && _guards.guardAlive(x, y)) _state.setRunnerDead(); //collision
+          if (map[x][y].Act == TileType.GUARD_T && _guards.GuardAlive(x, y)) _state.SetRunnerDead(); //collision
         }
-        newShape = Shape.runUpDn;
+        newShape = Shape.RunUpDn;
       }
 
-      if (centerY == Action.ACT_UP)
+      if (centerY == Action.Up)
       {
         yOffset -= yMove;
         if (yOffset < 0) yOffset = 0; //move to center Y	
       }
 
-      if (currentAction == Action.ACT_DOWN || currentAction == Action.ACT_FALL)
+      if (currentAction == Action.Down || currentAction == Action.Fall)
       {
         var holdOnBar = 0;
         if (curToken == TileType.BAR_T)
@@ -233,10 +234,10 @@ namespace ClassicLogic.Engine
           {
             //when runner with bar and press down will into falling state 
             // except "laddr" or "guard" at below, 11/25/2016
-            if (currentAction == Action.ACT_DOWN && y < maxTileY &&
-              map[x][y + 1].act != TileType.LADDR_T && map[x][y + 1].act != TileType.GUARD_T)
+            if (currentAction == Action.Down && y < maxTileY &&
+              map[x][y + 1].Act != TileType.LADDR_T && map[x][y + 1].Act != TileType.GUARD_T)
             {
-              currentAction = Action.ACT_FALL;
+              currentAction = Action.Fall;
             }
           }
         }
@@ -246,53 +247,53 @@ namespace ClassicLogic.Engine
         if (holdOnBar == 1 && yOffset >= 0)
         {
           yOffset = 0; //fall and hold on bar
-          currentAction = Action.ACT_FALL_BAR;
+          currentAction = Action.FallBar;
         }
         if (stayCurrPos && yOffset > 0) yOffset = 0; //stay on current position
-        else if (yOffset > H2)
+        else if (yOffset > h2)
         { //move to y+1 position
           if (curToken == TileType.BLOCK_T || curToken == TileType.HLADR_T) curToken = TileType.EMPTY_T; //in hole or hide laddr
-          map[x][y].act = curToken; //runner move to [x][y+1], so set [x][y].act to previous state
+          map[x][y].Act = curToken; //runner move to [x][y+1], so set [x][y].act to previous state
           y++;
           yOffset = yOffset - tileH;
-          if (map[x][y].act == TileType.GUARD_T && _guards.guardAlive(x, y)) _state.setRunnerDead(); //collision
+          if (map[x][y].Act == TileType.GUARD_T && _guards.GuardAlive(x, y)) _state.SetRunnerDead(); //collision
         }
 
-        if (currentAction == Action.ACT_DOWN)
+        if (currentAction == Action.Down)
         {
-          newShape = Shape.runUpDn;
+          newShape = Shape.RunUpDn;
         }
         else
         { //ACT_FALL or ACT_FALL_BAR
 
-          if (y < maxTileY && map[x][y + 1].act == TileType.GUARD_T)
+          if (y < maxTileY && map[x][y + 1].Act == TileType.GUARD_T)
           { //over guard
             //don't collision
-            var id = _guards.getGuardId(x, y + 1);
-            if (yOffset > _guards[id].pos.yOffset) yOffset = _guards[id].pos.yOffset;
+            var id = _guards.GetGuardId(x, y + 1);
+            if (yOffset > _guards[id].Position.YOffset) yOffset = _guards[id].Position.YOffset;
           }
 
-          if (currentAction == Action.ACT_FALL_BAR)
+          if (currentAction == Action.FallBar)
           {
-            if (this.lastLeftRight == Action.ACT_LEFT) newShape = Shape.barLeft;
-            else newShape = Shape.barRight;
+            if (_lastLeftRight == Action.Left) newShape = Shape.BarLeft;
+            else newShape = Shape.BarRight;
           }
           else
           {
-            if (this.lastLeftRight == Action.ACT_LEFT) newShape = Shape.fallLeft;
-            else newShape = Shape.fallRight;
+            if (_lastLeftRight == Action.Left) newShape = Shape.FallLeft;
+            else newShape = Shape.FallRight;
 
           }
         }
       }
 
-      if (centerY == Action.ACT_DOWN)
+      if (centerY == Action.Down)
       {
         yOffset += yMove;
         if (yOffset > 0) yOffset = 0; //move to center Y
       }
 
-      if (currentAction == Action.ACT_LEFT)
+      if (currentAction == Action.Left)
       {
         xOffset -= xMove;
 
@@ -300,22 +301,22 @@ namespace ClassicLogic.Engine
         else if (xOffset < -Constants.W2)
         { //move to x-1 position 
           if (curToken == TileType.BLOCK_T || curToken == TileType.HLADR_T) curToken = TileType.EMPTY_T; //in hole or hide laddr
-          map[x][y].act = curToken; //runner move to [x-1][y], so set [x][y].act to previous state
+          map[x][y].Act = curToken; //runner move to [x-1][y], so set [x][y].act to previous state
           x--;
           xOffset = tileW + xOffset;
-          if (map[x][y].act == TileType.GUARD_T && _guards.guardAlive(x, y)) _state.setRunnerDead(); //collision
+          if (map[x][y].Act == TileType.GUARD_T && _guards.GuardAlive(x, y)) _state.SetRunnerDead(); //collision
         }
-        if (curToken == TileType.BAR_T) newShape = Shape.barLeft;
-        else newShape = Shape.runLeft;
+        if (curToken == TileType.BAR_T) newShape = Shape.BarLeft;
+        else newShape = Shape.RunLeft;
       }
 
-      if (centerX == Action.ACT_LEFT)
+      if (centerX == Action.Left)
       {
         xOffset -= xMove;
         if (xOffset < 0) xOffset = 0; //move to center X
       }
 
-      if (currentAction == Action.ACT_RIGHT)
+      if (currentAction == Action.Right)
       {
         xOffset += xMove;
 
@@ -323,38 +324,37 @@ namespace ClassicLogic.Engine
         else if (xOffset > Constants.W2)
         { //move to x+1 position 
           if (curToken == TileType.BLOCK_T || curToken == TileType.HLADR_T) curToken = TileType.EMPTY_T; //in hole or hide laddr
-          map[x][y].act = curToken; //runner move to [x+1][y], so set [x][y].act to previous state
+          map[x][y].Act = curToken; //runner move to [x+1][y], so set [x][y].act to previous state
           x++;
           xOffset = xOffset - tileW;
-          if (map[x][y].act == TileType.GUARD_T && _guards.guardAlive(x, y)) _state.setRunnerDead(); //collision
+          if (map[x][y].Act == TileType.GUARD_T && _guards.GuardAlive(x, y)) _state.SetRunnerDead(); //collision
         }
-        if (curToken == TileType.BAR_T) newShape = Shape.barRight;
-        else newShape = Shape.runRight;
+        if (curToken == TileType.BAR_T) newShape = Shape.BarRight;
+        else newShape = Shape.RunRight;
       }
 
-      if (centerX == Action.ACT_RIGHT)
+      if (centerX == Action.Right)
       {
         xOffset += xMove;
         if (xOffset > 0) xOffset = 0; //move to center X
       }
 
-      if (currentAction == Action.ACT_STOP)
+      if (currentAction == Action.Stop)
       {
-        if (this.action == Action.ACT_FALL)
+        if (Action == Action.Fall)
         {
-          _state.Sound.soundStop(Sounds.soundFall);
-          _state.Sound.themeSoundPlay(Sounds.down);
+          _state.Sound.SoundStop(Sounds.SoundFall);
+          _state.Sound.ThemeSoundPlay(Sounds.Down);
         }
-        if (this.action != Action.ACT_STOP)
+        if (Action != Action.Stop)
         {
-          this.sprite.stop();
-          this.action = Action.ACT_STOP;
+          _state.Output.Enqueue<RunnerActionEvent>(_state.Tick).Action = Action.Stop;
+          Action = Action.Stop;
         }
       }
       else
       {
-        sprite.setTransform(x + xOffset, y + yOffset);
-        pos = new Position { x = x, y = y, xOffset = xOffset, yOffset = yOffset };
+        Position = new Position { X = x, Y = y, XOffset = xOffset, YOffset = yOffset };
 
         var evt = _state.Output.Enqueue<MoveRunnerEvent>(_state.Tick);
         evt.x = x + xOffset;
@@ -362,85 +362,85 @@ namespace ClassicLogic.Engine
 
         if (curShape != newShape)
         {
-          sprite.gotoAndPlay(newShape);
-          shape = newShape;
+          Sprite.GotoAndPlay(newShape);
+          Shape = newShape;
+          _state.Output.Enqueue<RunnerShapeEvent>(_state.Tick).Shape = Shape;
         }
-        if (currentAction != this.action)
+        if (currentAction != Action)
         {
-          if (this.action == Action.ACT_FALL)
+          if (Action == Action.Fall)
           {
-            _state.Sound.soundStop(Sounds.soundFall);
-            _state.Sound.themeSoundPlay(Sounds.down);
+            _state.Sound.SoundStop(Sounds.SoundFall);
+            _state.Sound.ThemeSoundPlay(Sounds.Down);
           }
-          else if (currentAction == Action.ACT_FALL)
+          else if (currentAction == Action.Fall)
           {
-            _state.Sound.soundPlay(Sounds.soundFall);
+            _state.Sound.SoundPlay(Sounds.SoundFall);
           }
-          this.sprite.play();
         }
-        if (currentAction == Action.ACT_LEFT || currentAction == Action.ACT_RIGHT) this.lastLeftRight = currentAction;
-        this.action = currentAction;
+        if (currentAction == Action.Left || currentAction == Action.Right) _lastLeftRight = currentAction;
+
+        Action = currentAction;
+
+        _state.Output.Enqueue<RunnerActionEvent>(_state.Tick).Action = Action;
+
+        _state.Output.Enqueue<RunnerActionEvent>(_state.Tick).Action = currentAction;
       }
-      map[x][y].act = TileType.RUNNER_T;
+      map[x][y].Act = TileType.RUNNER_T;
 
       //show trap tile if runner fall into the tile, 9/12/2015
-      if (map[x][y].@base == TileType.TRAP_T)
+      if (map[x][y].Base == TileType.TRAP_T)
       {
-        map[x][y].setAlpha(0.5); //show trap tile
-
         var evt = _state.Output.Enqueue<ShowTrapEvent>(_state.Tick);
         evt.X = x;
         evt.Y = y;
       }
 
       // Check runner to get gold (MAX MOVE MUST < H4 & W4) 
-      if (map[x][y].@base == TileType.GOLD_T &&
-        ((xOffset != 0 && yOffset >= 0 && yOffset < Constants.H4) ||
-        (yOffset != 0 && xOffset >= 0 && xOffset < Constants.W4) ||
-        (y < maxTileY && map[x][y + 1].@base == TileType.LADDR_T && yOffset < Constants.H4) // gold above laddr
+      if (map[x][y].Base == TileType.GOLD_T &&
+        ((Math.Abs(xOffset) > 0 && yOffset >= 0 && yOffset < Constants.H4) ||
+        (Math.Abs(yOffset) > 0 && xOffset >= 0 && xOffset < Constants.W4) ||
+        (y < maxTileY && map[x][y + 1].Base == TileType.LADDR_T && yOffset < Constants.H4) // gold above laddr
           )
           )
       {
-        _state.removeGold(x, y);
-        _state.Sound.themeSoundPlay(Sounds.getGold);
-        _state.decGold();
+        _state.RemoveGold(x, y);
+        _state.Sound.ThemeSoundPlay(Sounds.GetGold);
+        _state.DecGold();
         //debug("gold = " + goldCount);
-        if (_state.PlayMode == PlayMode.PLAY_CLASSIC || _state.PlayMode == PlayMode.PLAY_AUTO || _state.PlayMode == PlayMode.PLAY_DEMO)
-        {
-          _state.drawScore(Constants.SCORE_GET_GOLD);
-        }
-        else
-        {
-          //for modern mode , edit mode
-          _state.drawGold(1); //get gold 
-        }
+
+        _state.DrawScore(Constants.ScoreGetGold);
+        
+        //for modern mode , edit mode
+        _state.DrawGold(1); //get gold 
+
       }
       //if(!goldCount && !goldComplete) showHideLaddr();
 
       //check collision with guard !
-      checkCollision(x, y);
+      CheckCollision(x, y);
     }
 
-    public void checkCollision(int runnerX, int runnerY)
+    public void CheckCollision(int runnerX, int runnerY)
     {
       var map = _map;
       var x = -1;
       var y = -1;
       //var dbg = "NO";
 
-      if (runnerY > 0 && map[runnerX][runnerY - 1].act == TileType.GUARD_T)
+      if (runnerY > 0 && map[runnerX][runnerY - 1].Act == TileType.GUARD_T)
       {
         x = runnerX; y = runnerY - 1;//dbg = "UP";	
       }
-      else if (runnerY < _state.maxTileY && map[runnerX][runnerY + 1].act == TileType.GUARD_T)
+      else if (runnerY < _state.MaxTileY && map[runnerX][runnerY + 1].Act == TileType.GUARD_T)
       {
         x = runnerX; y = runnerY + 1;//dbg = "DN";	
       }
-      else if (runnerX > 0 && map[runnerX - 1][runnerY].act == TileType.GUARD_T)
+      else if (runnerX > 0 && map[runnerX - 1][runnerY].Act == TileType.GUARD_T)
       {
         x = runnerX - 1; y = runnerY;//dbg = "LF";	
       }
-      else if (runnerX < _state.maxTileX && map[runnerX + 1][runnerY].act == TileType.GUARD_T)
+      else if (runnerX < _state.MaxTileX && map[runnerX + 1][runnerY].Act == TileType.GUARD_T)
       {
         x = runnerX + 1; y = runnerY;//dbg = "RT";	
       }
@@ -449,66 +449,61 @@ namespace ClassicLogic.Engine
       if (x >= 0)
       {
         var i = 0;
-        for (; i < _guards.guardCount; i++)
+        for (; i < _guards.GuardCount; i++)
         {
-          if (_guards[i].pos.x == x && _guards[i].pos.y == y) break;
+          if (_guards[i].Position.X == x && _guards[i].Position.Y == y) break;
         }
-        Assert.IsTrue((i < _guards.guardCount), "checkCollision design error !");
-        if (_guards[i].action != Action.ACT_REBORN)
+        Assert.IsTrue((i < _guards.GuardCount), "checkCollision design error !");
+        if (_guards[i].Action != Action.Reborn)
         { //only guard alive need check collection
           //var dw = Math.abs(runner.sprite.x - guard[i].sprite.x);
           //var dh = Math.abs(runner.sprite.y - guard[i].sprite.y);
 
           //change detect method ==> don't depend on scale 
-          var runnerPosX = this.pos.x * Constants.tileW + this.pos.xOffset;
-          var runnerPosY = this.pos.y * Constants.tileH + this.pos.yOffset;
-          var guardPosX = _guards[i].pos.x * Constants.tileW + _guards[i].pos.xOffset;
-          var guardPosY = _guards[i].pos.y * Constants.tileH + _guards[i].pos.yOffset;
+          var runnerPosX = Position.X * Constants.TileW + Position.XOffset;
+          var runnerPosY = Position.Y * Constants.TileH + Position.YOffset;
+          var guardPosX = _guards[i].Position.X * Constants.TileW + _guards[i].Position.XOffset;
+          var guardPosY = _guards[i].Position.Y * Constants.TileH + _guards[i].Position.YOffset;
 
           var dw = Math.Abs(runnerPosX - guardPosX);
           var dh = Math.Abs(runnerPosY - guardPosY);
 
           if (dw <= Constants.W4 * 3 && dh <= Constants.H4 * 3)
           {
-            _state.setRunnerDead(); //07/04/2014
+            _state.SetRunnerDead(); //07/04/2014
                                     //debug("runner dead!");
           }
         }
       }
     }
 
-    public bool ok2Dig(Action nextMove)
+    public bool Ok2Dig(Action nextMove)
     {
-      var x = pos.x;
-      var y = pos.y;
+      var x = Position.X;
+      var y = Position.Y;
       bool result = false;
 
       switch (nextMove)
       {
-        case Action.ACT_DIG_LEFT:
+        case Action.DigLeft:
           //		debug("[x-1][y+1] = " + map[x-1][y+1].act + " [x-1][y] = " + map[x-1][y].act + 
           //			  "[x-1][y].base = " + map[x-1][y].base );
 
-          if (y < _state.maxTileY && x > 0 && _map[x - 1][y + 1].act == TileType.BLOCK_T &&
-              _map[x - 1][y].act == TileType.EMPTY_T && _map[x - 1][y].@base != TileType.GOLD_T)
+          if (y < _state.MaxTileY && x > 0 && _map[x - 1][y + 1].Act == TileType.BLOCK_T &&
+              _map[x - 1][y].Act == TileType.EMPTY_T && _map[x - 1][y].Base != TileType.GOLD_T)
             result = true;
           break;
-        case Action.ACT_DIG_RIGHT:
+        case Action.DigRight:
           //		debug("[x+1][y+1] = " + map[x+1][y+1].act + " [x+1][y] = " + map[x+1][y].act + 
           //			  "[x+1][y].base = " + map[x+1][y].base );
 
-          if (y < _state.maxTileY && x < _state.maxTileX && _map[x + 1][y + 1].act == TileType.BLOCK_T &&
-              _map[x + 1][y].act == TileType.EMPTY_T && _map[x + 1][y].@base != TileType.GOLD_T)
+          if (y < _state.MaxTileY && x < _state.MaxTileX && _map[x + 1][y + 1].Act == TileType.BLOCK_T &&
+              _map[x + 1][y].Act == TileType.EMPTY_T && _map[x + 1][y].Base != TileType.GOLD_T)
             result = true;
           break;
       }
 
       return result;
-    }
-
-    public void hideRunner()
-    {
-
     }
   }
 }

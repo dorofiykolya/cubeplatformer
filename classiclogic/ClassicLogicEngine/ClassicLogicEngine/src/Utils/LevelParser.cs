@@ -8,7 +8,7 @@ namespace ClassicLogic.Utils
     {
       //(1) create empty map[x][y] array;
       var map = new LevelMap();
-      map.maxGuard = maxGuard;
+      map.MaxGuard = maxGuard;
 
       var mapGuards = 0;
 
@@ -39,54 +39,54 @@ namespace ClassicLogic.Utils
           switch (id)
           {
             case TileType.BLOCK_T: //Normal Brick
-              tile.@base = TileType.BLOCK_T;
-              tile.act = TileType.BLOCK_T;
+              tile.Base = TileType.BLOCK_T;
+              tile.Act = TileType.BLOCK_T;
               //tile.bitmap.name = "brick";
               break;
             case TileType.SOLID_T: //Solid Brick
-              tile.@base = TileType.SOLID_T;
-              tile.act = TileType.SOLID_T;
+              tile.Base = TileType.SOLID_T;
+              tile.Act = TileType.SOLID_T;
               //tile.bitmap.name = "solid";
               break;
             case TileType.LADDR_T: //Ladder
-              tile.@base = TileType.LADDR_T;
-              tile.act = TileType.LADDR_T;
+              tile.Base = TileType.LADDR_T;
+              tile.Act = TileType.LADDR_T;
               //tile.bitmap.name = "ladder";
               break;
             case TileType.BAR_T: //Line of rope
-              tile.@base = TileType.BAR_T;
-              tile.act = TileType.BAR_T;
+              tile.Base = TileType.BAR_T;
+              tile.Act = TileType.BAR_T;
               //tile.bitmap.name = "rope";
               break;
             case TileType.TRAP_T: //False brick
-              tile.@base = TileType.TRAP_T; //behavior same as empty
-              tile.act = TileType.TRAP_T;
+              tile.Base = TileType.TRAP_T; //behavior same as empty
+              tile.Act = TileType.TRAP_T;
               //tile.bitmap.name = "brick";
               break;
             case TileType.HLADR_T: //Ladder appears at end of level
-              tile.@base = TileType.HLADR_T; //behavior same as empty before end of level
-              tile.act = TileType.EMPTY_T; //behavior same as empty before end of level
+              tile.Base = TileType.HLADR_T; //behavior same as empty before end of level
+              tile.Act = TileType.EMPTY_T; //behavior same as empty before end of level
 
               //tile.bitmap.name = "ladder";
               //tile.bitmap.setAlpha(0); //hide the laddr
               break;
             case TileType.GOLD_T: //Gold chest
-              tile.@base = TileType.GOLD_T; //keep gold on base map
-              tile.act = TileType.EMPTY_T;
+              tile.Base = TileType.GOLD_T; //keep gold on base map
+              tile.Act = TileType.EMPTY_T;
               //tile.bitmap.name = "gold";
-              map.goldCount += 1;
+              map.GoldCount += 1;
               break;
             case TileType.GUARD_T: //Guard
-              tile.@base = TileType.EMPTY_T;
-              tile.act = TileType.GUARD_T;
+              tile.Base = TileType.EMPTY_T;
+              tile.Act = TileType.GUARD_T;
               //tile.bitmap = null;
               if ((--mapGuards) >= maxGuard)
               {
-                tile.act = TileType.EMPTY_T; //too many guards, set this tile as empty
+                tile.Act = TileType.EMPTY_T; //too many guards, set this tile as empty
               }
               else
               {
-                map.guardCount += 1;
+                map.GuardCount += 1;
               }
               /*
               curTile = new createjs.Sprite(guardData, "runLeft");
@@ -102,17 +102,17 @@ namespace ClassicLogic.Utils
               curTile.stop();*/
               break;
             case TileType.RUNNER_T: //Player
-              tile.@base = TileType.EMPTY_T;
-              tile.act = TileType.RUNNER_T;
+              tile.Base = TileType.EMPTY_T;
+              tile.Act = TileType.RUNNER_T;
               //tile.bitmap = null;
-              tile.action = Action.ACT_UNKNOWN;
-              if (map.runner != null)
+              tile.Action = Action.Unknown;
+              if (map.Runner != null)
               {
-                tile.act = TileType.EMPTY_T; //too many runner, set this tile as empty
+                tile.Act = TileType.EMPTY_T; //too many runner, set this tile as empty
               }
               else
               {
-                map.runner = tile;
+                map.Runner = tile;
 
                 /*runner = { };
                 curTile = runner.sprite = new createjs.Sprite(runnerData, "runRight");
@@ -126,8 +126,8 @@ namespace ClassicLogic.Utils
 
               break;
             case TileType.EMPTY_T: //empty
-              tile.@base = TileType.EMPTY_T;
-              tile.act = TileType.EMPTY_T;
+              tile.Base = TileType.EMPTY_T;
+              tile.Act = TileType.EMPTY_T;
               //tile.bitmap = null;
               break;
             default:

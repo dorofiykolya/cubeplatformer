@@ -57,7 +57,7 @@ namespace ClassicLogicEngineViewer
       };
       _timer.Start();
 
-      _engine = new Engine(AIVersion.V4, new StringLevelReader(LevelsData.Level0), Mode.Modern);
+      _engine = new Engine(new StringLevelReader(LevelsData.Level0));
 
       AddCommand<InitializeEvent, InitializeCommand>();
       AddCommand<MoveRunnerEvent, MoveRunnerCommand>();
@@ -108,25 +108,25 @@ namespace ClassicLogicEngineViewer
       switch (evt.Key)
       {
         case Key.Left:
-          _engine.SetAction(KeyCode.KEYCODE_LEFT);
+          _engine.SetAction(InputAction.Left);
           break;
         case Key.Right:
-          _engine.SetAction(KeyCode.KEYCODE_RIGHT);
+          _engine.SetAction(InputAction.Right);
           break;
         case Key.Up:
-          _engine.SetAction(KeyCode.KEYCODE_UP);
+          _engine.SetAction(InputAction.Up);
           break;
         case Key.Down:
-          _engine.SetAction(KeyCode.KEYCODE_DOWN);
+          _engine.SetAction(InputAction.Down);
           break;
         case Key.Z:
-          _engine.SetAction(KeyCode.KEYCODE_Z);
+          _engine.SetAction(InputAction.DigLeft);
           break;
         case Key.X:
-          _engine.SetAction(KeyCode.KEYCODE_X);
+          _engine.SetAction(InputAction.DigRight);
           break;
         default:
-          _engine.SetAction(KeyCode.KEYCODE_ENTER);
+          _engine.SetAction(InputAction.Unknown);
           break;
       }
     }

@@ -10,14 +10,12 @@ namespace ClassicLogic.Engine
     private readonly int _seedValue;
     private int[] _rndList;
     private int _idx;
-    private int _reset;
     private int _seed;
 
     public RandomRange(int minValue, int maxValue, int seedValue)
     {
       _random = new Random();
 
-      _reset = 0;
       _min = minValue;
       var max = maxValue;
       _seedValue = seedValue;
@@ -29,21 +27,25 @@ namespace ClassicLogic.Engine
       }
       _items = max - _min + 1;
 
-      rndStart();
+      Calculate();
     }
 
-    public int rndReset()
+    public int Get()
     {
-      return _reset;
+      if (_idx >= _items)
+      {
+        Calculate();
+      }
+      return _rndList[_idx++];
     }
 
-    private int seedRandom()
+    private int CalculateSeed()
     {
       var x = Math.Sin(_seed++) * 10000;
       return (int)(x - Math.Floor(x));
     }
 
-    private void rndStart()
+    private void Calculate()
     {
       _rndList = new int[_items];
       for (var i = 0; i < _items; i++) _rndList[i] = _min + i;
@@ -53,7 +55,7 @@ namespace ClassicLogic.Engine
         if (_seedValue > 0)
         {
           _seed = _seedValue;
-          swapId = (seedRandom() * _items) | 0;
+          swapId = (CalculateSeed() * _items) | 0;
         }
         else
         {
@@ -64,20 +66,6 @@ namespace ClassicLogic.Engine
         _rndList[swapId] = tmp;
       }
       _idx = 0;
-    }
-
-    public int get()
-    {
-      if (_idx >= _items)
-      {
-        rndStart();
-        _reset = 1;
-      }
-      else
-      {
-        _reset = 0;
-      }
-      return _rndList[_idx++];
     }
   }
 }

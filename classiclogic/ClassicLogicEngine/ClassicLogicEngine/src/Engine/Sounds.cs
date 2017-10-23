@@ -1,13 +1,13 @@
 ﻿namespace ClassicLogic.Engine
 {
-  public class Sounds
+  public enum Sounds
   {
-    public const string trap = "trap";
-    public const string reborn = "reborn";
-    public const string goldFinish = "goldFinish";
-    public const string getGold = "getGold";
-    public const string soundDig = "soundDig";
-    public const string soundFall = "soundFall";
-    public const string down = "down";
+    Trap,
+    Reborn,
+    GoldFinish,
+    GetGold,
+    SoundDig,
+    SoundFall,
+    Down
   }
 }

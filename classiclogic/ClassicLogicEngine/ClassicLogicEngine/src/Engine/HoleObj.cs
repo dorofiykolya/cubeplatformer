@@ -2,24 +2,24 @@ namespace ClassicLogic.Engine
 {
   public class HoleObj
   {
-    public Sprite sprite;
-    public int digLimit;
-    public Action action;
-    public Position pos = new Position();
-    public int[] shapeFrame;
-    public int curFrameIdx;
+    public Sprite Sprite;
+    public int DigLimit;
+    public Action Action;
+    public Position Position = new Position();
+    public int[] ShapeFrame;
+    public int CurFrameIdx;
 
-    public HoleObj(Tile[][] map, EngineState state, SpriteSheet spriteSheet)
+    public HoleObj(Tile[][] map, EngineState state)
     {
-      sprite = new Sprite(spriteSheet);
+      Sprite = new Sprite();
     }
 
-    public void removeFromScene()
+    public void RemoveFromScene()
     {
 
     }
 
-    public void addToScene()
+    public void AddToScene()
     {
 
     }
