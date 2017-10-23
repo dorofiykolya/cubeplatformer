@@ -20,13 +20,13 @@ namespace Game.UI.Controllers
     private Signal _onUnload;
     private UISceneComponent _sceneComponent;
 
-    protected override void Preinitialize()
+    protected override void OnPreinitialize()
     {
       _onReady = new Signal(Lifetime);
       _onUnload = new Signal(Lifetime);
     }
 
-    protected override void Initialize()
+    protected override void OnInitialize()
     {
       _gameSceneManager.LoadScene("UI", LoadSceneMode.Additive, SceneLoadedHandler);
     }

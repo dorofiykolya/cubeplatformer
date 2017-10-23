@@ -16,7 +16,7 @@ namespace Game.Managers
 
     private Lifetime.Definition _levelDefinition;
 
-    protected override void Initialize()
+    protected override void OnInitialize()
     {
       _levelManager.SubscribeOnLoaded(Lifetime, LevelLoadedHandler);
       _levelManager.SubscribeOnUnloaded(Lifetime, LevelUnloadedHandler);
@@ -38,7 +38,7 @@ namespace Game.Managers
         _stateManager.Current = _stateManager.Prev;
       });
       _stateManager.Current = GameState.ClassicPlayMode;
-      var logic = new Game.Logics.Classic.ClassicLogicEngine(_levelDefinition.Lifetime, info.Level);
+      var logic = new Game.Logics.Classic.ClassicLogicEngine(Context, _levelDefinition.Lifetime, info.Level);
       logic.ViewContext.Preset = info.Preset;
 
       var input = new LevelInputContenxt(Context, _levelDefinition.Lifetime, Context.InputContext);

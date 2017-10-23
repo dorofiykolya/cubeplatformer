@@ -343,8 +343,8 @@ namespace ClassicLogic.Engine
       {
         if (Action == Action.Fall)
         {
-          _state.Sound.SoundStop(Sounds.SoundFall);
-          _state.Sound.ThemeSoundPlay(Sounds.Down);
+          _state.Sound.SoundStop(Sounds.Fall);
+          _state.Sound.LoopSoundPlay(Sounds.Down);
         }
         if (Action != Action.Stop)
         {
@@ -370,12 +370,12 @@ namespace ClassicLogic.Engine
         {
           if (Action == Action.Fall)
           {
-            _state.Sound.SoundStop(Sounds.SoundFall);
-            _state.Sound.ThemeSoundPlay(Sounds.Down);
+            _state.Sound.SoundStop(Sounds.Fall);
+            _state.Sound.LoopSoundPlay(Sounds.Down);
           }
           else if (currentAction == Action.Fall)
           {
-            _state.Sound.SoundPlay(Sounds.SoundFall);
+            _state.Sound.SoundPlay(Sounds.Fall);
           }
         }
         if (currentAction == Action.Left || currentAction == Action.Right) _lastLeftRight = currentAction;
@@ -405,7 +405,7 @@ namespace ClassicLogic.Engine
           )
       {
         _state.RemoveGold(x, y);
-        _state.Sound.ThemeSoundPlay(Sounds.GetGold);
+        _state.Sound.LoopSoundPlay(Sounds.GetGold);
         _state.DecGold();
         //debug("gold = " + goldCount);
 

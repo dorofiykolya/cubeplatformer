@@ -12,7 +12,7 @@ namespace Game
     private GameState _prev;
     private GameState _current;
 
-    protected override void Preinitialize()
+    protected override void OnPreinitialize()
     {
       _current = _prev = GameState.Preloader;
 

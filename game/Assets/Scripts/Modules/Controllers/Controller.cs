@@ -12,13 +12,13 @@ namespace Game
     private void PreinitializeController()
     {
       _lifetime.AddAction(OnDispose);
-      Preinitialize();
+      OnPreinitialize();
     }
 
     [Initialize]
     private void InitializeController()
     {
-      Initialize();
+      OnInitialize();
     }
 
     protected Lifetime Lifetime
@@ -26,12 +26,12 @@ namespace Game
       get { return _lifetime; }
     }
 
-    protected virtual void Preinitialize()
+    protected virtual void OnPreinitialize()
     {
 
     }
 
-    protected virtual void Initialize()
+    protected virtual void OnInitialize()
     {
 
     }

@@ -27,6 +27,12 @@ namespace Game.Logics.Classic
       AddCommand<GuardHasGoldEvent, ClassicLogicGuardHasGoldCommand>();
       AddCommand<AddGoldEvent, ClassicLogicAddGoldCommand>();
       AddCommand<RemoveGoldEvent, ClassicLogicRemoveGoldCommand>();
+      AddCommand<PlaySoundEvent, ClassicLogicPlaySoundCommand>();
+      AddCommand<StopSoundEvent, ClassicLogicStopSoundCommand>();
+      AddCommand<RunnerActionEvent, ClassicLogicRunnerActionCommand>();
+      AddCommand<RunnerShapeEvent, ClassicLogicRunnerShapeCommand>();
+      AddCommand<GuardActionEvent, ClassicLogicGuardActionCommand>();
+      AddCommand<GuardShapeEvent, ClassicLogicGuardShapeCommand>();
     }
 
     public void Execute(OutputEvent evt, ClassicLogicEngine engine)

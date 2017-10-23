@@ -34,6 +34,8 @@ namespace Game
 
       var injector = new Injector();
 
+      injector.Map<GameStartBehaviour>().ToValue(behaviour);
+
       _providers = new GameProviders(lifetime, behaviour);
       _timeManager = new TimeManager(lifetime, behaviour);
       _resourceManager = new ResourceManager(_providers.CoroutineProvider);

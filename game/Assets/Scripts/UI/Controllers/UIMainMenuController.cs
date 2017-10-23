@@ -15,7 +15,7 @@ namespace Game.UI.Controllers
     [Inject]
     private GameStateManager _stateManager;
 
-    protected override void Initialize()
+    protected override void OnInitialize()
     {
       _sceneController.SubscribeOnSceneReady(Lifetime, InitializeMenu);
     }

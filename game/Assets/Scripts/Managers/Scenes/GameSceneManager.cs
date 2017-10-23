@@ -10,7 +10,7 @@ namespace Game.Managers
   {
     private Signal<Scene> _onSceneLoaded;
 
-    protected override void Initialize()
+    protected override void OnInitialize()
     {
       _onSceneLoaded = new Signal<Scene>(Lifetime);
     }

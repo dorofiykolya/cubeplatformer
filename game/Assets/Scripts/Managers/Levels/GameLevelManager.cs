@@ -18,13 +18,13 @@ namespace Game.Managers
     private GameLevels _classicLevels;
     private GameClassicLevelInfo _classicLevel;
 
-    protected override void Preinitialize()
+    protected override void OnPreinitialize()
     {
       _onLoaded = new Signal<GameClassicLevelInfo>(Lifetime);
       _onUnload = new Signal<GameClassicLevelInfo>(Lifetime);
     }
 
-    protected override void Initialize()
+    protected override void OnInitialize()
     {
       _classicLevels = Resources.Load<GameLevels>("GameLevels");
     }

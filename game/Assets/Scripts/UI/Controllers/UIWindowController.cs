@@ -80,7 +80,7 @@ namespace Game.UI.Controllers
       get { return _queue.Select(w => w.Reference).ToArray(); }
     }
 
-    protected override void Initialize()
+    protected override void OnInitialize()
     {
       foreach (var windowMap in new UIWindowsProvider().GetWindows())
       {

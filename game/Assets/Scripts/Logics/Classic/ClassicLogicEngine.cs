@@ -9,13 +9,15 @@ namespace Game.Logics.Classic
 {
   public class ClassicLogicEngine : ILogicEngine
   {
+    private readonly GameContext _context;
     private readonly ClassicLogicCommandProcessor _processor = new ClassicLogicCommandProcessor();
     private readonly Engine _engine;
 
     private readonly ClassicLogicViewContext _viewContext;
 
-    public ClassicLogicEngine(Lifetime lifetime, string data)
+    public ClassicLogicEngine(GameContext context, Lifetime lifetime, string data)
     {
+      _context = context;
       data = data.Replace("\r\n", "\n");
       _engine = new Engine(new StringLevelReader(data));
       _viewContext = new ClassicLogicViewContext(lifetime, _engine.State.MaxTileX, _engine.State.MaxTileY);
@@ -59,5 +61,10 @@ namespace Game.Logics.Classic
     public int TicksPerSeconds { get { return 30; } }
 
     public ClassicLogicViewContext ViewContext { get { return _viewContext; } }
+
+    public GameContext Context
+    {
+      get { return _context; }
+    }
   }
 }

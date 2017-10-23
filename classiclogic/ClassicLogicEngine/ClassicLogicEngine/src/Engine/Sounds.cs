@@ -3,11 +3,13 @@
   public enum Sounds
   {
     Trap,
+    Dead,
     Reborn,
     GoldFinish,
     GetGold,
-    SoundDig,
-    SoundFall,
-    Down
+    Dig,
+    Fall,
+    Down,
+    Pass
   }
 }

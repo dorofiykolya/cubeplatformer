@@ -7,7 +7,7 @@ namespace Game.Views.Controllers
   {
     private GamePreloaderComponent _preloader;
 
-    protected override void Initialize()
+    protected override void OnInitialize()
     {
       if (Context.Preloader.Opened)
       {

@@ -18,12 +18,12 @@ namespace ClassicLogic.Engine
 
     public void SoundPlay(Sounds name)
     {
-      _engine.Output.Enqueue<PlaySoundEvent>(_engine.State.Tick).Sound = name;
+      _engine.Output.Enqueue<PlaySoundEvent>(_engine.State.Tick).Set(name, false);
     }
 
-    public void ThemeSoundPlay(Sounds name)
+    public void LoopSoundPlay(Sounds name)
     {
-      _engine.Output.Enqueue<PlaySoundEvent>(_engine.State.Tick).Sound = name;
+      _engine.Output.Enqueue<PlaySoundEvent>(_engine.State.Tick).Set(name, true);
     }
   }
 }

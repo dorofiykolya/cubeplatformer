@@ -250,7 +250,7 @@ namespace ClassicLogic.Engine
           break;
       }
 
-      _engine.Sound.SoundStop(Sounds.SoundDig); //stop sound of digging
+      _engine.Sound.SoundStop(Sounds.Dig); //stop sound of digging
     }
 
     public bool IsDigging()
@@ -333,7 +333,7 @@ namespace ClassicLogic.Engine
         Runner.Shape = Shape.DigRight;
       }
 
-      _engine.Sound.SoundPlay(Sounds.SoundDig);
+      _engine.Sound.SoundPlay(Sounds.Dig);
 
       Output.Enqueue<RunnerShapeEvent>(Tick).Shape = Runner.Shape;
 

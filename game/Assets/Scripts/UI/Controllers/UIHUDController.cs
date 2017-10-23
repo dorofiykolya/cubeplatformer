@@ -47,7 +47,7 @@ namespace Game.UI.Controllers
       return shell;
     }
 
-    protected override void Initialize()
+    protected override void OnInitialize()
     {
       foreach (var map in new UIHUDProvider().GetMap())
       {

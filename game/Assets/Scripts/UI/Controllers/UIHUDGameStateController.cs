@@ -13,7 +13,7 @@ namespace Game.UI.Controllers
     [Inject]
     private UIHUDController _hudController;
 
-    protected override void Initialize()
+    protected override void OnInitialize()
     {
       Map<UIHUDClassicPlayMode>(GameState.ClassicPlayMode);
       Map<UIHUDMainMenu>(GameState.Menu);

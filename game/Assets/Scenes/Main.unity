@@ -77,15 +77,17 @@ LightmapSettings:
     m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 500
     m_PVRBounces: 2
-    m_PVRFiltering: 0
+    m_PVRFilterTypeDirect: 0
+    m_PVRFilterTypeIndirect: 0
+    m_PVRFilterTypeAO: 0
     m_PVRFilteringMode: 1
     m_PVRCulling: 1
     m_PVRFilteringGaussRadiusDirect: 1
     m_PVRFilteringGaussRadiusIndirect: 5
     m_PVRFilteringGaussRadiusAO: 2
-    m_PVRFilteringAtrousColorSigma: 1
-    m_PVRFilteringAtrousNormalSigma: 1
-    m_PVRFilteringAtrousPositionSigma: 1
+    m_PVRFilteringAtrousPositionSigmaDirect: 0.5
+    m_PVRFilteringAtrousPositionSigmaIndirect: 2
+    m_PVRFilteringAtrousPositionSigmaAO: 1
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -117,6 +119,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1224891705}
   - component: {fileID: 1224891704}
+  - component: {fileID: 1224891706}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -148,3 +151,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1224891706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1224891703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa3121fd7e4cce94ea15570015b830cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _clips:
+  - {fileID: 8300000, guid: 9ba7359d1205c2443938b0293535a0d9, type: 3}
+  - {fileID: 8300000, guid: 16488bbc160274741b9c71024812b401, type: 3}
+  - {fileID: 8300000, guid: 8ca63699c4528f84aa7d97ffe005c283, type: 3}
+  - {fileID: 8300000, guid: a64856d2f3764314ea19ff136d3c246f, type: 3}
+  - {fileID: 8300000, guid: 85fb0a88e49b8c649a61fc53ae15c48a, type: 3}
+  - {fileID: 8300000, guid: 81d7091b282bbf54daf06c8454171e7f, type: 3}
+  - {fileID: 8300000, guid: 81ef6c87cfa462f4580309915b5d9514, type: 3}
+  - {fileID: 8300000, guid: 7183e3920b756c841a799c20f012d5b1, type: 3}

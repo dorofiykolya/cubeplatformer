@@ -293,7 +293,7 @@ namespace ClassicLogic.Engine
 
             if (curShape == Shape.FallRight) newShape = Shape.ShakeRight;
             else newShape = Shape.ShakeLeft;
-            _state.Sound.ThemeSoundPlay(Sounds.Trap);
+            _state.Sound.LoopSoundPlay(Sounds.Trap);
 
             Add2GuardShakeQueue(id, newShape);
 
@@ -1058,7 +1058,7 @@ namespace ClassicLogic.Engine
       curGuard.Shape = Shape.FallRight;
       //guard[id].hasGold = 0;
       curGuard.Sprite.GotoAndPlay(Shape.FallRight);
-      _state.Sound.ThemeSoundPlay(Sounds.Reborn);
+      _state.Sound.LoopSoundPlay(Sounds.Reborn);
 
       _state.Output.Enqueue<GuardActionEvent>(_state.Tick).Set(curGuard.Id, curGuard.Action);
       _state.Output.Enqueue<GuardShapeEvent>(_state.Tick).Set(curGuard.Id, curGuard.Shape);
