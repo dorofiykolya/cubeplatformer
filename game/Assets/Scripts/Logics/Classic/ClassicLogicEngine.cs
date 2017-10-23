@@ -19,7 +19,7 @@ namespace Game.Logics.Classic
     {
       _context = context;
       data = data.Replace("\r\n", "\n");
-      _engine = new Engine(new StringLevelReader(data));
+      _engine = new Engine(new StringLevelReader(data), 0.5);
       _viewContext = new ClassicLogicViewContext(lifetime, _engine.State.MaxTileX, _engine.State.MaxTileY);
     }
 
@@ -58,7 +58,7 @@ namespace Game.Logics.Classic
     public int Tick { get { return _engine.State.Tick; } }
     public bool IsFinished { get { return _engine.State.State == ClassicLogic.Engine.GameState.GameFinish; } }
     public int MaxTicks { get { return int.MaxValue; } }
-    public int TicksPerSeconds { get { return 30; } }
+    public int TicksPerSeconds { get { return 60; } }
 
     public ClassicLogicViewContext ViewContext { get { return _viewContext; } }
 

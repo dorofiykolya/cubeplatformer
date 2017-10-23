@@ -36,7 +36,7 @@ namespace ClassicLogic.Engine
     public int[] ShakeTime;
     public int[][] MovePolicy;
 
-    public EngineState(Configuration config, LevelMap levelMap, Engine engine)
+    public EngineState(Configuration config, LevelMap levelMap, Engine engine, double speedScale)
     {
       _config = config;
       _levelMap = levelMap;
@@ -44,8 +44,8 @@ namespace ClassicLogic.Engine
 
       _random = new Random();
 
-      XMove = config.XMoveBase;
-      YMove = config.YMoveBase;
+      XMove = config.XMoveBase * speedScale;
+      YMove = config.YMoveBase * speedScale;
 
       Map = _levelMap.ToArray();
       GoldCount = levelMap.GoldCount;

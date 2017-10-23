@@ -215,7 +215,7 @@ namespace ClassicLogic.Engine
           yOffset = tileH + yOffset;
           if (map[x][y].Act == TileType.GUARD_T && _guards.GuardAlive(x, y)) _state.SetRunnerDead(); //collision
         }
-        newShape = Shape.RunUpDn;
+        newShape = Shape.RunUp;
       }
 
       if (centerY == Action.Up)
@@ -261,7 +261,7 @@ namespace ClassicLogic.Engine
 
         if (currentAction == Action.Down)
         {
-          newShape = Shape.RunUpDn;
+          newShape = Shape.RunDown;
         }
         else
         { //ACT_FALL or ACT_FALL_BAR
@@ -381,9 +381,7 @@ namespace ClassicLogic.Engine
         if (currentAction == Action.Left || currentAction == Action.Right) _lastLeftRight = currentAction;
 
         Action = currentAction;
-
-        _state.Output.Enqueue<RunnerActionEvent>(_state.Tick).Action = Action;
-
+        
         _state.Output.Enqueue<RunnerActionEvent>(_state.Tick).Action = currentAction;
       }
       map[x][y].Act = TileType.RUNNER_T;

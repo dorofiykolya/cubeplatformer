@@ -200,7 +200,7 @@ namespace ClassicLogic.Engine
         {
           DropGold(id); //decrease count
         }
-        newShape = Shape.RunUpDn;
+        newShape = Shape.RunUp;
       }
 
       if (centerY == Action.Up)
@@ -308,7 +308,7 @@ namespace ClassicLogic.Engine
 
         if (action == Action.Down)
         {
-          newShape = Shape.RunUpDn;
+          newShape = Shape.RunDown;
         }
         else
         { //ACT_FALL or ACT_FALL_BAR
@@ -895,8 +895,8 @@ namespace ClassicLogic.Engine
     {
       var curGuard = Guard[id];
       curGuard.Action = Action.ClimbOut;
-      curGuard.Sprite.GotoAndPlay(Shape.RunUpDn);
-      curGuard.Shape = Shape.RunUpDn;
+      curGuard.Sprite.GotoAndPlay(Shape.RunUp);
+      curGuard.Shape = Shape.RunDown;
       curGuard.HolePos = new Point
       {
         x = curGuard.Position.X,

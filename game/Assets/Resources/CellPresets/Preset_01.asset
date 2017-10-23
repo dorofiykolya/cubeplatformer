@@ -67,7 +67,7 @@ MonoBehaviour:
     Direction: 0
     Id: 
     Name: Player_01
-    Prefab: {fileID: 114256861704053510, guid: bb9ce9c9bd935b8419bea73d004e3428, type: 2}
+    Prefab: {fileID: 114556706511693246, guid: 7ec657dda23a8c640a9625d5e3024d5c, type: 2}
   - Type: 8
     Direction: 0
     Id: 

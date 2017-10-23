@@ -9,14 +9,14 @@ namespace ClassicLogic.Engine
     private readonly EngineOutput _output;
     private readonly EngineSound _sound;
 
-    public Engine(LevelReader level)
+    public Engine(LevelReader level, double speedScale = 1.0)
     {
       _output = new EngineOutput();
       _sound = new EngineSound(this);
 
       var config = Constants.Configuration[AiVersion.V4];
 
-      _state = new EngineState(config, LevelParser.Parse(level, config.MaxGuard), this);
+      _state = new EngineState(config, LevelParser.Parse(level, config.MaxGuard), this, speedScale);
     }
 
     public EngineState State { get { return _state; } }

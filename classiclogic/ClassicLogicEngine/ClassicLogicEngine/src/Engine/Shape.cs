@@ -2,7 +2,8 @@
 {
   public enum Shape
   {
-    RunUpDn,
+    RunUp,
+    RunDown,
     BarLeft,
     BarRight,
     RunLeft,

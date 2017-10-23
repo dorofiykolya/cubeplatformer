@@ -109,8 +109,6 @@ NavMeshSettings:
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
-    debug:
-      m_Flags: 0
   m_NavMeshData: {fileID: 0}
 --- !u!1 &243678534
 GameObject:
@@ -179,6 +177,7 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+  m_StereoMirrorMode: 0
 --- !u!4 &243678539
 Transform:
   m_ObjectHideFlags: 0
@@ -223,11 +222,11 @@ MonoBehaviour:
   m_AutoTargetPlayer: 1
   m_UpdateType: 1
   m_MoveSpeed: 3
-  m_TurnSpeed: 1
+  m_TurnSpeed: 3
   m_RollSpeed: 0.2
   m_FollowVelocity: 0
   m_FollowTilt: 1
-  m_SpinTurnLimit: 90
+  m_SpinTurnLimit: 10
   m_TargetVelocityLowerLimit: 4
   m_SmoothTurnTime: 0.2
 --- !u!4 &1453314844

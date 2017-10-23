@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 1224891705}
   - component: {fileID: 1224891704}
   - component: {fileID: 1224891706}
+  - component: {fileID: 1224891707}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -171,3 +172,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 81d7091b282bbf54daf06c8454171e7f, type: 3}
   - {fileID: 8300000, guid: 81ef6c87cfa462f4580309915b5d9514, type: 3}
   - {fileID: 8300000, guid: 7183e3920b756c841a799c20f012d5b1, type: 3}
+--- !u!81 &1224891707
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1224891703}
+  m_Enabled: 1
