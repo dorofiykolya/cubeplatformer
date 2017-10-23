@@ -12,16 +12,20 @@ MonoBehaviour:
   m_Name: GameLevels
   m_EditorClassIdentifier: 
   Levels:
-  - Name: Level_01
+  - Name: Level_01_name
     Description: Level_01_desr
     DataType: 1
     EnvironmentPrefab:
-      _path: 
+      _path: Environment/Castle
+      _serializedType: Game.Views.Components.EnvironmentComponent, Assembly-CSharp
     LevelPrefab:
       _path: 
+      _serializedType: Game.Views.Components.LevelComponent, Assembly-CSharp
     LevelStringData:
       _path: ClassicLevels/classic_level
+      _serializedType: UnityEngine.TextAsset, UnityEngine.CoreModule
     Preset:
       _path: CellPresets/Preset_01
+      _serializedType: Game.CellPreset, Assembly-CSharp
     Scene:
       SceneName: Level_01
