@@ -6,6 +6,8 @@ using Game.UI.Components;
 using Injection;
 using UnityEngine.SceneManagement;
 using Utils;
+using Game.Managers.Commands;
+using Game.Messages;
 
 namespace Game.UI.Controllers
 {
@@ -28,7 +30,7 @@ namespace Game.UI.Controllers
 
     protected override void OnInitialize()
     {
-      _gameSceneManager.LoadScene("UI", LoadSceneMode.Additive, SceneLoadedHandler);
+      Context.CommandMap.Map<StartMessage>().RegisterCommand(lifetime => new StartGameCommand(this), true);
     }
 
     public void SubscribeOnSceneReady(Lifetime lifetime, Action listener)
@@ -65,6 +67,21 @@ namespace Game.UI.Controllers
         }
       }
       throw new Exception();
+    }
+
+    private class StartGameCommand : ICommand
+    {
+      private UISceneController _uISceneController;
+
+      public StartGameCommand(UISceneController uISceneController)
+      {
+        _uISceneController = uISceneController;
+      }
+
+      public void Execute()
+      {
+        _uISceneController._gameSceneManager.LoadScene(GameScenes.UI, LoadSceneMode.Additive, _uISceneController.SceneLoadedHandler);
+      }
     }
   }
 }

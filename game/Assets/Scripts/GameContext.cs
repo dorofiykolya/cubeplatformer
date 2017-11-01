@@ -8,10 +8,13 @@ using Injection;
 using UnityEngine;
 using Utils;
 using Utils.Threading;
+using Game.Modules;
+using Game.Managers.Commands;
+using Game.Messages;
 
 namespace Game
 {
-  public class GameContext
+  public class GameContext : IContext
   {
     private readonly Lifetime _lifetime;
     private readonly TimeManager _timeManager;
@@ -25,6 +28,8 @@ namespace Game
     private readonly UIContext _uiContext;
     private readonly InputContext _inputContext;
     private readonly ILogger _logger;
+    private readonly Injector _injector;
+    private readonly CommandMap _commandMap;
 
     public GameContext(Lifetime lifetime, GameStartBehaviour behaviour)
     {
@@ -32,9 +37,13 @@ namespace Game
       _rootTransform = behaviour.transform;
       _logger = Debug.unityLogger;
 
-      var injector = new Injector();
 
-      injector.Map<GameStartBehaviour>().ToValue(behaviour);
+      _injector = new Injector();
+
+      _commandMap = new CommandMap(this);
+
+      _injector.Map<CommandMap>().ToValue(_commandMap);
+      _injector.Map<GameStartBehaviour>().ToValue(behaviour);
 
       _providers = new GameProviders(lifetime, behaviour);
       _timeManager = new TimeManager(lifetime, behaviour);
@@ -42,17 +51,19 @@ namespace Game
       _dispatcher = behaviour.gameObject.GetComponent<UnityDispatcher>() ?? behaviour.gameObject.AddComponent<UnityDispatcher>();
       _preloader = new Preloader(_lifetime);
       _inputContext = new GameInputContext(this);
-      _managers = new GameManagers(lifetime, this, injector, new GameManagersProvider());
+      _managers = new GameManagers(lifetime, this, _injector, new GameManagersProvider());
 
-      _viewContext = new ViewContext(this, injector);
-      _uiContext = new UIContext(this, injector);
+      _viewContext = new ViewContext(this, _injector);
+      _uiContext = new UIContext(this, _injector);
 
       _lifetime.AddAction(() =>
         {
-          injector.Dispose();
+          _injector.Dispose();
           _resourceManager.Dispose();
         }
       );
+
+      Tell(new StartMessage());
     }
 
     public InputContext InputContext { get { return _inputContext.Current; } }
@@ -68,6 +79,13 @@ namespace Game
     public IDispatcher Dispatcher { get { return _dispatcher; } }
     public ResourceManager ResourceManager { get { return _resourceManager; } }
     public GameManagers Managers { get { return _managers; } }
+    public IInjector Injector { get { return _injector; } }
+    public CommandMap CommandMap { get { return _commandMap; } }
+
+    public void Tell(object message)
+    {
+      CommandMap.Tell(message);
+    }
 
     public void StartCoroutine(Lifetime lifetime, IEnumerator enumerator)
     {
