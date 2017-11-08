@@ -36,6 +36,7 @@ namespace Game.Managers
       _levelDefinition.Lifetime.AddAction(() =>
       {
         _stateManager.Current = _stateManager.Prev;
+        _levelDefinition = null;
       });
       _stateManager.Current = GameState.ClassicPlayMode;
       var logic = new Game.Logics.Classic.ClassicLogicEngine(Context, _levelDefinition.Lifetime, info.Level);

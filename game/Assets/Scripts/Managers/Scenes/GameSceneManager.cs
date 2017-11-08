@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utils;
@@ -9,15 +10,13 @@ namespace Game.Managers
   public class GameSceneManager : GameManager
   {
     private Signal<Scene> _onSceneLoaded;
+    private Signal<string> _onSceneUnLoaded;
+    private Dictionary<string, SceneController> _map = new Dictionary<string, SceneController>();
 
     protected override void OnInitialize()
     {
       _onSceneLoaded = new Signal<Scene>(Lifetime);
-    }
-
-    public void LoadScene(string name, LoadSceneMode mode, Action<Scene> onComplete = null)
-    {
-      Context.StartCoroutine(Lifetime, LoadSceneAsync(name, mode, onComplete));
+      _onSceneUnLoaded = new Signal<string>(Lifetime);
     }
 
     public void SubscribeOnSceneLoaded(Lifetime lifetime, Action<Scene> listener)
@@ -25,21 +24,22 @@ namespace Game.Managers
       _onSceneLoaded.Subscribe(lifetime, listener);
     }
 
-    private IEnumerator LoadSceneAsync(string name, LoadSceneMode mode, Action<Scene> onComplete)
+    public void SubscribeOnSceneUnLoaded(Lifetime lifetime, Action<string> listener)
     {
-      var definition = Lifetime.Define(Lifetime);
-      Context.Preloader.Open(definition.Lifetime);
-      yield return new WaitForSeconds(1f);
-      var async = SceneManager.LoadSceneAsync(name, mode);
-      yield return async;
-      yield return new WaitForSeconds(1f);
-      var scene = SceneManager.GetSceneByName(name);
-      if (onComplete != null)
+      _onSceneUnLoaded.Subscribe(lifetime, listener);
+    }
+
+    public SceneController Get(string name)
+    {
+      SceneController controller;
+      if (!_map.TryGetValue(name, out controller))
       {
-        onComplete(scene);
+        _map[name] = controller = new SceneController(name, Lifetime, Context);
+        controller.SubscribeOnLoaded(Lifetime, _onSceneLoaded.Fire);
+        controller.SubscribeOnUnLoaded(Lifetime, _onSceneUnLoaded.Fire);
+        Lifetime.AddAction(() => _map.Remove(name));
       }
-      _onSceneLoaded.Fire(scene);
-      definition.Terminate();
+      return controller;
     }
   }
 }

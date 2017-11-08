@@ -9,6 +9,7 @@ namespace Game.Providers
 
     public readonly PreloaderProvider Preloader;
     public readonly ICoroutineProvider CoroutineProvider;
+    public readonly ResourcePrefabPathProvider ResourcePrefabPathProvider;
 
     public GameProviders(Lifetime lifetime, GameStartBehaviour behaviour)
     {
@@ -17,6 +18,7 @@ namespace Game.Providers
 
       Preloader = new PreloaderProvider();
       CoroutineProvider = new CoroutineProvider(behaviour);
+      ResourcePrefabPathProvider = new ResourcePrefabPathProvider();
     }
   }
 }

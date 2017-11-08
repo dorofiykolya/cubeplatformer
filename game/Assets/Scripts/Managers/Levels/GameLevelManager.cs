@@ -16,7 +16,7 @@ namespace Game.Managers
     private Signal<GameClassicLevelInfo> _onLoaded;
     private Signal<GameClassicLevelInfo> _onUnload;
     private GameLevels _classicLevels;
-    private GameClassicLevelInfo _classicLevel;
+    private Lifetime.Definition _levelDefinition;
 
     protected override void OnPreinitialize()
     {
@@ -42,18 +42,34 @@ namespace Game.Managers
     public void ResumeClassic()
     {
       DestroyLastLevel();
+
+      _levelDefinition = Lifetime.Define(Lifetime);
+
       var levelData = _classicLevels.GetLevel(_persistanceManager.LastClassicLevel);
-      _gameSceneManager.LoadScene(levelData.Scene.SceneName, LoadSceneMode.Single, scene =>
+      _gameSceneManager.Get(levelData.Scene.SceneName).Load(true, true).SubscribeOnLoaded(_levelDefinition.Lifetime, scene =>
       {
-        _classicLevel = new GameClassicLevelInfo();
-        _classicLevel.Scene = scene;
-        if (levelData.EnvironmentPrefab.Asset != null) _classicLevel.Envorinment = UnityEngine.Object.Instantiate(levelData.EnvironmentPrefab.Asset);
+        var classicLevel = new GameClassicLevelInfo
+        {
+          Scene = scene
+        };
+        if (levelData.EnvironmentPrefab.Asset != null) classicLevel.Envorinment = UnityEngine.Object.Instantiate(levelData.EnvironmentPrefab.Asset);
         if (levelData.DataType == GameLevelDataType.StringFormat)
         {
-          _classicLevel.Level = levelData.LevelStringData.Asset.text;
-          _classicLevel.Preset = levelData.Preset;
+          classicLevel.Level = levelData.LevelStringData.Asset.text;
+          classicLevel.Preset = levelData.Preset;
         }
-        _onLoaded.Fire(_classicLevel);
+        _onLoaded.Fire(classicLevel);
+
+        _levelDefinition.Lifetime.AddAction(() =>
+        {
+          if (classicLevel != null)
+          {
+            _onUnload.Fire(classicLevel);
+            if (classicLevel.Envorinment) GameObject.Destroy(classicLevel.Envorinment.gameObject);
+            _gameSceneManager.Get(classicLevel.Scene.name).Unload(true);
+            classicLevel = null;
+          }
+        });
       });
     }
 
@@ -80,16 +96,9 @@ namespace Game.Managers
 
     private void DestroyLastLevel()
     {
-      if (_classicLevel != null)
+      if (_levelDefinition != null)
       {
-        _onUnload.Fire(_classicLevel);
-        foreach (var gameObject in _classicLevel.Scene.GetRootGameObjects())
-        {
-          GameObject.DestroyImmediate(gameObject);
-        }
-        if (_classicLevel.Envorinment) GameObject.Destroy(_classicLevel.Envorinment.gameObject);
-        SceneManager.UnloadSceneAsync(_classicLevel.Scene.name);
-        _classicLevel = null;
+        _levelDefinition.Terminate();
       }
     }
   }

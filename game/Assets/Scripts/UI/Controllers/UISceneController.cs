@@ -71,16 +71,20 @@ namespace Game.UI.Controllers
 
     private class StartGameCommand : ICommand
     {
-      private UISceneController _uISceneController;
+      private UISceneController _controller;
 
       public StartGameCommand(UISceneController uISceneController)
       {
-        _uISceneController = uISceneController;
+        _controller = uISceneController;
       }
 
       public void Execute()
       {
-        _uISceneController._gameSceneManager.LoadScene(GameScenes.UI, LoadSceneMode.Additive, _uISceneController.SceneLoadedHandler);
+        _controller._gameSceneManager.Get(GameScenes.UI).Load(true).SubscribeOnLoaded(_controller.Lifetime, (scene) =>
+        {
+          _controller.SceneLoadedHandler(scene);
+          _controller._gameSceneManager.Get(GameScenes.UI).Unload(false);
+        });
       }
     }
   }

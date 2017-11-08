@@ -10,10 +10,13 @@ namespace Game.Inputs
   {
     public static bool LogEvents = false;
 
+    private const int MaxControllers = 4;
+
     private readonly Dictionary<string, InputEvent> _inputs;
     private readonly Dictionary<string, InputController> _controllers;
+    private readonly bool[] _availableControllers = new bool[MaxControllers];
     private readonly GameContext _context;
-    private readonly int MaxControllers = 4;
+
 
     public GameInputContext(GameContext context) : base(context, context.Lifetime)
     {
@@ -53,38 +56,29 @@ namespace Game.Inputs
           }
         }
 
-        foreach (var c in toRemove)
+        foreach (var controllerName in toRemove)
         {
-          var controller = _controllers[c];
+          var controller = _controllers[controllerName];
           controller.Active = false;
-          //_controllers.Remove(c);
           FireDeactiveController(controller);
+          _availableControllers[controller.Id] = false;
+          _controllers.Remove(controllerName);
         }
 
-        foreach (var addId in toAdd)
+        if (_availableControllers.Any(v => v == false))
         {
-          var id = 0;
-          for (int i = 0; i < MaxControllers; i++, id++)
+          foreach (var addId in toAdd)
           {
-            if (_controllers.All(pair => pair.Value.Id != id))
+            if (_controllers.All(pair => pair.Value.Name != addId))
             {
-              break;
-            }
-            else
-            {
-              var cntrol = _controllers.Values.First(ct => ct.Id == i);
-              if (!cntrol.Active)
-              {
-                cntrol.Active = true;
-                FireActivateController(cntrol);
-              }
+              var index = Array.IndexOf(_availableControllers, false);
+              var controller = new InputController(addId, index, _context.Lifetime);
+              _controllers.Add(addId, controller);
+              FireAddController(controller);
+              controller.Active = true;
+              FireActivateController(controller);
             }
           }
-          var controller = new InputController(addId, id, _context.Lifetime);
-          _controllers.Add(addId, controller);
-          FireAddController(controller);
-          controller.Active = true;
-          FireActivateController(controller);
         }
 
         ListPool.Push(toAdd);
