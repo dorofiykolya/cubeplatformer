@@ -1,7 +1,14 @@
 ﻿namespace Game.Inputs
 {
-  public class GameInput
+  public class GameInput : IInputName
   {
+    //public static readonly GameInput Undefined = new GameInput("Undefined");
+
+    //public static readonly GameInput Left = new GameInput("Left");
+    //public static readonly GameInput Right = new GameInput("Right");
+    //public static readonly GameInput Up = new GameInput("Up");
+    //public static readonly GameInput Down = new GameInput("Down");
+
     public static readonly GameInput Vertical = new GameInput("Vertical");
     public static readonly GameInput Horizontal = new GameInput("Horizontal");
     public static readonly GameInput Action = new GameInput("Action");

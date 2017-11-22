@@ -16,7 +16,7 @@ namespace Game.UI.Controllers
     protected override void OnInitialize()
     {
       Map<UIHUDClassicPlayMode>(GameState.ClassicPlayMode);
-      Map<UIHUDMainMenu>(GameState.Menu);
+      //Map<UIHUDMainMenu>(GameState.Menu);
     }
 
     private void Map<T>(GameState state) where T : UIHUD

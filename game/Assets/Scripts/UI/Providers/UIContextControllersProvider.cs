@@ -7,10 +7,11 @@ namespace Game.UI.Providers
   {
     public IEnumerable<UIController> Provider(UIContext context)
     {
+      yield return new UIMainMenuController();
       yield return new UIHUDController();
       yield return new UISceneController();
       yield return new UIWindowController();
-      yield return new UIMainMenuController();
+      yield return new UIMainMenuSceneController();
       yield return new UIHUDGameStateController();
     }
 

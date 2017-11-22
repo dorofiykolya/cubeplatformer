@@ -8,6 +8,10 @@ namespace Game.Inputs
 {
   public class GameInputContext : InputContext
   {
+#if UNITY_EDITOR
+    private static readonly HashSet<string> _axiesSet = new HashSet<string>();
+#endif
+
     public static bool LogEvents = false;
 
     private readonly Dictionary<string, InputEvent> _inputs;
@@ -100,7 +104,34 @@ namespace Game.Inputs
 
       while (true)
       {
-        foreach (var input in GameInputField.Inputs)
+#if UNITY_EDITOR
+        for (int joyIndex = 1; joyIndex < 12; joyIndex++)
+        {
+          for (int axiesIndex = 1; axiesIndex < 30; axiesIndex++)
+          {
+            var name = string.Format("Joy{0}Axis{1}", joyIndex, axiesIndex);
+            var value = Input.GetAxis(name);
+            var contains = Math.Abs(value) > float.Epsilon;
+            if (contains)
+            {
+              if (_axiesSet.Add(name))
+              {
+                Debug.Log("Input-Begin: " + name);
+              }
+            }
+            else
+            {
+              if (_axiesSet.Contains(name))
+              {
+                Debug.Log("Input-End: " + name);
+              }
+              _axiesSet.Remove(name);
+            }
+          }
+        }
+#endif
+
+        foreach (var input in InputNameMapper<GameInput>.Collection)
         {
           var value = Input.GetAxis(input.Name);
           var contains = Math.Abs(value) > float.Epsilon;
@@ -112,7 +143,7 @@ namespace Game.Inputs
             {
               FireEvent(new InputEvent
               {
-                Input = input.Input,
+                Input = input,
                 Phase = InputPhase.End,
                 Value = evt.Value
               });
@@ -123,7 +154,7 @@ namespace Game.Inputs
             {
               FireEvent(new InputEvent
               {
-                Input = input.Input,
+                Input = input,
                 Phase = InputPhase.Process,
                 Value = value
               });
@@ -134,7 +165,7 @@ namespace Game.Inputs
           {
             evt = new InputEvent
             {
-              Input = input.Input,
+              Input = input,
               Value = value,
               Phase = InputPhase.Begin
             };
