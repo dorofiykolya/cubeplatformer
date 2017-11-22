@@ -109,6 +109,8 @@ NavMeshSettings:
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
+    debug:
+      m_Flags: 0
   m_NavMeshData: {fileID: 0}
 --- !u!1 &243678534
 GameObject:
@@ -121,6 +123,7 @@ GameObject:
   - component: {fileID: 243678538}
   - component: {fileID: 243678537}
   - component: {fileID: 243678536}
+  - component: {fileID: 243678535}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -128,6 +131,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &243678535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 243678534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 444b26664d8057643b55b00bb147f4f3, type: 2}
 --- !u!92 &243678536
 Behaviour:
   m_ObjectHideFlags: 0
@@ -177,7 +192,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
-  m_StereoMirrorMode: 0
 --- !u!4 &243678539
 Transform:
   m_ObjectHideFlags: 0
