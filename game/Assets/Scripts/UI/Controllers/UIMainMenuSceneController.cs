@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Utils;
+using GameInput = Game.Inputs.GameInput;
 
 namespace Game.UI.Controllers
 {
@@ -36,8 +37,10 @@ namespace Game.UI.Controllers
         sceneManager.LoadScene(GameScenes.MainMenu, UnityEngine.SceneManagement.LoadSceneMode.Additive, (scene) =>
         {
           var gameObject = scene.GetRootGameObjects().FirstOrDefault(t => t.GetComponent<UIMainMenuComponent>() != null);
+          sceneManager.SetActive(scene);
           var component = gameObject.GetComponent<UIMainMenuComponent>();
           var navigation = component.Navigation;
+
           var input = new MainMenuInputContext(_context, _context.Lifetime, _context.InputContext.Current);
 
           input.Subscribe(lifeDefinition.Lifetime, GameInput.Horizontal, InputPhase.Begin, e =>
@@ -53,6 +56,10 @@ namespace Game.UI.Controllers
           input.Subscribe(lifeDefinition.Lifetime, GameInput.Cancel, InputPhase.Begin, e =>
           {
             navigation.GoToBack();
+          });
+          input.Subscribe(lifeDefinition.Lifetime, GameInput.Action, InputPhase.Begin, e =>
+          {
+            var currentMenuId = navigation.Current.Id;
           });
         });
       }

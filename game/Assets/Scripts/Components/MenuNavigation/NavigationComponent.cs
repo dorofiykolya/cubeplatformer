@@ -10,6 +10,7 @@ namespace Game.Components.MenuNavigation
     [Header("Target")]
     public Transform Target;
     public string Id;
+    public Transform SelectedTransform;
 
     [Header("Events")]
     public UnityEvent OnSelected;

@@ -16,6 +16,8 @@ namespace Game
 {
   public class GameContext : IContext
   {
+    public static GameContext Context { get; private set; }
+
     private readonly Lifetime _lifetime;
     private readonly TimeManager _timeManager;
     private readonly IDispatcher _dispatcher;
@@ -33,11 +35,12 @@ namespace Game
 
     public GameContext(Lifetime lifetime, GameStartBehaviour behaviour)
     {
+      Context = this;
+      
       _lifetime = lifetime;
       _rootTransform = behaviour.transform;
       _logger = Debug.unityLogger;
-
-
+      
       _injector = new Injector();
 
       _commandMap = new CommandMap(this);

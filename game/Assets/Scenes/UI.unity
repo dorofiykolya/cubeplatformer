@@ -109,6 +109,8 @@ NavMeshSettings:
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
+    debug:
+      m_Flags: 0
   m_NavMeshData: {fileID: 0}
 --- !u!1 &75961002
 GameObject:
@@ -161,7 +163,6 @@ Camera:
   m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
-  m_StereoMirrorMode: 0
 --- !u!4 &75961007
 Transform:
   m_ObjectHideFlags: 0
@@ -217,6 +218,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1043733751}
   - component: {fileID: 1043733752}
+  - component: {fileID: 1043733753}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -253,6 +255,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WindowsRoot: {fileID: 262209330}
   HUDRoot: {fileID: 1668212563}
+--- !u!114 &1043733753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1043733750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a169c901345402149abd5ed503e183a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1207784362
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,8 +348,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1207784362}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -63.625748, y: 92.39163, z: -1919.7982}
+  m_LocalScale: {x: 4.6948357, y: 4.6948357, z: 4.6948357}
   m_Children:
   - {fileID: 1668212563}
   - {fileID: 262209330}

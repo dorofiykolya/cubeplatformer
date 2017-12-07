@@ -41,5 +41,10 @@ namespace Game.Managers
       _onSceneLoaded.Fire(scene);
       definition.Terminate();
     }
+
+    public bool SetActive(Scene scene)
+    {
+      return SceneManager.SetActiveScene(scene);
+    }
   }
 }
