@@ -17,12 +17,12 @@ namespace Game.UI.Controllers
 
     protected override void OnInitialize()
     {
-      _sceneController.SubscribeOnSceneReady(Lifetime, InitializeMenu);
+      //_sceneController.SubscribeOnSceneReady(Lifetime, InitializeMenu);
     }
 
     private void InitializeMenu()
     {
-      _stateManager.Current = GameState.Menu;
+      //_stateManager.Current = GameState.Menu;
     }
   }
 }

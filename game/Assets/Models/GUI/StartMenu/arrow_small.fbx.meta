@@ -1,52 +1,15 @@
 fileFormatVersion: 2
-guid: 50f23e7531b7c814d96156115daa876f
-timeCreated: 1511280779
+guid: d98927ccc8073ca4680e1d6294fc366a
+timeCreated: 1513161073
 licenseType: Pro
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: fan_01
-    100002: fan_02
-    100004: roof_01
-    100006: roof_02
-    100008: roof_03
-    100010: //RootNode
-    100012: shild_01
-    100014: wire_01
-    100016: wire_02
-    400000: fan_01
-    400002: fan_02
-    400004: roof_01
-    400006: roof_02
-    400008: roof_03
-    400010: //RootNode
-    400012: shild_01
-    400014: wire_01
-    400016: wire_02
-    2300000: fan_01
-    2300002: fan_02
-    2300004: roof_01
-    2300006: roof_02
-    2300008: roof_03
-    2300010: shild_01
-    2300012: wire_01
-    2300014: wire_02
-    3300000: fan_01
-    3300002: fan_02
-    3300004: roof_01
-    3300006: roof_02
-    3300008: roof_03
-    3300010: shild_01
-    3300012: wire_01
-    3300014: wire_02
-    4300000: roof_01
-    4300002: fan_01
-    4300004: fan_02
-    4300006: wire_02
-    4300008: wire_01
-    4300010: roof_03
-    4300012: roof_02
-    4300014: shild_01
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: arrow
     9500000: //RootNode
     11400000: //RootNode
   externalObjects:
@@ -56,7 +19,7 @@ ModelImporter:
       name: roof1
     second: {fileID: 2100000, guid: 45035641db3148d438ad0f9009bc01db, type: 2}
   materials:
-    importMaterials: 0
+    importMaterials: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 0
@@ -87,16 +50,16 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
-    importVisibility: 0
-    importBlendShapes: 0
-    importCameras: 0
-    importLights: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
-    weldVertices: 0
+    weldVertices: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
@@ -107,7 +70,7 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
-  importAnimation: 0
+  importAnimation: 1
   copyAvatar: 0
   humanDescription:
     serializedVersion: 2
@@ -123,10 +86,10 @@ ModelImporter:
     rootMotionBoneName: 
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
-    hasExtraRoot: 1
+    hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

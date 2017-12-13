@@ -23,6 +23,7 @@ namespace Game.UI.Providers
     {
       yield return new UIHUDMap(typeof(UIHUDClassicPlayMode), "HUDs/ClassicPlayMode");
       yield return new UIHUDMap(typeof(UIHUDMainMenu), "Windows/MainMenu");
+      yield return new UIHUDMap(typeof(UIHUDSceneMainManu), null);
     }
   }
 }

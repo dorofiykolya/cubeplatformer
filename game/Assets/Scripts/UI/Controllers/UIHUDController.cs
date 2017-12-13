@@ -62,15 +62,11 @@ namespace Game.UI.Controllers
       Action<Action> action = (callback) =>
       {
         var path = _map[type];
-        Context.ResourceManager.GetPrefab(path).LoadAsync(intersectLifetime.Lifetime, result =>
+        if (path == null)
         {
           var windowMediator = (UIHUD)_injector.Get(type);
-          var windowComponent = result.Instantiate<UIHUDComponent>();
-          GameObject.DontDestroyOnLoad(windowComponent.gameObject);
           _injector.Inject(windowMediator);
-          _sceneController.SceneComponent.HUDRoot.AddChild(windowComponent.transform);
-          windowComponent.gameObject.AddComponent<SignalMonoBehaviour>().DestroySignal.Subscribe(intersectLifetime.Lifetime, intersectLifetime.Terminate);
-          MethodInvoker<UIHUD, InitializeAttribute>.Invoke(windowMediator, intersectLifetime, windowComponent);
+          MethodInvoker<UIHUD, InitializeAttribute>.Invoke(windowMediator, intersectLifetime, null);
           _opened.Add(windowMediator);
           MethodInvoker<UIHUD, UIHUDOpenAttribute>.Invoke(windowMediator);
           if (onOpen != null) onOpen(windowMediator);
@@ -79,10 +75,33 @@ namespace Game.UI.Controllers
           {
             MethodInvoker<UIHUD, UIHUDCloseAttribute>.Invoke(windowMediator);
             _opened.Remove(windowMediator);
-            result.Release(windowComponent);
-            result.Collect();
           });
-        });
+        }
+        else
+        {
+          Context.ResourceManager.GetPrefab(path).LoadAsync(intersectLifetime.Lifetime, result =>
+          {
+            var windowMediator = (UIHUD)_injector.Get(type);
+            var windowComponent = result.Instantiate<UIHUDComponent>();
+            GameObject.DontDestroyOnLoad(windowComponent.gameObject);
+            _injector.Inject(windowMediator);
+            _sceneController.SceneComponent.HUDRoot.AddChild(windowComponent.transform);
+            windowComponent.gameObject.AddComponent<SignalMonoBehaviour>().DestroySignal
+              .Subscribe(intersectLifetime.Lifetime, intersectLifetime.Terminate);
+            MethodInvoker<UIHUD, InitializeAttribute>.Invoke(windowMediator, intersectLifetime, windowComponent);
+            _opened.Add(windowMediator);
+            MethodInvoker<UIHUD, UIHUDOpenAttribute>.Invoke(windowMediator);
+            if (onOpen != null) onOpen(windowMediator);
+            callback();
+            intersectLifetime.Lifetime.AddAction(() =>
+            {
+              MethodInvoker<UIHUD, UIHUDCloseAttribute>.Invoke(windowMediator);
+              _opened.Remove(windowMediator);
+              result.Release(windowComponent);
+              result.Collect();
+            });
+          });
+        }
       };
 
       _queue.Enqueue(action);

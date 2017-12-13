@@ -1,4 +1,5 @@
 ﻿using System;
+using Game.UI;
 using UnityEngine;
 using UnityEngine.Events;
 using Utils;
@@ -9,7 +10,7 @@ namespace Game.Components.MenuNavigation
   {
     [Header("Target")]
     public Transform Target;
-    public string Id;
+    public MainMenuId Id;
     public Transform SelectedTransform;
 
     [Header("Events")]

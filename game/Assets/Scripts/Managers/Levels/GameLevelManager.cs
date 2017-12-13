@@ -47,7 +47,6 @@ namespace Game.Managers
       {
         _classicLevel = new GameClassicLevelInfo();
         _classicLevel.Scene = scene;
-        if (levelData.EnvironmentPrefab.Asset != null) _classicLevel.Envorinment = UnityEngine.Object.Instantiate(levelData.EnvironmentPrefab.Asset);
         if (levelData.DataType == GameLevelDataType.StringFormat)
         {
           _classicLevel.Level = levelData.LevelStringData.Asset.text;

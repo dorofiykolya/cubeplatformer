@@ -11,10 +11,6 @@ namespace Game
     public string Name;
     public string Description;
     public GameLevelDataType DataType;
-    [ResourceReferenceType(typeof(EnvironmentComponent))]
-    public ResourceReferenceEnvironmentComponent EnvironmentPrefab;
-    [ResourceReferenceType(typeof(LevelComponent))]
-    public ResourceReferenceLevelComponent LevelPrefab;
     [ResourceReferenceType(typeof(TextAsset))]
     public ResourceReferenceTextAsset LevelStringData;
     [ResourceReferenceType(typeof(CellPreset))]

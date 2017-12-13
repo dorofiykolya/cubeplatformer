@@ -11,6 +11,7 @@ using Utils.Threading;
 using Game.Modules;
 using Game.Managers.Commands;
 using Game.Messages;
+using Game.Messages.Commands;
 
 namespace Game
 {
@@ -36,11 +37,11 @@ namespace Game
     public GameContext(Lifetime lifetime, GameStartBehaviour behaviour)
     {
       Context = this;
-      
+
       _lifetime = lifetime;
       _rootTransform = behaviour.transform;
       _logger = Debug.unityLogger;
-      
+
       _injector = new Injector();
 
       _commandMap = new CommandMap(this);
@@ -65,6 +66,8 @@ namespace Game
           _resourceManager.Dispose();
         }
       );
+
+      CommandMap.Map<StartMessage>().RegisterCommand(lt => new StartCommand());
 
       Tell(new StartMessage());
     }
