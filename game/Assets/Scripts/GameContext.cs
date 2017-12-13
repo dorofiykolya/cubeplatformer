@@ -27,7 +27,6 @@ namespace Game
     private readonly Preloader _preloader;
     private readonly GameProviders _providers;
     private readonly Transform _rootTransform;
-    private readonly ViewContext _viewContext;
     private readonly UIContext _uiContext;
     private readonly InputContext _inputContext;
     private readonly ILogger _logger;
@@ -56,8 +55,7 @@ namespace Game
       _preloader = new Preloader(_lifetime);
       _inputContext = new GameInputContext(this);
       _managers = new GameManagers(lifetime, this, _injector, new GameManagersProvider());
-
-      _viewContext = new ViewContext(this, _injector);
+      
       _uiContext = new UIContext(this, _injector);
 
       _lifetime.AddAction(() =>
@@ -74,7 +72,6 @@ namespace Game
 
     public InputContext InputContext { get { return _inputContext.Current; } }
     public UIContext UIContext { get { return _uiContext; } }
-    public ViewContext ViewContext { get { return _viewContext; } }
     public Transform RootTransform { get { return _rootTransform; } }
     public GameProviders Providers { get { return _providers; } }
     public Preloader Preloader { get { return _preloader; } }

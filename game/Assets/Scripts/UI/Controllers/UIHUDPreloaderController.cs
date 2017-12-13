@@ -1,9 +1,10 @@
 ﻿using Game.Components;
+using Game.UI.Controllers;
 using UnityEngine;
 
 namespace Game.Views.Controllers
 {
-  public class ViewPreloaderController : ViewController
+  public class UIHUDPreloaderController : UIHUDController
   {
     private GamePreloaderComponent _preloader;
 
