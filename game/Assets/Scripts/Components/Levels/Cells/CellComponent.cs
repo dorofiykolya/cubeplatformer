@@ -44,6 +44,9 @@ namespace Game.Views.Components
       {
         Content = Instantiate(CellInfo.Prefab.gameObject).GetComponent<CellContentComponent>();
         Content.transform.SetParent(transform, false);
+#if UNITY_EDITOR
+        UnityEditor.PrefabUtility.ConnectGameObjectToPrefab(Content.gameObject, CellInfo.Prefab.gameObject);
+#endif
       }
 
       CellGuardComponentStrategy.Process(this, CellType);

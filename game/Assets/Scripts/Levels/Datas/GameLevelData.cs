@@ -10,6 +10,7 @@ namespace Game
   {
     public string Name;
     public string Description;
+    public LevelCategory Category;
     public GameLevelDataType DataType;
     [ResourceReferenceType(typeof(TextAsset))]
     public ResourceReferenceTextAsset LevelStringData;

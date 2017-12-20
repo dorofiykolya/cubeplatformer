@@ -1,4 +1,5 @@
-﻿using Game.Views.Components;
+﻿using Game.Components;
+using Game.Views.Components;
 using UnityEngine;
 
 namespace Game.Views
@@ -8,8 +9,8 @@ namespace Game.Views
     public static LevelComponent Create(LevelSize size)
     {
       var gameObject = new GameObject("Level");
+      gameObject.AddComponent<LevelControllerComponent>();
       var level = gameObject.AddComponent<LevelComponent>();
-
       gameObject.AddComponent<LevelCoordinateConverterProviderComponent>();
       gameObject.AddComponent<LevelGizmoComponent>();
       gameObject.AddComponent<LevelLogicComponent>();

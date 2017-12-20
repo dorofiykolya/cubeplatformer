@@ -6,7 +6,7 @@ namespace Game.UI.Controllers
   public class UIHUDGameStateController : UIController
   {
     [Inject]
-    private GameStateManager _stateManager;
+    private GameStateController _stateController;
     [Inject]
     private UIHUDController _hudController;
 
@@ -18,10 +18,10 @@ namespace Game.UI.Controllers
 
     private void Map<T>(GameState state) where T : UIHUD
     {
-      _stateManager.SubscribeOnEnter(Lifetime, state, exitState =>
+      _stateController.SubscribeOnEnter(Lifetime, state, exitState =>
       {
         var reference = _hudController.Open<T>();
-        _stateManager.SubscribeOnExit(Lifetime, state, enterState =>
+        _stateController.SubscribeOnExit(Lifetime, state, enterState =>
         {
           reference.Close();
         });

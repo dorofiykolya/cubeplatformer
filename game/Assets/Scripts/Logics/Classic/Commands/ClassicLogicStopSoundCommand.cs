@@ -1,5 +1,5 @@
 ﻿using ClassicLogic.Outputs;
-using Game.Managers;
+using Game.Controllers;
 
 namespace Game.Logics.Classic.Commands
 {
@@ -7,7 +7,7 @@ namespace Game.Logics.Classic.Commands
   {
     protected override void Execute(StopSoundEvent evt, ClassicLogicEngine engine)
     {
-      engine.Context.Managers.Get<GameSoundManager>().Play(evt.Sound.ToString().ToLower());
+      engine.Context.Controllers.Get<GameSoundController>().Play(evt.Sound.ToString().ToLower());
     }
   }
 }

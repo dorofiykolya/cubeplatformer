@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using Game.Inputs;
-using Game.Managers;
+using Game.Controllers;
 using Game.Providers;
 using Game.UI;
 using Game.Views;
@@ -9,7 +9,7 @@ using UnityEngine;
 using Utils;
 using Utils.Threading;
 using Game.Modules;
-using Game.Managers.Commands;
+using Game.Commands;
 using Game.Messages;
 using Game.Messages.Commands;
 
@@ -23,7 +23,7 @@ namespace Game
     private readonly TimeManager _timeManager;
     private readonly IDispatcher _dispatcher;
     private readonly ResourceManager _resourceManager;
-    private readonly GameManagers _managers;
+    private readonly GameControllers _controllers;
     private readonly Preloader _preloader;
     private readonly GameProviders _providers;
     private readonly Transform _rootTransform;
@@ -54,7 +54,7 @@ namespace Game
       _dispatcher = behaviour.gameObject.GetComponent<UnityDispatcher>() ?? behaviour.gameObject.AddComponent<UnityDispatcher>();
       _preloader = new Preloader(_lifetime);
       _inputContext = new GameInputContext(this);
-      _managers = new GameManagers(lifetime, this, _injector, new GameManagersProvider());
+      _controllers = new GameControllers(lifetime, this, _injector, new GameControllersProvider());
       
       _uiContext = new UIContext(this, _injector);
 
@@ -81,7 +81,7 @@ namespace Game
     public ICoroutineProvider CoroutineProvider { get { return _providers.CoroutineProvider; } }
     public IDispatcher Dispatcher { get { return _dispatcher; } }
     public ResourceManager ResourceManager { get { return _resourceManager; } }
-    public GameManagers Managers { get { return _managers; } }
+    public GameControllers Controllers { get { return _controllers; } }
     public IInjector Injector { get { return _injector; } }
     public CommandMap CommandMap { get { return _commandMap; } }
 

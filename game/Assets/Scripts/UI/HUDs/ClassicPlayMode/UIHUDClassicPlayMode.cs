@@ -1,4 +1,4 @@
-﻿using Game.Managers;
+﻿using Game.Controllers;
 using Injection;
 
 namespace Game.UI.HUDs
@@ -6,13 +6,13 @@ namespace Game.UI.HUDs
   public class UIHUDClassicPlayMode : UIHUD<UIHUDClassicPlayModeComponent>
   {
     [Inject]
-    private GameLevelManager _levelManager;
+    private GameLevelController _levelController;
 
     protected override void Initialize()
     {
       Component.SubscribeOnClick(Lifetime, () =>
       {
-        _levelManager.Unload();
+        _levelController.Unload();
       });
     }
 

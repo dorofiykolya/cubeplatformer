@@ -9,7 +9,7 @@ namespace Game.Views
 
     public ILevelCoordinateConverter Converter
     {
-      get { return _coordinateConverter ?? (_coordinateConverter = ScriptableObject.CreateInstance<DefaultLevelCoordinateConverter>()); }
+      get { return _coordinateConverter ?? (_coordinateConverter = ScriptableObject.CreateInstance<UnitLevelCoordinateConverter>()); }
     }
   }
 }

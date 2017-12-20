@@ -71,7 +71,7 @@ namespace Game.Views.Editor
           }
         }
       }
-      if (GUILayout.Button("ClearCellsContent", EditorUtils.Styles.minibutton))
+      if (GUILayout.Button("FixDisconnectedCellsContent", EditorUtils.Styles.minibutton))
       {
         foreach (var cell in Target.GetComponentsInChildren<CellComponent>(true))
         {

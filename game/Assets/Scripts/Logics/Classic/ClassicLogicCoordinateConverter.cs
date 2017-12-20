@@ -22,7 +22,12 @@ namespace Game.Logics.Classic
       return new Vector3(logicPosition.X, _maxTileY - logicPosition.Y, 0);
     }
 
-    public PositionF ToPosition(Vector3 worldPosition)
+    public Position ToPosition(Vector3 worldPosition)
+    {
+      return new Position((int)worldPosition.x, (int)(_maxTileY - worldPosition.y), 0);
+    }
+
+    public PositionF ToPositionF(Vector3 worldPosition)
     {
       return new PositionF(worldPosition.x, _maxTileY - worldPosition.y, 0);
     }

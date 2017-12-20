@@ -4,54 +4,56 @@ using UnityEngine;
 
 namespace Game.Views.Components
 {
-    [RequireComponent(typeof(CellComponent)), ExecuteInEditMode]
-    public class CellGizmoComponent : MonoBehaviour
+  [RequireComponent(typeof(CellComponent)), ExecuteInEditMode]
+  public class CellGizmoComponent : MonoBehaviour
+  {
+    private LevelGizmoComponent _levelGizmos;
+
+    private LevelGizmoComponent LevelGizmos
     {
-        private LevelGizmoComponent _levelGizmos;
-
-        private LevelGizmoComponent LevelGizmos
+      get
+      {
+        if (_levelGizmos == null)
         {
-            get
-            {
-                if (_levelGizmos == null)
-                {
-                    _levelGizmos = GetComponentInParent<LevelGizmoComponent>();
-                }
-                return _levelGizmos;
-            }
+          _levelGizmos = GetComponentInParent<LevelGizmoComponent>();
         }
-
-        [Conditional("UNITY_EDITOR")]
-        private void OnDrawGizmos()
-        {
-            var gizmos = LevelGizmos;
-            if (gizmos != null)
-            {
-                if (gizmos.ShowGizmosWireGrid)
-                {
-                    Gizmos.color = new Color(0, 1, 0, 0.1f);
-                    Gizmos.DrawWireCube(transform.position + transform.lossyScale / 2f, transform.lossyScale);
-                }
-                if (gizmos.ShowGizmosGrid)
-                {
-                    Gizmos.color = new Color(0, 1, 0, 0f);
-                    Gizmos.DrawCube(transform.position + transform.lossyScale / 2f, transform.lossyScale);
-                }
-            }
-        }
-
-        [Conditional("UNITY_EDITOR")]
-        private void OnDrawGizmosSelected()
-        {
-            var gizmos = LevelGizmos;
-            if (gizmos != null)
-            {
-                if (gizmos.ShowGizmosSelectedGrid)
-                {
-                    Gizmos.color = new Color(1, 0, 0, 0.2f);
-                    Gizmos.DrawCube(transform.position + transform.lossyScale / 2f, transform.lossyScale);
-                }
-            }
-        }
+        return _levelGizmos;
+      }
     }
+
+    [Conditional("UNITY_EDITOR")]
+    private void OnDrawGizmos()
+    {
+      var gizmos = LevelGizmos;
+      if (gizmos != null)
+      {
+        var size = LevelGizmos.UnitSize;
+        if (gizmos.ShowGizmosWireGrid)
+        {
+          Gizmos.color = new Color(0, 1, 0, 0.1f);
+          Gizmos.DrawWireCube(transform.position + size / 2f, size);
+        }
+        if (gizmos.ShowGizmosGrid)
+        {
+          Gizmos.color = new Color(0, 1, 0, 0f);
+          Gizmos.DrawCube(transform.position + size / 2f, size);
+        }
+      }
+    }
+
+    [Conditional("UNITY_EDITOR")]
+    private void OnDrawGizmosSelected()
+    {
+      var gizmos = LevelGizmos;
+      if (gizmos != null)
+      {
+        if (gizmos.ShowGizmosSelectedGrid)
+        {
+          var size = LevelGizmos.UnitSize;
+          Gizmos.color = new Color(1, 0, 0, 0.2f);
+          Gizmos.DrawCube(transform.position + size / 2f, size);
+        }
+      }
+    }
+  }
 }

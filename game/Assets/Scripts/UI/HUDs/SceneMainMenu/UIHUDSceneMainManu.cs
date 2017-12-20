@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Game.Inputs;
-using Game.Managers;
+using Game.Controllers;
 using Game.UI.Components;
 using Injection;
 using Utils;
@@ -13,7 +13,7 @@ namespace Game.UI.HUDs
     [Inject]
     private GameContext _gameContext;
     [Inject]
-    private GameLevelManager _levelManager;
+    private GameLevelController _levelController;
 
     private Lifetime.Definition _lifeDefinition;
 
@@ -30,7 +30,7 @@ namespace Game.UI.HUDs
     protected override void OnOpen()
     {
       _lifeDefinition = Lifetime.Define(Lifetime);
-      var sceneManager = _gameContext.Managers.Get<GameSceneManager>();
+      var sceneManager = _gameContext.Controllers.Get<GameSceneController>();
       sceneManager.LoadScene(GameScenes.MainMenu, UnityEngine.SceneManagement.LoadSceneMode.Additive, (scene) =>
       {
         _lifeDefinition.Lifetime.AddAction(() =>
@@ -62,7 +62,7 @@ namespace Game.UI.HUDs
           switch (currentMenuId)
           {
             case MainMenuId.Start:
-              _levelManager.ResumeClassic();
+              _levelController.LoadLevel(0);
               break;
           }
         });

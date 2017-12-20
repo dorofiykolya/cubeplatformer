@@ -13,7 +13,12 @@ namespace Game.Logics.Classic
       return new Vector3(logicPosition.X, Size.Y - 1 - logicPosition.Y, logicPosition.Z);
     }
 
-    public override PositionF ToPosition(Vector3 worldPosition)
+    public override PositionF ToPositionF(Vector3 worldPosition)
+    {
+      return new PositionF(worldPosition.x, Size.Y - 1 - worldPosition.y, worldPosition.z);
+    }
+
+    public override Position ToPosition(Vector3 worldPosition)
     {
       return new Position((int)worldPosition.x, Size.Y - 1 - (int)worldPosition.y, (int)worldPosition.z);
     }

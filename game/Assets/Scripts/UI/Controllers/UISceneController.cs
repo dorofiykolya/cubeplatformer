@@ -1,12 +1,12 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
-using Game.Managers;
+using Game.Controllers;
 using Game.UI.Components;
 using Injection;
 using UnityEngine.SceneManagement;
 using Utils;
-using Game.Managers.Commands;
+using Game.Commands;
 using Game.Messages;
 
 namespace Game.UI.Controllers
@@ -14,9 +14,9 @@ namespace Game.UI.Controllers
   public class UISceneController : UIController
   {
     [Inject]
-    private GameSceneManager _gameSceneManager;
+    private GameSceneController _gameSceneController;
     [Inject]
-    private GameStateManager _stateManager;
+    private GameStateController _stateController;
 
     private Signal _onReady;
     private Signal _onUnload;
@@ -80,7 +80,7 @@ namespace Game.UI.Controllers
 
       public void Execute()
       {
-        _uISceneController._gameSceneManager.LoadScene(GameScenes.UI, LoadSceneMode.Additive, _uISceneController.SceneLoadedHandler);
+        _uISceneController._gameSceneController.LoadScene(GameScenes.UI, LoadSceneMode.Additive, _uISceneController.SceneLoadedHandler);
       }
     }
   }

@@ -1,6 +1,6 @@
 ﻿using Assets.Scripts.UI.HUDs.MainMenu;
 using Game.Inputs;
-using Game.Managers;
+using Game.Controllers;
 using Game.UI.HUDs;
 using Injection;
 
@@ -9,7 +9,7 @@ namespace Game.UI.Windows
   public class UIHUDMainMenu : UIHUD<UIHUDMainManuComponent>
   {
     [Inject]
-    private GameLevelManager _levelManager;
+    private GameLevelController _levelController;
     [Inject]
     private GameContext _gameContext;
 
@@ -22,10 +22,10 @@ namespace Game.UI.Windows
       {
         menuComponent.OnClassicClick.Subscribe(Lifetime, () =>
         {
-          _levelManager.ResumeClassic();
+          _levelController.LoadLevel(0);
           Close();
         });
-        menuComponent.OnInfinityClick.Subscribe(Lifetime, _levelManager.ResumeInfinity);
+        menuComponent.OnInfinityClick.Subscribe(Lifetime, () => _levelController.LoadLevel(0));
       }
       _inputContext = new UIHUDMainMenuInputContext(_gameContext, Lifetime, _gameContext.InputContext);
       _inputContext.Subscribe(Lifetime, GameInput.Vertical, InputPhase.End, evt =>
