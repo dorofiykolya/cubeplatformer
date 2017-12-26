@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Game.Views.Components
+namespace Game.Components
 {
   public class EnvironmentComponent : MonoBehaviour
   {

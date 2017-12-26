@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Game.Views.Components;
+using Game.Components;
 
 namespace Game.Controllers
 {

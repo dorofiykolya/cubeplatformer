@@ -1,5 +1,5 @@
 ﻿using System.Text;
-using Game.Views.Components;
+using Game.Components;
 
 namespace Game.Logics.Classic
 {

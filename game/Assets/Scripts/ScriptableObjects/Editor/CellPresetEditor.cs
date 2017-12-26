@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Game.Views.Components;
+using Game.Components;
 using UnityEditor;
 using UnityEngine;
 using Utils.Editor;

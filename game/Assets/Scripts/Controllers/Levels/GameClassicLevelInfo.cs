@@ -1,4 +1,4 @@
-﻿using Game.Views.Components;
+﻿using Game.Components;
 using UnityEngine.SceneManagement;
 
 namespace Game.Controllers

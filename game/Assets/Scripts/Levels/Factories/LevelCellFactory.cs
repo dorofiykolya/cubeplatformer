@@ -1,7 +1,7 @@
-﻿using Game.Views.Components;
+﻿using Game.Components;
 using UnityEngine;
 
-namespace Game.Views
+namespace Game
 {
   public class LevelCellFactory
   {

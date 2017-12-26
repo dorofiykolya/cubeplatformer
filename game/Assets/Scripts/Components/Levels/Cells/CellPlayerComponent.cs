@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Game.Views.Components
+namespace Game.Components
 {
     [RequireComponent(typeof(CellComponent))]
     public class CellPlayerComponent : MonoBehaviour

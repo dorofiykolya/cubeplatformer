@@ -2,7 +2,7 @@
 using Game.UI.Controllers;
 using UnityEngine;
 
-namespace Game.Views.Controllers
+namespace Game.Controllers
 {
   public class UIHUDPreloaderController : UIHUDController
   {

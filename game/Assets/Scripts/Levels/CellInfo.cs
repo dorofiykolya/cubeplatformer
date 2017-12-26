@@ -1,5 +1,5 @@
 ﻿using System;
-using Game.Views.Components;
+using Game.Components;
 
 namespace Game
 {

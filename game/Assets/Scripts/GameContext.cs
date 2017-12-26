@@ -3,7 +3,7 @@ using Game.Inputs;
 using Game.Controllers;
 using Game.Providers;
 using Game.UI;
-using Game.Views;
+using Game;
 using Injection;
 using UnityEngine;
 using Utils;

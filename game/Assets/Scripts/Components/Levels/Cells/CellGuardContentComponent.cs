@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace Game.Views.Components
+namespace Game.Components
 {
   public class CellGuardContentComponent : CellContentComponent
   {

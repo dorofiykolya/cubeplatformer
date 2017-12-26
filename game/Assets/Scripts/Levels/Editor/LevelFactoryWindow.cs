@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using Game.Levels;
+using UnityEngine;
 using UnityEditor;
 using Utils.Editor;
 
-namespace Game.Views.Editor
+namespace Game.Editor
 {
   public class LevelFactoryWindow : EditorWindow
   {
@@ -13,11 +14,14 @@ namespace Game.Views.Editor
       window.Show(true);
     }
 
-    private static LevelSize _size = new LevelSize { X = 20, Y = 20, Z = 1 };
+    private static LevelSize _size = new LevelSize { X = 18, Y = 10, Z = 1 };
     private static LevelCoordinateConverter _coordinateConverter;
+    private static LevelFactoryOptions _options;
 
     private void OnGUI()
     {
+      if (_options == null) _options = new LevelFactoryOptions();
+
       EditorUtils.Header("Factory");
       EditorGUILayout.BeginVertical(EditorUtils.Styles.ProgressBarBack);
 
@@ -44,15 +48,28 @@ namespace Game.Views.Editor
 
       EditorGUILayout.EndHorizontal();
       EditorGUILayout.Space();
+      _coordinateConverter = EditorGUILayout.ObjectField(_coordinateConverter, typeof(LevelCoordinateConverter), false) as LevelCoordinateConverter;
+      EditorGUILayout.Space();
+
+      foreach (var field in InspectAttribute<LevelFactoryOptions>.Fields)
+      {
+        var value = field.GetValue(_options);
+
+      }
+
       if (GUILayout.Button("Create"))
       {
-        if (_size.X <= 0 || _size.Y <= 0 || _size.Z <= 0)
+        if (_coordinateConverter == null)
+        {
+          EditorUtility.DisplayDialog("coordinate converter must been initialized", "null", "Close");
+        }
+        else if (_size.X <= 0 || _size.Y <= 0 || _size.Z <= 0)
         {
           EditorUtility.DisplayDialog("Size Invalid Values", _size.ToString(), "Close");
         }
         else
         {
-          var level = LevelFactory.Create(_size);
+          var level = LevelFactory.Create(_size, _coordinateConverter);
           Selection.activeGameObject = level.gameObject;
           LevelEditorWindow.Open(level);
           Close();

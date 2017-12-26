@@ -81,6 +81,13 @@ namespace Game
       Z = z;
     }
 
+    public Position(int x, int y)
+    {
+      X = x;
+      Y = y;
+      Z = 0;
+    }
+
     public static implicit operator PositionF(Position point)
     {
       return new PositionF(point.X, point.Y, point.Z);

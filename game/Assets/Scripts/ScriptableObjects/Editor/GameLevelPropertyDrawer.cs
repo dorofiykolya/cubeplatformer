@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Game.Views.Components;
+using Game.Components;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.SceneManagement;

@@ -1,5 +1,6 @@
-using Game.Views;
-using Game.Views.Components;
+using Game.Logics.Classic;
+using Game;
+using Game.Components;
 
 namespace Game.Controllers
 {
@@ -15,7 +16,7 @@ namespace Game.Controllers
                 Z = 1
             };
 
-            var level = LevelFactory.Create(size);
+            var level = LevelFactory.Create(size, new ClassicLogicLevelCoordinateConverter());
 
             for (int y = 0; y < csv.Height; y++)
             {

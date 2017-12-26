@@ -1,7 +1,7 @@
 ﻿using Game.Logics;
 using UnityEngine;
 
-namespace Game.Views.Components
+namespace Game.Components
 {
   [RequireComponent(typeof(LevelComponent))]
   public class ClassicLevelLogicComponent : LevelLogicComponent

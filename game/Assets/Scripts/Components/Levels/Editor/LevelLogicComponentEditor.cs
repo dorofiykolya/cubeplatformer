@@ -3,10 +3,10 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Game.Views.Components;
+using Game.Components;
 using UnityEditor;
 
-namespace Game.Views.Editor
+namespace Game.Editor
 {
   [CustomEditor(typeof(LevelLogicComponent), true)]
   public class LevelLogicComponentEditor : Editor<LevelLogicComponent>

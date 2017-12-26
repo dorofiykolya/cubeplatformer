@@ -3,7 +3,7 @@ using System.Collections;
 using Game.Components;
 using CharacterController = Game.Components.CharacterController;
 
-namespace Game.Views.Components
+namespace Game.Components
 {
   public class CellPlayerContentComponent : CellContentComponent
   {

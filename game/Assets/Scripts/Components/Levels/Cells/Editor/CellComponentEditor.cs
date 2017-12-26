@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
+using Game.Components;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.AnimatedValues;
 using Utils.Editor;
-using Game.Views.Components;
 
-namespace Game.Views.Editor
+namespace Game.Editor
 {
   [CustomEditor(typeof(CellComponent)), CanEditMultipleObjects]
   public class CellComponentEditor : Editor<CellComponent>

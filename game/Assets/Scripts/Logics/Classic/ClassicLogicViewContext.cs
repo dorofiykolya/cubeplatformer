@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using ClassicLogic.Engine;
 using ClassicLogic.Outputs;
-using Game.Views.Components;
+using Game.Components;
 using UnityEngine;
 using Utils;
 using Point = Utils.Point;

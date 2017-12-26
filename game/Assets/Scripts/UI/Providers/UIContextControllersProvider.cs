@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Game.UI.Controllers;
-using Game.Views.Controllers;
+using Game.Controllers;
 
 namespace Game.UI.Providers
 {

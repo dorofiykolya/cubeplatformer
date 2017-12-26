@@ -4,9 +4,9 @@ using UnityEditor.AnimatedValues;
 using Utils.Editor;
 using System.Linq;
 using System;
-using Game.Views.Components;
+using Game.Components;
 
-namespace Game.Views.Editor
+namespace Game.Editor
 {
   public class LevelEditorWindow : EditorWindow
   {

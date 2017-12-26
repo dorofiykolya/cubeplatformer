@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using Game.Components;
 using Game.Logics.Classic;
-using Game.Views.Components;
 using UnityEditor;
 using UnityEngine;
 using Utils.Editor;
 
-namespace Game.Views.Editor
+namespace Game.Editor
 {
   [CustomEditor(typeof(LevelComponent))]
   public class LevelComponentEditor : Editor<LevelComponent>

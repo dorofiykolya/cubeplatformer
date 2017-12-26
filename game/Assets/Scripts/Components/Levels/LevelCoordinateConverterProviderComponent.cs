@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
 
-namespace Game.Views
+namespace Game
 {
   public class LevelCoordinateConverterProviderComponent : MonoBehaviour
   {
     [SerializeField]
     private LevelCoordinateConverter _coordinateConverter;
+
+    public void SetConverter(LevelCoordinateConverter converter)
+    {
+      _coordinateConverter = converter;
+    }
 
     public ILevelCoordinateConverter Converter
     {
