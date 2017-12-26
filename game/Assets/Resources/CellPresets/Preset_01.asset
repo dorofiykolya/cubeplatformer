@@ -24,7 +24,7 @@ MonoBehaviour:
     Name: Block_01
     Prefab: {fileID: 114402794679373106, guid: 6a1e065f0d1be482f928a93a98c8e751, type: 2}
   - Type: 3
-    Direction: 0
+    Direction: 3
     Id: 
     Name: LadderTop_01
     Prefab: {fileID: 114574993185443046, guid: 4a17676bbf1004ae3a716eb85659228f, type: 2}
@@ -34,12 +34,12 @@ MonoBehaviour:
     Name: LadderMiddle_01
     Prefab: {fileID: 114964312258991914, guid: fd24f958500b54c45bab9db68a4b2fa9, type: 2}
   - Type: 3
-    Direction: 0
+    Direction: 4
     Id: 
     Name: LadderBottom_01
     Prefab: {fileID: 114803204790264658, guid: dbbdabbf365674ba595ad13e24dd7971, type: 2}
   - Type: 4
-    Direction: 0
+    Direction: 1
     Id: 
     Name: RopeLeft_01
     Prefab: {fileID: 114749305436245278, guid: 43b8d93772c964ac4a43a966418ce210, type: 2}
@@ -49,7 +49,7 @@ MonoBehaviour:
     Name: RopeMiddle_01
     Prefab: {fileID: 114289809108694774, guid: 5bff8b3f8641f47aab3a7c0f4c81c2c2, type: 2}
   - Type: 4
-    Direction: 0
+    Direction: 2
     Id: 
     Name: RopeRight_01
     Prefab: {fileID: 114448182761535780, guid: c95e5b67b981b4ef98e5b4023391bcfc, type: 2}

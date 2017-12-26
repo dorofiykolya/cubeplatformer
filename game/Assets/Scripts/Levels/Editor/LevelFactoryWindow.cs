@@ -54,7 +54,7 @@ namespace Game.Editor
       foreach (var field in InspectAttribute<LevelFactoryOptions>.Fields)
       {
         var value = field.GetValue(_options);
-
+        field.SetValue(_options, EditorGUILayoutProperty.DrawProperty(field.Name, value, field.FieldType));
       }
 
       if (GUILayout.Button("Create"))

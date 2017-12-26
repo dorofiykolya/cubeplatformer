@@ -13,6 +13,7 @@ namespace Game.Editor
   {
     private static CellPreset _preset;
     private static bool _inherited;
+    private static bool _autoDirection = true;
 
     private string _findText;
 
@@ -127,6 +128,7 @@ namespace Game.Editor
         EditorUtils.Header("Type: " + ((list.Select(s => s.CellType).Distinct().Count() == 1) ? list[0].CellType.ToString() : " --"));
 
         EditorGUILayout.BeginVertical(EditorUtils.Styles.ProgressBarBack);
+        _autoDirection = EditorGUILayout.Toggle("Auto direction", _autoDirection);
         var index = 0;
         _findText = EditorGUILayout.TextField(_findText, (GUIStyle)EditorUtils.Styles.SearchTextField);
         EditorGUILayout.BeginVertical(EditorUtils.Styles.ProgressBarBack);
@@ -135,6 +137,15 @@ namespace Game.Editor
           (p) => string.IsNullOrEmpty(_findText) || (p.Name != null && p.Name.ToLowerInvariant().Contains(_findText.ToLowerInvariant())) || p.Type.ToString().ToLowerInvariant().Contains(_findText.ToLowerInvariant()));
         if (presets.Any())
         {
+          var maxName = 0;
+          foreach (var info in presets)
+          {
+            var str = string.Format("{0} {1}", index++, info.Name ?? "");
+            if (str.Length > maxName) maxName = str.Length;
+          }
+          
+          index = 0;
+
           foreach (var presetCell in presets)
           {
             EditorUtils.PushColor();
@@ -144,14 +155,48 @@ namespace Game.Editor
             }
             var style = ((GUIStyle)EditorUtils.Styles.minibutton);
             style.alignment = TextAnchor.MiddleLeft;
-            var pressetName = (presetCell.Name ?? "").PadRight(12);
-            var pressetType = presetCell.Type.ToString().PadRight(12);
+            var pressetName = ((presetCell.Name ?? "") + "   ").PadRight(maxName, '_');
+            var pressetType = presetCell.Type.ToString();
             var pressetPrefab = presetCell.Prefab;
-            if (GUILayout.Button(string.Format("{0} {1} \t {2} \t {3}", index, pressetName, pressetType, pressetPrefab), style))
+            var pressetDirection = presetCell.Direction;
+            var finalPresetName = string.Format("{0} {1}", index, pressetName);
+            //if (finalPresetName.Length < maxName) finalPresetName += string.Join("-", new string[maxName - finalPresetName.Length]);
+            if (GUILayout.Button(string.Format("{0} \t {1} \t {2} \t {3}", finalPresetName, pressetType, pressetDirection, pressetPrefab), style))
             {
-              foreach (var component in list)
+              if (list.Length == 1 || !_autoDirection || presetCell.Direction != CellDirection.None)
               {
-                component.SetContent(presetCell);
+                foreach (var component in list)
+                {
+                  component.SetContent(presetCell);
+                }
+              }
+              else
+              {
+                foreach (var component in list)
+                {
+                  component.SetContent(presetCell);
+                }
+
+                foreach (var component in list)
+                {
+                  var level = component.Level;
+                  if (IsAutoDirection(component, CellDirection.Right))
+                  {
+                    component.SetContent(_preset.GetByType(presetCell.Type, CellDirection.Right));
+                  }
+                  else if (IsAutoDirection(component, CellDirection.Left))
+                  {
+                    component.SetContent(_preset.GetByType(presetCell.Type, CellDirection.Left));
+                  }
+                  else if (IsAutoDirection(component, CellDirection.Bottom))
+                  {
+                    component.SetContent(_preset.GetByType(presetCell.Type, CellDirection.Bottom));
+                  }
+                  else if (IsAutoDirection(component, CellDirection.Top))
+                  {
+                    component.SetContent(_preset.GetByType(presetCell.Type, CellDirection.Top));
+                  }
+                }
               }
             }
             EditorUtils.PopColor();
@@ -165,6 +210,14 @@ namespace Game.Editor
         EditorGUILayout.EndVertical();
         EditorGUILayout.EndVertical();
       }
+    }
+
+    private static bool IsAutoDirection(CellComponent component, CellDirection direction)
+    {
+      var level = component.Level;
+      var next = level.GetCellType(component.Position.GetPosition(direction));
+      var prev = level.GetCellType(component.Position.GetPosition(direction.Invert()));
+      return next != component.CellType && prev == component.CellType;
     }
   }
 }

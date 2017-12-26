@@ -36,6 +36,7 @@ namespace Game.Editor
         GUILayout.BeginHorizontal();
         np.Name = EditorGUILayout.TextField(platform.Name);
         np.Type = (CellType)EditorGUILayout.EnumPopup(platform.Type);
+        np.Direction = (CellDirection)EditorGUILayout.EnumPopup(platform.Direction);
         if (string.IsNullOrEmpty(np.Name) && platform.Prefab != null)
         {
           Target.Cells[index].Name = platform.Prefab.name;

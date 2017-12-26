@@ -29,8 +29,27 @@ namespace Game.Components
       get
       {
         var index = (Size.X * Size.Y * z) + x * Size.Y + y;
-        return _grid[index];
+        if (index >= 0 && index < _grid.Length)
+        {
+          return _grid[index];
+        }
+        return null;
       }
+    }
+
+    public CellComponent Get(Position position)
+    {
+      return this[position.X, position.Y, position.Z];
+    }
+
+    public CellType GetCellType(Position position)
+    {
+      var cell = Get(position);
+      if (cell != null)
+      {
+        return cell.CellType;
+      }
+      return CellType.Empty;
     }
 
     public void SetContent(LevelSize size, CellComponent[] grid)

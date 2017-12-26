@@ -45,7 +45,8 @@ namespace Game.Components
         Content = Instantiate(CellInfo.Prefab.gameObject).GetComponent<CellContentComponent>();
         Content.transform.SetParent(transform, false);
 #if UNITY_EDITOR
-        UnityEditor.PrefabUtility.ConnectGameObjectToPrefab(Content.gameObject, CellInfo.Prefab.gameObject);
+        var prefab = UnityEditor.PrefabUtility.ConnectGameObjectToPrefab(Content.gameObject, CellInfo.Prefab.gameObject);
+        Content = prefab.GetComponent<CellContentComponent>();
 #endif
       }
 

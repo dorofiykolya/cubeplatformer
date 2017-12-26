@@ -11,8 +11,8 @@ namespace Game
     {
       switch (direction)
       {
-        case CellDirection.Bottom: return new Position(position.X, position.Y + 1);
-        case CellDirection.Top: return new Position(position.X, position.Y - 1);
+        case CellDirection.Bottom: return new Position(position.X, position.Y - 1);
+        case CellDirection.Top: return new Position(position.X, position.Y + 1);
         case CellDirection.Left: return new Position(position.X - 1, position.Y);
         case CellDirection.Right: return new Position(position.X + 1, position.Y);
       }
