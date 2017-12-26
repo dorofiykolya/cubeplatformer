@@ -69,7 +69,7 @@ namespace Game.Editor
         }
         else
         {
-          var level = LevelFactory.Create(_size, _coordinateConverter);
+          var level = LevelFactory.Create(_size, _coordinateConverter, _options);
           Selection.activeGameObject = level.gameObject;
           LevelEditorWindow.Open(level);
           Close();
