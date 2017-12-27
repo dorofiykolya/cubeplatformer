@@ -16,11 +16,31 @@ namespace Game
       Z = z;
     }
 
+    public static PositionF operator +(PositionF left, PositionF right)
+    {
+      return new PositionF(left.X + right.X, left.Y + right.Y, left.Z + right.Z);
+    }
+
+    public static PositionF operator -(PositionF left, PositionF right)
+    {
+      return new PositionF(left.X - right.X, left.Y - right.Y, left.Z - right.Z);
+    }
+
+    public static PositionF operator *(PositionF left, PositionF right)
+    {
+      return new PositionF(left.X * right.X, left.Y * right.Y, left.Z * right.Z);
+    }
+
+    public static PositionF operator /(PositionF left, PositionF right)
+    {
+      return new PositionF(left.X / right.X, left.Y / right.Y, left.Z / right.Z);
+    }
+
     public static implicit operator Position(PositionF point)
     {
       return new Position((int)point.X, (int)point.Y, (int)point.Z);
     }
-    
+
     public static bool operator ==(PositionF s1, PositionF s2)
     {
       return s1.X == s2.X && s1.Y == s2.Y && s1.Z == s2.Z;

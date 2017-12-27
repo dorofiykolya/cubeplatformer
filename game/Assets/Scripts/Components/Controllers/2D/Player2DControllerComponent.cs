@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Game.Components
 {
-  public class PlayerControllerComponent : MonoBehaviour
+  public class Player2DControllerComponent : MonoBehaviour
   {
     private enum MoveTo
     {
@@ -25,12 +25,13 @@ namespace Game.Components
     private void Awake()
     {
       _level = GetComponentInParent<LevelComponent>();
+      _next = _level.CoordinateConverter.ToPosition(transform.localPosition);
     }
 
     private void Update()
     {
       var h = Input.GetAxis("Horizontal");
-      var moveTo = MoveTo.None;
+      var moveTo = _moveTo;
       if (h > 0) moveTo = MoveTo.Right;
       else if (h < 0) moveTo = MoveTo.Left;
 
@@ -38,7 +39,7 @@ namespace Game.Components
       if (moveTo != _moveTo)
       {
         _next = position;
-
+        _moveTo = moveTo;
         if (_moveTo == MoveTo.Right)
         {
           _next = position.GetPosition(CellDirection.Right);
@@ -48,13 +49,10 @@ namespace Game.Components
           _next = position.GetPosition(CellDirection.Left);
         }
       }
-      
-      if (_next != position)
-      {
-        var nextVector = _level.CoordinateConverter.ToWorld(_next);
-        transform.localPosition = Vector3.MoveTowards(transform.localPosition, nextVector, Speed * Time.deltaTime);
-      }
-      else
+
+      var nextVector = _level.CoordinateConverter.ToWorld(_next + new PositionF(0.5f, 0, 0));
+      transform.localPosition = Vector3.MoveTowards(transform.localPosition, nextVector, Speed * Time.deltaTime);
+      if (_next == position)
       {
         _moveTo = MoveTo.None;
       }
