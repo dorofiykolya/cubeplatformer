@@ -19,7 +19,7 @@ namespace Game.Logics.Classic
     {
       _context = context;
       data = data.Replace("\r\n", "\n");
-      _engine = new Engine(new StringLevelReader(data), 0.5);
+      _engine = new Engine(new StringLevelReader(data), 0.05);
       _viewContext = new ClassicLogicViewContext(lifetime, _engine.State.MaxTileX, _engine.State.MaxTileY);
     }
 

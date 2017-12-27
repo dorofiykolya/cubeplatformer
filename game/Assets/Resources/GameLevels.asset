@@ -15,6 +15,18 @@ MonoBehaviour:
   - Name: Level_01_name
     Description: Level_01_desr
     Category: 0
+    DataType: 1
+    LevelStringData:
+      _path: ClassicLevels/classic_level
+      _serializedType: UnityEngine.TextAsset, UnityEngine.CoreModule
+    Preset:
+      _path: CellPresets/Preset_01
+      _serializedType: Game.CellPreset, Assembly-CSharp
+    Scene:
+      SceneName: Castle_01
+  - Name: Level_01_name
+    Description: Level_01_desr
+    Category: 0
     DataType: 0
     LevelStringData:
       _path: 

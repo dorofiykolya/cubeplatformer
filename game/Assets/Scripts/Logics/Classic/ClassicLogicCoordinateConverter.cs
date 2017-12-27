@@ -16,20 +16,22 @@ namespace Game.Logics.Classic
       _maxTileX = maxTileX;
       _maxTileY = maxTileY;
     }
+    
+    public Vector3 UnitSize = new Vector3(2,2,0);
 
     public Vector3 ToWorld(PositionF logicPosition)
     {
-      return new Vector3(logicPosition.X, _maxTileY - logicPosition.Y, 0);
-    }
-
-    public Position ToPosition(Vector3 worldPosition)
-    {
-      return new Position((int)worldPosition.x, (int)(_maxTileY - worldPosition.y), 0);
+      return new Vector3(logicPosition.X * UnitSize.x, (_maxTileY - logicPosition.Y) * UnitSize.y, 0);
     }
 
     public PositionF ToPositionF(Vector3 worldPosition)
     {
-      return new PositionF(worldPosition.x, _maxTileY - worldPosition.y, 0);
+      return new PositionF(worldPosition.x / UnitSize.x, (_maxTileY - worldPosition.y) / UnitSize.y, 0);
+    }
+
+    public Position ToPosition(Vector3 worldPosition)
+    {
+      return new Position((int)(worldPosition.x / UnitSize.x), (int)((_maxTileY - worldPosition.y) / UnitSize.y), (int)(worldPosition.z / UnitSize.z));
     }
   }
 }
