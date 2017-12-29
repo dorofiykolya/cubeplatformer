@@ -8,23 +8,22 @@ using Utils;
 namespace Game.Components
 {
   [RequireComponent(typeof(LevelControllerComponent))]
-  public class TimeControllerComponent : MonoBehaviour
+  public class LevelTimeControllerComponent : LevelControllerBaseComponent
   {
     [Range(0f, 5f)]
     public float TimeScale = 1f;
 
-    private LevelControllerComponent _levelController;
     private Signal<float> _onUpdate;
 
-    private void Awake()
+
+    protected override void OnAwake()
     {
-      _levelController = GetComponent<LevelControllerComponent>();
-      _onUpdate = new Signal<float>(_levelController.Lifetime);
+      _onUpdate = new Signal<float>(Lifetime);
     }
 
     public void SubscribeOnUpdate(Lifetime lifetime, Action<float> listener)
     {
-      var deltaTime = TimeScale * _levelController.Context.Time.DeltaTime;
+      var deltaTime = TimeScale * Context.Time.DeltaTime;
       _onUpdate.Fire(deltaTime);
     }
 

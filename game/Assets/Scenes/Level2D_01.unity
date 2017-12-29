@@ -12401,6 +12401,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 5
+  SnapToCell: 0
+  HeadCollision: {fileID: 0}
+  GroundCollision: {fileID: 0}
   Next: {x: 0, y: 0}
 --- !u!23 &1923380347
 MeshRenderer:
@@ -12448,8 +12451,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.3}
-  m_Size: {x: 1, y: 1.66}
+  m_Offset: {x: 0, y: 0.46}
+  m_Size: {x: 1, y: 1.85}
   m_Direction: 0
 --- !u!33 &1923380349
 MeshFilter:
@@ -12489,9 +12492,9 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 3
   m_Material: {fileID: 0}
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4

@@ -55,13 +55,13 @@ namespace Game
                 case '#': type = CellType.Block; break;
                 case 'X': type = CellType.Solid; break;
                 case ' ': type = CellType.Empty; break;
-                case '$': type = CellType.Gold; break;
+                case '$': type = CellType.Coin; break;
                 case '@': type = CellType.Player; break;
                 case '0': type = CellType.Guard; break;
                 case 'H': type = CellType.Ladder; break;
                 case '-': type = CellType.Rope; break;
                 case 'T': type = CellType.Trap; break;
-                case 'S': type = CellType.HLadr; break;
+                case 'S': type = CellType.HideLadder; break;
                 case 'E': type = CellType.TeleportEnter; break;
                 case 'R': type = CellType.TeleportExit; break;
             }

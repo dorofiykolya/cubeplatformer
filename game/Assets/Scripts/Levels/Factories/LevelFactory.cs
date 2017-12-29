@@ -10,7 +10,11 @@ namespace Game
     public static LevelComponent Create(LevelSize size, LevelCoordinateConverter coordinateConverter, LevelFactoryOptions options = null)
     {
       var gameObject = new GameObject("Level");
+
       gameObject.AddComponent<LevelControllerComponent>();
+      gameObject.AddComponent<LevelTimeControllerComponent>();
+      gameObject.AddComponent<LevelPlayerAbilitiesComponent>();
+
       var level = gameObject.AddComponent<LevelComponent>();
       gameObject.AddComponent<LevelCoordinateConverterProviderComponent>().SetConverter(coordinateConverter);
       gameObject.AddComponent<LevelGizmoComponent>();

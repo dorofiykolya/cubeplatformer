@@ -25,7 +25,7 @@ namespace Game.Components
 
     private void Update()
     {
-      var scale = LevelControllerComponent.Current.TimeController.GetTimeScale(TimeGroup);
+      var scale = LevelControllerComponent.Current.LevelTimeController.GetTimeScale(TimeGroup);
       Speed = _startSpeed * scale;
     }
   }

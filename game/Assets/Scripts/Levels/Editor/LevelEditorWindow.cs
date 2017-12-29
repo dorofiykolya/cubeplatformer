@@ -66,7 +66,7 @@ namespace Game.Editor
             if(Selection.gameObjects.Contains(cellGameObject)) GUI.color = Color.green;
             else
             {
-              if(Array.IndexOf(new []{CellType.Block, CellType.HLadr, CellType.Ladder, CellType.Rope, CellType.Solid, CellType.Trap}, cell.CellType) != -1 || cell.CellType == CellType.Block)
+              if(Array.IndexOf(new []{CellType.Block, CellType.HideLadder, CellType.Ladder, CellType.Rope, CellType.Solid, CellType.Trap}, cell.CellType) != -1 || cell.CellType == CellType.Block)
               {
                 GUI.color = new Color(.25f, .25f, .25f);
               }

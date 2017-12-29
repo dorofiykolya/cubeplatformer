@@ -7,12 +7,12 @@ namespace Game.Components
     public static void Process(CellComponent cellComponent, CellType cellType)
     {
       var coin = cellComponent.GetComponent<CellCoinComponent>();
-      if (coin != null && cellType != CellType.Gold)
+      if (coin != null && cellType != CellType.Coin)
       {
         if (Application.isEditor) GameObject.DestroyImmediate(coin);
         else GameObject.Destroy(coin);
       }
-      else if (coin == null && cellType == CellType.Gold)
+      else if (coin == null && cellType == CellType.Coin)
       {
         cellComponent.gameObject.AddComponent<CellCoinComponent>();
       }

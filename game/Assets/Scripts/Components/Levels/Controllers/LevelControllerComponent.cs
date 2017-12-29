@@ -3,7 +3,7 @@ using Utils;
 
 namespace Game.Components
 {
-  [RequireComponent(typeof(TimeControllerComponent))]
+  [RequireComponent(typeof(LevelTimeControllerComponent), typeof(LevelPlayerAbilitiesComponent))]
   public class LevelControllerComponent : MonoBehaviour
   {
     public static LevelControllerComponent Current;
@@ -16,7 +16,7 @@ namespace Game.Components
       if (_instanceDefinition == null) _instanceDefinition = Lifetime.Define(Lifetime.Eternal);
       Current = this;
 
-      TimeController = GetComponent<TimeControllerComponent>();
+      LevelTimeController = GetComponent<LevelTimeControllerComponent>();
     }
 
     private void OnDestroy()
@@ -25,7 +25,7 @@ namespace Game.Components
       if (Current == this) Current = null;
     }
 
-    public TimeControllerComponent TimeController { get; private set; }
+    public LevelTimeControllerComponent LevelTimeController { get; private set; }
 
     public Lifetime Lifetime
     {

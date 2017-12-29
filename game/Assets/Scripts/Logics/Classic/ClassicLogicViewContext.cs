@@ -82,7 +82,7 @@ namespace Game.Logics.Classic
       {
         if (cellInfo.Prefab != null)
         {
-          if (cellType == CellType.Gold)
+          if (cellType == CellType.Coin)
           {
             AddGold(x, y);
           }
@@ -96,7 +96,7 @@ namespace Game.Logics.Classic
 
             view.transform.localPosition = _converter.ToWorld(new PositionF(x, y, 0));
 
-            if (cellType == CellType.HLadr)
+            if (cellType == CellType.HideLadder)
             {
               view.gameObject.SetActive(false);
               HideLadder = view;
@@ -131,7 +131,7 @@ namespace Game.Logics.Classic
 
     public void AddGold(int x, int y)
     {
-      var view = GameObject.Instantiate(_cache[CellType.Gold].Prefab);
+      var view = GameObject.Instantiate(_cache[CellType.Coin].Prefab);
       _golds[new Point(x, y)] = view;
       view.transform.SetParent(_goldTransform, false);
       view.transform.localPosition = _converter.ToWorld(new PositionF(x, y, 0));

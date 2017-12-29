@@ -2,19 +2,20 @@
 {
   public enum CellType
   {
-    Empty = 0x00,
-    Block = 0x01,
-    Solid = 0x02,
-    Ladder = 0x03,
-    Rope = 0x04,
-    Trap = 0x05,
-    HLadr = 0x06,
-    Gold = 0x07,
-    Guard = 0x08,
-    //Runner = 0x09,
-    Reborn = 0x10,
-    Player = 0x20,
-    TeleportEnter = 0x40,
-    TeleportExit = 0x80
+    Empty = 1,
+    Solid = 1 << 1,
+    Block = 1 << 2,
+    Ladder = 1 << 3,
+    Rope = 1 << 4,
+    Trap = 1 << 5,
+    HideLadder = 1 << 6,
+    Coin = 1 << 7,
+    Guard = 1 << 8,
+    Reborn = 1 << 9,
+    Player = 1 << 10,
+    TeleportEnter = 1 << 11,
+    TeleportExit = 1 << 12,
+    GuardSpawnPoint = 1 << 13,
+    PlayerSpawnPoint = 1 << 14
   }
 }

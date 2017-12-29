@@ -30,10 +30,10 @@ namespace Game.Logics.Classic
             case CellType.Trap:
               str.Append('X');
               break;
-            case CellType.HLadr:
+            case CellType.HideLadder:
               str.Append('S');
               break;
-            case CellType.Gold:
+            case CellType.Coin:
               str.Append('$');
               break;
             case CellType.Guard:
