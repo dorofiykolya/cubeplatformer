@@ -56,7 +56,7 @@ namespace Game.Components
       var controller = _level.GetComponent<LevelControllerComponent>();
       if (controller != null && controller.Context != null)
       {
-        controller.
+        _contextInput = true;
       }
     }
 

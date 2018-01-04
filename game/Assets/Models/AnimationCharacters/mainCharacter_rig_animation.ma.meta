@@ -1,61 +1,10 @@
 fileFormatVersion: 2
-guid: bfa304bc8ce41ea468cf41c60aa457ec
-timeCreated: 1514455285
-licenseType: Pro
+guid: 852b5ec19df1d0a488c7654fbd582326
+timeCreated: 1515091424
+licenseType: Free
 ModelImporter:
   serializedVersion: 22
-  fileIDToRecycleName:
-    100000: //RootNode
-    100002: Character_1_3
-    100004: Chest
-    100006: Head
-    100008: Hips
-    100010: L_Arm
-    100012: L_foot
-    100014: L_ForeArm
-    100016: L_Hand
-    100018: L_leg
-    100020: L_toe
-    100022: L_up_leg
-    100024: L_up_toe
-    100026: R_Arm
-    100028: R_foot
-    100030: R_ForeArm
-    100032: R_Hand
-    100034: R_leg
-    100036: R_toe
-    100038: R_up_leg
-    100040: R_up_toe
-    100042: Root
-    100044: Spine
-    400000: //RootNode
-    400002: Character_1_3
-    400004: Chest
-    400006: Head
-    400008: Hips
-    400010: L_Arm
-    400012: L_foot
-    400014: L_ForeArm
-    400016: L_Hand
-    400018: L_leg
-    400020: L_toe
-    400022: L_up_leg
-    400024: L_up_toe
-    400026: R_Arm
-    400028: R_foot
-    400030: R_ForeArm
-    400032: R_Hand
-    400034: R_leg
-    400036: R_toe
-    400038: R_up_leg
-    400040: R_up_toe
-    400042: Root
-    400044: Spine
-    2100000: 02 - Default
-    4300000: Character_1_3
-    9500000: //RootNode
-    11400000: //RootNode
-    13700000: Character_1_3
+  fileIDToRecycleName: {}
   externalObjects: {}
   materials:
     importMaterials: 1

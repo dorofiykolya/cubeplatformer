@@ -1,12 +1,12 @@
 fileFormatVersion: 2
-guid: fd0d2f09b353a2547aef9f264ee66d57
-timeCreated: 1514455286
-licenseType: Pro
+guid: 1fcbe6ae34efea54db230a692ac95ecb
+timeCreated: 1515091423
+licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
-    100002: Character_1_1
+    100002: Character_2_3
     100004: Chest
     100006: Head
     100008: Hips
@@ -29,7 +29,7 @@ ModelImporter:
     100042: Root
     100044: Spine
     400000: //RootNode
-    400002: Character_1_1
+    400002: Character_2_3
     400004: Chest
     400006: Head
     400008: Hips
@@ -52,10 +52,10 @@ ModelImporter:
     400042: Root
     400044: Spine
     2100000: 02 - Default
-    4300000: Character_1_1
+    4300000: Character_2_3
     9500000: //RootNode
     11400000: //RootNode
-    13700000: Character_1_1
+    13700000: Character_2_3
   externalObjects: {}
   materials:
     importMaterials: 1
