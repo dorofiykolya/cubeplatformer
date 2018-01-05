@@ -12,9 +12,10 @@ namespace Game.Inputs
     private static readonly HashSet<string> _axiesSet = new HashSet<string>();
 #endif
 
-    public static bool LogEvents = false;
+    public static bool LogEvents = true;
 
-    private readonly Dictionary<string, InputEvent> _inputs;
+    private readonly Dictionary<string, InputEvent> _updateInputs;
+    private readonly Dictionary<string, InputEvent> _fixedUpdateInputs;
     private readonly Dictionary<string, InputController> _controllers;
     private readonly GameContext _context;
     private readonly int MaxControllers = 4;
@@ -22,11 +23,13 @@ namespace Game.Inputs
     public GameInputContext(GameContext context) : base(context, context.Lifetime)
     {
       _context = context;
-      _inputs = new Dictionary<string, InputEvent>();
+      _updateInputs = new Dictionary<string, InputEvent>();
+      _fixedUpdateInputs = new Dictionary<string, InputEvent>();
       _controllers = new Dictionary<string, InputController>(MaxControllers);
 
       context.StartCoroutine(context.Lifetime, CheckForControllers());
-      context.StartCoroutine(context.Lifetime, Process());
+      context.StartCoroutine(context.Lifetime, ProcessUpdate());
+      context.StartCoroutine(context.Lifetime, ProcessFixedUpdate());
     }
 
     public override InputController[] Controllers
@@ -98,83 +101,123 @@ namespace Game.Inputs
       }
     }
 
-    private IEnumerator Process()
+    private void ProcessEvents(InputUpdate update, Dictionary<string, InputEvent> inputs)
     {
-      yield return null;
-
-      while (true)
-      {
 #if UNITY_EDITOR
-        for (int joyIndex = 1; joyIndex < 12; joyIndex++)
+      for (int joyIndex = 1; joyIndex < 12; joyIndex++)
+      {
+        for (int axiesIndex = 1; axiesIndex < 30; axiesIndex++)
         {
-          for (int axiesIndex = 1; axiesIndex < 30; axiesIndex++)
+          var name = string.Format("Joy{0}Axis{1}", joyIndex, axiesIndex);
+          var value = Input.GetAxis(name);
+          var contains = Math.Abs(value) > float.Epsilon;
+          if (contains)
           {
-            var name = string.Format("Joy{0}Axis{1}", joyIndex, axiesIndex);
-            var value = Input.GetAxis(name);
-            var contains = Math.Abs(value) > float.Epsilon;
-            if (contains)
+            if (_axiesSet.Add(name))
             {
-              if (_axiesSet.Add(name))
-              {
-                Debug.Log("Input-Begin: " + name);
-              }
-            }
-            else
-            {
-              if (_axiesSet.Contains(name))
-              {
-                Debug.Log("Input-End: " + name);
-              }
-              _axiesSet.Remove(name);
+              Debug.Log("Input-Begin: " + name + ", " + update);
             }
           }
+          else
+          {
+            if (_axiesSet.Contains(name))
+            {
+              Debug.Log("Input-End: " + name + ", " + update);
+            }
+            _axiesSet.Remove(name);
+          }
         }
+      }
 #endif
 
-        foreach (var input in InputNameMapper<GameInput>.Collection)
+      foreach (var input in InputNameMapper<GameInput>.Collection)
+      {
+        var inputName = input.Name;
+        var parent = input.Parent;
+        if (parent != null)
         {
-          var value = Input.GetAxis(input.Name);
-          var contains = Math.Abs(value) > float.Epsilon;
-
-          InputEvent evt;
-          if (_inputs.TryGetValue(input.Name, out evt))
+          inputName = input.Parent.Name;
+        }
+        var value = Input.GetAxis(inputName);
+        bool contains = false;
+        if (parent != null)
+        {
+          if (input.Value == GameInput.ValueType.Hight)
           {
-            if (!contains)
-            {
-              FireEvent(new InputEvent
-              {
-                Input = input,
-                Phase = InputPhase.End,
-                Value = evt.Value
-              });
-              if (LogEvents) _context.Logger.Log("Input - End: [" + input.Name + "] " + value);
-              _inputs.Remove(input.Name);
-            }
-            else
-            {
-              FireEvent(new InputEvent
-              {
-                Input = input,
-                Phase = InputPhase.Process,
-                Value = value
-              });
-              if (LogEvents) _context.Logger.Log("Input - Process: [" + input.Name + "] " + value);
-            }
+            contains = value > float.Epsilon;
           }
-          else if (contains)
+          else if (input.Value == GameInput.ValueType.Low)
           {
-            evt = new InputEvent
-            {
-              Input = input,
-              Value = value,
-              Phase = InputPhase.Begin
-            };
-            _inputs.Add(input.Name, evt);
-            if (LogEvents) _context.Logger.Log("Input - Began: [" + input.Name + "] " + value);
-            FireEvent(evt);
+            contains = value < -float.Epsilon;
+          }
+          else
+          {
+            contains = Math.Abs(value) > float.Epsilon;
           }
         }
+        else
+        {
+          contains = Math.Abs(value) > float.Epsilon;
+        }
+
+        InputEvent evt;
+        if (inputs.TryGetValue(input.Name, out evt))
+        {
+          if (!contains)
+          {
+            FireEvent(new InputEvent
+            {
+              Input = input,
+              Phase = InputPhase.End,
+              Value = evt.Value,
+              Update = update
+            });
+            if (LogEvents) _context.Logger.Log("Input - End: [" + input.Name + "] " + value + ", " + update);
+            inputs.Remove(input.Name);
+          }
+          else
+          {
+            FireEvent(new InputEvent
+            {
+              Input = input,
+              Phase = InputPhase.Process,
+              Value = value,
+              Update = update
+            });
+            if (LogEvents) _context.Logger.Log("Input - Process: [" + input.Name + "] " + value + ", " + update);
+          }
+        }
+        else if (contains)
+        {
+          evt = new InputEvent
+          {
+            Input = input,
+            Value = value,
+            Phase = InputPhase.Begin,
+            Update = update
+          };
+          inputs.Add(input.Name, evt);
+          if (LogEvents) _context.Logger.Log("Input - Began: [" + input.Name + "] " + value + ", " + update);
+          FireEvent(evt);
+        }
+      }
+    }
+
+    private IEnumerator ProcessUpdate()
+    {
+      while (true)
+      {
         yield return null;
+        ProcessEvents(InputUpdate.Update, _updateInputs);
+      }
+    }
+
+    private IEnumerator ProcessFixedUpdate()
+    {
+      while (true)
+      {
+        yield return new WaitForFixedUpdate();
+        ProcessEvents(InputUpdate.FixedUpdate, _fixedUpdateInputs);
       }
     }
   }

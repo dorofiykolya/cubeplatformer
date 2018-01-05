@@ -6,5 +6,6 @@
     public float Value;
     public InputPhase Phase;
     public int ControllerId;
+    public InputUpdate Update;
   }
 }

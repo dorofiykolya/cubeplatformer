@@ -198,7 +198,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 16961616}
-  - component: {fileID: 16961615}
   - component: {fileID: 16961614}
   - component: {fileID: 16961613}
   - component: {fileID: 16961612}
@@ -445,17 +444,6 @@ MonoBehaviour:
   - {fileID: 1836105994}
   - {fileID: 337079986}
   - {fileID: 430773094}
---- !u!114 &16961615
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 16961610}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 250db736412b1ce45afb3b0058eb8bff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &16961616
 Transform:
   m_ObjectHideFlags: 0
@@ -12365,9 +12353,9 @@ GameObject:
   - component: {fileID: 1923380345}
   - component: {fileID: 1923380349}
   - component: {fileID: 1923380347}
+  - component: {fileID: 1923380350}
   - component: {fileID: 1923380346}
   - component: {fileID: 1923380351}
-  - component: {fileID: 1923380350}
   - component: {fileID: 1923380348}
   m_Layer: 0
   m_Name: Player
@@ -12402,6 +12390,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 5
   SnapToCell: 0
+  Offset: 0.3
   HeadCollision: {fileID: 0}
   GroundCollision: {fileID: 0}
   Next: {x: 0, y: 0}
@@ -12461,23 +12450,19 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1923380344}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!95 &1923380350
-Animator:
-  serializedVersion: 3
+--- !u!114 &1923380350
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1923380344}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca1f8625cf1eef9469ae0bdf9122a6bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InputHorizontalThreashold: 0.1
+  InputVerticalThreashold: 0.1
 --- !u!50 &1923380351
 Rigidbody2D:
   serializedVersion: 4

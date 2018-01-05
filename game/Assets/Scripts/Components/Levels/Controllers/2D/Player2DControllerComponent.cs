@@ -68,7 +68,7 @@ namespace Game.Components
       {
         moveTo = MoveTo.Right;
       }
-      else if (_inputMove.x < float.Epsilon)
+      else if (_inputMove.x < -float.Epsilon)
       {
         moveTo = MoveTo.Left;
       }

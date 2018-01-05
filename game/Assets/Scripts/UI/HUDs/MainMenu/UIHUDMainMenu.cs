@@ -28,12 +28,9 @@ namespace Game.UI.Windows
         menuComponent.OnInfinityClick.Subscribe(Lifetime, () => _levelController.LoadLevel(0));
       }
       _inputContext = new UIHUDMainMenuInputContext(_gameContext, Lifetime, _gameContext.InputContext);
-      _inputContext.Subscribe(Lifetime, GameInput.Vertical, InputPhase.End, evt =>
-      {
-        if (evt.Value > 0f) menuComponent.Up();
-        else menuComponent.Down();
-      });
-      _inputContext.Subscribe(Lifetime, GameInput.Submit, InputPhase.End, evt => menuComponent.Submit());
+      _inputContext.Subscribe(Lifetime, GameInput.Up, InputPhase.End, InputUpdate.Update, evt => menuComponent.Up());
+      _inputContext.Subscribe(Lifetime, GameInput.Down, InputPhase.End, InputUpdate.Update, evt => menuComponent.Down());
+      _inputContext.Subscribe(Lifetime, GameInput.Submit, InputPhase.End, InputUpdate.Update, evt => menuComponent.Submit());
     }
 
     protected override void OnOpen()

@@ -46,28 +46,46 @@ namespace Game.Controllers
 
       var input = new LevelInputContenxt(Context, _levelDefinition.Lifetime, Context.InputContext);
 
-      input.Subscribe(_levelDefinition.Lifetime, GameInput.Horizontal, InputPhase.Begin, evt =>
+      input.Subscribe(_levelDefinition.Lifetime, GameInput.Left, InputPhase.Begin, InputUpdate.Update, evt =>
       {
         logic.AddAction(new LogicActionInputAction
         {
-          InputAction = evt.Value > 0 ? InputAction.Right : InputAction.Left
+          InputAction = InputAction.Left
         });
       });
-      input.Subscribe(_levelDefinition.Lifetime, GameInput.Vertical, InputPhase.Begin, evt =>
+
+      input.Subscribe(_levelDefinition.Lifetime, GameInput.Right, InputPhase.Begin, InputUpdate.Update, evt =>
       {
         logic.AddAction(new LogicActionInputAction
         {
-          InputAction = evt.Value > 0 ? InputAction.Up : InputAction.Down
+          InputAction = InputAction.Right
         });
       });
-      input.Subscribe(_levelDefinition.Lifetime, GameInput.Action, InputPhase.Begin, evt =>
+
+      input.Subscribe(_levelDefinition.Lifetime, GameInput.Up, InputPhase.Begin, InputUpdate.Update, evt =>
+      {
+        logic.AddAction(new LogicActionInputAction
+        {
+          InputAction = InputAction.Up
+        });
+      });
+
+      input.Subscribe(_levelDefinition.Lifetime, GameInput.Down, InputPhase.Begin, InputUpdate.Update, evt =>
+      {
+        logic.AddAction(new LogicActionInputAction
+        {
+          InputAction = InputAction.Down
+        });
+      });
+
+      input.Subscribe(_levelDefinition.Lifetime, GameInput.Action, InputPhase.Begin, InputUpdate.Update, evt =>
       {
         logic.AddAction(new LogicActionInputAction
         {
           InputAction = evt.Value < 0 ? InputAction.DigLeft : InputAction.DigRight
         });
       });
-      input.Subscribe(_levelDefinition.Lifetime, GameInput.Cancel, InputPhase.Begin, evt =>
+      input.Subscribe(_levelDefinition.Lifetime, GameInput.Cancel, InputPhase.Begin, InputUpdate.Update, evt =>
       {
         _levelController.Unload();
       });

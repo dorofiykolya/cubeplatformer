@@ -48,31 +48,37 @@ namespace Game.Inputs
 
     public virtual InputController[] Controllers { get { return Root == this ? new InputController[0] : Root.Controllers; } }
 
-    public virtual void Subscribe(Lifetime lifetime, GameInput input, Action<InputEvent> listener)
+    public virtual void Subscribe(Lifetime lifetime, GameInput input, InputUpdate update, Action<InputEvent> listener)
     {
-      _onInput.Subscribe(lifetime, (evt) =>
+      _onInput.Subscribe(lifetime, evt =>
       {
-        if (evt.Input == input)
+        if (evt.Input == input && evt.Update == update)
         {
           listener(evt);
         }
       });
     }
 
-    public virtual void Subscribe(Lifetime lifetime, GameInput input, InputPhase phase, Action<InputEvent> listener)
+    public virtual void Subscribe(Lifetime lifetime, GameInput input, InputPhase phase, InputUpdate update, Action<InputEvent> listener)
     {
-      _onInput.Subscribe(lifetime, (evt) =>
+      _onInput.Subscribe(lifetime, evt =>
       {
-        if (evt.Input == input && evt.Phase == phase)
+        if (evt.Input == input && evt.Phase == phase && evt.Update == update)
         {
           listener(evt);
         }
       });
     }
 
-    public virtual void Subscribe(Lifetime lifetime, Action<InputEvent> listener)
+    public virtual void Subscribe(Lifetime lifetime, InputUpdate update, Action<InputEvent> listener)
     {
-      _onInput.Subscribe(lifetime, listener);
+      _onInput.Subscribe(lifetime, evt =>
+      {
+        if (evt.Update == update)
+        {
+          listener(evt);
+        }
+      });
     }
 
     public virtual void SubscribeOnAddController(Lifetime lifetime, Action<InputController> listener)

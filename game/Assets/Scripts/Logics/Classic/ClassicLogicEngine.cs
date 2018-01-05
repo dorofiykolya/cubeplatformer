@@ -10,6 +10,7 @@ namespace Game.Logics.Classic
   public class ClassicLogicEngine : ILogicEngine
   {
     private readonly GameContext _context;
+    private readonly Lifetime _lifetime;
     private readonly ClassicLogicCommandProcessor _processor = new ClassicLogicCommandProcessor();
     private readonly Engine _engine;
 
@@ -18,6 +19,7 @@ namespace Game.Logics.Classic
     public ClassicLogicEngine(GameContext context, Lifetime lifetime, string data)
     {
       _context = context;
+      _lifetime = lifetime;
       data = data.Replace("\r\n", "\n");
       _engine = new Engine(new StringLevelReader(data), 0.05);
       _viewContext = new ClassicLogicViewContext(lifetime, _engine.State.MaxTileX, _engine.State.MaxTileY);
@@ -45,7 +47,7 @@ namespace Game.Logics.Classic
 
     public void FastForward(int tick)
     {
-
+      if (_lifetime.IsTerminated) return;
       _engine.FastForward(tick);
       while (_engine.Output.Count != 0)
       {

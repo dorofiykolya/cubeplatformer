@@ -45,18 +45,12 @@ namespace Game.UI.HUDs
 
         var input = new MainMenuInputContext(_gameContext, Lifetime, _gameContext.InputContext.Current);
 
-        input.Subscribe(_lifeDefinition.Lifetime, GameInput.Horizontal, InputPhase.Begin, e =>
-        {
-          if (e.Value > 0) navigation.GoToRight();
-          else navigation.GoToLeft();
-        });
-        input.Subscribe(_lifeDefinition.Lifetime, GameInput.Vertical, InputPhase.Begin, e =>
-        {
-          if (e.Value > 0) navigation.GoToTop();
-          else navigation.GoToBottom();
-        });
-        input.Subscribe(_lifeDefinition.Lifetime, GameInput.Cancel, InputPhase.Begin, e => { navigation.GoToBack(); });
-        input.Subscribe(_lifeDefinition.Lifetime, GameInput.Action, InputPhase.Begin, e =>
+        input.Subscribe(_lifeDefinition.Lifetime, GameInput.Right, InputPhase.Begin, InputUpdate.Update, e => navigation.GoToRight());
+        input.Subscribe(_lifeDefinition.Lifetime, GameInput.Left, InputPhase.Begin, InputUpdate.Update, e => navigation.GoToLeft());
+        input.Subscribe(_lifeDefinition.Lifetime, GameInput.Up, InputPhase.Begin, InputUpdate.Update, e => navigation.GoToTop());
+        input.Subscribe(_lifeDefinition.Lifetime, GameInput.Down, InputPhase.Begin, InputUpdate.Update, e => navigation.GoToBottom());
+        input.Subscribe(_lifeDefinition.Lifetime, GameInput.Cancel, InputPhase.Begin, InputUpdate.Update, e => { navigation.GoToBack(); });
+        input.Subscribe(_lifeDefinition.Lifetime, GameInput.Action, InputPhase.Begin, InputUpdate.Update, e =>
         {
           var currentMenuId = navigation.Current.Id;
           switch (currentMenuId)
