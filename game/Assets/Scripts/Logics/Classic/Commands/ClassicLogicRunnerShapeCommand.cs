@@ -8,31 +8,32 @@ namespace Game.Logics.Classic.Commands
   {
     protected override void Execute(RunnerShapeEvent evt, ClassicLogicEngine engine)
     {
+      var runner = engine.ViewContext.Runner;
       switch (evt.Shape)
       {
         case Shape.RunLeft:
-          engine.ViewContext.Runner.SetTrigger(CharacterTrigger.WalkLeft);
+          runner.SetTrigger(CharacterTrigger.WalkLeft);
           break;
         case Shape.RunRight:
-          engine.ViewContext.Runner.SetTrigger(CharacterTrigger.WalkRight);
+          runner.SetTrigger(CharacterTrigger.WalkRight);
           break;
         case Shape.BarLeft:
-          engine.ViewContext.Runner.SetTrigger(CharacterTrigger.RopeLeft);
+          runner.SetTrigger(CharacterTrigger.RopeLeft);
           break;
         case Shape.BarRight:
-          engine.ViewContext.Runner.SetTrigger(CharacterTrigger.RopeRight);
+          runner.SetTrigger(CharacterTrigger.RopeRight);
           break;
         case Shape.DigHoleLeft:
-          engine.ViewContext.Runner.SetTrigger(CharacterTrigger.FireLeft);
+          runner.SetTrigger(CharacterTrigger.FireLeft);
           break;
         case Shape.DigHoleRight:
-          engine.ViewContext.Runner.SetTrigger(CharacterTrigger.FireRight);
+          runner.SetTrigger(CharacterTrigger.FireRight);
           break;
         case Shape.RunUp:
-          engine.ViewContext.Runner.SetTrigger(CharacterTrigger.LadderUp);
+          runner.SetTrigger(CharacterTrigger.LadderUp);
           break;
         case Shape.RunDown:
-          engine.ViewContext.Runner.SetTrigger(CharacterTrigger.LadderDown);
+          runner.SetTrigger(CharacterTrigger.LadderDown);
           break;
       }
     }

@@ -12,7 +12,7 @@ namespace Game.Inputs
     private static readonly HashSet<string> _axiesSet = new HashSet<string>();
 #endif
 
-    public static bool LogEvents = true;
+    public static bool LogEvents = false;
 
     private readonly Dictionary<string, InputEvent> _updateInputs;
     private readonly Dictionary<string, InputEvent> _fixedUpdateInputs;

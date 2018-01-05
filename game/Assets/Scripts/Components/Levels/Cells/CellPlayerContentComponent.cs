@@ -1,14 +1,22 @@
 ﻿using UnityEngine;
-using System.Collections;
-using Game.Components;
-using CharacterController = Game.Components.CharacterController;
 
 namespace Game.Components
 {
   public class CellPlayerContentComponent : CellContentComponent
   {
     [SerializeField]
-    public CharacterController Controller;
+    public CharacterAnimatorController Controller;
+
+    private void Awake()
+    {
+      if (Controller == null) Controller = GetComponent<CharacterAnimatorController>();
+    }
+
+    private void Reset()
+    {
+      if (Controller == null) Controller = GetComponent<CharacterAnimatorController>();
+      if (Controller == null && GetComponent<Animator>() != null) Controller = gameObject.AddComponent<CharacterAnimatorController>();
+    }
 
     public void SetTrigger(CharacterTrigger trigger)
     {

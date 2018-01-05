@@ -2,7 +2,7 @@
 
 namespace Game.Components
 {
-  public class CharacterController : MonoBehaviour
+  public class CharacterAnimatorController : MonoBehaviour
   {
     [SerializeField]
     private Animator _animator;

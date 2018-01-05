@@ -111,6 +111,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4761313172239416}
   - component: {fileID: 95418196059455712}
+  - component: {fileID: 114614537809188924}
+  - component: {fileID: 114588519514105546}
   m_Layer: 0
   m_Name: Character_04_02
   m_TagString: Untagged
@@ -697,6 +699,30 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114588519514105546
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1213322449039144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c9854d8bacbfa94198258129c53cb75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Controller: {fileID: 114614537809188924}
+--- !u!114 &114614537809188924
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1213322449039144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab38f2622065649469a07e0658229ab7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 0}
 --- !u!137 &137828493720753410
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

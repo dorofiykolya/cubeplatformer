@@ -1,7 +1,6 @@
 ﻿using ClassicLogic.Engine;
 using ClassicLogic.Outputs;
 using Game.Components;
-using Game.Logics.Classic;
 
 namespace Game.Logics.Classic.Commands
 {
@@ -9,33 +8,34 @@ namespace Game.Logics.Classic.Commands
   {
     protected override void Execute(RunnerActionEvent evt, ClassicLogicEngine engine)
     {
+      var runner = engine.ViewContext.Runner;
       CharacterTrigger currentTrigger;
       switch (evt.Action)
       {
         case Action.Stop:
-          currentTrigger = engine.ViewContext.Runner.Trigger;
+          currentTrigger = runner.Trigger;
           switch (currentTrigger)
           {
             case CharacterTrigger.WalkLeft:
-              engine.ViewContext.Runner.SetTrigger(CharacterTrigger.IdleLeft);
+              runner.SetTrigger(CharacterTrigger.IdleLeft);
               break;
             case CharacterTrigger.WalkRight:
-              engine.ViewContext.Runner.SetTrigger(CharacterTrigger.IdleRight);
+              runner.SetTrigger(CharacterTrigger.IdleRight);
               break;
             default:
-              engine.ViewContext.Runner.Stop();
+              runner.Stop();
               break;
           }
           break;
         default:
-          currentTrigger = engine.ViewContext.Runner.Trigger;
+          currentTrigger = runner.Trigger;
           switch (currentTrigger)
           {
             case CharacterTrigger.IdleLeft:
-              engine.ViewContext.Runner.SetTrigger(CharacterTrigger.WalkLeft);
+              runner.SetTrigger(CharacterTrigger.WalkLeft);
               break;
             case CharacterTrigger.IdleRight:
-              engine.ViewContext.Runner.SetTrigger(CharacterTrigger.WalkRight);
+              runner.SetTrigger(CharacterTrigger.WalkRight);
               break;
             default:
               break;

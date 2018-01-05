@@ -20,7 +20,7 @@ MonoBehaviour:
       _path: ClassicLevels/classic_level
       _serializedType: UnityEngine.TextAsset, UnityEngine.CoreModule
     Preset:
-      _path: CellPresets/Preset_01
+      _path: CellPresets/Preset_Castle_01
       _serializedType: Game.CellPreset, Assembly-CSharp
     Scene:
       SceneName: Castle_01
@@ -32,7 +32,7 @@ MonoBehaviour:
       _path: 
       _serializedType: UnityEngine.TextAsset, UnityEngine.CoreModule
     Preset:
-      _path: CellPresets/Preset_01
+      _path: 
       _serializedType: Game.CellPreset, Assembly-CSharp
     Scene:
       SceneName: Castle_01
@@ -44,7 +44,7 @@ MonoBehaviour:
       _path: ClassicLevels/classic_level
       _serializedType: UnityEngine.TextAsset, UnityEngine.CoreModule
     Preset:
-      _path: CellPresets/Preset_01
+      _path: 
       _serializedType: Game.CellPreset, Assembly-CSharp
     Scene:
       SceneName: Castle_01

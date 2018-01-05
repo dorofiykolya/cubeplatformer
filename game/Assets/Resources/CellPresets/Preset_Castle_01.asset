@@ -9,11 +9,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82c077b8237ad452dbcd701c8947db6c, type: 3}
-  m_Name: Preset_01
+  m_Name: Preset_Castle_01
   m_EditorClassIdentifier: 
   Name: Preset_01
   Cells:
-  - Type: 0
+  - Type: 1
     Direction: 0
     Id: 
     Name: 
@@ -62,24 +62,29 @@ MonoBehaviour:
     Direction: 0
     Id: 
     Name: Guard_01
-    Prefab: {fileID: 114727872174769894, guid: 98bc4a7fb3d326c48b1743b1267ad2a9, type: 2}
+    Prefab: {fileID: 114911942131502222, guid: 85405bc6e6017b442ae98bd40cb6a71f, type: 2}
   - Type: 1024
     Direction: 0
     Id: 
     Name: Player_01
-    Prefab: {fileID: 114556706511693246, guid: 7ec657dda23a8c640a9625d5e3024d5c, type: 2}
+    Prefab: {fileID: 114748298820851140, guid: a037ac851157c4346a5854bf5e245441, type: 2}
   - Type: 256
     Direction: 0
     Id: 
     Name: Guard_02
-    Prefab: {fileID: 114655774213725934, guid: fc70d1f5914bed64fb45ad63fdf8526e, type: 2}
+    Prefab: {fileID: 114913990257284462, guid: 1731535ac83182c4f89dbe46b45b66c2, type: 2}
   - Type: 256
     Direction: 0
     Id: 
     Name: Guard_03
-    Prefab: {fileID: 114857691713334444, guid: 8b29205964c1c724d9e1b9aa8c2a63d2, type: 2}
+    Prefab: {fileID: 114588519514105546, guid: 1e4ad23daedb01f49b16b476b54f84c9, type: 2}
   - Type: 128
     Direction: 0
     Id: 
     Name: Coin
     Prefab: {fileID: 114419092528865790, guid: a35d7051e5972844bba642d8f28c5943, type: 2}
+  - Type: 256
+    Direction: 0
+    Id: 
+    Name: Guard_04
+    Prefab: {fileID: 114736930451941902, guid: 2bf2d3c93ecaac649aea2b01aba9ac62, type: 2}

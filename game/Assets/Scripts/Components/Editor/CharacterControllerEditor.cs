@@ -2,8 +2,8 @@
 
 namespace Game.Components.Editor
 {
-  [CustomEditor(typeof(CharacterController))]
-  public class CharacterControllerEditor : Editor<CharacterController>
+  [CustomEditor(typeof(CharacterAnimatorController))]
+  public class CharacterControllerEditor : Editor<CharacterAnimatorController>
   {
     public override void OnInspectorGUI()
     {
