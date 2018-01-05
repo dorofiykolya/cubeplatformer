@@ -47,3 +47,4 @@ sysinfo.txt
 game/Library/**
 game/Temp/**
 *.dll
+/game/.vs/game/**
