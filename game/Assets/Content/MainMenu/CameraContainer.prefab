@@ -143,7 +143,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Navigation: {fileID: 0}
   Target: {fileID: 4532591985501252}
-  Speed: 1
+  NavigationTime: 1
+  Curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
   FreezeX: 0
   FreezeY: 0
   FreezeZ: 0
