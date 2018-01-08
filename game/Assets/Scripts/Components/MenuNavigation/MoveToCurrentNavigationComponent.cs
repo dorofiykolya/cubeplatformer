@@ -12,6 +12,15 @@ namespace Game.Components.MenuNavigation
     public bool FreezeY;
     public bool FreezeZ;
 
+    private void Awake()
+    {
+      if (Navigation == null)
+      {
+        Navigation = GetComponent<MenuNavigationComponent>();
+        if (Navigation == null) Navigation = GetComponentInParent<MenuNavigationComponent>();
+      }
+    }
+
     private void Update()
     {
       if (Target != null && Navigation != null && Navigation.Current != null)
