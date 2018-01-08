@@ -75,13 +75,13 @@ namespace Game.Logics.Classic
       }
     }
 
-    public void AddTile(TileType type, int x, int y)
+    public void AddTile(TileType type, int x, int y, CellDirection direction)
     {
       var cellType = ClassicLogicTypeConverter.Convert(type);
       CellInfo cellInfo;
       if (!_cache.TryGetValue(cellType, out cellInfo))
       {
-        _cache[cellType] = cellInfo = Preset.GetByType(cellType);
+        _cache[cellType] = cellInfo = Preset.GetByType(cellType, direction);
       }
       if (cellType != CellType.Guard && cellType != CellType.Player)
       {
@@ -113,6 +113,33 @@ namespace Game.Logics.Classic
           }
         }
       }
+    }
+
+    public void AddTiles(TileType[][] map)
+    {
+      for (int x = 0; x < map.Length; x++)
+      {
+        for (int y = 0; y < map[0].Length; y++)
+        {
+          var type = map[x][y];
+          CellDirection direction = CellDirection.None;
+          switch (type)
+          {
+            case TileType.LADDR_T:
+              if (y > 0 && map[x][y - 1] != TileType.LADDR_T)
+              {
+                direction = CellDirection.Top;
+              }
+              break;
+          }
+          AddTile(type, x, y, direction);
+        }
+      }
+    }
+
+    public void OptimizeTiles()
+    {
+
     }
 
     public void AddRunner(int x, int y)

@@ -7,15 +7,8 @@ namespace Game.Logics.Classic.Commands
     protected override void Execute(InitializeEvent evt, ClassicLogicEngine engine)
     {
       var viewContext = engine.ViewContext;
-
-      for (int x = 0; x < evt.Map.Length; x++)
-      {
-        for (int y = 0; y < evt.Map[0].Length; y++)
-        {
-          var type = evt.Map[x][y];
-          viewContext.AddTile(type, x, y);
-        }
-      }
+      
+      viewContext.AddTiles(evt.Map);
 
       foreach (var guardData in evt.Guard)
       {
@@ -23,6 +16,8 @@ namespace Game.Logics.Classic.Commands
       }
 
       viewContext.AddRunner(evt.Runner.x, evt.Runner.y);
+
+      viewContext.OptimizeTiles();
     }
   }
 }

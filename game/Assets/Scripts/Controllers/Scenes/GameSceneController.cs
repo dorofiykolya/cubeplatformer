@@ -36,7 +36,7 @@ namespace Game.Controllers
     {
       var definition = Lifetime.Define(Lifetime);
       Context.Preloader.Open(definition.Lifetime);
-      yield return new WaitForSeconds(1f);
+      yield return new WaitForSeconds(0.5f);
       var scene = SceneManager.GetSceneByName(name);
       if (scene.isLoaded)
       {
@@ -47,7 +47,7 @@ namespace Game.Controllers
         var async = SceneManager.UnloadSceneAsync(name);
         yield return async;
       }
-      yield return new WaitForSeconds(1f);
+      yield return new WaitForSeconds(0.5f);
       if (onComplete != null)
       {
         onComplete(scene);
@@ -60,10 +60,10 @@ namespace Game.Controllers
     {
       var definition = Lifetime.Define(Lifetime);
       Context.Preloader.Open(definition.Lifetime);
-      yield return new WaitForSeconds(1f);
+      yield return new WaitForSeconds(0.5f);
       var async = SceneManager.LoadSceneAsync(name, mode);
       yield return async;
-      yield return new WaitForSeconds(1f);
+      yield return new WaitForSeconds(0.5f);
       var scene = SceneManager.GetSceneByName(name);
       if (onComplete != null)
       {
