@@ -88,6 +88,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaDirect: 0.5
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
+    m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 112000002, guid: 596f1184ce35a9c4a9c8f96ebf64dbe0,
     type: 2}
   m_UseShadowmask: 1
@@ -143,6 +144,7 @@ MonoBehaviour:
   Target: {fileID: 9054512}
   Id: 4
   SelectedTransform: {fileID: 1351136050}
+  CameraPivotTransform: {fileID: 1323185033}
   OnSelected:
     m_PersistentCalls:
       m_Calls: []
@@ -168,6 +170,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1351136050}
+  - {fileID: 1323185033}
   m_Father: {fileID: 1056382850}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -198,6 +201,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 528914242}
+  - {fileID: 1257962385}
   m_Father: {fileID: 1056382850}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -215,6 +219,7 @@ MonoBehaviour:
   Target: {fileID: 49984480}
   Id: 4
   SelectedTransform: {fileID: 528914242}
+  CameraPivotTransform: {fileID: 1257962385}
   OnSelected:
     m_PersistentCalls:
       m_Calls: []
@@ -484,6 +489,7 @@ MonoBehaviour:
   Target: {fileID: 150502813}
   Id: 4
   SelectedTransform: {fileID: 407452864}
+  CameraPivotTransform: {fileID: 760497993}
   OnSelected:
     m_PersistentCalls:
       m_Calls: []
@@ -509,6 +515,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 407452864}
+  - {fileID: 760497993}
   m_Father: {fileID: 1056382850}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1290,6 +1297,34 @@ MonoBehaviour:
     TransformParentChanges: []
   ParentPrefabGUID: 
   PrefabGUID: 50f23e7531b7c814d96156115daa876f
+--- !u!1 &324493112
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 324493113}
+  m_Layer: 0
+  m_Name: CameraPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 2800000, guid: a3983c59ebf804b4abba687bd7c9e92f, type: 3}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &324493113
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 324493112}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -3.2, z: 5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 799969337}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &330148007
 GameObject:
   m_ObjectHideFlags: 0
@@ -1372,7 +1407,7 @@ GameObject:
   m_Component:
   - component: {fileID: 407452864}
   m_Layer: 0
-  m_Name: Pivot
+  m_Name: SelectedPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1913,6 +1948,7 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -1923,12 +1959,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 520841892}
-  m_LocalRotation: {x: 0.061222706, y: 0, z: 0, w: 0.9981241}
+  m_LocalRotation: {x: 0.061222706, y: -0, z: -0, w: 0.9981241}
   m_LocalPosition: {x: -0.26, y: 4.18, z: -14.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1595429232}
-  m_RootOrder: 4
+  m_Father: {fileID: 1432980450}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 7.02, y: 0, z: 0}
 --- !u!114 &520841897
 MonoBehaviour:
@@ -1961,7 +1997,7 @@ GameObject:
   m_Component:
   - component: {fileID: 528914242}
   m_Layer: 0
-  m_Name: Pivot
+  m_Name: SelectedPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1989,7 +2025,7 @@ GameObject:
   m_Component:
   - component: {fileID: 551737144}
   m_Layer: 0
-  m_Name: Pivot
+  m_Name: SelectedPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2339,6 +2375,34 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 660443185}
   m_Mesh: {fileID: 4300014, guid: 50f23e7531b7c814d96156115daa876f, type: 3}
+--- !u!1 &710861146
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 710861147}
+  m_Layer: 0
+  m_Name: CameraPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 2800000, guid: a3983c59ebf804b4abba687bd7c9e92f, type: 3}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &710861147
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 710861146}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -3.2, z: 5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1433515168}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &728441520
 GameObject:
   m_ObjectHideFlags: 0
@@ -2485,6 +2549,34 @@ Transform:
   m_Father: {fileID: 1595429232}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &760497992
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 760497993}
+  m_Layer: 0
+  m_Name: CameraPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 2800000, guid: a3983c59ebf804b4abba687bd7c9e92f, type: 3}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &760497993
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 760497992}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -3.2, z: 5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 150502813}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &793442729
 GameObject:
   m_ObjectHideFlags: 0
@@ -2587,6 +2679,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2104706106}
+  - {fileID: 324493113}
   m_Father: {fileID: 1056382850}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2604,6 +2697,7 @@ MonoBehaviour:
   Target: {fileID: 799969337}
   Id: 4
   SelectedTransform: {fileID: 2104706106}
+  CameraPivotTransform: {fileID: 324493113}
   OnSelected:
     m_PersistentCalls:
       m_Calls: []
@@ -2976,7 +3070,7 @@ GameObject:
   m_Component:
   - component: {fileID: 854947394}
   m_Layer: 0
-  m_Name: Pivot
+  m_Name: SelectedPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3070,6 +3164,34 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 866024454}
   m_Mesh: {fileID: 4300000, guid: 4addde8822fdf2a4ab9a3ece5a6a68a9, type: 3}
+--- !u!1 &943775661
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 943775662}
+  m_Layer: 0
+  m_Name: CameraPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 2800000, guid: a3983c59ebf804b4abba687bd7c9e92f, type: 3}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &943775662
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 943775661}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -3.2, z: 5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1430303326}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &953861404
 GameObject:
   m_ObjectHideFlags: 0
@@ -3100,6 +3222,7 @@ MonoBehaviour:
   Target: {fileID: 953861406}
   Id: 0
   SelectedTransform: {fileID: 551737144}
+  CameraPivotTransform: {fileID: 1254362079}
   OnSelected:
     m_PersistentCalls:
       m_Calls:
@@ -3136,6 +3259,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 551737144}
+  - {fileID: 1254362079}
   m_Father: {fileID: 1056382850}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3902,7 +4026,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1215035864}
   m_Layer: 0
-  m_Name: Pivot
+  m_Name: SelectedPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3955,6 +4079,90 @@ Transform:
   - {fileID: 1422794996}
   m_Father: {fileID: 750791097}
   m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1254362078
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1254362079}
+  m_Layer: 0
+  m_Name: CameraPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 2800000, guid: a3983c59ebf804b4abba687bd7c9e92f, type: 3}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1254362079
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1254362078}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -2.2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 953861406}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1257962384
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1257962385}
+  m_Layer: 0
+  m_Name: CameraPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 2800000, guid: a3983c59ebf804b4abba687bd7c9e92f, type: 3}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1257962385
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1257962384}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -3.2, z: 5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 49984480}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1323185032
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1323185033}
+  m_Layer: 0
+  m_Name: CameraPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 2800000, guid: a3983c59ebf804b4abba687bd7c9e92f, type: 3}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1323185033
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1323185032}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -3.2, z: 5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 9054512}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1345346325
 GameObject:
@@ -4040,7 +4248,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1351136050}
   m_Layer: 0
-  m_Name: Pivot
+  m_Name: SelectedPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4058,6 +4266,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 9054512}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1399157775
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1399157776}
+  m_Layer: 0
+  m_Name: CameraPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 2800000, guid: a3983c59ebf804b4abba687bd7c9e92f, type: 3}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1399157776
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1399157775}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -3.2, z: 5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1770065785}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1416451624
 GameObject:
@@ -4232,6 +4468,7 @@ MonoBehaviour:
   Target: {fileID: 1430303326}
   Id: 4
   SelectedTransform: {fileID: 1685830008}
+  CameraPivotTransform: {fileID: 943775662}
   OnSelected:
     m_PersistentCalls:
       m_Calls: []
@@ -4257,7 +4494,37 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1685830008}
+  - {fileID: 943775662}
   m_Father: {fileID: 1056382850}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1432980449
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1432980450}
+  m_Layer: 0
+  m_Name: CameraContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1432980450
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1432980449}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 520841896}
+  m_Father: {fileID: 1595429232}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1433515166
@@ -4290,6 +4557,7 @@ MonoBehaviour:
   Target: {fileID: 1433515168}
   Id: 4
   SelectedTransform: {fileID: 1599837660}
+  CameraPivotTransform: {fileID: 710861147}
   OnSelected:
     m_PersistentCalls:
       m_Calls: []
@@ -4315,6 +4583,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1599837660}
+  - {fileID: 710861147}
   m_Father: {fileID: 1056382850}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4698,7 +4967,7 @@ Transform:
   - {fileID: 296806394}
   - {fileID: 812689672}
   - {fileID: 750791097}
-  - {fileID: 520841896}
+  - {fileID: 1432980450}
   - {fileID: 1056382850}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -4740,11 +5009,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Navigation: {fileID: 1595429233}
-  Target: {fileID: 520841896}
+  Target: {fileID: 1432980450}
   Speed: 1
   FreezeX: 0
-  FreezeY: 1
-  FreezeZ: 1
+  FreezeY: 0
+  FreezeZ: 0
 --- !u!114 &1595429236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4770,7 +5039,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1599837660}
   m_Layer: 0
-  m_Name: Pivot
+  m_Name: SelectedPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5162,7 +5431,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1685830008}
   m_Layer: 0
-  m_Name: Pivot
+  m_Name: SelectedPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5208,6 +5477,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1215035864}
+  - {fileID: 2004972152}
   m_Father: {fileID: 1056382850}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5225,6 +5495,7 @@ MonoBehaviour:
   Target: {fileID: 1699928461}
   Id: 1
   SelectedTransform: {fileID: 1215035864}
+  CameraPivotTransform: {fileID: 2004972152}
   OnSelected:
     m_PersistentCalls:
       m_Calls: []
@@ -5372,6 +5643,7 @@ MonoBehaviour:
   Target: {fileID: 1770065785}
   Id: 4
   SelectedTransform: {fileID: 854947394}
+  CameraPivotTransform: {fileID: 1399157776}
   OnSelected:
     m_PersistentCalls:
       m_Calls: []
@@ -5397,6 +5669,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 854947394}
+  - {fileID: 1399157776}
   m_Father: {fileID: 1056382850}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5877,6 +6150,34 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1998393369}
   m_Mesh: {fileID: 4300006, guid: 50f23e7531b7c814d96156115daa876f, type: 3}
+--- !u!1 &2004972151
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2004972152}
+  m_Layer: 0
+  m_Name: CameraPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 2800000, guid: a3983c59ebf804b4abba687bd7c9e92f, type: 3}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2004972152
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2004972151}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -2.2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1699928461}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2076659858
 GameObject:
   m_ObjectHideFlags: 0
@@ -6095,7 +6396,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2104706106}
   m_Layer: 0
-  m_Name: Pivot
+  m_Name: SelectedPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

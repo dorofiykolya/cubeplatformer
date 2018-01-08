@@ -12,6 +12,7 @@ namespace Game.Components.MenuNavigation
     public Transform Target;
     public MainMenuId Id;
     public Transform SelectedTransform;
+    public Transform CameraPivotTransform;
 
     [Header("Events")]
     public UnityEvent OnSelected;

@@ -16,15 +16,14 @@ namespace Game.Components.MenuNavigation
     {
       if (Target != null && Navigation != null && Navigation.Current != null)
       {
-        if (Target != Navigation.Current)
-        {
-          var position = Target.position;
-          var newPosition = Vector3.MoveTowards(Target.position, Navigation.Current.transform.position, Speed);
-          if (FreezeX) newPosition.x = position.x;
-          if (FreezeY) newPosition.y = position.y;
-          if (FreezeZ) newPosition.z = position.z;
-          Target.position = newPosition;
-        }
+        var position = Target.position;
+        var current = Navigation.Current;
+        var currentTransform = current.CameraPivotTransform != null ? current.CameraPivotTransform : current.Target;
+        var newPosition = Vector3.MoveTowards(Target.position, currentTransform.position, Speed);
+        if (FreezeX) newPosition.x = position.x;
+        if (FreezeY) newPosition.y = position.y;
+        if (FreezeZ) newPosition.z = position.z;
+        Target.position = newPosition;
       }
     }
   }

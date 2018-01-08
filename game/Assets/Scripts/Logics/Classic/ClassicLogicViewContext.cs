@@ -40,7 +40,12 @@ namespace Game.Logics.Classic
       lifetime.AddAction(() =>
       {
         _cache.Clear();
-        GameObject.Destroy(_rootTransform.gameObject);
+        if (_rootTransform != null)
+        {
+          var go = _rootTransform.gameObject;
+          _rootTransform = null;
+          GameObject.Destroy(go);
+        }
       });
     }
 
