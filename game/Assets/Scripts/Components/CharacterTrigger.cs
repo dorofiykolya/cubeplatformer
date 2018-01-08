@@ -11,6 +11,7 @@
     FireLeft,
     FireRight,
     LadderUp,
-    LadderDown
+    LadderDown,
+    Fall
   }
 }

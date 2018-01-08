@@ -17,6 +17,7 @@ namespace Game.Logics.Classic.Commands
           switch (currentTrigger)
           {
             case CharacterTrigger.WalkLeft:
+            case CharacterTrigger.Fall:
               runner.SetTrigger(CharacterTrigger.IdleLeft);
               break;
             case CharacterTrigger.WalkRight:

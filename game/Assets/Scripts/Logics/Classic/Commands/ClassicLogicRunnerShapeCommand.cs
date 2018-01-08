@@ -35,6 +35,10 @@ namespace Game.Logics.Classic.Commands
         case Shape.RunDown:
           runner.SetTrigger(CharacterTrigger.LadderDown);
           break;
+        case Shape.FallLeft:
+        case Shape.FallRight:
+          runner.SetTrigger(CharacterTrigger.Fall);
+          break;
       }
     }
   }

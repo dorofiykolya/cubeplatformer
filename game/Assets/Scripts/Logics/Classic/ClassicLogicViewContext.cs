@@ -11,7 +11,24 @@ namespace Game.Logics.Classic
 {
   public class ClassicLogicViewContext
   {
-    private readonly Dictionary<CellType, CellInfo> _cache = new Dictionary<CellType, CellInfo>();
+    private struct CacheKy
+    {
+      public CellType Type;
+      public CellDirection Direction;
+
+      public CacheKy(CellType type, CellDirection direction)
+      {
+        Type = type;
+        Direction = direction;
+      }
+
+      public override string ToString()
+      {
+        return string.Format("{0}-{1}", Type, Direction);
+      }
+    }
+
+    private readonly Dictionary<CacheKy, CellInfo> _cache = new Dictionary<CacheKy, CellInfo>();
     private readonly Dictionary<int, CellGuardContentComponent> _guards = new Dictionary<int, CellGuardContentComponent>();
     private readonly Dictionary<Point, CellContentComponent> _tiles = new Dictionary<Point, CellContentComponent>();
     private readonly Dictionary<Point, CellContentComponent> _golds = new Dictionary<Point, CellContentComponent>();
@@ -62,9 +79,9 @@ namespace Game.Logics.Classic
     {
       var cellType = CellType.Guard;
       CellInfo cellInfo;
-      if (!_cache.TryGetValue(cellType, out cellInfo))
+      if (!_cache.TryGetValue(new CacheKy(cellType, CellDirection.None), out cellInfo))
       {
-        _cache[cellType] = cellInfo = Preset.GetByType(cellType);
+        _cache[new CacheKy(cellType, CellDirection.None)] = cellInfo = Preset.GetByType(cellType);
       }
       if (cellInfo.Prefab != null)
       {
@@ -79,9 +96,9 @@ namespace Game.Logics.Classic
     {
       var cellType = ClassicLogicTypeConverter.Convert(type);
       CellInfo cellInfo;
-      if (!_cache.TryGetValue(cellType, out cellInfo))
+      if (!_cache.TryGetValue(new CacheKy(cellType, direction), out cellInfo))
       {
-        _cache[cellType] = cellInfo = Preset.GetByType(cellType, direction);
+        _cache[new CacheKy(cellType, direction)] = cellInfo = Preset.GetByType(cellType, direction);
       }
       if (cellType != CellType.Guard && cellType != CellType.Player)
       {
@@ -126,9 +143,27 @@ namespace Game.Logics.Classic
           switch (type)
           {
             case TileType.LADDR_T:
-              if (y > 0 && map[x][y - 1] != TileType.LADDR_T)
+            case TileType.HLADR_T:
+              if (y > 0 && map[x][y - 1] != type)
               {
                 direction = CellDirection.Top;
+              }
+              if (y < map[x].Length - 1 && map[x][y + 1] != type)
+              {
+                direction = CellDirection.Bottom;
+              }
+              break;
+            case TileType.BAR_T:
+            case TileType.SOLID_T:
+            case TileType.BLOCK_T:
+            case TileType.TRAP_T:
+              if (x > 0 && map[x - 1][y] != type)
+              {
+                direction = CellDirection.Left;
+              }
+              if (x < map.GetLength(0) - 1 && map[x + 1][y] != type)
+              {
+                direction = CellDirection.Right;
               }
               break;
           }
@@ -146,9 +181,9 @@ namespace Game.Logics.Classic
     {
       var cellType = CellType.Player;
       CellInfo cellInfo;
-      if (!_cache.TryGetValue(cellType, out cellInfo))
+      if (!_cache.TryGetValue(new CacheKy(cellType, CellDirection.None), out cellInfo))
       {
-        _cache[cellType] = cellInfo = Preset.GetByType(cellType);
+        _cache[new CacheKy(cellType, CellDirection.None)] = cellInfo = Preset.GetByType(cellType);
       }
       if (cellInfo.Prefab != null)
       {
@@ -163,7 +198,7 @@ namespace Game.Logics.Classic
 
     public void AddGold(int x, int y)
     {
-      var view = GameObject.Instantiate(_cache[CellType.Coin].Prefab);
+      var view = GameObject.Instantiate(_cache[new CacheKy(CellType.Coin, CellDirection.None)].Prefab);
       _golds[new Point(x, y)] = view;
       view.transform.SetParent(_goldTransform, false);
       view.transform.localPosition = _converter.ToWorld(new PositionF(x, y, 0));
