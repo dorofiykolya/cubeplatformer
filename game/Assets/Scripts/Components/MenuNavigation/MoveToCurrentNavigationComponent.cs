@@ -8,7 +8,7 @@ namespace Game.Components.MenuNavigation
     public Transform Target;
     [Tooltip("seconds")]
     public float NavigationTime = 1f;
-    public AnimationCurve Curve;
+    public AnimationCurve Curve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
     public bool FreezeX;
     public bool FreezeY;
