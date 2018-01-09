@@ -3,6 +3,8 @@
   public enum UnityInputAxis
   {
     Vertical,
-    Horizontal
+    Horizontal,
+    Action,
+    Jump
   }
 }

@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114402794679373106}
   - component: {fileID: 50420619094706088}
   - component: {fileID: 61097868668979442}
+  - component: {fileID: 114186464010455544}
   m_Layer: 0
   m_Name: Block_01
   m_TagString: Untagged
@@ -114,7 +115,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1954872109754734}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 9335d6ce85cc7dc4cb9b64643a0089c7, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -161,11 +162,34 @@ MonoBehaviour:
   Modifications:
     Modificated: []
     NonPrefabObjects: []
-    NonPrefabComponents: []
+    NonPrefabComponents:
+    - child: {fileID: 114402794679373106}
+      parent: {fileID: 1954872109754734}
+    - child: {fileID: 50420619094706088}
+      parent: {fileID: 1954872109754734}
+    - child: {fileID: 61097868668979442}
+      parent: {fileID: 1954872109754734}
     RemovedObjects: 
     TransformParentChanges: []
   ParentPrefabGUID: 
   PrefabGUID: 6a1e065f0d1be482f928a93a98c8e751
+--- !u!114 &114186464010455544
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1954872109754734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9205f6a460ba62646aa5cc9555b48dac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Material:
+    StateValue: 0
+    State: 0
+    Property: {fileID: 11400000, guid: 45e92f15384c5604abeec0f4c8808733, type: 2}
+    IsBurnt: 0
+  Jump: 1
 --- !u!114 &114402794679373106
 MonoBehaviour:
   m_ObjectHideFlags: 1

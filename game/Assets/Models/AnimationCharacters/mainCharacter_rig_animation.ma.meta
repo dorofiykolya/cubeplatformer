@@ -4,7 +4,102 @@ timeCreated: 1515091424
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    100000: Character_3_4
+    100002: Character_rig_3
+    100004: Chest
+    100006: Head
+    100008: Hips
+    100010: L_Arm
+    100012: L_foot
+    100014: L_ForeArm
+    100016: L_Hand
+    100018: L_leg
+    100020: L_toe
+    100022: L_up_leg
+    100024: L_up_toe
+    100026: left
+    100028: //RootNode
+    100030: R_Arm
+    100032: R_foot
+    100034: R_ForeArm
+    100036: R_Hand
+    100038: R_leg
+    100040: R_toe
+    100042: R_up_leg
+    100044: R_up_toe
+    100046: Root
+    100048: Roots:Control
+    100050: Roots:ikHandle13
+    100052: Roots:ikHandle14
+    100054: Roots:ikHandle15
+    100056: Roots:ikHandle16
+    100058: Roots:nurbsCircle1
+    100060: Roots:nurbsCircle10
+    100062: Roots:nurbsCircle11
+    100064: Roots:nurbsCircle12
+    100066: Roots:nurbsCircle13
+    100068: Roots:nurbsCircle14
+    100070: Roots:nurbsCircle2
+    100072: Roots:nurbsCircle3
+    100074: Roots:nurbsCircle4
+    100076: Roots:nurbsCircle5
+    100078: Roots:nurbsCircle6
+    100080: Roots:nurbsCircle7
+    100082: Roots:nurbsCircle8
+    100084: Roots:nurbsCircle9
+    100086: Spine
+    400000: Character_3_4
+    400002: Character_rig_3
+    400004: Chest
+    400006: Head
+    400008: Hips
+    400010: L_Arm
+    400012: L_foot
+    400014: L_ForeArm
+    400016: L_Hand
+    400018: L_leg
+    400020: L_toe
+    400022: L_up_leg
+    400024: L_up_toe
+    400026: left
+    400028: //RootNode
+    400030: R_Arm
+    400032: R_foot
+    400034: R_ForeArm
+    400036: R_Hand
+    400038: R_leg
+    400040: R_toe
+    400042: R_up_leg
+    400044: R_up_toe
+    400046: Root
+    400048: Roots:Control
+    400050: Roots:ikHandle13
+    400052: Roots:ikHandle14
+    400054: Roots:ikHandle15
+    400056: Roots:ikHandle16
+    400058: Roots:nurbsCircle1
+    400060: Roots:nurbsCircle10
+    400062: Roots:nurbsCircle11
+    400064: Roots:nurbsCircle12
+    400066: Roots:nurbsCircle13
+    400068: Roots:nurbsCircle14
+    400070: Roots:nurbsCircle2
+    400072: Roots:nurbsCircle3
+    400074: Roots:nurbsCircle4
+    400076: Roots:nurbsCircle5
+    400078: Roots:nurbsCircle6
+    400080: Roots:nurbsCircle7
+    400082: Roots:nurbsCircle8
+    400084: Roots:nurbsCircle9
+    400086: Spine
+    2000000: left
+    2100000: 02 - Default
+    4300000: Character_3_4
+    7400000: Take 001
+    9500000: //RootNode
+    11400000: //RootNode
+    13700000: Character_3_4
   externalObjects: {}
   materials:
     importMaterials: 1
