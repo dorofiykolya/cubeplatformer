@@ -1,4 +1,5 @@
 ﻿using System;
+using Game.Controllers;
 using UnityEngine;
 
 namespace Game.Components
@@ -50,6 +51,9 @@ namespace Game.Components
     private bool _contextInput;
     private bool _onMovable;
     private bool _onCanJump;
+    private IUserAbilities _abilities;
+    private bool _onCanClimb;
+    private ClimbType _climbType;
 
     public void Move(Vector2 inputMove)
     {
@@ -76,6 +80,11 @@ namespace Game.Components
       if (controller != null && controller.Context != null)
       {
         _contextInput = true;
+        _abilities = controller.Context.Controllers.Get<UserAbilitiesController>();
+      }
+      else
+      {
+        _abilities = GetComponent<IUserAbilities>();
       }
     }
 
@@ -128,19 +137,33 @@ namespace Game.Components
 
       _onMovable = false;
       _onCanJump = false;
+      _onCanClimb = false;
+      _climbType = ClimbType.None;
 
       if ((collisions = Physics2D.OverlapCircle(GroundCollision.position, GroundCollisionRadius, filter, _collisions)) != 0)
       {
         for (int i = 0; i < collisions; i++)
         {
-          var movable = _collisions[i].GetComponent<MovableMaterialComponent>();
+          var collision = _collisions[i];
+          var climb = collision.GetComponent<ClimbMaterialComponent>();
+          var movable = collision.GetComponent<MovableMaterialComponent>();
+          if (climb)
+          {
+            _onCanClimb = true;
+            _climbType |= climb.ClimbType;
+            if (_onCanJump) break;
+            if (climb.CanJump(this))
+            {
+              _onCanJump = true;
+            }
+          }
           if (movable)
           {
             _onMovable = true;
+            if (_onCanJump) break;
             if (movable.CanJump(this))
             {
               _onCanJump = true;
-              break;
             }
           }
         }
@@ -215,7 +238,5 @@ namespace Game.Components
       Gizmos.DrawWireSphere(HeadCollision.position, HeadCollisionRadius);
       Gizmos.DrawWireSphere(GroundCollision.position, GroundCollisionRadius);
     }
-
-
   }
 }

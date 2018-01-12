@@ -2,7 +2,7 @@
 
 namespace Game.Controllers
 {
-  public class UserAbilitiesController : GameController
+  public class UserAbilitiesController : GameController, IUserAbilities
   {
     public const string JumpKey = "jump";
     public const string DiggKey = "digg";

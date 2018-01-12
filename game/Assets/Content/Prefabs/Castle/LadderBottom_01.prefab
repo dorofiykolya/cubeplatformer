@@ -23,6 +23,8 @@ GameObject:
   - component: {fileID: 23099812068496218}
   - component: {fileID: 114821610817263816}
   - component: {fileID: 114803204790264658}
+  - component: {fileID: 61077043078790896}
+  - component: {fileID: 114900945654924718}
   m_Layer: 0
   m_Name: LadderBottom_01
   m_TagString: Untagged
@@ -52,6 +54,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -67,6 +70,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -82,6 +86,31 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1807716781467056}
   m_Mesh: {fileID: 4300024, guid: 86c40b0c12758334098aa3225f0d5893, type: 3}
+--- !u!61 &61077043078790896
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1807716781467056}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 1, y: 1}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2}
+  m_EdgeRadius: 0
 --- !u!114 &114803204790264658
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -93,6 +122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1de098239b35cf54ba48bec3686293f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CellType: 8
+  CellDirection: 4
 --- !u!114 &114821610817263816
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -120,11 +151,42 @@ MonoBehaviour:
       InstanceTarget: {fileID: 33536029085404634}
     - LIIF: 1802313516
       InstanceTarget: {fileID: 23099812068496218}
+    - LIIF: 1231043892
+      InstanceTarget: {fileID: 114803204790264658}
+    - LIIF: 553177940
+      InstanceTarget: {fileID: 114900945654924718}
+    - LIIF: -279056262
+      InstanceTarget: {fileID: 61077043078790896}
   Modifications:
-    Modificated: []
+    Modificated:
+    - Object: {fileID: 4731727744619032}
+      ObjeckLink: -1458347879
+      PropertyPath: m_RootOrder
+      Mode: 0
     NonPrefabObjects: []
-    NonPrefabComponents: []
-    RemovedObjects: 
+    NonPrefabComponents:
+    - child: {fileID: 114900945654924718}
+      parent: {fileID: 1807716781467056}
+    - child: {fileID: 61077043078790896}
+      parent: {fileID: 1807716781467056}
+    RemovedObjects: a765a67406045944
     TransformParentChanges: []
   ParentPrefabGUID: 
   PrefabGUID: dbbdabbf365674ba595ad13e24dd7971
+--- !u!114 &114900945654924718
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1807716781467056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6694c80ee991cfc44b5a0358eae177bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Material:
+    StateValue: 0
+    State: 0
+    Property: {fileID: 0}
+    IsBurnt: 0
+  Jump: 1
