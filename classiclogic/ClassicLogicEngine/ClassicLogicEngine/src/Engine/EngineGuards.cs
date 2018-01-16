@@ -188,7 +188,7 @@ namespace ClassicLogic.Engine
         if (stayCurrPos && yOffset < 0) yOffset = 0; //stay on current position
         else if (yOffset < -Constants.H2)
         { //move to y-1 position 
-          if (curToken == TileType.BLOCK_T || curToken == TileType.HLADR_T || curToken == TileType.FINISH_T) curToken = TileType.EMPTY_T; //in hole or hide laddr
+          if (curToken == TileType.BLOCK_T || curToken == TileType.HLADR_T || curToken == TileType.FINISH_T || curToken == TileType.TELEPORT_T) curToken = TileType.EMPTY_T; //in hole or hide laddr
           map[x][y].Act = curToken; //runner move to [x][y-1], so set [x][y].act to previous state
           y--;
           yOffset = Constants.TileH + yOffset;
@@ -231,7 +231,7 @@ namespace ClassicLogic.Engine
         if (stayCurrPos && yOffset > 0) yOffset = 0; //stay on current position
         else if (yOffset > Constants.H2)
         { //move to y+1 position
-          if (curToken == TileType.BLOCK_T || curToken == TileType.HLADR_T || curToken == TileType.FINISH_T) curToken = TileType.EMPTY_T; //in hole or hide laddr
+          if (curToken == TileType.BLOCK_T || curToken == TileType.HLADR_T || curToken == TileType.FINISH_T || curToken == TileType.TELEPORT_T) curToken = TileType.EMPTY_T; //in hole or hide laddr
           map[x][y].Act = curToken; //runner move to [x][y+1], so set [x][y].act to previous state
           y++;
           yOffset = yOffset - Constants.TileH;
@@ -341,7 +341,7 @@ namespace ClassicLogic.Engine
         if (stayCurrPos && xOffset < 0) xOffset = 0; //stay on current position
         else if (xOffset < -Constants.W2)
         { //move to x-1 position 
-          if (curToken == TileType.BLOCK_T || curToken == TileType.HLADR_T || curToken == TileType.FINISH_T) curToken = TileType.EMPTY_T; //in hole or hide laddr
+          if (curToken == TileType.BLOCK_T || curToken == TileType.HLADR_T || curToken == TileType.FINISH_T || curToken == TileType.TELEPORT_T) curToken = TileType.EMPTY_T; //in hole or hide laddr
           map[x][y].Act = curToken; //runner move to [x-1][y], so set [x][y].act to previous state
           x--;
           xOffset = Constants.TileW + xOffset;
@@ -369,7 +369,7 @@ namespace ClassicLogic.Engine
         if (stayCurrPos && xOffset > 0) xOffset = 0; //stay on current position
         else if (xOffset > Constants.W2)
         { //move to x+1 position 
-          if (curToken == TileType.BLOCK_T || curToken == TileType.HLADR_T || curToken == TileType.FINISH_T) curToken = TileType.EMPTY_T; //in hole or hide laddr
+          if (curToken == TileType.BLOCK_T || curToken == TileType.HLADR_T || curToken == TileType.FINISH_T || curToken == TileType.TELEPORT_T) curToken = TileType.EMPTY_T; //in hole or hide laddr
           map[x][y].Act = curToken; //runner move to [x+1][y], so set [x][y].act to previous state
           x++;
           xOffset = xOffset - Constants.TileW;
@@ -561,7 +561,7 @@ namespace ClassicLogic.Engine
         {
           nextBelow = _map[x][y + 1].Act;
 
-          if ((nextBelow == TileType.EMPTY_T || nextBelow == TileType.RUNNER_T))
+          if ((nextBelow == TileType.EMPTY_T || nextBelow == TileType.RUNNER_T || nextBelow == TileType.TELEPORT_T))
           {
             return (Action.Fall);
           }
@@ -594,7 +594,7 @@ namespace ClassicLogic.Engine
           curToken = _map[x][y].Base;
 
           if (curToken == TileType.LADDR_T || curToken == TileType.BAR_T ||  // go through	
-            nextBelow == TileType.SOLID_T || nextBelow == TileType.LADDR_T ||
+            nextBelow == TileType.SOLID_T || nextBelow == TileType.LADDR_T || nextBelow == TileType.TELEPORT_T ||
             nextBelow == TileType.BLOCK_T || _map[x][y + 1].Act == TileType.GUARD_T || //fixed: must check map[].act with guard_t (for support champLevel:43)
               nextBelow == TileType.BAR_T || nextBelow == TileType.GOLD_T) //add BAR_T & GOLD_T for support level 92 
           {
@@ -747,7 +747,7 @@ namespace ClassicLogic.Engine
       while (y < maxTileY && (nextBelow = map[x][y + 1].Base) != TileType.BLOCK_T &&
             nextBelow != TileType.SOLID_T)                  // while no floor below ==> can move down
       {
-        if (map[x][y].Base != TileType.EMPTY_T && map[x][y].Base != TileType.HLADR_T && map[x][y].Base != TileType.FINISH_T)
+        if (map[x][y].Base != TileType.EMPTY_T && map[x][y].Base != TileType.HLADR_T && map[x][y].Base != TileType.FINISH_T && map[x][y].Base != TileType.TELEPORT_T)
         { // if not falling ==> try move left or right 
           //************************************************************************************
           // 2014/04/14 Add check  "map[x][y].base != HLADR_T" for support 

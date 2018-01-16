@@ -51,6 +51,9 @@ namespace ClassicLogic.Utils
           case 'F':
             _token = new LevelToken(TileType.FINISH_T);
             break;
+          case 'T':
+            _token = new LevelToken(TileType.TELEPORT_T);
+            break;
           case ' ': //empty
             _token = new LevelToken(TileType.EMPTY_T);
             break;

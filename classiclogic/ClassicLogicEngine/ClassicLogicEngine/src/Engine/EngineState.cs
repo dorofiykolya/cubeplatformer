@@ -25,6 +25,7 @@ namespace ClassicLogic.Engine
     public EngineGuards Guards;
     public HoleObj HoleObj;
     public Tile[][] Map;
+    public Tile[] Teleports;
     public RandomRange BornX;
 
     public List<Sprite> FillHoleObj = new List<Sprite>();
@@ -43,6 +44,8 @@ namespace ClassicLogic.Engine
       _engine = engine;
 
       _random = new Random();
+
+      Teleports = levelMap.Teleports;
 
       XMove = config.XMoveBase * speedScale;
       YMove = config.YMoveBase * speedScale;

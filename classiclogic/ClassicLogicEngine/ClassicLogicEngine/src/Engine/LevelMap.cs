@@ -10,6 +10,7 @@ namespace ClassicLogic.Engine
     public int GoldCount;
     public int MaxGuard;
     public Tile Runner;
+    public Tile[] Teleports;
 
     public LevelMap()
     {

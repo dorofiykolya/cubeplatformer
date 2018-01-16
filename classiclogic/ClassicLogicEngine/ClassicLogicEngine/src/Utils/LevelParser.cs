@@ -1,4 +1,7 @@
-﻿using ClassicLogic.Engine;
+﻿using System;
+using System.Collections.Generic;
+using ClassicLogic.Engine;
+using Action = ClassicLogic.Engine.Action;
 
 namespace ClassicLogic.Utils
 {
@@ -11,17 +14,26 @@ namespace ClassicLogic.Utils
       map.MaxGuard = maxGuard;
 
       var mapGuards = 0;
+      var mapTeleports = 0;
 
       levelMapReader.Reset();
 
       while (levelMapReader.MoveNext())
       {
         if (levelMapReader.Token.Type == TileType.GUARD_T) mapGuards++;
+        else if (levelMapReader.Token.Type == TileType.TELEPORT_T)
+        {
+          mapTeleports++;
+        }
       }
+
+      if (!(mapTeleports == 0 || mapTeleports == 2)) throw new ArgumentException("not valid count of teleports");
 
       //(2) draw map
       var y = 0;
       var x = 0;
+
+      map.Teleports = new Tile[mapTeleports];
 
       levelMapReader.Reset();
       while (levelMapReader.MoveNext())
@@ -134,8 +146,15 @@ namespace ClassicLogic.Utils
               tile.Base = TileType.FINISH_T;
               tile.Act = TileType.EMPTY_T;
               break;
+            case TileType.TELEPORT_T:
+              tile.Base = TileType.TELEPORT_T;
+              tile.Act = TileType.TELEPORT_T;
+              var index = map.Teleports[0] == null ? 0 : 1;
+              map.Teleports[index] = tile;
+              tile.Index = index;
+              break;
             default:
-              throw new System.ArgumentException();
+              throw new ArgumentException("not valid level tile type");
           }
 
           x++;

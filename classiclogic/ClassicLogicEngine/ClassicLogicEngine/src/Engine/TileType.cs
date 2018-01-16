@@ -29,5 +29,6 @@ namespace ClassicLogic.Engine
     RUNNER_T = 0x09,
     REBORN_T = 0x10, //template: for reborn
     FINISH_T = 0x11,
+    TELEPORT_T = 0x12,
   }
 }
