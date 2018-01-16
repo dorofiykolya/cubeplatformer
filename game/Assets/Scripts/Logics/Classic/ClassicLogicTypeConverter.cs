@@ -20,6 +20,7 @@ namespace Game.Logics.Classic
         case CellType.Player: return TileType.RUNNER_T;
         case CellType.Solid: return TileType.SOLID_T;
         case CellType.Trap: return TileType.TRAP_T;
+        case CellType.Teleport: return TileType.TELEPORT_T;
       }
       throw new ArgumentException();
     }
@@ -40,6 +41,7 @@ namespace Game.Logics.Classic
         case TileType.SOLID_T: return CellType.Solid;
         case TileType.TRAP_T: return CellType.Trap;
         case TileType.FINISH_T: return CellType.Finish;
+        case TileType.TELEPORT_T: return CellType.Teleport;
       }
       throw new ArgumentException();
     }

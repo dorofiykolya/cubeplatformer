@@ -108,3 +108,8 @@ MonoBehaviour:
     Id: 
     Name: Finish
     Prefab: {fileID: 114769980491842134, guid: 197be79c0af9ab940afd48a83db08abe, type: 2}
+  - Type: 65536
+    Direction: 0
+    Id: 
+    Name: Teleport
+    Prefab: {fileID: 114769980491842134, guid: 8501b943374b71143968153ebd3eec18, type: 2}

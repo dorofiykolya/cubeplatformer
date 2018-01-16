@@ -1,7 +1,7 @@
-     0         F  
+     0 T       F  
              & S  
   H   --   --  S  
-  H###  ###  ##H  
+  H###  ###  ##HT 
   H           XH  
   H  H      H--H  
   H  H##  ##H  HH 

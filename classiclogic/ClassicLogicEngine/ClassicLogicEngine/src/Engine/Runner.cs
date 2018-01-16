@@ -23,6 +23,7 @@ namespace ClassicLogic.Engine
     public Action Action;
 
     private Action _lastLeftRight;
+    private bool _teleportEntered;
 
     public Runner(Tile[][] map, EngineGuards guards, EngineState state)
     {
@@ -416,7 +417,40 @@ namespace ClassicLogic.Engine
       //if(!goldCount && !goldComplete) showHideLaddr();
 
       //check collision with guard !
+      CheckTeleport(x, y);
       CheckCollision(x, y);
+    }
+
+    public void CheckTeleport(int x, int y)
+    {
+      if (_map[x][y].Base == TileType.TELEPORT_T)
+      {
+        if (!_teleportEntered)
+        {
+          var teleportTo = _state.GetTeleportTo(_map[x][y].Index);
+          _map[Position.X][Position.Y].Act = _map[Position.X][Position.Y].Base;
+          Position = new Position
+          {
+            X = teleportTo.x,
+            Y = teleportTo.y,
+            XOffset = 0,
+            YOffset = 0
+          };
+
+          _teleportEntered = true;
+          _lastLeftRight = Action.Stop;
+          Action = Action.Stop;
+          _map[Position.X][Position.Y].Act = TileType.RUNNER_T;
+
+          var evt = _state.Output.Enqueue<MoveRunnerEvent>(_state.Tick);
+          evt.x = x + Position.XOffset;
+          evt.y = y + Position.YOffset;
+        }
+      }
+      else
+      {
+        _teleportEntered = false;
+      }
     }
 
     public void CheckCollision(int runnerX, int runnerY)

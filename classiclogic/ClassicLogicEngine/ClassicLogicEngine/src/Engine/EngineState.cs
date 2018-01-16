@@ -109,6 +109,12 @@ namespace ClassicLogic.Engine
     public EngineSound Sound { get { return _engine.Sound; } }
     public EngineOutput Output { get { return _engine.Output; } }
 
+    public Point GetTeleportTo(int teleportIndex)
+    {
+      if (teleportIndex == 0) return Teleports[1].ToPoint();
+      return Teleports[0].ToPoint();
+    }
+
     public void PressAction(InputAction action)
     {
       switch (action)

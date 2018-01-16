@@ -18,5 +18,6 @@
     GuardSpawnPoint = 1 << 13,
     PlayerSpawnPoint = 1 << 14,
     Finish = 1 << 15,
+    Teleport = 1 << 16
   }
 }

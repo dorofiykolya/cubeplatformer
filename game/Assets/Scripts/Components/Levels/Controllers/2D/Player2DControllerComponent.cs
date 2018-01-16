@@ -16,7 +16,16 @@ namespace Game.Components
       Down
     }
 
-    private static Collider2D[] _collisions = new Collider2D[20];
+    private enum Movable
+    {
+      None = 0,
+      Left = 1,
+      Right = 2,
+      Up = 4,
+      Down = 8
+    }
+
+    private static readonly Collider2D[] _collisions = new Collider2D[20];
 
     [Tooltip("max move speed")]
     public float Speed = 5f;
@@ -49,7 +58,7 @@ namespace Game.Components
     private ILevelCoordinateConverter _coordinateConverter;
     private Vector3 _unitSize;
     private bool _contextInput;
-    private bool _onMovable;
+    private Movable _onMovable;
     private bool _onCanJump;
     private IUserAbilities _abilities;
     private bool _onCanClimb;
@@ -135,7 +144,7 @@ namespace Game.Components
         }
       }
 
-      _onMovable = false;
+      _onMovable = Movable.None;
       _onCanJump = false;
       _onCanClimb = false;
       _climbType = ClimbType.None;
@@ -159,7 +168,7 @@ namespace Game.Components
           }
           if (movable)
           {
-            _onMovable = true;
+            _onMovable = Movable.Left | Movable.Right;
             if (_onCanJump) break;
             if (movable.CanJump(this))
             {
@@ -169,15 +178,15 @@ namespace Game.Components
         }
       }
 
-      if (_inputJump && _onMovable && _onCanJump && Math.Abs(_body.velocity.y) < JumpThreashold)
+      if (_inputJump && _onMovable != Movable.None && _onCanJump && Math.Abs(_body.velocity.y) < JumpThreashold)
       {
-        _onMovable = false;
+        _onMovable = Movable.None;
         _onCanJump = false;
         _body.AddForce(new Vector2(0, JumpForce));
       }
       _inputJump = false;
 
-      if (!AirControl && !_onMovable)
+      if (!AirControl && _onMovable != Movable.None)
       {
         isMove = false;
       }

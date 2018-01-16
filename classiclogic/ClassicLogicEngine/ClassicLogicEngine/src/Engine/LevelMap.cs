@@ -45,7 +45,7 @@ namespace ClassicLogic.Engine
       {
         while (_columns.Count <= x)
         {
-          _columns.Add(new Column());
+          _columns.Add(new Column(x));
         }
         return _columns[x];
       }
@@ -53,10 +53,12 @@ namespace ClassicLogic.Engine
 
     public class Column
     {
+      private readonly int _x;
       private readonly List<Tile> _tiles;
 
-      public Column()
+      public Column(int x)
       {
+        _x = x;
         _tiles = new List<Tile>();
       }
 
@@ -66,7 +68,11 @@ namespace ClassicLogic.Engine
         {
           while (_tiles.Count <= y)
           {
-            _tiles.Add(new Tile());
+            _tiles.Add(new Tile
+            {
+              X = _x,
+              Y = y
+            });
           }
           return _tiles[y];
         }
