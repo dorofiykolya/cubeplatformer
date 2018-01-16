@@ -39,6 +39,7 @@ namespace Game.Logics.Classic
         case TileType.RUNNER_T: return CellType.Player;
         case TileType.SOLID_T: return CellType.Solid;
         case TileType.TRAP_T: return CellType.Trap;
+        case TileType.FINISH_T: return CellType.Finish;
       }
       throw new ArgumentException();
     }

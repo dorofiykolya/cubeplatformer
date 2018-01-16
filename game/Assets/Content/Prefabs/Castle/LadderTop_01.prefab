@@ -175,4 +175,5 @@ MonoBehaviour:
     State: 0
     Property: {fileID: 0}
     IsBurnt: 0
+  ClimbType: 2
   Jump: 1

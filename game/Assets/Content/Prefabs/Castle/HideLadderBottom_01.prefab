@@ -9,35 +9,35 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1738057766105702}
+  m_RootGameObject: {fileID: 1807716781467056}
   m_IsPrefabParent: 1
---- !u!1 &1738057766105702
+--- !u!1 &1807716781467056
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4254318034422166}
-  - component: {fileID: 33896844061739360}
-  - component: {fileID: 23256032402028906}
-  - component: {fileID: 114545793294741548}
-  - component: {fileID: 114749305436245278}
-  - component: {fileID: 114317932249145280}
-  - component: {fileID: 61565860251321554}
+  - component: {fileID: 4731727744619032}
+  - component: {fileID: 33536029085404634}
+  - component: {fileID: 23099812068496218}
+  - component: {fileID: 114821610817263816}
+  - component: {fileID: 114803204790264658}
+  - component: {fileID: 61077043078790896}
+  - component: {fileID: 114900945654924718}
   m_Layer: 0
-  m_Name: RopeLeft_01
+  m_Name: HideLadderBottom_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4254318034422166
+--- !u!4 &4731727744619032
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1738057766105702}
+  m_GameObject: {fileID: 1807716781467056}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -45,12 +45,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23256032402028906
+--- !u!23 &23099812068496218
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1738057766105702}
+  m_GameObject: {fileID: 1807716781467056}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 0
@@ -79,19 +79,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33896844061739360
+--- !u!33 &33536029085404634
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1738057766105702}
-  m_Mesh: {fileID: 4300030, guid: 86c40b0c12758334098aa3225f0d5893, type: 3}
---- !u!61 &61565860251321554
+  m_GameObject: {fileID: 1807716781467056}
+  m_Mesh: {fileID: 4300024, guid: 86c40b0c12758334098aa3225f0d5893, type: 3}
+--- !u!61 &61077043078790896
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1738057766105702}
+  m_GameObject: {fileID: 1807716781467056}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -111,30 +111,25 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2, y: 2}
   m_EdgeRadius: 0
---- !u!114 &114317932249145280
+--- !u!114 &114803204790264658
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1738057766105702}
+  m_GameObject: {fileID: 1807716781467056}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6694c80ee991cfc44b5a0358eae177bc, type: 3}
+  m_Script: {fileID: 11500000, guid: 1de098239b35cf54ba48bec3686293f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Material:
-    StateValue: 0
-    State: 0
-    Property: {fileID: 0}
-    IsBurnt: 0
-  ClimbType: 1
-  Jump: 1
---- !u!114 &114545793294741548
+  CellType: 64
+  CellDirection: 4
+--- !u!114 &114821610817263816
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1738057766105702}
+  m_GameObject: {fileID: 1807716781467056}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 46a02d0f612a241b293c0da4f82b712c, type: 3}
@@ -146,34 +141,53 @@ MonoBehaviour:
     Hidden: 
   Links:
     Links:
-    - LIIF: 105398039
-      InstanceTarget: {fileID: 114545793294741548}
-    - LIIF: 1444101143
-      InstanceTarget: {fileID: 1738057766105702}
-    - LIIF: 1327191976
-      InstanceTarget: {fileID: 4254318034422166}
-    - LIIF: -1690033368
-      InstanceTarget: {fileID: 33896844061739360}
-    - LIIF: 894567234
-      InstanceTarget: {fileID: 23256032402028906}
+    - LIIF: 504827840
+      InstanceTarget: {fileID: 114821610817263816}
+    - LIIF: -1205412411
+      InstanceTarget: {fileID: 1807716781467056}
+    - LIIF: -1458347879
+      InstanceTarget: {fileID: 4731727744619032}
+    - LIIF: 480912155
+      InstanceTarget: {fileID: 33536029085404634}
+    - LIIF: 1802313516
+      InstanceTarget: {fileID: 23099812068496218}
+    - LIIF: 1231043892
+      InstanceTarget: {fileID: 114803204790264658}
+    - LIIF: 553177940
+      InstanceTarget: {fileID: 114900945654924718}
+    - LIIF: -279056262
+      InstanceTarget: {fileID: 61077043078790896}
   Modifications:
-    Modificated: []
+    Modificated:
+    - Object: {fileID: 4731727744619032}
+      ObjeckLink: -1458347879
+      PropertyPath: m_RootOrder
+      Mode: 0
     NonPrefabObjects: []
-    NonPrefabComponents: []
-    RemovedObjects: 
+    NonPrefabComponents:
+    - child: {fileID: 114900945654924718}
+      parent: {fileID: 1807716781467056}
+    - child: {fileID: 61077043078790896}
+      parent: {fileID: 1807716781467056}
+    RemovedObjects: a765a67406045944
     TransformParentChanges: []
   ParentPrefabGUID: 
-  PrefabGUID: 43b8d93772c964ac4a43a966418ce210
---- !u!114 &114749305436245278
+  PrefabGUID: cc7d5189d7204714983102cafc1af73d
+--- !u!114 &114900945654924718
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1738057766105702}
+  m_GameObject: {fileID: 1807716781467056}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1de098239b35cf54ba48bec3686293f4, type: 3}
+  m_Script: {fileID: 11500000, guid: 6694c80ee991cfc44b5a0358eae177bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CellType: 16
-  CellDirection: 1
+  Material:
+    StateValue: 0
+    State: 0
+    Property: {fileID: 0}
+    IsBurnt: 0
+  ClimbType: 2
+  Jump: 1

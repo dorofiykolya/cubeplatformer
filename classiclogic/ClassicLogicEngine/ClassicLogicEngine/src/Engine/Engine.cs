@@ -1,4 +1,5 @@
 ﻿using System;
+using ClassicLogic.Outputs;
 using ClassicLogic.Utils;
 
 namespace ClassicLogic.Engine
@@ -53,9 +54,10 @@ namespace ClassicLogic.Engine
 
     private void Play(int delta, int tick)
     {
-      if (State.GoldComplete && State.Runner.Position.X == 0 && State.Runner.Position.Y == 0)
+      if (State.GoldComplete && State.Map[State.Runner.Position.X][State.Runner.Position.Y].Base == TileType.FINISH_T)
       {
         State.State = GameState.GameFinish;
+        Output.Enqueue<FinishEvent>(tick);
         return;
       }
 
@@ -65,7 +67,7 @@ namespace ClassicLogic.Engine
 
         State.PlayTickTimer = 0;
       }
-      
+
       if (!State.IsDigging()) State.Runner.Move();
       else State.ProcessDigHole();
       if (State.State != GameState.GameRunnerDead) State.Guards.Move();

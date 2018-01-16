@@ -110,6 +110,10 @@ namespace Game.Controllers
         {
           logic.FastForward(logic.Tick + 1);
           passedTime -= 1f / ticksPerSec;
+          if (logic.IsFinished)
+          {
+            _levelController.Unload();
+          }
         }
       });
     }

@@ -127,6 +127,7 @@ MonoBehaviour:
     State: 0
     Property: {fileID: 0}
     IsBurnt: 0
+  ClimbType: 1
   Jump: 1
 --- !u!114 &114448182761535780
 MonoBehaviour:

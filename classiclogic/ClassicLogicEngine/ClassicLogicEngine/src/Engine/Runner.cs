@@ -209,7 +209,7 @@ namespace ClassicLogic.Engine
         if (stayCurrPos && yOffset < 0) yOffset = 0; //stay on current position
         else if (yOffset < -h2)
         { //move to y-1 position 
-          if (curToken == TileType.BLOCK_T || curToken == TileType.HLADR_T) curToken = TileType.EMPTY_T; //in hole or hide laddr
+          if (curToken == TileType.BLOCK_T || curToken == TileType.HLADR_T || curToken == TileType.FINISH_T) curToken = TileType.EMPTY_T; //in hole or hide laddr
           map[x][y].Act = curToken; //runner move to [x][y-1], so set [x][y].act to previous state
           y--;
           yOffset = tileH + yOffset;
@@ -252,7 +252,7 @@ namespace ClassicLogic.Engine
         if (stayCurrPos && yOffset > 0) yOffset = 0; //stay on current position
         else if (yOffset > h2)
         { //move to y+1 position
-          if (curToken == TileType.BLOCK_T || curToken == TileType.HLADR_T) curToken = TileType.EMPTY_T; //in hole or hide laddr
+          if (curToken == TileType.BLOCK_T || curToken == TileType.HLADR_T || curToken == TileType.FINISH_T) curToken = TileType.EMPTY_T; //in hole or hide laddr
           map[x][y].Act = curToken; //runner move to [x][y+1], so set [x][y].act to previous state
           y++;
           yOffset = yOffset - tileH;
@@ -300,7 +300,7 @@ namespace ClassicLogic.Engine
         if (stayCurrPos && xOffset < 0) xOffset = 0; //stay on current position
         else if (xOffset < -Constants.W2)
         { //move to x-1 position 
-          if (curToken == TileType.BLOCK_T || curToken == TileType.HLADR_T) curToken = TileType.EMPTY_T; //in hole or hide laddr
+          if (curToken == TileType.BLOCK_T || curToken == TileType.HLADR_T || curToken == TileType.FINISH_T) curToken = TileType.EMPTY_T; //in hole or hide laddr
           map[x][y].Act = curToken; //runner move to [x-1][y], so set [x][y].act to previous state
           x--;
           xOffset = tileW + xOffset;
@@ -323,7 +323,7 @@ namespace ClassicLogic.Engine
         if (stayCurrPos && xOffset > 0) xOffset = 0; //stay on current position
         else if (xOffset > Constants.W2)
         { //move to x+1 position 
-          if (curToken == TileType.BLOCK_T || curToken == TileType.HLADR_T) curToken = TileType.EMPTY_T; //in hole or hide laddr
+          if (curToken == TileType.BLOCK_T || curToken == TileType.HLADR_T || curToken == TileType.FINISH_T) curToken = TileType.EMPTY_T; //in hole or hide laddr
           map[x][y].Act = curToken; //runner move to [x+1][y], so set [x][y].act to previous state
           x++;
           xOffset = xOffset - tileW;
@@ -381,7 +381,7 @@ namespace ClassicLogic.Engine
         if (currentAction == Action.Left || currentAction == Action.Right) _lastLeftRight = currentAction;
 
         Action = currentAction;
-        
+
         _state.Output.Enqueue<RunnerActionEvent>(_state.Tick).Action = currentAction;
       }
       map[x][y].Act = TileType.RUNNER_T;
@@ -408,7 +408,7 @@ namespace ClassicLogic.Engine
         //debug("gold = " + goldCount);
 
         _state.DrawScore(Constants.ScoreGetGold);
-        
+
         //for modern mode , edit mode
         _state.DrawGold(1); //get gold 
 

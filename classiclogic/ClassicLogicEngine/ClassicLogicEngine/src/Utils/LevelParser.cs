@@ -130,10 +130,14 @@ namespace ClassicLogic.Utils
               tile.Act = TileType.EMPTY_T;
               //tile.bitmap = null;
               break;
+            case TileType.FINISH_T:
+              tile.Base = TileType.FINISH_T;
+              tile.Act = TileType.EMPTY_T;
+              break;
             default:
               throw new System.ArgumentException();
           }
-          
+
           x++;
         }
       }

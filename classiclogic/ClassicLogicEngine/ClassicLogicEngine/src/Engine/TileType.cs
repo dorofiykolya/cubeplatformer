@@ -13,6 +13,7 @@ namespace ClassicLogic.Engine
   //  0x7 |     $     | Gold chest
   //  0x8 |     0     | Guard
   //  0x9 |     &     | Player  
+  //  0x10|     F     | Finish 
 
   public enum TileType
   {
@@ -26,7 +27,7 @@ namespace ClassicLogic.Engine
     GOLD_T = 0x07,
     GUARD_T = 0x08,
     RUNNER_T = 0x09,
-
-    REBORN_T = 0x10 //template: for reborn
+    REBORN_T = 0x10, //template: for reborn
+    FINISH_T = 0x11,
   }
 }

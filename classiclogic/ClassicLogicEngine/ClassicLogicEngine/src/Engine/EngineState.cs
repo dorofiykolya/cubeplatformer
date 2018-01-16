@@ -157,6 +157,10 @@ namespace ClassicLogic.Engine
             Map[x][y].Base = TileType.LADDR_T;
             Map[x][y].Act = TileType.LADDR_T;
           }
+          if (Map[x][y].Base == TileType.FINISH_T)
+          {
+            Map[x][y].Act = TileType.FINISH_T;
+          }
         }
       }
       GoldComplete = true;

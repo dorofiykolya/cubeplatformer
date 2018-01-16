@@ -16,6 +16,7 @@
     TeleportEnter = 1 << 11,
     TeleportExit = 1 << 12,
     GuardSpawnPoint = 1 << 13,
-    PlayerSpawnPoint = 1 << 14
+    PlayerSpawnPoint = 1 << 14,
+    Finish = 1 << 15,
   }
 }

@@ -33,6 +33,7 @@ namespace Game.Logics.Classic
       AddCommand<RunnerShapeEvent, ClassicLogicRunnerShapeCommand>();
       AddCommand<GuardActionEvent, ClassicLogicGuardActionCommand>();
       AddCommand<GuardShapeEvent, ClassicLogicGuardShapeCommand>();
+      AddCommand<FinishEvent, ClassicLogicFinishCommand>();
     }
 
     public void Execute(OutputEvent evt, ClassicLogicEngine engine)

@@ -48,6 +48,9 @@ namespace ClassicLogic.Utils
           case '&': //Player
             _token = new LevelToken(TileType.RUNNER_T);
             break;
+          case 'F':
+            _token = new LevelToken(TileType.FINISH_T);
+            break;
           case ' ': //empty
             _token = new LevelToken(TileType.EMPTY_T);
             break;

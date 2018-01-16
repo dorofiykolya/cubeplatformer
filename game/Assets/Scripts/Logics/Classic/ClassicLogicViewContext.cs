@@ -67,8 +67,8 @@ namespace Game.Logics.Classic
     }
 
     public CellPlayerContentComponent Runner { get; set; }
-    public CellContentComponent HideLadder { get; set; }
     public CellPreset Preset { get; set; }
+    public List<CellContentComponent> HideLadders = new List<CellContentComponent>();
 
     public CellGuardContentComponent GetGuard(int guardId)
     {
@@ -118,10 +118,10 @@ namespace Game.Logics.Classic
 
             view.transform.localPosition = _converter.ToWorld(new PositionF(x, y, 0));
 
-            if (cellType == CellType.HideLadder)
+            if (cellType == CellType.HideLadder || cellType == CellType.Finish)
             {
               view.gameObject.SetActive(false);
-              HideLadder = view;
+              HideLadders.Add(view);
             }
             else if (cellType == CellType.Trap)
             {
@@ -239,9 +239,9 @@ namespace Game.Logics.Classic
 
     public void ShowHiddenLadder()
     {
-      if (HideLadder)
+      foreach (var hideLadder in HideLadders)
       {
-        HideLadder.gameObject.SetActive(true);
+        hideLadder.gameObject.SetActive(true);
       }
     }
 
@@ -268,6 +268,11 @@ namespace Game.Logics.Classic
     public void StartDigging()
     {
 
+    }
+
+    public void Finish()
+    {
+      Debug.Log("Level Finished");
     }
   }
 }
