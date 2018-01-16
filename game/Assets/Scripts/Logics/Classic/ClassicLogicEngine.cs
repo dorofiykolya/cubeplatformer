@@ -21,7 +21,7 @@ namespace Game.Logics.Classic
       _context = context;
       _lifetime = lifetime;
       data = data.Replace("\r\n", "\n");
-      _engine = new Engine(new StringLevelReader(data), 0.05);
+      _engine = new Engine(new StringLevelReader(data), 0.4f/*0.05*/);
       _viewContext = new ClassicLogicViewContext(lifetime, _engine.State.MaxTileX, _engine.State.MaxTileY);
     }
 

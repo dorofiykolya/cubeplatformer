@@ -144,11 +144,11 @@ namespace Game.Logics.Classic
           {
             case TileType.LADDR_T:
             case TileType.HLADR_T:
-              if (y > 0 && map[x][y - 1] != type)
+              if (y == 0 || map[x][y - 1] != type)
               {
                 direction = CellDirection.Top;
               }
-              if (y < map[x].Length - 1 && map[x][y + 1] != type)
+              if (y == map[x].Length - 1 || map[x][y + 1] != type)
               {
                 direction = CellDirection.Bottom;
               }
@@ -157,11 +157,11 @@ namespace Game.Logics.Classic
             case TileType.SOLID_T:
             case TileType.BLOCK_T:
             case TileType.TRAP_T:
-              if (x > 0 && map[x - 1][y] != type)
+              if (x == 0 || map[x - 1][y] != type)
               {
                 direction = CellDirection.Left;
               }
-              if (x < map.GetLength(0) - 1 && map[x + 1][y] != type)
+              if (x == map.GetLength(0) - 1 || map[x + 1][y] != type)
               {
                 direction = CellDirection.Right;
               }
