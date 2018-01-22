@@ -299,7 +299,7 @@ namespace ClassicLogic.Engine
         xOffset -= xMove;
 
         if (stayCurrPos && xOffset < 0) xOffset = 0; //stay on current position
-        else if (xOffset < -Constants.W2)
+        else if (xOffset < -Constants.W2 || curToken == TileType.BAR_T && xOffset < -Constants.W4 / 8f)
         { //move to x-1 position 
           if (curToken == TileType.BLOCK_T || curToken == TileType.HLADR_T || curToken == TileType.FINISH_T) curToken = TileType.EMPTY_T; //in hole or hide laddr
           map[x][y].Act = curToken; //runner move to [x-1][y], so set [x][y].act to previous state
@@ -322,7 +322,7 @@ namespace ClassicLogic.Engine
         xOffset += xMove;
 
         if (stayCurrPos && xOffset > 0) xOffset = 0; //stay on current position
-        else if (xOffset > Constants.W2)
+        else if (xOffset > Constants.W2 || curToken == TileType.BAR_T && xOffset > Constants.W4 / 8f)
         { //move to x+1 position 
           if (curToken == TileType.BLOCK_T || curToken == TileType.HLADR_T || curToken == TileType.FINISH_T) curToken = TileType.EMPTY_T; //in hole or hide laddr
           map[x][y].Act = curToken; //runner move to [x+1][y], so set [x][y].act to previous state
