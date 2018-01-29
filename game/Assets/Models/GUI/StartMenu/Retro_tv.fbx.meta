@@ -10,24 +10,29 @@ ModelImporter:
     100004: Retro_Antenna_03
     100006: Retro_Tv
     100008: //RootNode
+    100010: Retro_Screen_Tv
     400000: Retro_Antenna_01
     400002: Retro_Antenna_02
     400004: Retro_Antenna_03
     400006: Retro_Tv
     400008: //RootNode
+    400010: Retro_Screen_Tv
     2100000: retro_tv
     2300000: Retro_Antenna_01
     2300002: Retro_Antenna_02
     2300004: Retro_Antenna_03
     2300006: Retro_Tv
+    2300008: Retro_Screen_Tv
     3300000: Retro_Antenna_01
     3300002: Retro_Antenna_02
     3300004: Retro_Antenna_03
     3300006: Retro_Tv
+    3300008: Retro_Screen_Tv
     4300000: Retro_Antenna_01
     4300002: Retro_Antenna_02
     4300004: Retro_Antenna_03
     4300006: Retro_Tv
+    4300008: Retro_Screen_Tv
     9500000: //RootNode
     11400000: //RootNode
   externalObjects: {}
