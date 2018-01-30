@@ -768,6 +768,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 45035641db3148d438ad0f9009bc01db, type: 2}
+    - target: {fileID: 1644645419730668, guid: a81a5c0b85ac24c47ba198d6d5384437, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a81a5c0b85ac24c47ba198d6d5384437, type: 2}
   m_IsPrefabParent: 0
@@ -937,24 +941,6 @@ MonoBehaviour:
   Renderer: {fileID: 19280831}
   InTime: 1
   OutTime: 0.1
-  AnimationCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 1
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   MaxEmission: 1
 --- !u!1 &480306720
 GameObject:
@@ -1397,7 +1383,6 @@ Transform:
   - {fileID: 2093206210}
   - {fileID: 506636346}
   - {fileID: 1605378206}
-  - {fileID: 1126300622}
   - {fileID: 1845592669}
   - {fileID: 2076659859}
   - {fileID: 1828589163}
@@ -1777,24 +1762,6 @@ MonoBehaviour:
   Renderer: {fileID: 1221676024}
   InTime: 1
   OutTime: 0.1
-  AnimationCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 1
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   MaxEmission: 1
 --- !u!1 &1041092273
 GameObject:
@@ -1949,7 +1916,7 @@ GameObject:
   - component: {fileID: 1126300622}
   - component: {fileID: 1126300623}
   m_Layer: 0
-  m_Name: Point light (4)
+  m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1962,12 +1929,12 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1126300621}
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: -5.09, y: 4.52, z: 1.48}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 4.52, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 812689672}
-  m_RootOrder: 3
+  m_Father: {fileID: 1925045870}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &1126300623
 Light:
@@ -1981,7 +1948,7 @@ Light:
   m_Type: 2
   m_Color: {r: 0.036007773, g: 0.17051964, b: 0.8161765, a: 1}
   m_Intensity: 10.6
-  m_Range: 9.28
+  m_Range: 6.0614405
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -3680,7 +3647,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 812689672}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &1828589164
 Light:
@@ -3748,7 +3715,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 812689672}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 81.395004, y: -1.8230001, z: 16.261002}
 --- !u!108 &1845592670
 Light:
@@ -3839,6 +3806,16 @@ Prefab:
     - target: {fileID: 20597473352626784, guid: 37567c9bdd1cd6a43b6b03fae541f9c1,
         type: 2}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114707655656921728, guid: 37567c9bdd1cd6a43b6b03fae541f9c1,
+        type: 2}
+      propertyPath: profile
+      value: 
+      objectReference: {fileID: 11400000, guid: 75fbb660f63f2984fb70e588983823bd,
+        type: 2}
+    - target: {fileID: 4908483443163642, guid: 37567c9bdd1cd6a43b6b03fae541f9c1, type: 2}
+      propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -3953,7 +3930,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 812689672}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &2076659860
 Light:
