@@ -5,7 +5,7 @@
     public GameInput Input;
     public float Value;
     public InputPhase Phase;
-    public int ControllerId;
+    public InputController Controller;
     public InputUpdate Update;
   }
 }

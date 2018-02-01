@@ -17,6 +17,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Castle_01.unity
     guid: 8818d57f803f80e4aa029bee7f37c036
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/StoneAge_01.unity
     guid: 81d685b7a2068534e929c3fb61187b1a

@@ -1,4 +1,4 @@
-﻿Shader "Custom/Rim Lit Bumped Specular" {
+﻿Shader "Game/Rim Lit Bumped Specular" {
 	Properties {
       _Color ("Main Color", Color) = (1,1,1,1)
       _SpecColor ("Specular Color", Color) = (0.5,0.5,0.5,1)

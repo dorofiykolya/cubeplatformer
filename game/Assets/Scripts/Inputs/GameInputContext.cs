@@ -203,12 +203,27 @@ namespace Game.Inputs
       }
     }
 
+    private void ProcessTouches()
+    {
+      foreach (var touch in Input.touches)
+      {
+        FireEvent(new TouchInputEvent
+        {
+          Id = touch.fingerId,
+          Position = touch.position,
+          Phase = touch.phase,
+          DeltaPosition = touch.deltaPosition
+        });
+      }
+    }
+
     private IEnumerator ProcessUpdate()
     {
       while (true)
       {
         yield return null;
         ProcessEvents(InputUpdate.Update, _updateInputs);
+        ProcessTouches();
       }
     }
 

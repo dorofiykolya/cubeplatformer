@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace Game.Components.MenuNavigation
 {
@@ -17,6 +18,26 @@ namespace Game.Components.MenuNavigation
       if (Current == null)
       {
         Current = Target;
+      }
+      //StartCoroutine(Nav());
+    }
+
+    private IEnumerator Nav()
+    {
+      while (true)
+      {
+        yield return new WaitForSeconds(1f);
+        GoToLeft();
+        yield return new WaitForSeconds(1.5f);
+        GoToRight();
+        yield return new WaitForSeconds(1f);
+        GoToRight();
+        yield return new WaitForSeconds(3f);
+        GoToRight();
+        yield return new WaitForSeconds(3f);
+        GoToLeft();
+        yield return new WaitForSeconds(1f);
+        GoToLeft();
       }
     }
 

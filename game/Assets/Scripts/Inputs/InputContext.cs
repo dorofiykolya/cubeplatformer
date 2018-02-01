@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using UnityEngine;
 using Utils;
 
 namespace Game.Inputs
@@ -11,6 +13,7 @@ namespace Game.Inputs
     private readonly Signal<InputController> _onControllerDeactivated;
     private readonly Signal<InputController> _onControllerRemove;
     private readonly Signal<InputEvent> _onInput;
+    private readonly Signal<TouchInputEvent> _onTouchInput;
 
     protected InputContext(GameContext context, Lifetime lifetime) : this(context, lifetime, null)
     {
@@ -28,6 +31,7 @@ namespace Game.Inputs
       _onControllerRemove = new Signal<InputController>(_definition.Lifetime);
       _onControllerActivated = new Signal<InputController>(_definition.Lifetime);
       _onControllerDeactivated = new Signal<InputController>(_definition.Lifetime);
+      _onTouchInput = new Signal<TouchInputEvent>(_definition.Lifetime);
 
       _definition.Lifetime.AddAction(() =>
       {
@@ -44,9 +48,36 @@ namespace Game.Inputs
     protected InputContext Nested { get; private set; }
     protected InputContext Last { get { return Nested != null ? Nested.Last : this; } }
 
+    public Lifetime Lifetime { get { return _definition.Lifetime; } }
     public InputContext Current { get { return Last; } }
 
     public virtual InputController[] Controllers { get { return Root == this ? new InputController[0] : Root.Controllers; } }
+
+    public virtual InputController GetController(int id)
+    {
+      return Controllers.FirstOrDefault(c => c.Id == id);
+    }
+
+    public virtual InputController GetController(string name)
+    {
+      return Controllers.FirstOrDefault(c => c.Name == name);
+    }
+
+    public virtual void SubscribeTouch(Lifetime lifetime, Action<TouchInputEvent> listener)
+    {
+      _onTouchInput.Subscribe(lifetime, listener);
+    }
+
+    public virtual void SubscribeTouch(Lifetime lifetime, TouchPhase phase, Action<TouchInputEvent> listener)
+    {
+      _onTouchInput.Subscribe(lifetime, evt =>
+      {
+        if (evt.Phase == phase)
+        {
+          listener(evt);
+        }
+      });
+    }
 
     public virtual void Subscribe(Lifetime lifetime, GameInput input, InputUpdate update, Action<InputEvent> listener)
     {
@@ -99,6 +130,11 @@ namespace Game.Inputs
     public virtual void SubscribeOnDeactivatedController(Lifetime lifetime, Action<InputController> listener)
     {
       _onControllerDeactivated.Subscribe(lifetime, listener);
+    }
+
+    protected virtual void FireEvent(TouchInputEvent evt)
+    {
+      Last._onTouchInput.Fire(evt);
     }
 
     protected virtual void FireEvent(InputEvent evt)
