@@ -138,7 +138,7 @@ namespace Game.Inputs
         {
           inputName = input.Parent.Name;
         }
-        var value = Input.GetAxis(inputName);
+        var value = input.Input == GameInput.InputValue.Input ? Input.GetAxis(inputName) : Input.GetAxisRaw(inputName);
         bool contains = false;
         if (parent != null)
         {

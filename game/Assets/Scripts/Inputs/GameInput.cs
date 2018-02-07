@@ -16,16 +16,24 @@
     public static readonly GameInput Up = new GameInput("Up", Vertical, ValueType.Hight);
     public static readonly GameInput Down = new GameInput("Down", Vertical, ValueType.Low);
 
-    public GameInput(string name, GameInput parent = null, ValueType value = ValueType.Both)
+    public GameInput(string name, GameInput parent = null, ValueType value = ValueType.Both, InputValue inputValue = InputValue.Input)
     {
       Name = name;
       Parent = parent;
       Value = value;
+      Input = inputValue;
     }
 
     public GameInput Parent { get; private set; }
     public string Name { get; private set; }
     public ValueType Value { get; private set; }
+    public InputValue Input { get; private set; }
+
+    public enum InputValue
+    {
+      Input,
+      Raw
+    }
 
     public enum ValueType
     {
