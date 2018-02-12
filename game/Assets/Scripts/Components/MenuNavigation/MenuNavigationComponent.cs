@@ -1,5 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
+using Utils;
 
 namespace Game.Components.MenuNavigation
 {
@@ -13,32 +16,25 @@ namespace Game.Components.MenuNavigation
     [Header("Target")]
     public NavigationComponent Target;
 
+    [Header("Events")]
+    public UnityEvent OnGoTo;
+
+    private Lifetime.Definition _lifetimeDefinition;
+    private Signal _onAction;
+
     private void Awake()
     {
+      _lifetimeDefinition = Lifetime.Define(Lifetime.Eternal);
+      _onAction = new Signal(_lifetimeDefinition.Lifetime);
       if (Current == null)
       {
         Current = Target;
       }
-      //StartCoroutine(Nav());
     }
 
-    private IEnumerator Nav()
+    private void OnDestory()
     {
-      while (true)
-      {
-        yield return new WaitForSeconds(1f);
-        GoToLeft();
-        yield return new WaitForSeconds(1.5f);
-        GoToRight();
-        yield return new WaitForSeconds(1f);
-        GoToRight();
-        yield return new WaitForSeconds(3f);
-        GoToRight();
-        yield return new WaitForSeconds(3f);
-        GoToLeft();
-        yield return new WaitForSeconds(1f);
-        GoToLeft();
-      }
+      _lifetimeDefinition.Terminate();
     }
 
     private void DispatchEvent()
@@ -47,14 +43,42 @@ namespace Game.Components.MenuNavigation
       Current.OnSelected.Invoke();
     }
 
+    public void SubscribeOnAction(Lifetime lifetime, Action listener)
+    {
+      _onAction.Subscribe(lifetime, listener);
+    }
+
+    public void FireAction()
+    {
+      _onAction.Fire();
+    }
+
+    public void Select(NavigationComponent component)
+    {
+      if (component == null)
+      {
+        Previous = Current;
+        Current = Target;
+      }
+      else
+      {
+        Previous = Current;
+        Current = component;
+      }
+      DispatchEvent();
+    }
+
+    public void GoTo(NavigationComponent component)
+    {
+      Select(component);
+      if (OnGoTo != null) OnGoTo.Invoke();
+    }
+
     public void GoToBack()
     {
       if (Previous != null)
       {
-        var current = Current;
-        Current = Previous;
-        Previous = current;
-        DispatchEvent();
+        GoTo(Previous);
       }
     }
 
@@ -62,9 +86,7 @@ namespace Game.Components.MenuNavigation
     {
       if (Current.Left != null)
       {
-        Previous = Current;
-        Current = Current.Left;
-        DispatchEvent();
+        GoTo(Current.Left);
       }
     }
 
@@ -72,9 +94,7 @@ namespace Game.Components.MenuNavigation
     {
       if (Current.Right != null)
       {
-        Previous = Current;
-        Current = Current.Right;
-        DispatchEvent();
+        GoTo(Current.Right);
       }
     }
 
@@ -82,9 +102,7 @@ namespace Game.Components.MenuNavigation
     {
       if (Current.Top != null)
       {
-        Previous = Current;
-        Current = Current.Top;
-        DispatchEvent();
+        GoTo(Current.Top);
       }
     }
 
@@ -92,9 +110,7 @@ namespace Game.Components.MenuNavigation
     {
       if (Current.Bottom != null)
       {
-        Previous = Current;
-        Current = Current.Bottom;
-        DispatchEvent();
+        GoTo(Current.Bottom);
       }
     }
 

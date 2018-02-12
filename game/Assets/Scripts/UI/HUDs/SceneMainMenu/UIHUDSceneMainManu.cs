@@ -43,6 +43,17 @@ namespace Game.UI.HUDs
         var component = gameObject.GetComponent<UIMainMenuComponent>();
         var navigation = component.Navigation;
 
+        navigation.SubscribeOnAction(_lifeDefinition.Lifetime, () =>
+        {
+          var currentMenuId = navigation.Current.Id;
+          switch (currentMenuId)
+          {
+            case MainMenuId.Start:
+              _levelController.LoadLevel(0);
+              break;
+          }
+        });
+
         var input = new MainMenuInputContext(_gameContext, Lifetime, _gameContext.InputContext.Current);
 
         input.Subscribe(_lifeDefinition.Lifetime, GameInput.Right, InputPhase.Begin, InputUpdate.Update, e => navigation.GoToRight());
