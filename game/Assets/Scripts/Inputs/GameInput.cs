@@ -15,6 +15,8 @@
     public static readonly GameInput Right = new GameInput("Right", Horizontal, ValueType.Hight);
     public static readonly GameInput Up = new GameInput("Up", Vertical, ValueType.Hight);
     public static readonly GameInput Down = new GameInput("Down", Vertical, ValueType.Low);
+    public static readonly GameInput DigLeft = new GameInput("DigLeft", Action, ValueType.Low);
+    public static readonly GameInput DigRight = new GameInput("DigRight", Action, ValueType.Hight);
 
     public GameInput(string name, GameInput parent = null, ValueType value = ValueType.Both, InputValue inputValue = InputValue.Input)
     {

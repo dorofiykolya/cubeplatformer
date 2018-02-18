@@ -13,7 +13,7 @@ namespace Game.Inputs
 #endif
 
     public static bool LogEvents = false;
-
+    private readonly Dictionary<int, TouchInputEvent> _touches;
     private readonly Dictionary<string, InputEvent> _updateInputs;
     private readonly Dictionary<string, InputEvent> _fixedUpdateInputs;
     private readonly Dictionary<string, InputController> _controllers;
@@ -26,6 +26,8 @@ namespace Game.Inputs
       _updateInputs = new Dictionary<string, InputEvent>();
       _fixedUpdateInputs = new Dictionary<string, InputEvent>();
       _controllers = new Dictionary<string, InputController>(MaxControllers);
+      _touches = new Dictionary<int, TouchInputEvent>();
+      Input.simulateMouseWithTouches = true;
 
       context.StartCoroutine(context.Lifetime, CheckForControllers());
       context.StartCoroutine(context.Lifetime, ProcessUpdate());
@@ -205,15 +207,60 @@ namespace Game.Inputs
 
     private void ProcessTouches()
     {
+      if (Input.GetMouseButtonDown(0) && !_touches.ContainsKey(0))
+      {
+        var info = TouchInputEvent.Pool.Pop(0, Input.mousePosition);
+        _touches.Add(0, info);
+        FireEvent(info);
+      }
+      else if (Input.GetMouseButton(0) && _touches.ContainsKey(0))
+      {
+        _touches[0].Update(Input.mousePosition);
+        FireEvent(_touches[0]);
+      }
+      else if (Input.GetMouseButtonUp(0) && _touches.ContainsKey(0))
+      {
+        _touches[0].End(Input.mousePosition);
+        FireEvent(_touches[0]);
+        _touches.Remove(0);
+      }
       foreach (var touch in Input.touches)
       {
-        FireEvent(new TouchInputEvent
+        if (touch.phase != TouchPhase.Stationary)
         {
-          Id = touch.fingerId,
-          Position = touch.position,
-          Phase = touch.phase,
-          DeltaPosition = touch.deltaPosition
-        });
+          TouchInputEvent info;
+          if (!_touches.TryGetValue(touch.fingerId + 1, out info))
+          {
+            if (touch.phase == TouchPhase.Began)
+            {
+              info = TouchInputEvent.Pool.Pop(touch.fingerId + 1, touch.position);
+              _touches.Add(info.Id, info);
+              FireEvent(info);
+            }
+          }
+          else
+          {
+            if (touch.phase == TouchPhase.Moved)
+            {
+              info.Update(touch.position);
+              FireEvent(info);
+            }
+            else if (touch.phase == TouchPhase.Ended)
+            {
+              info.End(touch.position);
+              FireEvent(info);
+              _touches.Remove(info.Id);
+              TouchInputEvent.Pool.Release(info);
+            }
+            else if (touch.phase == TouchPhase.Canceled)
+            {
+              info.Cancel(touch.position);
+              FireEvent(info);
+              _touches.Remove(info.Id);
+              TouchInputEvent.Pool.Release(info);
+            }
+          }
+        }
       }
     }
 

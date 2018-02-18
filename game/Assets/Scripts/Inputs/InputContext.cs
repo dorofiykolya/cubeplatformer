@@ -79,6 +79,17 @@ namespace Game.Inputs
       });
     }
 
+    public virtual void SubscribeTouch(Lifetime lifetime, int id, TouchPhase phase, Action<TouchInputEvent> listener)
+    {
+      _onTouchInput.Subscribe(lifetime, evt =>
+      {
+        if (evt.Id == id && evt.Phase == phase)
+        {
+          listener(evt);
+        }
+      });
+    }
+
     public virtual void Subscribe(Lifetime lifetime, GameInput input, InputUpdate update, Action<InputEvent> listener)
     {
       _onInput.Subscribe(lifetime, evt =>
