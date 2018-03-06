@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33087627452880608}
   - component: {fileID: 23382989084436686}
   - component: {fileID: 114478130200434222}
+  - component: {fileID: 114596814662877560}
   m_Layer: 0
   m_Name: Item
   m_TagString: Untagged
@@ -147,14 +148,14 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1243103349429042}
-  m_Mesh: {fileID: 4300008, guid: e8681eebceec227448c5a12a6ce5a978, type: 3}
+  m_Mesh: {fileID: 4300028, guid: cddc1f29bb57f6b449357462a79a6294, type: 3}
 --- !u!33 &33682716401545818
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1617667059463142}
-  m_Mesh: {fileID: 4300006, guid: e8681eebceec227448c5a12a6ce5a978, type: 3}
+  m_Mesh: {fileID: 4300030, guid: cddc1f29bb57f6b449357462a79a6294, type: 3}
 --- !u!114 &114478130200434222
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -190,21 +191,46 @@ MonoBehaviour:
       InstanceTarget: {fileID: 4590043932054988}
     - LIIF: -298413594
       InstanceTarget: {fileID: 1617667059463142}
+    - LIIF: -540363841
+      InstanceTarget: {fileID: 114596814662877560}
   Modifications:
     Modificated:
-    - Object: {fileID: 33087627452880608}
-      ObjeckLink: -1829918344
-      PropertyPath: m_Mesh
-      Mode: 0
     - Object: {fileID: 4141772585562374}
       ObjeckLink: 1809590986
       PropertyPath: m_RootOrder
       Mode: 0
-    NonPrefabObjects:
-    - child: {fileID: 4590043932054988}
-      parent: {fileID: 4141772585562374}
+    - Object: {fileID: 33682716401545818}
+      ObjeckLink: -1540104855
+      PropertyPath: m_Mesh
+      Mode: 0
+    - Object: {fileID: 114596814662877560}
+      ObjeckLink: -540363841
+      PropertyPath: PreviewScene
+      Mode: 0
+    - Object: {fileID: 114596814662877560}
+      ObjeckLink: -540363841
+      PropertyPath: Preview
+      Mode: 0
+    NonPrefabObjects: []
     NonPrefabComponents: []
     RemovedObjects: 
     TransformParentChanges: []
   ParentPrefabGUID: 
   PrefabGUID: c75ad0d5133afad4a950842481f4ea52
+--- !u!114 &114596814662877560
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1243103349429042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 942146e5fc894d4478b0f58439058f04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PreviewScene: {fileID: 0}
+  Preview: {fileID: 0}
+  Renderer: {fileID: 23008340174674430}
+  InTime: 1
+  OutTime: 0.1
+  MaxEmission: 1
