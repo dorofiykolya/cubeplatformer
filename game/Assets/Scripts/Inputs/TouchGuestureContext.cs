@@ -9,9 +9,10 @@ namespace Game.Inputs
 {
   public class TouchGuestureContext
   {
-    public static float MinSwipeDistance = 30f;
-    public static float MaxClickTime = 1.5f;
-    public static float MaxClickPositionThreashold = 10f;
+    public static float MinSwipeDistance = 25f * (Screen.dpi / 72);
+    public static float MaxSwipeTime = 1f;
+    public static float MaxClickTime = 2f;
+    public static float MaxClickPositionThreashold = 15f * (Screen.dpi / 72);
 
     private readonly InputContext _context;
     private readonly Lifetime _lifetime;
@@ -24,22 +25,23 @@ namespace Game.Inputs
 
     public void SubscribeClick(Lifetime lifetime, Rect percentScreen, Action listener)
     {
-      _context.SubscribeTouch(lifetime, TouchPhase.Began, evt =>
+      _context.SubscribeTouch(lifetime, TouchPhase.Began, beginEvent =>
       {
-        if (EventSystemWrapper.IsPointerOverGameObject(evt.FingerId)) return;
+        if (EventSystemWrapper.IsPointerOverGameObject(beginEvent.FingerId)) return;
 
-        var x = evt.Position.x / Screen.width;
-        var y = evt.Position.y / Screen.height;
+        var x = beginEvent.Position.x / Screen.width;
+        var y = beginEvent.Position.y / Screen.height;
         if (!percentScreen.Contains(new Vector2(x, y))) return;
 
-        _context.SubscribeTouch(lifetime, evt.Id, TouchPhase.Ended, endEvt =>
+        _context.SubscribeTouch(lifetime, beginEvent.Id, TouchPhase.Ended, endEvent =>
         {
-          if (EventSystemWrapper.IsPointerOverGameObject(endEvt.FingerId)) return;
-          var time = endEvt.Last.Time - endEvt.StartTime;
+          if (EventSystemWrapper.IsPointerOverGameObject(endEvent.FingerId)) return;
+          var time = endEvent.Last.Time - endEvent.First.Time;
           if (time <= MaxClickTime)
           {
-            var start = endEvt.StartPosition;
-            if (endEvt.Positions.All(p => (p.Position - start).sqrMagnitude < Mathf.Sqrt(MaxClickPositionThreashold)))
+            var start = endEvent.StartPosition;
+            var maxThreashold = MaxClickPositionThreashold;
+            if (endEvent.Positions.All(p => (p.Position - start).magnitude <= maxThreashold))
             {
               listener();
             }
@@ -54,9 +56,9 @@ namespace Game.Inputs
       {
         var delta = evt.Last.Position - evt.First.Position;
         var deltaTime = evt.Last.Time - evt.First.Time;
-        if (deltaTime < 1)
+        if (deltaTime <= MaxSwipeTime)
         {
-          if (delta.sqrMagnitude >= Mathf.Sqrt(MinSwipeDistance))
+          if (delta.magnitude >= MinSwipeDistance)
           {
             var dir = delta.normalized;
             float angle = Vector2.Angle(dir, Vector2.right);

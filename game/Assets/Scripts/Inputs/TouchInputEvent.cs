@@ -45,7 +45,6 @@ namespace Game.Inputs
     public TouchPhase Phase { get; private set; }
     public Vector2 DeltaPosition { get; private set; }
     public Vector2 StartPosition { get { return Positions[0].Position; } }
-    public float StartTime { get { return Positions[0].Time; } }
     public float Time { get { return Positions[Positions.Count - 1].Time; } }
     public List<TouchPosition> Positions { get; private set; }
     public TouchPosition First { get { return Positions[0]; } }
