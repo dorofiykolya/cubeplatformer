@@ -28,7 +28,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1617667059463142
 GameObject:
@@ -45,7 +45,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4141772585562374
 Transform:
@@ -194,23 +194,7 @@ MonoBehaviour:
     - LIIF: -540363841
       InstanceTarget: {fileID: 114596814662877560}
   Modifications:
-    Modificated:
-    - Object: {fileID: 4141772585562374}
-      ObjeckLink: 1809590986
-      PropertyPath: m_RootOrder
-      Mode: 0
-    - Object: {fileID: 33682716401545818}
-      ObjeckLink: -1540104855
-      PropertyPath: m_Mesh
-      Mode: 0
-    - Object: {fileID: 114596814662877560}
-      ObjeckLink: -540363841
-      PropertyPath: PreviewScene
-      Mode: 0
-    - Object: {fileID: 114596814662877560}
-      ObjeckLink: -540363841
-      PropertyPath: Preview
-      Mode: 0
+    Modificated: []
     NonPrefabObjects: []
     NonPrefabComponents: []
     RemovedObjects: 

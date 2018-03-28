@@ -17,7 +17,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: surfaceShader3
-    second: {fileID: 2100000, guid: 430508e806f541546b4ea640e0288aa5, type: 2}
+    second: {fileID: 2100000, guid: fdce9c3c2f4779346a89ca7df8e5fa75, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -55,13 +55,15 @@ ModelImporter:
     importCameras: 1
     importLights: 1
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
-    secondaryUVAngleDistortion: 8
-    secondaryUVAreaDistortion: 15.000001
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 64
+    secondaryUVAreaDistortion: 15
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
