@@ -30,6 +30,19 @@ ModelImporter:
     100044: roof_venting_05
     100046: roof_venting_06
     100048: roof_window_01
+    100050: roof_airConditioning_02
+    100052: roof_airConditioning_02_fan_01
+    100054: roof_airConditioning_03
+    100056: roof_lamppost_01
+    100058: roof_lamppost_lamp_ligth_01
+    100060: roof_lamppost_lamp_ligth_02
+    100062: roof_lamppost_lamp_ligth_03
+    100064: roof_lamppost_lamp_ligth_04
+    100066: roof_roof_lamppost_lamp_01
+    100068: roof_roof_lamppost_lamp_02
+    100070: roof_roof_lamppost_lamp_03
+    100072: roof_roof_lamppost_lamp_04
+    100074: roof_window_02
     400000: Retro_Antenna_01
     400002: Retro_Antenna_02
     400004: Retro_Antenna_03
@@ -55,6 +68,19 @@ ModelImporter:
     400044: roof_venting_05
     400046: roof_venting_06
     400048: roof_window_01
+    400050: roof_airConditioning_02
+    400052: roof_airConditioning_02_fan_01
+    400054: roof_airConditioning_03
+    400056: roof_lamppost_01
+    400058: roof_lamppost_lamp_ligth_01
+    400060: roof_lamppost_lamp_ligth_02
+    400062: roof_lamppost_lamp_ligth_03
+    400064: roof_lamppost_lamp_ligth_04
+    400066: roof_roof_lamppost_lamp_01
+    400068: roof_roof_lamppost_lamp_02
+    400070: roof_roof_lamppost_lamp_03
+    400072: roof_roof_lamppost_lamp_04
+    400074: roof_window_02
     2100000: props_roof
     2100002: tv_screen
     2100004: light
@@ -83,6 +109,19 @@ ModelImporter:
     2300042: roof_venting_05
     2300044: roof_venting_06
     2300046: roof_window_01
+    2300048: roof_airConditioning_02
+    2300050: roof_airConditioning_02_fan_01
+    2300052: roof_airConditioning_03
+    2300054: roof_lamppost_01
+    2300056: roof_lamppost_lamp_ligth_01
+    2300058: roof_lamppost_lamp_ligth_02
+    2300060: roof_lamppost_lamp_ligth_03
+    2300062: roof_lamppost_lamp_ligth_04
+    2300064: roof_roof_lamppost_lamp_01
+    2300066: roof_roof_lamppost_lamp_02
+    2300068: roof_roof_lamppost_lamp_03
+    2300070: roof_roof_lamppost_lamp_04
+    2300072: roof_window_02
     3300000: Retro_Antenna_01
     3300002: Retro_Antenna_02
     3300004: Retro_Antenna_03
@@ -107,6 +146,19 @@ ModelImporter:
     3300042: roof_venting_05
     3300044: roof_venting_06
     3300046: roof_window_01
+    3300048: roof_airConditioning_02
+    3300050: roof_airConditioning_02_fan_01
+    3300052: roof_airConditioning_03
+    3300054: roof_lamppost_01
+    3300056: roof_lamppost_lamp_ligth_01
+    3300058: roof_lamppost_lamp_ligth_02
+    3300060: roof_lamppost_lamp_ligth_03
+    3300062: roof_lamppost_lamp_ligth_04
+    3300064: roof_roof_lamppost_lamp_01
+    3300066: roof_roof_lamppost_lamp_02
+    3300068: roof_roof_lamppost_lamp_03
+    3300070: roof_roof_lamppost_lamp_04
+    3300072: roof_window_02
     4300000: roof_airConditioning_01
     4300002: roof_airConditioning_01_fan_01
     4300004: roof_airConditioning_01_fan_02
@@ -131,6 +183,19 @@ ModelImporter:
     4300042: roof_billboard_02
     4300044: roof_billboard_bord_02
     4300046: roof_billboard_ligth_02
+    4300048: roof_airConditioning_02
+    4300050: roof_airConditioning_02_fan_01
+    4300052: roof_airConditioning_03
+    4300054: roof_window_02
+    4300056: roof_lamppost_01
+    4300058: roof_roof_lamppost_lamp_01
+    4300060: roof_lamppost_lamp_ligth_01
+    4300062: roof_roof_lamppost_lamp_02
+    4300064: roof_lamppost_lamp_ligth_02
+    4300066: roof_roof_lamppost_lamp_03
+    4300068: roof_lamppost_lamp_ligth_03
+    4300070: roof_roof_lamppost_lamp_04
+    4300072: roof_lamppost_lamp_ligth_04
     11400000: //RootNode
   externalObjects: {}
   materials:
@@ -177,10 +242,10 @@ ModelImporter:
     weldVertices: 1
     preserveHierarchy: 0
     indexFormat: 0
-    secondaryUVAngleDistortion: 64
+    secondaryUVAngleDistortion: 30
     secondaryUVAreaDistortion: 15
     secondaryUVHardAngle: 88
-    secondaryUVPackMargin: 4
+    secondaryUVPackMargin: 30
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
