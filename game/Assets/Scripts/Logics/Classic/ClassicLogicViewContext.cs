@@ -247,7 +247,11 @@ namespace Game.Logics.Classic
 
     public void ShowTrap(int x, int y)
     {
-      _tiles[new Point(x, y)].gameObject.SetActive(true);
+      CellContentComponent component;
+      if (_tiles.TryGetValue(new Point(x, y), out component) && component != null)
+      {
+        component.gameObject.SetActive(true);
+      }
     }
 
     public void StopDigging()
