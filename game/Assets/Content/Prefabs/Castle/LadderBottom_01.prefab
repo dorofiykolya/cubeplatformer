@@ -164,12 +164,8 @@ MonoBehaviour:
       PropertyPath: m_RootOrder
       Mode: 0
     NonPrefabObjects: []
-    NonPrefabComponents:
-    - child: {fileID: 114900945654924718}
-      parent: {fileID: 1807716781467056}
-    - child: {fileID: 61077043078790896}
-      parent: {fileID: 1807716781467056}
-    RemovedObjects: a765a67406045944
+    NonPrefabComponents: []
+    RemovedObjects: 
     TransformParentChanges: []
   ParentPrefabGUID: 
   PrefabGUID: dbbdabbf365674ba595ad13e24dd7971

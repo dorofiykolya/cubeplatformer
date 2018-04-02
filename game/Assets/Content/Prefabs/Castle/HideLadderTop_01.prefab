@@ -145,7 +145,11 @@ MonoBehaviour:
     - LIIF: 1243528992
       InstanceTarget: {fileID: 114883643049092484}
   Modifications:
-    Modificated: []
+    Modificated:
+    - Object: {fileID: 4606526441679054}
+      ObjeckLink: -88914031
+      PropertyPath: m_RootOrder
+      Mode: 0
     NonPrefabObjects: []
     NonPrefabComponents: []
     RemovedObjects: 

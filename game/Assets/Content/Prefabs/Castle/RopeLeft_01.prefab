@@ -156,10 +156,26 @@ MonoBehaviour:
       InstanceTarget: {fileID: 33896844061739360}
     - LIIF: 894567234
       InstanceTarget: {fileID: 23256032402028906}
+    - LIIF: 235531675
+      InstanceTarget: {fileID: 114749305436245278}
+    - LIIF: 1110102286
+      InstanceTarget: {fileID: 114317932249145280}
+    - LIIF: -320023888
+      InstanceTarget: {fileID: 61565860251321554}
   Modifications:
-    Modificated: []
+    Modificated:
+    - Object: {fileID: 4254318034422166}
+      ObjeckLink: 1327191976
+      PropertyPath: m_RootOrder
+      Mode: 0
     NonPrefabObjects: []
-    NonPrefabComponents: []
+    NonPrefabComponents:
+    - child: {fileID: 114749305436245278}
+      parent: {fileID: 1738057766105702}
+    - child: {fileID: 114317932249145280}
+      parent: {fileID: 1738057766105702}
+    - child: {fileID: 61565860251321554}
+      parent: {fileID: 1738057766105702}
     RemovedObjects: 
     TransformParentChanges: []
   ParentPrefabGUID: 
