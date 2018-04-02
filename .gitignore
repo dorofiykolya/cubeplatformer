@@ -49,3 +49,4 @@ game/Temp/**
 *.dll
 /game/.vs/game/**
 /game/.vs/game/v15/sqlite3/storage.ide
+game/Assets/Models/GUI/StartMenu/.mayaSwatches/roof.psd_hcm.swatch
