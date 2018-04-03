@@ -32,6 +32,7 @@ namespace Game
     private readonly ILogger _logger;
     private readonly Injector _injector;
     private readonly CommandMap _commandMap;
+    private GameNavigator _navigator;
 
     public GameContext(Lifetime lifetime, GameStartBehaviour behaviour)
     {
@@ -65,6 +66,8 @@ namespace Game
         }
       );
 
+      _navigator = new GameNavigator(this);
+
       CommandMap.Map<StartMessage>().RegisterCommand(lt => new StartCommand());
 
       Tell(new StartMessage());
@@ -84,6 +87,7 @@ namespace Game
     public GameControllers Controllers { get { return _controllers; } }
     public IInjector Injector { get { return _injector; } }
     public CommandMap CommandMap { get { return _commandMap; } }
+    public GameNavigator Navigator { get { return _navigator; } }
 
     public void Tell(object message)
     {

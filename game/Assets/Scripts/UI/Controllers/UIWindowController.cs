@@ -61,12 +61,12 @@ namespace Game.UI.Controllers
     private readonly LinkedQueue<UIWindowContext> _queue = new LinkedQueue<UIWindowContext>();
     private bool _inOpenProcess;
 
-    public UIWindowReference Open<T>(Action<UIWindow> onOpen = null) where T : UIWindow
+    public UIWindowReference Open<T>(Action<UIWindow> onOpen = null, UIWindowData data = null) where T : UIWindow
     {
       var definition = Lifetime.Define(Lifetime);
       var reference = new UIWindowReference(definition);
       var context = new UIWindowContext(reference, definition);
-      Enqueue(typeof(T), onOpen, context);
+      Enqueue(typeof(T), onOpen, context, data);
       return reference;
     }
 
@@ -89,7 +89,7 @@ namespace Game.UI.Controllers
       }
     }
 
-    private void Enqueue(Type type, Action<UIWindow> onOpen, UIWindowContext context)
+    private void Enqueue(Type type, Action<UIWindow> onOpen, UIWindowContext context, UIWindowData data)
     {
       var intersectLifetime = Lifetime.Intersection(context.Lifetime, Lifetime);
       context.Factory = callback =>
@@ -112,7 +112,7 @@ namespace Game.UI.Controllers
           _injector.Inject(windowMediator);
           _sceneController.SceneComponent.WindowsRoot.AddChild(windowComponent.transform);
           windowComponent.gameObject.AddComponent<SignalMonoBehaviour>().DestroySignal.Subscribe(intersectLifetime.Lifetime, intersectLifetime.Terminate);
-          MethodInvoker<UIWindow, InitializeAttribute>.Invoke(windowMediator, intersectLifetime, windowComponent);
+          MethodInvoker<UIWindow, InitializeAttribute>.Invoke(windowMediator, intersectLifetime, windowComponent, data);
           _opened.Add(context);
           MethodInvoker<UIWindow, WindowOpenAttribute>.Invoke(windowMediator);
           if (onOpen != null) onOpen(windowMediator);

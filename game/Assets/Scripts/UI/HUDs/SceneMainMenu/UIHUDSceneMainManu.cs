@@ -3,6 +3,8 @@ using System.Linq;
 using Game.Inputs;
 using Game.Controllers;
 using Game.UI.Components;
+using Game.UI.Controllers;
+using Game.UI.Windows;
 using Injection;
 using Utils;
 
@@ -14,6 +16,8 @@ namespace Game.UI.HUDs
     private GameContext _gameContext;
     [Inject]
     private GameLevelController _levelController;
+    [Inject]
+    private UIWindowController _windowController;
 
     private Lifetime.Definition _lifeDefinition;
 
@@ -68,6 +72,12 @@ namespace Game.UI.HUDs
           {
             case MainMenuId.Start:
               _levelController.LoadLevel(0);
+              break;
+            case MainMenuId.Settings:
+              _lifeDefinition.Lifetime.AddAction(_windowController.Open<UISettingsWindow>().Close);
+              break;
+            default:
+
               break;
           }
         });

@@ -3,16 +3,21 @@ using Utils;
 
 namespace Game.UI.Windows
 {
-  public abstract class UIWindow<T> : UIWindow where T : UIWindowComponent
+  public abstract class UIWindow<TComponent, TData> : UIWindow where TComponent : UIWindowComponent where TData : UIWindowData
   {
     public override Type ComponentType
     {
-      get { return typeof(T); }
+      get { return typeof(TComponent); }
     }
 
-    public new T Component
+    public new TComponent Component
     {
-      get { return base.Component as T; }
+      get { return base.Component as TComponent; }
+    }
+
+    public new TData Data
+    {
+      get { return base.Data as TData; }
     }
   }
 
@@ -20,8 +25,14 @@ namespace Game.UI.Windows
   {
     private UIWindowComponent _component;
     private Lifetime.Definition _lifetimeDefinition;
+    private UIWindowData _data;
 
     public abstract Type ComponentType { get; }
+
+    public UIWindowData Data
+    {
+      get { return _data; }
+    }
 
     public UIWindowComponent Component
     {
@@ -29,7 +40,7 @@ namespace Game.UI.Windows
     }
 
     protected Lifetime Lifetime { get { return _lifetimeDefinition.Lifetime; } }
-    protected abstract void Initialize();
+    protected abstract void OnInitialize();
     protected abstract void OnOpen();
     protected abstract void OnClose();
 
@@ -39,11 +50,12 @@ namespace Game.UI.Windows
     }
 
     [Initialize]
-    private void InitializeWindowInternal(Lifetime.Definition lifetimeDefinition, UIWindowComponent component)
+    private void InitializeWindowInternal(Lifetime.Definition lifetimeDefinition, UIWindowComponent component, UIWindowData data)
     {
       _lifetimeDefinition = lifetimeDefinition;
       _component = component;
-      Initialize();
+      _data = data;
+      OnInitialize();
     }
 
     [WindowOpen]
