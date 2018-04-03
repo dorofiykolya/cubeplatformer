@@ -14,10 +14,13 @@ namespace Game.UI.Controllers
   {
     private readonly Lifetime.Definition _definition;
 
-    public UIWindowReference(Lifetime.Definition definition)
+    public UIWindowReference(Lifetime.Definition definition, bool isFullscreen)
     {
       _definition = definition;
+      IsFullscreen = isFullscreen;
     }
+
+    public bool IsFullscreen { get; private set; }
 
     public void Close()
     {
@@ -56,15 +59,36 @@ namespace Game.UI.Controllers
     [Inject]
     private UISceneController _sceneController;
 
-    private readonly Dictionary<Type, string> _map = new Dictionary<Type, string>();
+    private readonly Dictionary<Type, UIWindowMap> _map = new Dictionary<Type, UIWindowMap>();
     private readonly List<UIWindowContext> _opened = new List<UIWindowContext>();
     private readonly LinkedQueue<UIWindowContext> _queue = new LinkedQueue<UIWindowContext>();
+    private Signal _onChanged;
     private bool _inOpenProcess;
 
-    public UIWindowReference Open<T>(Action<UIWindow> onOpen = null, UIWindowData data = null) where T : UIWindow
+    protected override void OnPreinitialize()
+    {
+      _onChanged = new Signal(Lifetime);
+    }
+
+    public UIWindowReference Open<T>() where T : UIWindow
+    {
+      return Open<T>(null, null);
+    }
+
+    public UIWindowReference Open<T>(UIWindowData data) where T : UIWindow
+    {
+      return Open<T>(null, data);
+    }
+
+    public UIWindowReference Open<T>(Action<UIWindow> onOpen) where T : UIWindow
+    {
+      return Open<T>(onOpen, null);
+    }
+
+    public UIWindowReference Open<T>(Action<UIWindow> onOpen, UIWindowData data) where T : UIWindow
     {
       var definition = Lifetime.Define(Lifetime);
-      var reference = new UIWindowReference(definition);
+      var reference = new UIWindowReference(definition, _map[typeof(T)].IsFullscreen);
       var context = new UIWindowContext(reference, definition);
       Enqueue(typeof(T), onOpen, context, data);
       return reference;
@@ -84,7 +108,7 @@ namespace Game.UI.Controllers
     {
       foreach (var windowMap in new UIWindowsProvider().GetWindows())
       {
-        _map[windowMap.Type] = windowMap.Path;
+        _map[windowMap.Type] = windowMap;
         _injector.Map(windowMap.Type).ToFactory(windowMap.Type);
       }
     }
@@ -94,7 +118,7 @@ namespace Game.UI.Controllers
       var intersectLifetime = Lifetime.Intersection(context.Lifetime, Lifetime);
       context.Factory = callback =>
       {
-        var path = _map[type];
+        var path = _map[type].Path;
         Context.ResourceManager.GetPrefab(path).LoadAsync(intersectLifetime.Lifetime, result =>
         {
           var windowMediator = (UIWindow)_injector.Get(type);
@@ -106,6 +130,8 @@ namespace Game.UI.Controllers
             _opened.Remove(context);
             result.Release(windowComponent);
             result.Collect();
+
+            _onChanged.Fire();
           });
 
           GameObject.DontDestroyOnLoad(windowComponent.gameObject);
@@ -117,6 +143,7 @@ namespace Game.UI.Controllers
           MethodInvoker<UIWindow, WindowOpenAttribute>.Invoke(windowMediator);
           if (onOpen != null) onOpen(windowMediator);
           callback();
+          _onChanged.Fire();
         });
       };
 
@@ -165,6 +192,11 @@ namespace Game.UI.Controllers
           }
         });
       }
+    }
+
+    public void SubscribeOnChanged(Lifetime lifetime, Action listener)
+    {
+      _onChanged.Subscribe(lifetime, listener);
     }
   }
 }

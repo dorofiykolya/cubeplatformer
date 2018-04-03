@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Game.Components.MenuNavigation;
 using Game.Inputs;
 using Game.Controllers;
 using Game.UI.Components;
@@ -46,16 +47,12 @@ namespace Game.UI.HUDs
         sceneManager.SetActive(scene);
         var component = gameObject.GetComponent<UIMainMenuComponent>();
         var navigation = component.Navigation;
+        component.ActiveCameras(_windowController.Opened.All(w => !w.IsFullscreen));
+        _windowController.SubscribeOnChanged(Lifetime, () => component.ActiveCameras(_windowController.Opened.All(w => !w.IsFullscreen)));
 
         navigation.SubscribeOnAction(_lifeDefinition.Lifetime, () =>
         {
-          var currentMenuId = navigation.Current.Id;
-          switch (currentMenuId)
-          {
-            case MainMenuId.Start:
-              _levelController.LoadLevel(0);
-              break;
-          }
+          DoAction(navigation);
         });
 
         var input = new MainMenuInputContext(_gameContext, Lifetime, _gameContext.InputContext.Current);
@@ -67,21 +64,32 @@ namespace Game.UI.HUDs
         input.Subscribe(_lifeDefinition.Lifetime, GameInput.Cancel, InputPhase.Begin, InputUpdate.Update, e => { navigation.GoToBack(); });
         input.Subscribe(_lifeDefinition.Lifetime, GameInput.Action, InputPhase.Begin, InputUpdate.Update, e =>
         {
-          var currentMenuId = navigation.Current.Id;
-          switch (currentMenuId)
-          {
-            case MainMenuId.Start:
-              _levelController.LoadLevel(0);
-              break;
-            case MainMenuId.Settings:
-              _lifeDefinition.Lifetime.AddAction(_windowController.Open<UISettingsWindow>().Close);
-              break;
-            default:
-
-              break;
-          }
+          DoAction(navigation);
         });
       });
+    }
+
+    private void DoAction(MenuNavigationComponent navigation)
+    {
+      var currentMenuId = navigation.Current.Id;
+      switch (currentMenuId)
+      {
+        case MainMenuId.Start:
+          _levelController.LoadLevel(0);
+          break;
+        case MainMenuId.Settings:
+          _lifeDefinition.Lifetime.AddAction(_windowController.Open<UISettingsWindow>().Close);
+          break;
+        default:
+          var id = (int)currentMenuId;
+          var def = Lifetime.Define(Lifetime);
+          _gameContext.Preloader.Open(def.Lifetime);
+          _lifeDefinition.Lifetime.AddAction(_windowController.Open<UILevelSelectWindow>((w)=> def.Terminate(), new UILevelSelectWindowData
+          {
+            Level = id
+          }).Close);
+          break;
+      }
     }
 
     protected override void OnClose()

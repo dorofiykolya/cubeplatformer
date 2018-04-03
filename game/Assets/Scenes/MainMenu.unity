@@ -270,7 +270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 9054512}
-  Id: 4
+  Id: 3
   SelectedTransform: {fileID: 1351136050}
   CameraPivotTransform: {fileID: 1323185033}
   OnSelected:
@@ -437,7 +437,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 49984480}
-  Id: 4
+  Id: 6
   SelectedTransform: {fileID: 528914242}
   CameraPivotTransform: {fileID: 1257962385}
   OnSelected:
@@ -1132,7 +1132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 150502813}
-  Id: 4
+  Id: 5
   SelectedTransform: {fileID: 407452864}
   CameraPivotTransform: {fileID: 760497993}
   OnSelected:
@@ -1982,7 +1982,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 261047988}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
   m_Name: 
@@ -10864,6 +10864,11 @@ Transform:
   m_PrefabParentObject: {fileID: 4532591985501252, guid: 37567c9bdd1cd6a43b6b03fae541f9c1,
     type: 2}
   m_PrefabInternal: {fileID: 546459277}
+--- !u!20 &546459279 stripped
+Camera:
+  m_PrefabParentObject: {fileID: 20597473352626784, guid: 37567c9bdd1cd6a43b6b03fae541f9c1,
+    type: 2}
+  m_PrefabInternal: {fileID: 546459277}
 --- !u!1 &551001958
 GameObject:
   m_ObjectHideFlags: 0
@@ -12802,7 +12807,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 953861406}
-  Id: 0
+  Id: -4
   SelectedTransform: {fileID: 551737144}
   CameraPivotTransform: {fileID: 1254362079}
   OnSelected:
@@ -18010,7 +18015,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 1430303326}
-  Id: 4
+  Id: 1
   SelectedTransform: {fileID: 1685830008}
   CameraPivotTransform: {fileID: 943775662}
   OnSelected:
@@ -18120,7 +18125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 1433515168}
-  Id: 4
+  Id: 0
   SelectedTransform: {fileID: 1599837660}
   CameraPivotTransform: {fileID: 710861147}
   OnSelected:
@@ -18881,7 +18886,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b2a8355b59db3b4b92f5287f733d2b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Camera: {fileID: 0}
+  MainCamera: {fileID: 546459279}
+  Cameras:
+  - {fileID: 546459279}
+  - {fileID: 261047989}
+  - {fileID: 1985904085}
   Navigation: {fileID: 1595429233}
 --- !u!4 &1595429232
 Transform:
@@ -20133,7 +20142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 1699928461}
-  Id: 1
+  Id: -3
   SelectedTransform: {fileID: 1215035864}
   CameraPivotTransform: {fileID: 2004972152}
   OnSelected:
@@ -20488,7 +20497,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 1770065785}
-  Id: 4
+  Id: 2
   SelectedTransform: {fileID: 854947394}
   CameraPivotTransform: {fileID: 1399157776}
   OnSelected:
@@ -28450,7 +28459,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1985904082}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
   m_Name: 

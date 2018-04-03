@@ -70,7 +70,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1172241637973230}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -3.24, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4908483443163642}
@@ -84,7 +84,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1194493416955736}
   m_LocalRotation: {x: 0.061222706, y: -0, z: -0, w: 0.9981241}
-  m_LocalPosition: {x: -0.8559337, y: 3.5756097, z: -14.440928}
+  m_LocalPosition: {x: 3.88, y: 3.5756097, z: -14.440928}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4973627952355022}
@@ -129,7 +129,7 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingPath: 3
+  m_RenderingPath: 1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
@@ -169,7 +169,7 @@ Light:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
@@ -326,7 +326,7 @@ MonoBehaviour:
   camZoomMax: 14.55
   camOverzoomMargin: 0
   camOverdragMargin: 1
-  boundaryMin: {x: -15, y: -4}
+  boundaryMin: {x: -32, y: -4}
   boundaryMax: {x: 45, y: 7}
   camFollowFactor: 15
   moveCamFollowFactor: 15

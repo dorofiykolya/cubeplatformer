@@ -1,28 +1,49 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+using Utils;
 
 namespace Game.UI.Windows
 {
   public class UIWindowComponent : MonoBehaviour
   {
-    public void SubscribeOnOpenBegin()
+    private Lifetime.Definition _definition;
+    private Signal _onClose;
+
+    public UIWindowComponent()
     {
-      
+      InitializeComponent();
     }
 
-    public void SubscribeOnOpenEnd()
+    private void InitializeComponent()
     {
-      
+      _definition = _definition ?? Lifetime.Define(Lifetime.Eternal);
+      _onClose = _onClose ?? new Signal(Lifetime.Eternal);
     }
 
-    public void SubscribeOnCloseBegin()
+    private void OnEnable()
     {
-      
+      InitializeComponent();
     }
 
-    public void SubscrubeOnCloseEnd()
+    private void OnDisable()
     {
-      
+      _definition.Terminate();
+      _definition = null;
+      _onClose = null;
+    }
+
+    public void SubscribeOnClose(Lifetime lifetime, Action listener)
+    {
+      InitializeComponent();
+      _onClose.Subscribe(lifetime, listener);
+    }
+
+    [UILink]
+    public void FireClickClose()
+    {
+      _onClose.Fire();
     }
   }
 }
