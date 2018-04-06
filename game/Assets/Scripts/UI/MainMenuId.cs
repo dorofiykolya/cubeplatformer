@@ -6,11 +6,11 @@
     Settings = -3,
     Music = -2,
     Sound = -1,
-    Level1 = 0,
-    Level2 = 1,
-    Level3 = 2,
-    Level4 = 3,
-    Level5 = 4,
+    Castle = 0,
+    Pirates = 1,
+    Rome = 2,
+    StoneAge = 3,
+    Transylvania = 4,
     Level6 = 5,
     Level7 = 6
   }

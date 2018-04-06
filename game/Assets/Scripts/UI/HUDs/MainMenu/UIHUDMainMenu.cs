@@ -22,10 +22,10 @@ namespace Game.UI.Windows
       {
         menuComponent.OnClassicClick.Subscribe(Lifetime, () =>
         {
-          _levelController.LoadLevel(0);
+          _levelController.LoadLevel(0, 0);
           Close();
         });
-        menuComponent.OnInfinityClick.Subscribe(Lifetime, () => _levelController.LoadLevel(0));
+        menuComponent.OnInfinityClick.Subscribe(Lifetime, () => _levelController.LoadLevel(0, 0));
       }
       _inputContext = new UIHUDMainMenuInputContext(_gameContext, Lifetime, _gameContext.InputContext);
       _inputContext.Subscribe(Lifetime, GameInput.Up, InputPhase.End, InputUpdate.Update, evt => menuComponent.Up());

@@ -1,17 +1,20 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Utils;
 
 namespace Game.UI.Windows
 {
   public class UILevelSelectWindowComponent : UIWindowComponent
   {
+    private Lifetime.Definition _definition;
+    private Signal<int> _onClick;
+
     [SerializeField]
     private RectTransform _content;
 
     [SerializeField]
-    private GameObject _itemPrefab;
+    private UILevelSelectPlaceholderComponent _itemPrefab;
 
     [SerializeField]
     private Text _title;
@@ -21,16 +24,54 @@ namespace Game.UI.Windows
 
     private void Awake()
     {
-      for (int i = 0; i < 30; i++)
-      {
-        Instantiate(_itemPrefab, _content.transform, false);
-      }
-      _closeButton.Select();
+
     }
 
     public void SetTitle(string title)
     {
       _title.text = title;
+    }
+
+    public void SetLevels(GameSubLevelData[] levels)
+    {
+      InitializeDefinition();
+
+      var iterator = 0;
+      foreach (var level in levels)
+      {
+        var index = iterator;
+        var placeholder = Instantiate(_itemPrefab, _content.transform, false).GetComponent<UILevelSelectPlaceholderComponent>();
+        placeholder.SetTitle(iterator.ToString());
+        placeholder.SetCategory(level.Category);
+        placeholder.SubscribeOnClick(_definition.Lifetime, () =>
+        {
+          _onClick.Fire(index);
+        });
+        if (index == 0)
+        {
+          var selectable = placeholder.GetComponent<Selectable>();
+          if (selectable)
+          {
+            selectable.Select();
+          }
+        }
+        iterator++;
+      }
+    }
+
+    public void SubscribeOnSelect(Lifetime lifetime, Action<int> listener)
+    {
+      InitializeDefinition();
+      _onClick.Subscribe(lifetime, listener);
+    }
+
+    private void InitializeDefinition()
+    {
+      if (_definition == null)
+      {
+        _definition = Lifetime.Define(Lifetime.Eternal);
+        _onClick = new Signal<int>(_definition.Lifetime);
+      }
     }
   }
 }

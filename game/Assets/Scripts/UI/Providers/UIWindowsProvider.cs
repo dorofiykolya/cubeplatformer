@@ -24,6 +24,7 @@ namespace Game.UI.Providers
     {
       yield return new UIWindowMap(typeof(UISettingsWindow), "Windows/Settings", false);
       yield return new UIWindowMap(typeof(UILevelSelectWindow), "Windows/LevelSelect", true);
+      yield return new UIWindowMap(typeof(UIErrorWindow), "Windows/Error", false);
       yield break;
     }
   }

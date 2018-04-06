@@ -515,7 +515,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _content: {fileID: 224180135758348594}
-  _itemPrefab: {fileID: 1785078081766226, guid: 0b3c252942e07294588c8c03b7830a00,
+  _itemPrefab: {fileID: 114840572869517914, guid: 0b3c252942e07294588c8c03b7830a00,
     type: 2}
   _title: {fileID: 114514498246518642}
   _closeButton: {fileID: 114465783563276394}
@@ -793,7 +793,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 75, y: 0.000030506599}
+  m_AnchoredPosition: {x: 75, y: 0.00001869494}
   m_SizeDelta: {x: -75, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &224183587988545638

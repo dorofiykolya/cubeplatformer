@@ -1,8 +1,8 @@
 namespace Game
 {
-    public enum GameLevelDataType
-    {
-        Scnene,
-        StringFormat
-    }
+  public enum GameLevelDataType
+  {
+    StringFormat,
+    Scnene
+  }
 }

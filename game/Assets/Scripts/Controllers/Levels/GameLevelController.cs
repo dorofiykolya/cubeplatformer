@@ -56,20 +56,21 @@ namespace Game.Controllers
     public GameLevels Levels { get { return _gameLevels; } }
     public CurrentLevelInfo Current { get { return _currentLevel; } }
 
-    public void LoadLevel(int index)
+    public void LoadLevel(int index, int subLevel)
     {
       DestroyLastLevel();
       var levelData = _gameLevels.GetLevel(index);
-      _gameSceneController.LoadScene(levelData.Scene.SceneName, LoadSceneMode.Single, (scene) =>
+      var data = levelData.GetLevel(subLevel);
+      _gameSceneController.LoadScene(data.Scene.SceneName, LoadSceneMode.Single, (scene) =>
       {
-        if (levelData.DataType == GameLevelDataType.StringFormat)
+        if (data.DataType == GameLevelDataType.StringFormat)
         {
           var classicLevel = new GameClassicLevelInfo();
           classicLevel.Scene = scene;
-          if (levelData.DataType == GameLevelDataType.StringFormat)
+          if (data.DataType == GameLevelDataType.StringFormat)
           {
-            classicLevel.Level = levelData.LevelStringData.Asset.text;
-            classicLevel.Preset = levelData.Preset;
+            classicLevel.Level = data.LevelStringData.text;
+            classicLevel.Preset = data.Preset;
           }
 
           _currentLevel = new CurrentLevelInfo(Lifetime, classicLevel);

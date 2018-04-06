@@ -12,39 +12,8 @@ MonoBehaviour:
   m_Name: GameLevels
   m_EditorClassIdentifier: 
   Levels:
-  - Name: Level_01_name
-    Description: Level_01_desr
-    Category: 0
-    DataType: 1
-    LevelStringData:
-      _path: ClassicLevels/classic_level
-      _serializedType: UnityEngine.TextAsset, UnityEngine.CoreModule
-    Preset:
-      _path: CellPresets/Preset_Castle_01
-      _serializedType: Game.CellPreset, Assembly-CSharp
-    Scene:
-      SceneName: Castle_01
-  - Name: Level_01_name
-    Description: Level_01_desr
-    Category: 0
-    DataType: 0
-    LevelStringData:
-      _path: 
-      _serializedType: UnityEngine.TextAsset, UnityEngine.CoreModule
-    Preset:
-      _path: 
-      _serializedType: Game.CellPreset, Assembly-CSharp
-    Scene:
-      SceneName: Castle_01
-  - Name: Level_01_classic
-    Description: Level_01_classic_descr
-    Category: 0
-    DataType: 1
-    LevelStringData:
-      _path: ClassicLevels/classic_level
-      _serializedType: UnityEngine.TextAsset, UnityEngine.CoreModule
-    Preset:
-      _path: 
-      _serializedType: Game.CellPreset, Assembly-CSharp
-    Scene:
-      SceneName: Castle_01
+  - {fileID: 11400000, guid: a9845e572f19a254a8e3b9306e5caa62, type: 2}
+  - {fileID: 11400000, guid: daa69776fd47d0b449790572b52d6148, type: 2}
+  - {fileID: 11400000, guid: 6632c4846c61bde4795970eac77c55c1, type: 2}
+  - {fileID: 11400000, guid: f956cf75eb49666439a9162794997e6c, type: 2}
+  - {fileID: 11400000, guid: e5dd404823794054b83df5de58562b59, type: 2}

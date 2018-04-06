@@ -48,14 +48,14 @@ namespace Game.UI.HUDs
         var component = gameObject.GetComponent<UIMainMenuComponent>();
         var navigation = component.Navigation;
         component.ActiveCameras(_windowController.Opened.All(w => !w.IsFullscreen));
-        _windowController.SubscribeOnChanged(Lifetime, () => component.ActiveCameras(_windowController.Opened.All(w => !w.IsFullscreen)));
+        _windowController.SubscribeOnChanged(_lifeDefinition.Lifetime, () => component.ActiveCameras(_windowController.Opened.All(w => !w.IsFullscreen)));
 
         navigation.SubscribeOnAction(_lifeDefinition.Lifetime, () =>
         {
           DoAction(navigation);
         });
 
-        var input = new MainMenuInputContext(_gameContext, Lifetime, _gameContext.InputContext.Current);
+        var input = new MainMenuInputContext(_gameContext, _lifeDefinition.Lifetime, _gameContext.InputContext.Current);
 
         input.Subscribe(_lifeDefinition.Lifetime, GameInput.Right, InputPhase.Begin, InputUpdate.Update, e => navigation.GoToRight());
         input.Subscribe(_lifeDefinition.Lifetime, GameInput.Left, InputPhase.Begin, InputUpdate.Update, e => navigation.GoToLeft());
@@ -75,19 +75,33 @@ namespace Game.UI.HUDs
       switch (currentMenuId)
       {
         case MainMenuId.Start:
-          _levelController.LoadLevel(0);
+          _levelController.LoadLevel(0, 0);
           break;
         case MainMenuId.Settings:
           _lifeDefinition.Lifetime.AddAction(_windowController.Open<UISettingsWindow>().Close);
           break;
         default:
           var id = (int)currentMenuId;
-          var def = Lifetime.Define(Lifetime);
+          var def = Lifetime.Define(_lifeDefinition.Lifetime);
           _gameContext.Preloader.Open(def.Lifetime);
-          _lifeDefinition.Lifetime.AddAction(_windowController.Open<UILevelSelectWindow>((w)=> def.Terminate(), new UILevelSelectWindowData
+          var level = _levelController.Levels.GetLevel(id);
+          if (level != null)
           {
-            Level = id
-          }).Close);
+            _lifeDefinition.Lifetime.AddAction(_windowController.Open<UILevelSelectWindow>((w) => def.Terminate(),
+              new UILevelSelectWindowData
+              {
+                Level = id
+              }).Close);
+          }
+          else
+          {
+            _lifeDefinition.Lifetime.AddAction(_windowController.Open<UIErrorWindow>(w => def.Terminate(), new UIErrorWindowData
+            {
+              Title = "Error",
+              Message = "Level Not Found!!!"
+            }).Close);
+          }
+
           break;
       }
     }

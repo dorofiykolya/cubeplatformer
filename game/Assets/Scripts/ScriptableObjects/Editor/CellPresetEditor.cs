@@ -73,7 +73,7 @@ namespace Game.Editor
       }
     }
 
-    [CustomPropertyDrawer(typeof(CellPreset), true)]
+    //[CustomPropertyDrawer(typeof(CellPreset), true)]
     public class CellPresetPropertyDrawer : PropertyDrawer
     {
       private static bool _foldout;

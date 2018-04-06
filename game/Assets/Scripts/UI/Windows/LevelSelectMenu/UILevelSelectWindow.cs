@@ -1,4 +1,6 @@
-﻿using Game.Inputs;
+﻿using System;
+using Game.Controllers;
+using Game.Inputs;
 using Injection;
 using Utils;
 
@@ -8,6 +10,8 @@ namespace Game.UI.Windows
   {
     [Inject]
     private GameContext _gameContext;
+    [Inject]
+    private GameLevelController _levelController;
 
     private UIInputContext _input;
 
@@ -21,9 +25,18 @@ namespace Game.UI.Windows
       _input = new UIInputContext(_gameContext, Lifetime, _gameContext.InputContext.Current);
       _input.Subscribe(Lifetime, GameInput.Cancel, InputPhase.End, InputUpdate.Update, evt => Close());
 
+      var levelData = _levelController.Levels.GetLevel(Data.Level);
+
       Component.SubscribeOnClose(Lifetime, Close);
 
-      Component.SetTitle("Level:" + Data.Level);
+      Component.SetTitle(levelData.Name);
+      Component.SetLevels(levelData.Levels);
+      Component.SubscribeOnSelect(Lifetime, SelectHandler);
+    }
+
+    private void SelectHandler(int subLevel)
+    {
+      _levelController.LoadLevel(Data.Level, subLevel);
     }
 
     protected override void OnClose()

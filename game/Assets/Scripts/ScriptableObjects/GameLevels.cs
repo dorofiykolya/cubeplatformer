@@ -6,12 +6,16 @@ namespace Game
   [Serializable]
   public class GameLevels : ScriptableObject
   {
-    [SerializeField]
     public GameLevelData[] Levels;
 
     public GameLevelData GetLevel(int index)
     {
-      return Levels[index];
+      if (index >= 0 && index < Levels.Length)
+      {
+        return Levels[index];
+      }
+
+      return null;
     }
   }
 }
