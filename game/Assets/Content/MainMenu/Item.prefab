@@ -26,8 +26,8 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
 --- !u!1 &1243103349429042
 GameObject:
   m_ObjectHideFlags: 0
@@ -62,7 +62,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 0
 --- !u!1 &1617667059463142
 GameObject:
@@ -96,8 +96,8 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
 --- !u!1 &1812810954146338
 GameObject:
   m_ObjectHideFlags: 0
@@ -113,16 +113,16 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 0
 --- !u!4 &4141772585562374
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1243103349429042}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: 0, y: -2.142, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4590043932054988}
@@ -515,49 +515,41 @@ MonoBehaviour:
       InstanceTarget: {fileID: 23570730336260988}
   Modifications:
     Modificated:
-    - Object: {fileID: 23382989084436686}
-      ObjeckLink: -1962130962
-      PropertyPath: m_LightmapIndexDynamic
+    - Object: {fileID: 4141772585562374}
+      ObjeckLink: 1809590986
+      PropertyPath: m_LocalRotation
       Mode: 0
-    - Object: {fileID: 23382989084436686}
-      ObjeckLink: -1962130962
-      PropertyPath: m_LightmapTilingOffsetDynamic.x
-      Mode: 0
-    - Object: {fileID: 23382989084436686}
-      ObjeckLink: -1962130962
-      PropertyPath: m_LightmapTilingOffsetDynamic.y
-      Mode: 0
-    - Object: {fileID: 23382989084436686}
-      ObjeckLink: -1962130962
-      PropertyPath: m_AdditionalVertexStreams
+    - Object: {fileID: 4141772585562374}
+      ObjeckLink: 1809590986
+      PropertyPath: m_LocalPosition
       Mode: 0
     - Object: {fileID: 4141772585562374}
       ObjeckLink: 1809590986
       PropertyPath: m_RootOrder
       Mode: 0
-    - Object: {fileID: 23008340174674430}
-      ObjeckLink: -1827939843
-      PropertyPath: m_LightmapIndexDynamic
+    - Object: {fileID: 1654249120061350}
+      ObjeckLink: 97214820
+      PropertyPath: m_StaticEditorFlags
       Mode: 0
-    - Object: {fileID: 23008340174674430}
-      ObjeckLink: -1827939843
-      PropertyPath: m_LightmapTilingOffsetDynamic.x
+    - Object: {fileID: 1654249120061350}
+      ObjeckLink: 97214820
+      PropertyPath: m_IsActive
       Mode: 0
-    - Object: {fileID: 23008340174674430}
-      ObjeckLink: -1827939843
-      PropertyPath: m_LightmapTilingOffsetDynamic.y
+    - Object: {fileID: 1318538918901342}
+      ObjeckLink: -2109187106
+      PropertyPath: m_StaticEditorFlags
       Mode: 0
-    - Object: {fileID: 23008340174674430}
-      ObjeckLink: -1827939843
-      PropertyPath: m_LightmapTilingOffsetDynamic.z
+    - Object: {fileID: 1812810954146338}
+      ObjeckLink: 643759641
+      PropertyPath: m_StaticEditorFlags
       Mode: 0
-    - Object: {fileID: 23008340174674430}
-      ObjeckLink: -1827939843
-      PropertyPath: m_LightmapTilingOffsetDynamic.w
+    - Object: {fileID: 1812810954146338}
+      ObjeckLink: 643759641
+      PropertyPath: m_IsActive
       Mode: 0
-    - Object: {fileID: 23008340174674430}
-      ObjeckLink: -1827939843
-      PropertyPath: m_AdditionalVertexStreams
+    - Object: {fileID: 1114329212435732}
+      ObjeckLink: -990372856
+      PropertyPath: m_StaticEditorFlags
       Mode: 0
     - Object: {fileID: 1114329212435732}
       ObjeckLink: -990372856
