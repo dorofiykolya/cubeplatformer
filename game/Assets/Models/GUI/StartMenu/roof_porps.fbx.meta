@@ -43,6 +43,9 @@ ModelImporter:
     100070: roof_roof_lamppost_lamp_03
     100072: roof_roof_lamppost_lamp_04
     100074: roof_window_02
+    100076: retro_Tv_stripes
+    100078: roof_character_light_02
+    100080: roof_character_light_03
     400000: Retro_Antenna_01
     400002: Retro_Antenna_02
     400004: Retro_Antenna_03
@@ -81,10 +84,14 @@ ModelImporter:
     400070: roof_roof_lamppost_lamp_03
     400072: roof_roof_lamppost_lamp_04
     400074: roof_window_02
+    400076: retro_Tv_stripes
+    400078: roof_character_light_02
+    400080: roof_character_light_03
     2100000: props_roof
     2100002: tv_screen
     2100004: light
     2100006: roof_billboard_m
+    2100008: Strip_m
     2300000: Retro_Antenna_01
     2300002: Retro_Antenna_02
     2300004: Retro_Antenna_03
@@ -122,6 +129,9 @@ ModelImporter:
     2300068: roof_roof_lamppost_lamp_03
     2300070: roof_roof_lamppost_lamp_04
     2300072: roof_window_02
+    2300074: retro_Tv_stripes
+    2300076: roof_character_light_02
+    2300078: roof_character_light_03
     3300000: Retro_Antenna_01
     3300002: Retro_Antenna_02
     3300004: Retro_Antenna_03
@@ -159,6 +169,9 @@ ModelImporter:
     3300068: roof_roof_lamppost_lamp_03
     3300070: roof_roof_lamppost_lamp_04
     3300072: roof_window_02
+    3300074: retro_Tv_stripes
+    3300076: roof_character_light_02
+    3300078: roof_character_light_03
     4300000: roof_airConditioning_01
     4300002: roof_airConditioning_01_fan_01
     4300004: roof_airConditioning_01_fan_02
@@ -196,6 +209,9 @@ ModelImporter:
     4300068: roof_lamppost_lamp_ligth_03
     4300070: roof_roof_lamppost_lamp_04
     4300072: roof_lamppost_lamp_ligth_04
+    4300074: retro_Tv_stripes
+    4300076: roof_character_light_03
+    4300078: roof_character_light_02
     11400000: //RootNode
   externalObjects: {}
   materials:
