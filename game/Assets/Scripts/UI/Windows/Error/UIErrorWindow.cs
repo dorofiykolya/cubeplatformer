@@ -23,6 +23,7 @@ namespace Game.UI.Windows
 
       Component.SetTitle(Data.Title);
       Component.SetMessage(Data.Message);
+      Component.SubscribeOnClose(Lifetime, Close);
     }
 
     protected override void OnClose()
