@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Rewired;
 
 namespace Game.Inputs
 {
@@ -132,6 +133,8 @@ namespace Game.Inputs
       }
 #endif
 
+      var playerInput = ReInput.players.GetPlayer("Player0");
+
       foreach (var input in InputNameMapper<GameInput>.Collection)
       {
         var inputName = input.Name;
@@ -140,7 +143,7 @@ namespace Game.Inputs
         {
           inputName = input.Parent.Name;
         }
-        var value = input.Input == GameInput.InputValue.Input ? Input.GetAxis(inputName) : Input.GetAxisRaw(inputName);
+        var value = input.Input == GameInput.InputValue.Input ? playerInput.GetAxis(inputName) : playerInput.GetAxisRaw(inputName);
         bool contains = false;
         if (parent != null)
         {
@@ -276,11 +279,12 @@ namespace Game.Inputs
 
     private IEnumerator ProcessFixedUpdate()
     {
-      while (true)
-      {
-        yield return new WaitForFixedUpdate();
-        ProcessEvents(InputUpdate.FixedUpdate, _fixedUpdateInputs);
-      }
+      yield break;
+      //while (true)
+      //{
+      //  yield return new WaitForFixedUpdate();
+      //  ProcessEvents(InputUpdate.FixedUpdate, _fixedUpdateInputs);
+      //}
     }
   }
 }

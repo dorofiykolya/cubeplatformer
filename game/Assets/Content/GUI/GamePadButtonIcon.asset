@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc500e131280e6d4fbb9a020cdb9dabb, type: 3}
+  m_Name: GamePadButtonIcon
+  m_EditorClassIdentifier: 
+  TargetButtons: {fileID: 21300000, guid: e144042c857ce45419f35dab1c3c94a4, type: 3}
+  TargetLeft: {fileID: 21300000, guid: 01dc9df2c6de1ff42bf2ef44d279ea07, type: 3}
+  TargetRight: {fileID: 21300000, guid: 1a4332a6a5b065e4db501b9f993746d1, type: 3}
+  TargetUp: {fileID: 21300000, guid: a089635b22b5d4144acd2acf5a1d0d6e, type: 3}
+  TargetDown: {fileID: 21300000, guid: fe5c7332d01fe6147a7e55d987fc5f41, type: 3}
+  ButtonXTop: {fileID: 21300000, guid: 240cc7c43b3b9ae408eec5076bf20aaf, type: 3}
+  ButtonYLeft: {fileID: 21300000, guid: 163228738b9117c47a42c98dc4e8d064, type: 3}
+  ButtonABottom: {fileID: 21300000, guid: fa53143ab2e3f40428a33bf4df25b177, type: 3}
+  ButtonBRight: {fileID: 21300000, guid: d6e1aba85a41eab4a9c14fecc09eb685, type: 3}
+  ButtonMenuLeft: {fileID: 0}
+  ButtonMenuRight: {fileID: 0}

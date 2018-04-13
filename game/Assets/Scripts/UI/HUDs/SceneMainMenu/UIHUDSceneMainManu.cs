@@ -62,7 +62,7 @@ namespace Game.UI.HUDs
         input.Subscribe(_lifeDefinition.Lifetime, GameInput.Up, InputPhase.Begin, InputUpdate.Update, e => navigation.GoToTop());
         input.Subscribe(_lifeDefinition.Lifetime, GameInput.Down, InputPhase.Begin, InputUpdate.Update, e => navigation.GoToBottom());
         input.Subscribe(_lifeDefinition.Lifetime, GameInput.Cancel, InputPhase.Begin, InputUpdate.Update, e => { navigation.GoToBack(); });
-        input.Subscribe(_lifeDefinition.Lifetime, GameInput.Action, InputPhase.Begin, InputUpdate.Update, e =>
+        input.Subscribe(_lifeDefinition.Lifetime, GameInput.Submit, InputPhase.Begin, InputUpdate.Update, e =>
         {
           DoAction(navigation);
         });
