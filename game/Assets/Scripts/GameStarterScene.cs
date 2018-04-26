@@ -10,7 +10,6 @@ namespace Game
     {
       if (GameContext.Context == null)
       {
-
         SceneManager.LoadSceneAsync(GameScenes.Main);
       }
     }

@@ -22,6 +22,24 @@ MonoBehaviour:
       SceneName: Castle_01
   - Category: 0
     DataType: 0
+    LevelStringData: {fileID: 4900000, guid: 7849dda467397b8419f0e6a7ae50ebe6, type: 3}
+    Preset: {fileID: 11400000, guid: 43dabf4fdc6314c4993febe728403acc, type: 2}
+    Scene:
+      SceneName: Castle_01
+  - Category: 0
+    DataType: 0
+    LevelStringData: {fileID: 4900000, guid: 7849dda467397b8419f0e6a7ae50ebe6, type: 3}
+    Preset: {fileID: 11400000, guid: 43dabf4fdc6314c4993febe728403acc, type: 2}
+    Scene:
+      SceneName: Castle_01
+  - Category: 0
+    DataType: 0
+    LevelStringData: {fileID: 4900000, guid: 7849dda467397b8419f0e6a7ae50ebe6, type: 3}
+    Preset: {fileID: 11400000, guid: 43dabf4fdc6314c4993febe728403acc, type: 2}
+    Scene:
+      SceneName: Castle_01
+  - Category: 0
+    DataType: 0
     LevelStringData: {fileID: 4900000, guid: d019dc0e1099430458e9e0114b501469, type: 3}
     Preset: {fileID: 11400000, guid: 43dabf4fdc6314c4993febe728403acc, type: 2}
     Scene:
