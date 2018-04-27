@@ -24,10 +24,23 @@ namespace Game.Components.MenuNavigation
     public NavigationComponent Top;
     public NavigationComponent Bottom;
 
+    [Header("UI")]
+    public UITVButton Button;
+
+    private MenuNavigationComponent _menuNavigationComponent;
     private Signal _onSelected;
     private Signal _onUnselected;
     private Lifetime.Definition _onSelectedDefinition;
     private Lifetime.Definition _onUnselectedDefinition;
+
+    public MenuNavigationComponent MenuNavigation
+    {
+      get
+      {
+        return _menuNavigationComponent ?? (_menuNavigationComponent = GetComponentInParent<MenuNavigationComponent>());
+      }
+    }
+
 
     public void SubscribeOnSelected(Lifetime lifetime, Action listener)
     {
@@ -61,6 +74,16 @@ namespace Game.Components.MenuNavigation
         _onUnselectedDefinition.Terminate();
         _onUnselectedDefinition = null;
       }
+    }
+
+    public void Select()
+    {
+      MenuNavigation.Select(this);
+    }
+
+    public void Print()
+    {
+      Debug.Log("CLICK!!!");
     }
   }
 }

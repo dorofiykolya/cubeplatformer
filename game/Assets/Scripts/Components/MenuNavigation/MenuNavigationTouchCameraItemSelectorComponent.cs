@@ -12,7 +12,7 @@ namespace Game.Components.MenuNavigation
 
     private void Awake()
     {
-      TouchInputController.OnInputClick += TouchInputControllerOnOnInputClick;
+      //TouchInputController.OnInputClick += TouchInputControllerOnOnInputClick;
     }
 
     private void TouchInputControllerOnOnInputClick(Vector3 clickPosition, bool isDoubleClick, bool isLongTap)
@@ -27,24 +27,24 @@ namespace Game.Components.MenuNavigation
       }
     }
 
-    private void Update()
-    {
-      if (TouchCamera.IsDragging || TouchCamera.IsAutoScrolling || TouchCamera.IsMoveTo)
-      {
-        var overlapCollider = Physics2D.OverlapPoint(transform.position);
-        NavigationComponent navigationComponent;
-        if (overlapCollider != null && (navigationComponent = overlapCollider.GetComponent<NavigationComponent>()) != null)
-        {
-          Navigation.Select(navigationComponent);
-        }
-      }
-    }
+    //private void Update()
+    //{
+    //  if (TouchCamera.IsDragging || TouchCamera.IsAutoScrolling || TouchCamera.IsMoveTo)
+    //  {
+    //    var overlapCollider = Physics2D.OverlapPoint(transform.position);
+    //    NavigationComponent navigationComponent;
+    //    if (overlapCollider != null && (navigationComponent = overlapCollider.GetComponent<NavigationComponent>()) != null)
+    //    {
+    //      Navigation.Select(navigationComponent);
+    //    }
+    //  }
+    //}
 
-    private void OnDrawGizmos()
-    {
-      Gizmos.color = Color.red;
+    //private void OnDrawGizmos()
+    //{
+    //  Gizmos.color = Color.red;
 
-      Gizmos.DrawLine(transform.position, transform.position + (Vector3.forward * 50));
-    }
+    //  Gizmos.DrawLine(transform.position, transform.position + (Vector3.forward * 50));
+    //}
   }
 }

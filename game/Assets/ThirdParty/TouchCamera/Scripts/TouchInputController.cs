@@ -127,6 +127,7 @@ namespace BitBenderGames
     {
       get
       {
+        return false;
         foreach (var touch in Input.touches)
         {
           bool condition = EventSystemWrapper.IsPointerOverGameObject(touch.fingerId);

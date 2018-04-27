@@ -132,7 +132,7 @@ namespace Game.Inputs
         }
       }
 #endif
-
+      
       var playerInput = ReInput.players.GetPlayer("Player0");
 
       foreach (var input in InputNameMapper<GameInput>.Collection)
