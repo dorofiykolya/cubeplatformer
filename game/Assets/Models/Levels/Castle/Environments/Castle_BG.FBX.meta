@@ -1,7 +1,5 @@
 fileFormatVersion: 2
 guid: 023687c8bd04ba440a6949b785b9af5f
-timeCreated: 1511635206
-licenseType: Pro
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -25,17 +23,18 @@ ModelImporter:
     7400000: Take 001
     9500000: //RootNode
     11400000: //RootNode
+    2186277476908879412: ImportLogs
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: 01 - Default
-    second: {fileID: 2100000, guid: 7f1f0eae7413abc409640f310f66c3be, type: 2}
+    second: {fileID: 2100000, guid: 9b91a862ea758474ab0b0ec0b17eee7d, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: 02 - Default
-    second: {fileID: 2100000, guid: db9866320ee107c4c9901f6a107426c5, type: 2}
+    second: {fileID: 2100000, guid: 4749599d113e60a44b4ae5b670d7be2e, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -54,6 +53,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -78,6 +78,8 @@ ModelImporter:
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88

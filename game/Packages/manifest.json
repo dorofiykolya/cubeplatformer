@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "com.unity.postprocessing": "2.0.5-preview",
+    "com.unity.cinemachine": "2.1.12",
+    "com.unity.shadergraph": "1.1.4-preview",
+    "com.unity.assetbundlebrowser": "1.5.0",
+    "com.unity.render-pipelines.core": "1.1.5-preview",
+    "com.unity.render-pipelines.lightweight": "1.1.5-preview"
+  }
+}

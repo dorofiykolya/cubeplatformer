@@ -1,7 +1,5 @@
 fileFormatVersion: 2
 guid: cddc1f29bb57f6b449357462a79a6294
-timeCreated: 1520329229
-licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -213,6 +211,7 @@ ModelImporter:
     4300076: roof_character_light_03
     4300078: roof_character_light_02
     11400000: //RootNode
+    2186277476908879412: ImportLogs
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -232,6 +231,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
