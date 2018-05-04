@@ -11,18 +11,18 @@ using UnityEngine.UI;
 
 namespace Game.Components
 {
-  public class UITVButton : Selectable, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler, ISubmitHandler, IEventSystemHandler
+  public class UITVButton : Selectable, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler, ISubmitHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
   {
     public UnityEvent OnDown;
     public UnityEvent OnUp;
     public float Threshold;
-    public MobileTouchCamera TouchCamera;
 
     [FormerlySerializedAs("onClick")]
     [SerializeField]
     private Button.ButtonClickedEvent m_OnClick = new Button.ButtonClickedEvent();
 
-    private Vector3 _lastPosition;
+    private Vector2 _startDrag;
+    private bool _isDrag;
 
     /// <summary>
     ///   <para>UnityEvent that is triggered when the button is pressed.</para>
@@ -47,9 +47,9 @@ namespace Game.Components
     /// <param name="eventData">Data passed in (Typically by the event system).</param>
     public virtual void OnPointerClick(PointerEventData eventData)
     {
-      //if (eventData.button != PointerEventData.InputButton.Left)
-      //  return;
-      //this.Press();
+      if (eventData.button != PointerEventData.InputButton.Left || _isDrag)
+        return;
+      this.Press();
     }
 
     /// <summary>
@@ -64,28 +64,54 @@ namespace Game.Components
       this.DoStateTransition(Selectable.SelectionState.Pressed, false);
     }
 
-    public override void OnPointerDown(PointerEventData eventData)
+    //public override void OnPointerDown(PointerEventData eventData)
+    //{
+    //  base.OnPointerDown(eventData);
+    //  if (eventData.selectedObject == gameObject)
+    //  {
+    //    OnDown.Invoke();
+    //  }
+    //}
+
+    //public override void OnPointerUp(PointerEventData eventData)
+    //{
+    //  base.OnPointerUp(eventData);
+    //  OnUp.Invoke();
+    //  if (eventData.button == PointerEventData.InputButton.Left)
+    //  {
+    //    //var diff = TouchCamera.Cam.transform.position - _lastPosition;
+    //    //if (diff.magnitude <= Threshold)
+    //    if (!_isDrag)
+    //    {
+    //      Press();
+    //    }
+    //  }
+    //}
+
+    public void OnDrag(PointerEventData eventData)
     {
-      base.OnPointerDown(eventData);
-      if (eventData.selectedObject == gameObject)
+      if (!_isDrag && (eventData.position - _startDrag).magnitude > Threshold)
       {
-        _lastPosition = TouchCamera.Cam.transform.position;
-        OnDown.Invoke();
+        _isDrag = true;
+        Debug.Log("DRAG");
       }
     }
 
-    public override void OnPointerUp(PointerEventData eventData)
+    public void OnBeginDrag(PointerEventData eventData)
     {
-      base.OnPointerUp(eventData);
-      OnUp.Invoke();
-      if (eventData.button == PointerEventData.InputButton.Left)
-      {
-        var diff = TouchCamera.Cam.transform.position - _lastPosition;
-        if (diff.magnitude <= Threshold)
-        {
-          Press();
-        }
-      }
+      _startDrag = eventData.position;
+      _isDrag = false;
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+      _isDrag = false;
+    }
+
+    protected override void OnEnable()
+    {
+      _isDrag = false;
+      base.OnEnable();
     }
   }
 }
