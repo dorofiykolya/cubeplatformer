@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using BitBenderGames;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Game.Components
 {
-  public class UITVButton : Selectable, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler, ISubmitHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
+  public class UITVButton : Selectable, IPointerClickHandler, ISubmitHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
   {
-    public UnityEvent OnDown;
-    public UnityEvent OnUp;
-    public float Threshold;
+    [SerializeField]
+    private bool _selectOnEnable;
+    [SerializeField]
+    private float _threshold;
 
     [FormerlySerializedAs("onClick")]
     [SerializeField]
@@ -23,6 +18,7 @@ namespace Game.Components
 
     private Vector2 _startDrag;
     private bool _isDrag;
+    private UISelectionGroupComponent _selectionGroup;
 
     /// <summary>
     ///   <para>UnityEvent that is triggered when the button is pressed.</para>
@@ -64,36 +60,11 @@ namespace Game.Components
       this.DoStateTransition(Selectable.SelectionState.Pressed, false);
     }
 
-    //public override void OnPointerDown(PointerEventData eventData)
-    //{
-    //  base.OnPointerDown(eventData);
-    //  if (eventData.selectedObject == gameObject)
-    //  {
-    //    OnDown.Invoke();
-    //  }
-    //}
-
-    //public override void OnPointerUp(PointerEventData eventData)
-    //{
-    //  base.OnPointerUp(eventData);
-    //  OnUp.Invoke();
-    //  if (eventData.button == PointerEventData.InputButton.Left)
-    //  {
-    //    //var diff = TouchCamera.Cam.transform.position - _lastPosition;
-    //    //if (diff.magnitude <= Threshold)
-    //    if (!_isDrag)
-    //    {
-    //      Press();
-    //    }
-    //  }
-    //}
-
     public void OnDrag(PointerEventData eventData)
     {
       if (!_isDrag && (eventData.position - _startDrag).magnitude > Threshold)
       {
         _isDrag = true;
-        Debug.Log("DRAG");
       }
     }
 
@@ -112,6 +83,30 @@ namespace Game.Components
     {
       _isDrag = false;
       base.OnEnable();
+      if (_selectOnEnable)
+      {
+        Select();
+      }
+    }
+
+    protected float Threshold
+    {
+      get { return _threshold; }
+    }
+
+    protected override void Awake()
+    {
+      base.Awake();
+      _selectionGroup = GetComponentInParent<UISelectionGroupComponent>();
+    }
+
+    public override void OnSelect(BaseEventData eventData)
+    {
+      base.OnSelect(eventData);
+      if (_selectionGroup != null)
+      {
+        _selectionGroup.Default = this;
+      }
     }
   }
 }

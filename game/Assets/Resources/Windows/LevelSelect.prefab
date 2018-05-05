@@ -159,6 +159,7 @@ GameObject:
   - component: {fileID: 222076345063578432}
   - component: {fileID: 114175714508088784}
   - component: {fileID: 114578730141449464}
+  - component: {fileID: 114215982376385150}
   m_Layer: 5
   m_Name: LevelSelect
   m_TagString: Untagged
@@ -350,6 +351,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114215982376385150
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1618320771155094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c1839d610a49624d879210003ee2b17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Content: {fileID: 224443366607529532}
 --- !u!114 &114234607245600134
 MonoBehaviour:
   m_ObjectHideFlags: 1

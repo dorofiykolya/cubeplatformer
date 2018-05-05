@@ -39,8 +39,15 @@ namespace Game.Components.MenuNavigation
 
     private void DispatchEvent()
     {
-      Previous.OnUnselected.Invoke();
-      Current.OnSelected.Invoke();
+      if (Previous)
+      {
+        Previous.OnUnselected.Invoke();
+      }
+
+      if (Current)
+      {
+        Current.OnSelected.Invoke();
+      }
     }
 
     public void SubscribeOnAction(Lifetime lifetime, Action listener)
@@ -57,15 +64,33 @@ namespace Game.Components.MenuNavigation
     {
       if (component == null)
       {
-        Previous = Current;
-        Current = Target;
+        if (Current != null)
+        {
+          Previous = Current;
+          Current = Target;
+        }
       }
       else
       {
-        Previous = Current;
-        Current = component;
+        if (Current != component)
+        {
+          Previous = Current;
+          Current = component;
+        }
       }
+
       DispatchEvent();
+    }
+
+    public void UnSelect(NavigationComponent component)
+    {
+      if (component != null)
+      {
+        if (Current == component)
+        {
+          Select(null);
+        }
+      }
     }
 
     public void GoTo(NavigationComponent component)

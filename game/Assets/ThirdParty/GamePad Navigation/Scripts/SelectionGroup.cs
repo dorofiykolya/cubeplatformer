@@ -46,7 +46,7 @@ namespace UnityCoach.GamePadNavigation
 	public class SelectionGroup : UIBehaviour, ISelectHandler, ISubmitHandler, IDeselectHandler, IPointerClickHandler
 	{
 		[Tooltip ("The Selectable Content Container")]
-		public RectTransform content;
+		public Transform content;
 		[Tooltip ("The Default Selectable Object.\nDefaults to first found in Content.")]
 		[SerializeField] private Selectable _defaultSelection;
 		public Selectable DefaultSelection
@@ -625,7 +625,7 @@ namespace UnityCoach.GamePadNavigation
 			if (sr && sr.content)
 				content = sr.content;
 			else
-				content = GetComponent<RectTransform>();
+				content = GetComponent<Transform>();
 
 			exitNavigationTarget = _selectable;
 		}

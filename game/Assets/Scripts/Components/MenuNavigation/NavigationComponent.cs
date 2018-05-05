@@ -8,6 +8,9 @@ namespace Game.Components.MenuNavigation
 {
   public class NavigationComponent : MonoBehaviour
   {
+    [SerializeField]
+    private MenuNavigationComponent _menuNavigationComponent;
+
     [Header("Target")]
     public Transform Target;
     public MainMenuId Id;
@@ -24,10 +27,6 @@ namespace Game.Components.MenuNavigation
     public NavigationComponent Top;
     public NavigationComponent Bottom;
 
-    [Header("UI")]
-    public UITVButton Button;
-
-    private MenuNavigationComponent _menuNavigationComponent;
     private Signal _onSelected;
     private Signal _onUnselected;
     private Lifetime.Definition _onSelectedDefinition;
@@ -35,12 +34,8 @@ namespace Game.Components.MenuNavigation
 
     public MenuNavigationComponent MenuNavigation
     {
-      get
-      {
-        return _menuNavigationComponent ?? (_menuNavigationComponent = GetComponentInParent<MenuNavigationComponent>());
-      }
+      get { return _menuNavigationComponent ?? (_menuNavigationComponent = GetComponentInParent<MenuNavigationComponent>()); }
     }
-
 
     public void SubscribeOnSelected(Lifetime lifetime, Action listener)
     {
@@ -81,9 +76,15 @@ namespace Game.Components.MenuNavigation
       MenuNavigation.Select(this);
     }
 
-    public void Print()
+    public void Unselect()
     {
-      Debug.Log("CLICK!!!");
+      MenuNavigation.UnSelect(this);
+    }
+
+    public void FireAction()
+    {
+      MenuNavigation.Select(this);
+      MenuNavigation.FireAction();
     }
   }
 }
