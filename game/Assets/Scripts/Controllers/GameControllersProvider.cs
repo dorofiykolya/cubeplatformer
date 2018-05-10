@@ -19,6 +19,7 @@ namespace Game.Providers
       yield return new UserController();
       yield return new UserAbilitiesController();
       yield return new UserSkillsController();
+      yield return new UserLevelsContorller();
     }
   }
 }

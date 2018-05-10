@@ -14,6 +14,10 @@ namespace Game.UI.Windows
     private Text _title;
     [SerializeField]
     private Text _category;
+    [SerializeField]
+    private Text _playCount;
+    [SerializeField]
+    private Text _starts;
 
     public void SetTitle(string title)
     {
@@ -53,6 +57,16 @@ namespace Game.UI.Windows
         _onClick = null;
         def.Terminate();
       }
+    }
+
+    public void SetCount(int playCount)
+    {
+      _playCount.text = playCount.ToString();
+    }
+
+    public void SetStars(int stars)
+    {
+      _starts.text = stars.ToString();
     }
   }
 }

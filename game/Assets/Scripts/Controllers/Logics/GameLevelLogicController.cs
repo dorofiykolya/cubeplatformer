@@ -14,6 +14,8 @@ namespace Game.Controllers
     private GameLevelController _levelController;
     [Inject]
     private GameStateController _stateController;
+    [Inject]
+    private UserLevelsContorller _userLevelsContorller;
 
     private Lifetime.Definition _levelDefinition;
 
@@ -166,10 +168,34 @@ namespace Game.Controllers
           passedTime -= 1f / ticksPerSec;
           if (logic.IsFinished)
           {
+            SaveLevel(levelInfo, logic);
             _levelController.Unload();
           }
         }
       });
     }
+
+    private void SaveLevel(CurrentLevelInfo levelInfo, ClassicLogicEngine logic)
+    {
+      var data = _userLevelsContorller.GetData(levelInfo.Level, levelInfo.SubLevel);
+      if (data == null)
+      {
+        data = new UserLevelData
+        {
+          Level = levelInfo.Level,
+          SubLevel = levelInfo.SubLevel,
+          Time = logic.Tick / logic.TicksPerSeconds,
+          PlayCount = 1,
+          Stars = logic.Stars
+        };
+      }
+      else
+      {
+        data.PlayCount++;
+        data.Stars = Mathf.Max(data.Stars, logic.Stars);
+      }
+      _userLevelsContorller.SaveLevel(data);
+    }
+
   }
 }

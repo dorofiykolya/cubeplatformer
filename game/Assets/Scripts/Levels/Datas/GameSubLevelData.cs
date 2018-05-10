@@ -11,5 +11,6 @@ namespace Game
     public TextAsset LevelStringData;
     public CellPreset Preset;
     public GameSceneData Scene;
+    public bool Available;
   }
 }

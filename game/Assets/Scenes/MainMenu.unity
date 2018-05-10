@@ -91,8 +91,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
-  m_LightingDataAsset: {fileID: 112000002, guid: 57fb0fc5842e00842b6e53b0e4c82cf3,
-    type: 2}
+  m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
@@ -2172,7 +2171,7 @@ Light:
   serializedVersion: 8
   m_Type: 1
   m_Color: {r: 0.0743404, g: 0.29514688, b: 0.4044118, a: 1}
-  m_Intensity: 1.5
+  m_Intensity: 1.2
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -2197,7 +2196,7 @@ Light:
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
-  m_ShadowAngle: 0
+  m_ShadowAngle: 5
 --- !u!4 &287127188
 Transform:
   m_ObjectHideFlags: 0

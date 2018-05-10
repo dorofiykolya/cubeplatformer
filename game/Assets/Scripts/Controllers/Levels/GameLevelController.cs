@@ -73,7 +73,7 @@ namespace Game.Controllers
             classicLevel.Preset = data.Preset;
           }
 
-          _currentLevel = new CurrentLevelInfo(Lifetime, classicLevel);
+          _currentLevel = new CurrentLevelInfo(Lifetime, classicLevel, index, subLevel);
           _currentLevel.Lifetime.AddAction(() =>
           {
             _onUnload.Fire(_currentLevel);
@@ -94,7 +94,7 @@ namespace Game.Controllers
             var levelController = gameObject.GetComponent<LevelControllerComponent>();
             if (levelController != null)
             {
-              _currentLevel = new CurrentLevelInfo(Lifetime, levelController);
+              _currentLevel = new CurrentLevelInfo(Lifetime, levelController, index, subLevel);
               levelController.Load(Context, _currentLevel.Lifetime);
               
               _currentLevel.Lifetime.AddAction(() =>

@@ -68,5 +68,7 @@ namespace Game.Logics.Classic
     {
       get { return _context; }
     }
+
+    public int Stars { get; private set; }
   }
 }

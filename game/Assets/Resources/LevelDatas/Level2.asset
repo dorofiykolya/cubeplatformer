@@ -20,51 +20,60 @@ MonoBehaviour:
     Preset: {fileID: 11400000, guid: 43dabf4fdc6314c4993febe728403acc, type: 2}
     Scene:
       SceneName: Castle_01
+    Available: 1
   - Category: 0
     DataType: 0
     LevelStringData: {fileID: 4900000, guid: d019dc0e1099430458e9e0114b501469, type: 3}
     Preset: {fileID: 11400000, guid: 43dabf4fdc6314c4993febe728403acc, type: 2}
     Scene:
       SceneName: Castle_01
+    Available: 0
   - Category: 0
     DataType: 0
     LevelStringData: {fileID: 4900000, guid: d019dc0e1099430458e9e0114b501469, type: 3}
     Preset: {fileID: 11400000, guid: 43dabf4fdc6314c4993febe728403acc, type: 2}
     Scene:
       SceneName: Castle_01
+    Available: 0
   - Category: 0
     DataType: 0
     LevelStringData: {fileID: 4900000, guid: 3df67e0d7e1fd9a42a3937efe3d9ecb1, type: 3}
     Preset: {fileID: 11400000, guid: 43dabf4fdc6314c4993febe728403acc, type: 2}
     Scene:
       SceneName: Castle_01
+    Available: 0
   - Category: 0
     DataType: 0
     LevelStringData: {fileID: 4900000, guid: 719df973cf555a345abb9e8359bb7bc6, type: 3}
     Preset: {fileID: 11400000, guid: 43dabf4fdc6314c4993febe728403acc, type: 2}
     Scene:
       SceneName: Castle_01
+    Available: 0
   - Category: 0
     DataType: 0
     LevelStringData: {fileID: 4900000, guid: 719df973cf555a345abb9e8359bb7bc6, type: 3}
     Preset: {fileID: 11400000, guid: 43dabf4fdc6314c4993febe728403acc, type: 2}
     Scene:
       SceneName: Castle_01
+    Available: 0
   - Category: 0
     DataType: 0
     LevelStringData: {fileID: 4900000, guid: ee4fbf2c8352e894bbb465303366d221, type: 3}
     Preset: {fileID: 11400000, guid: 43dabf4fdc6314c4993febe728403acc, type: 2}
     Scene:
       SceneName: Castle_01
+    Available: 0
   - Category: 0
     DataType: 0
     LevelStringData: {fileID: 4900000, guid: ee4fbf2c8352e894bbb465303366d221, type: 3}
     Preset: {fileID: 11400000, guid: 43dabf4fdc6314c4993febe728403acc, type: 2}
     Scene:
       SceneName: Castle_01
+    Available: 0
   - Category: 0
     DataType: 0
     LevelStringData: {fileID: 4900000, guid: 06c624afe941de44b85a5244190c06a6, type: 3}
     Preset: {fileID: 11400000, guid: 43dabf4fdc6314c4993febe728403acc, type: 2}
     Scene:
       SceneName: Castle_01
+    Available: 0

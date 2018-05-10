@@ -8,7 +8,6 @@ namespace Game.UI.Windows
   public class UILevelSelectWindowComponent : UIWindowComponent
   {
     private Lifetime.Definition _definition;
-    private Signal<int> _onClick;
 
     [SerializeField]
     private RectTransform _content;
@@ -22,32 +21,35 @@ namespace Game.UI.Windows
     [SerializeField]
     private Button _closeButton;
 
-    private void Awake()
-    {
-
-    }
+    [SerializeField]
+    private UILevelSelectInfoPlaceholderComponent _infoPlaceholder;
 
     public void SetTitle(string title)
     {
       _title.text = title;
     }
 
-    public void SetLevels(GameSubLevelData[] levels)
+    public UILevelSelectLevelData Selected
+    {
+      get { return _infoPlaceholder.Selected; }
+    }
+
+    public void SetLevels(UILevelSelectLevelData[] levels)
     {
       InitializeDefinition();
 
-      var iterator = 0;
       foreach (var level in levels)
       {
-        var index = iterator;
         var placeholder = Instantiate(_itemPrefab, _content.transform, false).GetComponent<UILevelSelectPlaceholderComponent>();
-        placeholder.SetTitle(iterator.ToString());
+        placeholder.SetTitle(level.Name + ' ' + level.SubLevel);
+        placeholder.SetCount(level.PlayCount);
+        placeholder.SetStars(level.Stars);
         placeholder.SetCategory(level.Category);
         placeholder.SubscribeOnClick(_definition.Lifetime, () =>
         {
-          _onClick.Fire(index);
+          _infoPlaceholder.Select(level);
         });
-        if (index == 0)
+        if (level.SubLevel == 0)
         {
           var selectable = placeholder.GetComponent<Selectable>();
           if (selectable)
@@ -55,14 +57,12 @@ namespace Game.UI.Windows
             selectable.Select();
           }
         }
-        iterator++;
       }
     }
 
     public void SubscribeOnSelect(Lifetime lifetime, Action<int> listener)
     {
-      InitializeDefinition();
-      _onClick.Subscribe(lifetime, listener);
+      _infoPlaceholder.SubscribeOnClick(lifetime, listener);
     }
 
     private void InitializeDefinition()
@@ -70,7 +70,16 @@ namespace Game.UI.Windows
       if (_definition == null)
       {
         _definition = Lifetime.Define(Lifetime.Eternal);
-        _onClick = new Signal<int>(_definition.Lifetime);
+      }
+    }
+
+    private void OnDestroy()
+    {
+      if (_definition != null)
+      {
+        var def = _definition;
+        _definition = null;
+        def.Terminate();
       }
     }
   }
