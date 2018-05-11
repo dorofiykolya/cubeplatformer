@@ -48,6 +48,8 @@ namespace Game.Components
 
     private void Update()
     {
+      if (_pressed) return;
+
       var currentSelectedGameObject = EventSystem.current.currentSelectedGameObject;
       if (currentSelectedGameObject && currentSelectedGameObject.GetComponent<Selectable>())
       {
