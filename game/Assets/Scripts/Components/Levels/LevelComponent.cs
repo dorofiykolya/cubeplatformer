@@ -8,6 +8,8 @@ namespace Game.Components
     [SerializeField]
     private Transform _cellContainer;
     [SerializeField]
+    private Transform _environmentContainer;
+    [SerializeField]
     private LevelSize _size;
     [SerializeField]
     private CellComponent[] _grid;
@@ -20,6 +22,11 @@ namespace Game.Components
       }
     }
     public Transform CellContainer { get { return _cellContainer ?? (_cellContainer = CreateCellContainer()); } }
+    public Transform EnviromentContainer
+    {
+      get { return _environmentContainer ?? (_environmentContainer = CreateEnvironmentContainer()); }
+    }
+
     public LevelSize Size { get { return _size; } }
     public CellComponent[] Grid { get { return _grid; } }
     public LevelLogicComponent Logic { get { return GetComponent<LevelLogicComponent>(); } }
@@ -77,6 +84,17 @@ namespace Game.Components
       if (!cell)
       {
         cell = new GameObject("Grid").transform;
+        cell.SetParent(transform, false);
+      }
+      return cell;
+    }
+
+    private Transform CreateEnvironmentContainer()
+    {
+      var cell = transform.Find("Environment");
+      if (!cell)
+      {
+        cell = new GameObject("Environment").transform;
         cell.SetParent(transform, false);
       }
       return cell;

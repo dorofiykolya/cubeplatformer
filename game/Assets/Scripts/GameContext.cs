@@ -22,7 +22,7 @@ namespace Game
     private readonly Lifetime _lifetime;
     private readonly TimeManager _timeManager;
     private readonly IDispatcher _dispatcher;
-    private readonly ResourceManager _resourceManager;
+    private readonly PrefabResourceManager _resourceManager;
     private readonly GameControllers _controllers;
     private readonly Preloader _preloader;
     private readonly GameProviders _providers;
@@ -51,7 +51,7 @@ namespace Game
 
       _providers = new GameProviders(lifetime, behaviour);
       _timeManager = new TimeManager(lifetime, behaviour);
-      _resourceManager = new ResourceManager(_providers.CoroutineProvider);
+      _resourceManager = new PrefabResourceManager(_providers.CoroutineProvider);
       _dispatcher = behaviour.gameObject.GetComponent<UnityDispatcher>() ?? behaviour.gameObject.AddComponent<UnityDispatcher>();
       _preloader = new Preloader(_lifetime);
       _inputContext = new GameInputContext(this);
@@ -83,7 +83,7 @@ namespace Game
     public TimeManager Time { get { return _timeManager; } }
     public ICoroutineProvider CoroutineProvider { get { return _providers.CoroutineProvider; } }
     public IDispatcher Dispatcher { get { return _dispatcher; } }
-    public ResourceManager ResourceManager { get { return _resourceManager; } }
+    public PrefabResourceManager ResourceManager { get { return _resourceManager; } }
     public GameControllers Controllers { get { return _controllers; } }
     public IInjector Injector { get { return _injector; } }
     public CommandMap CommandMap { get { return _commandMap; } }

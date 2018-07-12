@@ -188,12 +188,12 @@ namespace PrefabEvolution
 
 			var prefabInstance = instance.GetComponent<PEPrefabScript>();
 
-			var isPrefab = PrefabUtility.GetPrefabParent(instance) && PrefabUtility.FindPrefabRoot(instance) == instance;
+			var isPrefab = PrefabUtility.GetCorrespondingObjectFromSource(instance) && PrefabUtility.FindPrefabRoot(instance) == instance;
 		
 			if (prefabInstance)
 			{
 
-				bool rootPrefab = PrefabUtility.GetPrefabParent(prefabInstance.gameObject) == prefabInstance.Prefab;
+				bool rootPrefab = PrefabUtility.GetCorrespondingObjectFromSource(prefabInstance.gameObject) == prefabInstance.Prefab;
 				var color = GUI.color;
 				GUI.color = rootPrefab ? Color.green : (Color.yellow);
 
@@ -366,7 +366,7 @@ namespace PrefabEvolution
 
 		static internal void MakeNested(GameObject instance)
 		{
-			var parent = PrefabUtility.GetPrefabParent(instance);
+			var parent = PrefabUtility.GetCorrespondingObjectFromSource(instance);
 			var prefab = parent == null ? instance : parent as GameObject;
 			if (prefab.GetComponent<EvolvePrefab>() != null)
 				return;
@@ -537,7 +537,7 @@ namespace PrefabEvolution
 				if (gameObject2 == null)
 					return;
 
-				var prefabParent = PrefabUtility.GetPrefabParent(gameObject2);
+				var prefabParent = PrefabUtility.GetCorrespondingObjectFromSource(gameObject2);
 				var assetPath = AssetDatabase.GetAssetPath(prefabParent);
 
 				var method = typeof(Provider).GetMethod("PromptAndCheckoutIfNeeded", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance);

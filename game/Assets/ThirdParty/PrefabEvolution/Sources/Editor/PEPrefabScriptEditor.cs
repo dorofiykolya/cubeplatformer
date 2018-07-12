@@ -24,7 +24,7 @@ class PEPrefabScriptEditor : Editor
 		if (pi)
 		{
 			var isRoot = PrefabUtility.FindPrefabRoot(pi.gameObject) == pi.Prefab ||
-			             PrefabUtility.GetPrefabParent(pi.gameObject) == pi.Prefab;
+			             PrefabUtility.GetCorrespondingObjectFromSource(pi.gameObject) == pi.Prefab;
 			if (isRoot)
 			{
 				node.color = Color.green;
@@ -293,7 +293,7 @@ class PEPrefabScriptEditor : Editor
 		if (GUILayout.Button("Menu", EditorStyles.miniButton))
 		{
 			var menu = new GenericMenu();
-			PEUtils.BuildMenu(menu, prefabScript, PrefabUtility.GetPrefabParent(prefabScript.gameObject) == prefabScript.Prefab);
+			PEUtils.BuildMenu(menu, prefabScript, PrefabUtility.GetCorrespondingObjectFromSource(prefabScript.gameObject) == prefabScript.Prefab);
 			menu.ShowAsContext();
 		}
 		GUI.enabled = e;

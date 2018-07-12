@@ -32,9 +32,9 @@ namespace Game.Editor
       {
         Target.UpdateConverter();
       }
-      bool isPrefabInstance = PrefabUtility.GetPrefabParent(Target.gameObject) != null && PrefabUtility.GetPrefabObject(Target.gameObject.transform) != null;
-      bool isPrefabOriginal = PrefabUtility.GetPrefabParent(Target.gameObject) == null && PrefabUtility.GetPrefabObject(Target.gameObject.transform) != null;
-      bool isDisconnectedPrefabInstance = PrefabUtility.GetPrefabParent(Target.gameObject) != null && PrefabUtility.GetPrefabObject(Target.gameObject.transform) == null;
+      bool isPrefabInstance = PrefabUtility.GetCorrespondingObjectFromSource(Target.gameObject) != null && PrefabUtility.GetPrefabObject(Target.gameObject.transform) != null;
+      bool isPrefabOriginal = PrefabUtility.GetCorrespondingObjectFromSource(Target.gameObject) == null && PrefabUtility.GetPrefabObject(Target.gameObject.transform) != null;
+      bool isDisconnectedPrefabInstance = PrefabUtility.GetCorrespondingObjectFromSource(Target.gameObject) != null && PrefabUtility.GetPrefabObject(Target.gameObject.transform) == null;
 
       if (isPrefabInstance)
       {
@@ -47,7 +47,7 @@ namespace Game.Editor
       {
         if (GUILayout.Button("Connect to Prefab", EditorUtils.Styles.minibuttonright))
         {
-          PrefabUtility.ConnectGameObjectToPrefab(Target.gameObject, (GameObject)PrefabUtility.GetPrefabParent(Target.gameObject));
+          PrefabUtility.ConnectGameObjectToPrefab(Target.gameObject, (GameObject)PrefabUtility.GetCorrespondingObjectFromSource(Target.gameObject));
         }
       }
       else if (isPrefabOriginal)

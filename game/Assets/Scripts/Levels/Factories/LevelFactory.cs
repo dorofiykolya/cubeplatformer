@@ -1,4 +1,5 @@
 ﻿using Game.Components;
+using Game.Components.Levels;
 using Game.Levels;
 using UnityEngine;
 using Utils;
@@ -12,13 +13,13 @@ namespace Game
       var gameObject = new GameObject("Level");
 
       gameObject.AddComponent<LevelControllerComponent>();
-      gameObject.AddComponent<LevelTimeControllerComponent>();
-      gameObject.AddComponent<LevelPlayerAbilitiesComponent>();
 
       var level = gameObject.AddComponent<LevelComponent>();
       gameObject.AddComponent<LevelCoordinateConverterProviderComponent>().SetConverter(coordinateConverter);
       gameObject.AddComponent<LevelGizmoComponent>();
       gameObject.AddComponent<LevelLogicComponent>();
+
+      gameObject.AddComponent<LevelEnvironmentComponent>();
 
       level.SetContent(size, LevelCellFactory.Create(size, level));
 

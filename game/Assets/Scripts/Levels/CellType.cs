@@ -2,6 +2,7 @@
 {
   public enum CellType
   {
+    Undefined = 0,
     Empty = 1,
     Solid = 1 << 1,
     Block = 1 << 2,

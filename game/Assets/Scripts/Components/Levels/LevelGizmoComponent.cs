@@ -8,6 +8,7 @@ namespace Game.Components
     public bool ShowGizmosSelectedGrid = true;
     public bool ShowGizmosWireGrid = true;
     public bool ShowGizmosGrid = true;
+    public bool ShowGizmoEnviroment = true;
 
     public Vector3 UnitSize
     {

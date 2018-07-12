@@ -51,7 +51,7 @@ namespace PrefabEvolution
 
 		void DrawLock(Rect rect)
 		{
-			if (this.targets.Length > 1 || this.targets[0] == null || PrefabUtility.GetPrefabParent(this.targets[0].gameObject) != this.targets[0].Prefab)
+			if (this.targets.Length > 1 || this.targets[0] == null || PrefabUtility.GetCorrespondingObjectFromSource(this.targets[0].gameObject) != this.targets[0].Prefab)
 				return;
 
 			editMode = !GUI.Toggle(new Rect(rect){ x = rect.x + rect.width - 13, width = 13 }, !editMode, GUIContent.none, lockButton);

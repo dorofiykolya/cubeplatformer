@@ -327,7 +327,7 @@ namespace PrefabEvolution
 		static internal PEPrefabScript GetDiffWith(this PEPrefabScript _this)
 		{
 			var go = _this.ParentPrefab != null &&
-			         (PrefabUtility.GetPrefabParent(_this.gameObject) == _this.Prefab ||
+			         (PrefabUtility.GetCorrespondingObjectFromSource(_this.gameObject) == _this.Prefab ||
 			         PrefabUtility.FindPrefabRoot(_this.gameObject) == _this.Prefab) 
 				? _this.ParentPrefab : 
 				_this.Prefab;
@@ -496,7 +496,7 @@ namespace PrefabEvolution
 					if (instance)
 						instance.ApplyChanges();
 					else
-						PrefabUtility.ReplacePrefab(instantiatedPrefab, PrefabUtility.GetPrefabParent(instantiatedPrefab), ReplacePrefabOptions.ConnectToPrefab);
+						PrefabUtility.ReplacePrefab(instantiatedPrefab, PrefabUtility.GetCorrespondingObjectFromSource(instantiatedPrefab), ReplacePrefabOptions.ConnectToPrefab);
 
 					Object.DestroyImmediate(instantiatedPrefab);
 				}
