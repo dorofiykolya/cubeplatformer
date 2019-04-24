@@ -32,7 +32,7 @@ namespace Game
     private readonly ILogger _logger;
     private readonly Injector _injector;
     private readonly CommandMap _commandMap;
-    private GameNavigator _navigator;
+    private readonly GameNavigator _navigator;
 
     public GameContext(Lifetime lifetime, GameStartBehaviour behaviour)
     {
@@ -46,6 +46,7 @@ namespace Game
 
       _commandMap = new CommandMap(this);
 
+      _injector.Map<IContext>().ToValue(this);
       _injector.Map<CommandMap>().ToValue(_commandMap);
       _injector.Map<GameStartBehaviour>().ToValue(behaviour);
 
@@ -57,9 +58,13 @@ namespace Game
       _inputContext = new GameInputContext(this);
 
       _uiContext = new UIContext(this, _injector);
-      _controllers = new GameControllers(lifetime, this, _injector, new GameControllersProvider());
-      Initializer<UI.UIContext>.Initialize(_uiContext);
+      _injector.Map<UIContext>().ToValue(_uiContext);
 
+      _navigator = new GameNavigator(this);
+      _injector.Map<GameNavigator>().ToValue(_navigator);
+
+      _controllers = new GameControllers(lifetime, this, _injector, new GameControllersProvider());
+      Initializer<UIContext>.Initialize(_uiContext);
 
       _lifetime.AddAction(() =>
         {
@@ -67,8 +72,6 @@ namespace Game
           _resourceManager.Dispose();
         }
       );
-
-      _navigator = new GameNavigator(this);
 
       CommandMap.Map<StartMessage>().RegisterCommand(lt => new StartCommand());
 
