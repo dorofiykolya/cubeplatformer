@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Game.UI.Windows;
+using System;
 using System.Collections.Generic;
-using Game.UI.Windows;
 
 namespace Game.UI.Providers
 {
@@ -25,6 +25,7 @@ namespace Game.UI.Providers
       yield return new UIWindowMap(typeof(UISettingsWindow), "Windows/Settings", false);
       yield return new UIWindowMap(typeof(UILevelSelectWindow), "Windows/LevelSelect", true);
       yield return new UIWindowMap(typeof(UIErrorWindow), "Windows/Error", false);
+      yield return new UIWindowMap(typeof(UITutorialWindow), "Windows/Tutorial", true);
       yield break;
     }
   }

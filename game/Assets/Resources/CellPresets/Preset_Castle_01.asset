@@ -3,8 +3,9 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -22,94 +23,94 @@ MonoBehaviour:
     Direction: 0
     Id: 
     Name: Block_01
-    Prefab: {fileID: 114402794679373106, guid: 6a1e065f0d1be482f928a93a98c8e751, type: 2}
+    Prefab: {fileID: 114402794679373106, guid: 6a1e065f0d1be482f928a93a98c8e751, type: 3}
   - Type: 8
     Direction: 3
     Id: 
     Name: LadderTop_01
-    Prefab: {fileID: 114574993185443046, guid: 4a17676bbf1004ae3a716eb85659228f, type: 2}
+    Prefab: {fileID: 114574993185443046, guid: 4a17676bbf1004ae3a716eb85659228f, type: 3}
   - Type: 8
     Direction: 0
     Id: 
     Name: LadderMiddle_01
-    Prefab: {fileID: 114964312258991914, guid: fd24f958500b54c45bab9db68a4b2fa9, type: 2}
+    Prefab: {fileID: 114964312258991914, guid: fd24f958500b54c45bab9db68a4b2fa9, type: 3}
   - Type: 8
     Direction: 4
     Id: 
     Name: LadderBottom_01
-    Prefab: {fileID: 114803204790264658, guid: dbbdabbf365674ba595ad13e24dd7971, type: 2}
+    Prefab: {fileID: 114803204790264658, guid: dbbdabbf365674ba595ad13e24dd7971, type: 3}
   - Type: 16
     Direction: 1
     Id: 
     Name: RopeLeft_01
-    Prefab: {fileID: 114749305436245278, guid: 43b8d93772c964ac4a43a966418ce210, type: 2}
+    Prefab: {fileID: 114749305436245278, guid: 43b8d93772c964ac4a43a966418ce210, type: 3}
   - Type: 16
     Direction: 0
     Id: 
     Name: RopeMiddle_01
-    Prefab: {fileID: 114289809108694774, guid: 5bff8b3f8641f47aab3a7c0f4c81c2c2, type: 2}
+    Prefab: {fileID: 114289809108694774, guid: 5bff8b3f8641f47aab3a7c0f4c81c2c2, type: 3}
   - Type: 16
     Direction: 2
     Id: 
     Name: RopeRight_01
-    Prefab: {fileID: 114448182761535780, guid: c95e5b67b981b4ef98e5b4023391bcfc, type: 2}
+    Prefab: {fileID: 114448182761535780, guid: c95e5b67b981b4ef98e5b4023391bcfc, type: 3}
   - Type: 2
     Direction: 0
     Id: 
     Name: Solid_01
-    Prefab: {fileID: 114627959152168770, guid: a7c111ea7b97246998758c6ce746a0a8, type: 2}
+    Prefab: {fileID: 114627959152168770, guid: a7c111ea7b97246998758c6ce746a0a8, type: 3}
   - Type: 256
     Direction: 0
     Id: 
     Name: Guard_01
-    Prefab: {fileID: 114911942131502222, guid: 85405bc6e6017b442ae98bd40cb6a71f, type: 2}
+    Prefab: {fileID: 114911942131502222, guid: 85405bc6e6017b442ae98bd40cb6a71f, type: 3}
   - Type: 1024
     Direction: 0
     Id: 
     Name: Player_01
-    Prefab: {fileID: 114748298820851140, guid: a037ac851157c4346a5854bf5e245441, type: 2}
+    Prefab: {fileID: 114748298820851140, guid: a037ac851157c4346a5854bf5e245441, type: 3}
   - Type: 256
     Direction: 0
     Id: 
     Name: Guard_02
-    Prefab: {fileID: 114913990257284462, guid: 1731535ac83182c4f89dbe46b45b66c2, type: 2}
+    Prefab: {fileID: 114913990257284462, guid: 1731535ac83182c4f89dbe46b45b66c2, type: 3}
   - Type: 256
     Direction: 0
     Id: 
     Name: Guard_03
-    Prefab: {fileID: 114588519514105546, guid: 1e4ad23daedb01f49b16b476b54f84c9, type: 2}
+    Prefab: {fileID: 114588519514105546, guid: 1e4ad23daedb01f49b16b476b54f84c9, type: 3}
   - Type: 128
     Direction: 0
     Id: 
     Name: Coin
-    Prefab: {fileID: 114419092528865790, guid: a35d7051e5972844bba642d8f28c5943, type: 2}
+    Prefab: {fileID: 114419092528865790, guid: a35d7051e5972844bba642d8f28c5943, type: 3}
   - Type: 256
     Direction: 0
     Id: 
     Name: Guard_04
-    Prefab: {fileID: 114736930451941902, guid: 2bf2d3c93ecaac649aea2b01aba9ac62, type: 2}
+    Prefab: {fileID: 114736930451941902, guid: 2bf2d3c93ecaac649aea2b01aba9ac62, type: 3}
   - Type: 64
     Direction: 3
     Id: 
     Name: HideLadderTop_01
-    Prefab: {fileID: 114574993185443046, guid: 0fd6c70b2a15f1a4fba66a0efb9dbde6, type: 2}
+    Prefab: {fileID: 114574993185443046, guid: 0fd6c70b2a15f1a4fba66a0efb9dbde6, type: 3}
   - Type: 64
     Direction: 0
     Id: 
     Name: HideLadderMiddle_01
-    Prefab: {fileID: 114964312258991914, guid: 605085c500d332e469ee6f0bb5805655, type: 2}
+    Prefab: {fileID: 114964312258991914, guid: 605085c500d332e469ee6f0bb5805655, type: 3}
   - Type: 64
     Direction: 4
     Id: 
     Name: HideLadderBottom_01
-    Prefab: {fileID: 114803204790264658, guid: cc7d5189d7204714983102cafc1af73d, type: 2}
+    Prefab: {fileID: 114803204790264658, guid: cc7d5189d7204714983102cafc1af73d, type: 3}
   - Type: 32768
     Direction: 0
     Id: 
     Name: Finish
-    Prefab: {fileID: 114769980491842134, guid: 197be79c0af9ab940afd48a83db08abe, type: 2}
+    Prefab: {fileID: 114769980491842134, guid: 197be79c0af9ab940afd48a83db08abe, type: 3}
   - Type: 65536
     Direction: 0
     Id: 
     Name: Teleport
-    Prefab: {fileID: 114769980491842134, guid: 8501b943374b71143968153ebd3eec18, type: 2}
+    Prefab: {fileID: 114769980491842134, guid: 8501b943374b71143968153ebd3eec18, type: 3}

@@ -21,16 +21,16 @@ namespace Game.Commands
       _commands = new List<CommandFactory>();
     }
 
-    public Lifetime RegisterCommand(Func<Lifetime, ICommand> factory, bool oneTime = false)
+    public Lifetime.Definition RegisterCommand(Lifetime lifetime, Func<Lifetime, ICommand> factory, bool oneTime = false)
     {
-      var lifetime = Lifetime.Define(_lifetime);
-      var commandFactory = new CommandFactory(factory, oneTime, lifetime);
+      var lt = Lifetime.Intersection(_lifetime, lifetime);
+      var commandFactory = new CommandFactory(factory, oneTime, lt);
       _commands.Add(commandFactory);
-      lifetime.Lifetime.AddAction(() =>
+      lt.Lifetime.AddAction(() =>
       {
         _commands.Remove(commandFactory);
       });
-      return lifetime.Lifetime;
+      return lt;
     }
 
     public void Tell(object message)

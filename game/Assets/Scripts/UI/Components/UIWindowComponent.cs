@@ -1,6 +1,6 @@
 ﻿using System;
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 using Utils;
 
@@ -14,6 +14,11 @@ namespace Game.UI.Windows
     public UIWindowComponent()
     {
       InitializeComponent();
+    }
+
+    public Lifetime Lifetime
+    {
+      get { return _definition.Lifetime; }
     }
 
     private void InitializeComponent()

@@ -1,6 +1,8 @@
+using Game.Commands;
 using Game.Inputs;
 using Game.Logics;
 using Game.Logics.Actions;
+using Game.Messages;
 using Injection;
 using UnityEngine;
 using Utils;
@@ -10,6 +12,21 @@ namespace Game.Controllers
 {
   public class GameLevelLogicController : GameController
   {
+    private class PlayCommand : ICommand
+    {
+      private readonly GameLevelLogicController _logic;
+
+      public PlayCommand(GameLevelLogicController logic)
+      {
+        _logic = logic;
+      }
+
+      public void Execute()
+      {
+        _logic._isPlay = true;
+      }
+    }
+
     [Inject]
     private GameLevelController _levelController;
     [Inject]
@@ -18,11 +35,15 @@ namespace Game.Controllers
     private UserLevelsContorller _userLevelsContorller;
 
     private Lifetime.Definition _levelDefinition;
+    private bool _isPlay;
 
     protected override void OnInitialize()
     {
+      _isPlay = false;
       _levelController.SubscribeOnLoaded(Lifetime, LevelLoadedHandler);
       _levelController.SubscribeOnUnloaded(Lifetime, LevelUnloadedHandler);
+
+      Context.CommandMap.Map<PlayMessage>().RegisterCommand(Lifetime, lt => new PlayCommand(this));
     }
 
     private void LevelUnloadedHandler(CurrentLevelInfo info)
@@ -161,15 +182,18 @@ namespace Game.Controllers
 
       Context.Time.SubscribeOnUpdate(_levelDefinition.Lifetime, () =>
       {
-        passedTime += Context.Time.DeltaTime;
-        while ((int)(passedTime / (1f / ticksPerSec)) > 0)
+        if (_isPlay)
         {
-          logic.FastForward(logic.Tick + 1);
-          passedTime -= 1f / ticksPerSec;
-          if (logic.IsFinished)
+          passedTime += Context.Time.DeltaTime;
+          while ((int)(passedTime / (1f / ticksPerSec)) > 0)
           {
-            SaveLevel(levelInfo, logic);
-            _levelController.Unload();
+            logic.FastForward(logic.Tick + 1);
+            passedTime -= 1f / ticksPerSec;
+            if (logic.IsFinished)
+            {
+              SaveLevel(levelInfo, logic);
+              _levelController.Unload();
+            }
           }
         }
       });

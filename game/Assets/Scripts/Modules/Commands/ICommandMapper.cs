@@ -5,6 +5,6 @@ namespace Game.Commands
 {
   public interface ICommandMapper
   {
-    Lifetime RegisterCommand(Func<Lifetime, ICommand> factory, bool oneTime = false);
+    Lifetime.Definition RegisterCommand(Lifetime lifetime, Func<Lifetime, ICommand> factory, bool oneTime = false);
   }
 }

@@ -30,7 +30,7 @@ namespace Game.UI.Controllers
 
     protected override void OnInitialize()
     {
-      Context.CommandMap.Map<StartMessage>().RegisterCommand(lifetime => new StartGameCommand(this), true);
+      Context.CommandMap.Map<StartMessage>().RegisterCommand(Lifetime, lifetime => new StartGameCommand(this), true);
     }
 
     public void SubscribeOnSceneReady(Lifetime lifetime, Action listener)

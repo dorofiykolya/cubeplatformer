@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Game.Controllers;
 using Game.UI.Controllers;
-using Game.Controllers;
+using System.Collections.Generic;
 
 namespace Game.UI.Providers
 {
@@ -14,6 +14,7 @@ namespace Game.UI.Providers
       yield return new UIWindowController();
       yield return new UIHUDGameStateController();
       yield return new UIHUDPreloaderController();
+      yield return new UITutorialController();
     }
 
   }

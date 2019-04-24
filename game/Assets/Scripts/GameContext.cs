@@ -73,7 +73,7 @@ namespace Game
         }
       );
 
-      CommandMap.Map<StartMessage>().RegisterCommand(lt => new StartCommand());
+      CommandMap.Map<StartMessage>().RegisterCommand(_lifetime, lt => new StartCommand());
 
       Tell(new StartMessage());
     }
