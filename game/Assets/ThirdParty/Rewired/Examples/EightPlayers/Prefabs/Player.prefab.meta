@@ -17,5 +17,8 @@ labels:
 - Xbox360
 - XInput
 - DirectInput
-NativeFormatImporter:
-  userData: 
+PrefabImporter:
+  externalObjects: {}
+  userData: HaveNested_false
+  assetBundleName: 
+  assetBundleVariant: 
