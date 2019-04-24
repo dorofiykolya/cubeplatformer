@@ -1,6 +1,6 @@
      0 T       F 
              & S 
-  H $ -- $ --  S 
+  H   -- $ --  S 
   H###  ###  ##HT
   H           XH 
   H  H      H--H 
