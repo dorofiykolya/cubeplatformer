@@ -16,9 +16,19 @@ namespace Game.UI
     public UIContext(GameContext context, Injector contextInjector)
     {
       _context = context;
-      _lifetime = Lifetime.Define(context.Lifetime).Lifetime;
+      _lifetime = context.Lifetime.DefineNested("UIContext").Lifetime;
 
       _injector = new Injector(contextInjector);
+    }
+
+    public bool IsReady { get; private set; }
+    public Lifetime Lifetime { get { return _lifetime; } }
+    public GameContext Context { get { return _context; } }
+    public UIWindowController Windows { get { return _injector.Get<UIWindowController>(); } }
+
+    [Initialize]
+    private void OnInitialize()
+    {
       _injector.Map<Lifetime>().ToValue(_lifetime);
       _injector.Map<UIContext>().ToValue(this);
 
@@ -40,10 +50,8 @@ namespace Game.UI
       {
         Initializer<Controller>.Initialize(controller);
       }
-    }
 
-    public Lifetime Lifetime { get { return _lifetime; } }
-    public GameContext Context { get { return _context; } }
-    public UIWindowController Windows { get { return _injector.Get<UIWindowController>(); } }
+      IsReady = true;
+    }
   }
 }

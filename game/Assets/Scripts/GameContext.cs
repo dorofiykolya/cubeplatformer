@@ -1,17 +1,17 @@
-﻿using System.Collections;
-using Game.Inputs;
+﻿using Game;
+using Game.Commands;
 using Game.Controllers;
+using Game.Inputs;
+using Game.Messages;
+using Game.Messages.Commands;
+using Game.Modules;
 using Game.Providers;
 using Game.UI;
-using Game;
 using Injection;
+using System.Collections;
 using UnityEngine;
 using Utils;
 using Utils.Threading;
-using Game.Modules;
-using Game.Commands;
-using Game.Messages;
-using Game.Messages.Commands;
 
 namespace Game
 {
@@ -55,9 +55,11 @@ namespace Game
       _dispatcher = behaviour.gameObject.GetComponent<UnityDispatcher>() ?? behaviour.gameObject.AddComponent<UnityDispatcher>();
       _preloader = new Preloader(_lifetime);
       _inputContext = new GameInputContext(this);
-      _controllers = new GameControllers(lifetime, this, _injector, new GameControllersProvider());
-      
+
       _uiContext = new UIContext(this, _injector);
+      _controllers = new GameControllers(lifetime, this, _injector, new GameControllersProvider());
+      Initializer<UI.UIContext>.Initialize(_uiContext);
+
 
       _lifetime.AddAction(() =>
         {
