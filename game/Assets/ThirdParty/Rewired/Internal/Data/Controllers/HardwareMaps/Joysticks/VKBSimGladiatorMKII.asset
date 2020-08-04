@@ -279,7 +279,7 @@ MonoBehaviour:
     _elementType: 1
     _compoundElementType: 11
   - _id: 51
-    _name: MODE2 SHIFT POV Hat Up-Left
+    _name: SHIFT POV Hat Up-Left
     _positiveName: 
     _negativeName: 
     _elementType: 1
@@ -377,6 +377,7 @@ MonoBehaviour:
       disabled: 0
       tag: 
       hatCount: 0
+      alternateElementCounts: []
       productName_useRegex: 0
       productName: []
       productGUID: []
@@ -394,6 +395,7 @@ MonoBehaviour:
       disabled: 0
       tag: 
       hatCount: 1
+      alternateElementCounts: []
       productName_useRegex: 0
       productName:
       - VKBsim Gladiator
@@ -1441,6 +1443,7 @@ MonoBehaviour:
       disabled: 0
       tag: 
       hatCount: 1
+      alternateElementCounts: []
       productName_useRegex: 0
       productName:
       - VKBsim Gladiator
@@ -2423,6 +2426,7 @@ MonoBehaviour:
       disabled: 0
       tag: 
       hatCount: 1
+      alternateElementCounts: []
       manufacturer_useRegex: 0
       productName_useRegex: 0
       systemName_useRegex: 0
@@ -3304,6 +3308,7 @@ MonoBehaviour:
       disabled: 0
       tag: 
       hatCount: 1
+      alternateElementCounts: []
       manufacturer_useRegex: 0
       productName_useRegex: 0
       manufacturer: []
@@ -4188,6 +4193,9 @@ MonoBehaviour:
       matchUnityVersion: 0
       matchUnityVersion_min: 
       matchUnityVersion_max: 
+      matchSysVersion: 0
+      matchSysVersion_min: 
+      matchSysVersion_max: 
     elements:
       axes: []
       buttons: []
@@ -4205,6 +4213,9 @@ MonoBehaviour:
       matchUnityVersion: 0
       matchUnityVersion_min: 
       matchUnityVersion_max: 
+      matchSysVersion: 0
+      matchSysVersion_min: 
+      matchSysVersion_max: 
     elements:
       axes: []
       buttons: []
@@ -4222,6 +4233,9 @@ MonoBehaviour:
       matchUnityVersion: 0
       matchUnityVersion_min: 
       matchUnityVersion_max: 
+      matchSysVersion: 0
+      matchSysVersion_min: 
+      matchSysVersion_max: 
     elements:
       axes: []
       buttons: []
@@ -4239,6 +4253,9 @@ MonoBehaviour:
       matchUnityVersion: 0
       matchUnityVersion_min: 
       matchUnityVersion_max: 
+      matchSysVersion: 0
+      matchSysVersion_min: 
+      matchSysVersion_max: 
     elements:
       axes: []
       buttons: []
@@ -4256,6 +4273,9 @@ MonoBehaviour:
       matchUnityVersion: 0
       matchUnityVersion_min: 
       matchUnityVersion_max: 
+      matchSysVersion: 0
+      matchSysVersion_min: 
+      matchSysVersion_max: 
     elements:
       axes: []
       buttons: []
@@ -4273,6 +4293,9 @@ MonoBehaviour:
       matchUnityVersion: 0
       matchUnityVersion_min: 
       matchUnityVersion_max: 
+      matchSysVersion: 0
+      matchSysVersion_min: 
+      matchSysVersion_max: 
     elements:
       axes: []
       buttons: []
@@ -4290,6 +4313,9 @@ MonoBehaviour:
       matchUnityVersion: 0
       matchUnityVersion_min: 
       matchUnityVersion_max: 
+      matchSysVersion: 0
+      matchSysVersion_min: 
+      matchSysVersion_max: 
     elements:
       axes: []
       buttons: []
@@ -4307,6 +4333,9 @@ MonoBehaviour:
       matchUnityVersion: 0
       matchUnityVersion_min: 
       matchUnityVersion_max: 
+      matchSysVersion: 0
+      matchSysVersion_min: 
+      matchSysVersion_max: 
     elements:
       axes: []
       buttons: []
@@ -4324,6 +4353,9 @@ MonoBehaviour:
       matchUnityVersion: 0
       matchUnityVersion_min: 
       matchUnityVersion_max: 
+      matchSysVersion: 0
+      matchSysVersion_min: 
+      matchSysVersion_max: 
     elements:
       axes: []
       buttons: []
@@ -4341,6 +4373,9 @@ MonoBehaviour:
       matchUnityVersion: 0
       matchUnityVersion_min: 
       matchUnityVersion_max: 
+      matchSysVersion: 0
+      matchSysVersion_min: 
+      matchSysVersion_max: 
     elements:
       axes: []
       buttons: []
@@ -4358,6 +4393,9 @@ MonoBehaviour:
       matchUnityVersion: 0
       matchUnityVersion_min: 
       matchUnityVersion_max: 
+      matchSysVersion: 0
+      matchSysVersion_min: 
+      matchSysVersion_max: 
     elements:
       axes: []
       buttons: []
@@ -4375,6 +4413,9 @@ MonoBehaviour:
       matchUnityVersion: 0
       matchUnityVersion_min: 
       matchUnityVersion_max: 
+      matchSysVersion: 0
+      matchSysVersion_min: 
+      matchSysVersion_max: 
     elements:
       axes: []
       buttons: []
@@ -4392,6 +4433,9 @@ MonoBehaviour:
       matchUnityVersion: 0
       matchUnityVersion_min: 
       matchUnityVersion_max: 
+      matchSysVersion: 0
+      matchSysVersion_min: 
+      matchSysVersion_max: 
     elements:
       axes: []
       buttons: []
@@ -4409,6 +4453,9 @@ MonoBehaviour:
       matchUnityVersion: 0
       matchUnityVersion_min: 
       matchUnityVersion_max: 
+      matchSysVersion: 0
+      matchSysVersion_min: 
+      matchSysVersion_max: 
     elements:
       axes: []
       buttons: []
@@ -4426,6 +4473,9 @@ MonoBehaviour:
       matchUnityVersion: 0
       matchUnityVersion_min: 
       matchUnityVersion_max: 
+      matchSysVersion: 0
+      matchSysVersion_min: 
+      matchSysVersion_max: 
     elements:
       axes: []
       buttons: []
@@ -4443,6 +4493,9 @@ MonoBehaviour:
       matchUnityVersion: 0
       matchUnityVersion_min: 
       matchUnityVersion_max: 
+      matchSysVersion: 0
+      matchSysVersion_min: 
+      matchSysVersion_max: 
     elements:
       axes: []
       buttons: []
@@ -4460,6 +4513,9 @@ MonoBehaviour:
       matchUnityVersion: 0
       matchUnityVersion_min: 
       matchUnityVersion_max: 
+      matchSysVersion: 0
+      matchSysVersion_min: 
+      matchSysVersion_max: 
     elements:
       axes: []
       buttons: []
@@ -4477,6 +4533,9 @@ MonoBehaviour:
       matchUnityVersion: 0
       matchUnityVersion_min: 
       matchUnityVersion_max: 
+      matchSysVersion: 0
+      matchSysVersion_min: 
+      matchSysVersion_max: 
     elements:
       axes: []
       buttons: []
@@ -4494,6 +4553,9 @@ MonoBehaviour:
       matchUnityVersion: 0
       matchUnityVersion_min: 
       matchUnityVersion_max: 
+      matchSysVersion: 0
+      matchSysVersion_min: 
+      matchSysVersion_max: 
     elements:
       axes: []
       buttons: []
