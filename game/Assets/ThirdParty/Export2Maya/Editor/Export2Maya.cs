@@ -2361,8 +2361,8 @@ public class Export2Maya : EditorWindow {
 			// --------------------------------------------------
 			EditorUtility.DisplayProgressBar(ProgressTitle, "Gathering " + Node.MayaName + " Data", CurrentProgress / MaxProgress);
 			TerrainData tData = Node.UnityObject.gameObject.GetComponent<Terrain>().terrainData;
-			int Width = tData.heightmapWidth;
-			int Height = tData.heightmapHeight;
+			int Width = tData.heightmapResolution;
+			int Height = tData.heightmapResolution;
 			Vector3 TerrainSize = tData.size;
 			Vector2 uvScale = new Vector2(1.0f / (Width - 1), 1.0f / (Height - 1));
 			float[,] tHeights = tData.GetHeights(0, 0, Width, Height);
